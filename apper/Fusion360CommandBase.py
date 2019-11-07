@@ -54,7 +54,7 @@ class Fusion360CommandBase:
         self.args = None
 
         resources_folder = options.get('cmd_resources', 'demo_icons')
-        self.cmd_resources = os.path.join('./', 'lib', 'commands', 'resources', resources_folder)
+        self.cmd_resources = os.path.join('./', 'commands', 'resources', resources_folder)
 
         # global set of event handlers to keep them referenced for the duration of the command
         self.handlers = []
