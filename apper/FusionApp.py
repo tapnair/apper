@@ -15,6 +15,7 @@ class FusionApp:
         self.commands = []
         self.custom_events = []
         self.document_events = []
+        self.workspace_events = []
         self.tabs = []
         self.default_dir = self._get_default_dir()
         self.preferences = self.get_preferences()
@@ -38,6 +39,20 @@ class FusionApp:
             if ui:
                 ui.messageBox('Input changed event failed: {}'.format(traceback.format_exc()))
 
+    def add_document_event(self, event_id, event_type, event_class):
+        doc_event = event_class(event_id, event_type)
+        doc_event.fusion_app = self
+        self.document_events.append(doc_event)
+
+    def add_custom_event(self, event_id, event_class):
+        custom_event = event_class(event_id)
+        custom_event.fusion_app = self
+        self.custom_events.append(custom_event)
+
+    def add_workspace_event(self, event_id, workspace_name, event_class):
+        workspace_event = event_class(event_id, workspace_name)
+        workspace_event.fusion_app = self
+        self.workspace_events.append(workspace_event)
 
     def check_for_updates(self):
         pass
