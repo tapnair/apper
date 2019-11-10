@@ -1,7 +1,7 @@
+import traceback
 
 import adsk.core
 import json
-
 
 import os
 from os.path import expanduser
@@ -18,6 +18,26 @@ class FusionApp:
         self.tabs = []
         self.default_dir = self._get_default_dir()
         self.preferences = self.get_preferences()
+
+    def add_command(self, name, command_class, options):
+        app = adsk.core.Application.cast(adsk.core.Application.get())
+        ui = app.userInterface
+
+        try:
+            _cmd_id = options.get('cmd_id', 'default_id')
+            options['cmd_id'] = self.company + "_" + self.name + "_" + _cmd_id
+
+            options['app_name'] = self.name
+            options['fusion_app'] = self
+            options['debug'] = self.debug
+
+            command = command_class(name, options)
+            self.commands.append(command)
+
+        except:
+            if ui:
+                ui.messageBox('Input changed event failed: {}'.format(traceback.format_exc()))
+
 
     def check_for_updates(self):
         pass
@@ -53,7 +73,6 @@ class FusionApp:
         except:
             if ui:
                 ui.messageBox('Input changed event failed: {}'.format(traceback.format_exc()))
-
 
     # Get default directory
     def _get_default_dir(self):

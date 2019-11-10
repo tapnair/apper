@@ -7,8 +7,8 @@ from .Fusion360CommandBase import Fusion360CommandBase
 
 
 class PaletteCommandBase(Fusion360CommandBase):
-    def __init__(self, name, fusion_app, options):
-        super().__init__(name, fusion_app, options)
+    def __init__(self, name, options):
+        super().__init__(name, options)
 
         self.palette_id = options.get('palette_id', 'Default Command Name')
         self.palette_name = options.get('palette_name', 'Palette Name')

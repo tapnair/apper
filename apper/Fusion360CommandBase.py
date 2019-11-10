@@ -18,19 +18,20 @@ def _destroy_object(obj_to_be_deleted):
 
 
 class Fusion360CommandBase:
-    def __init__(self, name, fusion_app, options):
+    def __init__(self, name, options):
 
-        self.app_name = fusion_app.name
-        self.fusion_app = fusion_app
+        self.app_name = None
+        self.fusion_app = None
+
         self.cmd_name = name
-        self.cmd_description = options.get('cmd_description', 'Default Command Description')
 
-        _cmd_id = options.get('cmd_id', 'default_id')
-        self.cmd_id = fusion_app.company + "_" + fusion_app.name + "_" + _cmd_id
+        self.cmd_description = options.get('cmd_description', 'Default Command Description')
+        self.cmd_id = options.get('cmd_id', 'default_cmd_id')
 
         self.workspace = options.get('workspace', 'FusionSolidEnvironment')
         self.toolbar_panel_id = options.get('toolbar_panel_id', 'SolidScriptsAddinsPanel')
         self.toolbar_tab_id = options.get('toolbar_tab_id', 'ToolsTab')
+        self.custom_tab = False
 
         self.add_to_drop_down = options.get('add_to_drop_down', False)
         self.drop_down_cmd_id = options.get('drop_down_cmd_id', 'Default_DC_CmdId')
@@ -43,7 +44,7 @@ class Fusion360CommandBase:
         self.command_enabled = options.get('command_enabled', True)
         self.command_promoted = options.get('command_promoted', False)
 
-        self.debug = fusion_app.debug
+        self.debug = False
 
         self.command = None
         self.command_inputs = None
@@ -59,7 +60,7 @@ class Fusion360CommandBase:
         # global set of event handlers to keep them referenced for the duration of the command
         self.handlers = []
 
-        self.fusion_app.commands.append(self)
+        # self.fusion_app.commands.append(self)
 
     def on_preview(self, command: adsk.core.Command, inputs: adsk.core.CommandInputs, args, input_values):
         pass
