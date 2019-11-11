@@ -20,25 +20,35 @@ class FusionApp:
         self.default_dir = self._get_default_dir()
         self.preferences = self.get_preferences()
         self.root_path = Path(__file__).parent.parent.parent
+        self.command_dict = {}
 
     def add_command(self, name, command_class, options):
         app = adsk.core.Application.cast(adsk.core.Application.get())
         ui = app.userInterface
 
         try:
-            _cmd_id = options.get('cmd_id', 'default_id')
-            options['cmd_id'] = self.company + "_" + self.name + "_" + _cmd_id
+            base_cmd_id = options.get('cmd_id', 'default_id')
+            new_id = self.company + "_" + self.name + "_" + base_cmd_id
+            options['cmd_id'] = new_id
 
             options['app_name'] = self.name
             options['fusion_app'] = self
             options['debug'] = self.debug
+            tab_name = options.get('toolbar_tab_id')
+            if tab_name is None:
+                options['toolbar_tab_id'] = self.name
 
             command = command_class(name, options)
             self.commands.append(command)
+            self.command_dict[base_cmd_id] = new_id
 
         except:
             if ui:
                 ui.messageBox('Apper Add Command failed: {}'.format(traceback.format_exc()))
+
+    def command_id_from_name(self, name):
+        cmd_id = self.command_dict.get(name)
+        return cmd_id
 
     def add_document_event(self, event_id, event_type, event_class):
         doc_event = event_class(event_id, event_type)

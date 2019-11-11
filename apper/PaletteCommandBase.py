@@ -20,7 +20,7 @@ class PaletteCommandBase(Fusion360CommandBase):
         self.path = os.path.dirname(
             os.path.relpath(sys.modules[self.__class__.__module__].__file__, self.fusion_app.root_path))
 
-        resource_path = os.path.join('./', self.path, 'palette_html', 'demo.html')
+        resource_path = os.path.join('./', self.path, rel_path)
 
         self.palette_html_file_url = resource_path
 

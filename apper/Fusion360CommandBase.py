@@ -6,6 +6,7 @@ import adsk.fusion
 import os.path
 import sys
 
+
 def _destroy_object(obj_to_be_deleted):
     app = adsk.core.Application.cast(adsk.core.Application.get())
     ui = app.userInterface
@@ -13,8 +14,8 @@ def _destroy_object(obj_to_be_deleted):
     if ui and obj_to_be_deleted:
         if obj_to_be_deleted.isValid:
             obj_to_be_deleted.deleteMe()
-        else:
-            ui.messageBox(obj_to_be_deleted.id + 'is not a valid object')
+        # else:
+            # ui.messageBox(obj_to_be_deleted.id + 'is not a valid object')
 
 
 class Fusion360CommandBase:
@@ -35,7 +36,7 @@ class Fusion360CommandBase:
 
         self.add_to_drop_down = options.get('add_to_drop_down', False)
         self.drop_down_cmd_id = options.get('drop_down_cmd_id', 'Default_DC_CmdId')
-        self.drop_down_resources = options.get('drop_down_resources', './resources')
+        self.drop_down_resources = options.get('drop_down_resources', './displayer_icons')
         self.drop_down_name = options.get('drop_down_name', 'Drop Name')
 
         self.command_in_nav_bar = options.get('command_in_nav_bar', False)
@@ -54,13 +55,16 @@ class Fusion360CommandBase:
         self.changed_input = None
         self.args = None
 
-        resources_folder = options.get('cmd_resources', 'demo_icons')
-        # self.path = os.path.dirname(os.path.relpath(sys.modules[self.__class__.__module__].__file__, "/Users/tapnair/Dropbox/n3rdlab/Fusion-Apps-Dev/n3rDtools"))
-        self.path = os.path.dirname(os.path.relpath(sys.modules[self.__class__.__module__].__file__, self.fusion_app.root_path))
-        resource_path = os.path.join('./', self.path, 'resources', resources_folder)
+        resources_folder = options.get('cmd_resources', 'csv_icons')
+        self.path = os.path.dirname(
+            os.path.relpath(
+                sys.modules[self.__class__.__module__].__file__,
+                self.fusion_app.root_path
+            )
+        )
+        resource_path = os.path.join('./', self.path, 'displayer_icons', resources_folder)
 
         self.cmd_resources = resource_path
-
 
         # global set of event handlers to keep them referenced for the duration of the command
         self.handlers = []
@@ -197,7 +201,6 @@ class Fusion360CommandBase:
                 # Check if control exists (with apper this should never happen)
                 self.command_definition = ui.commandDefinitions.itemById(self.cmd_id)
                 if not self.command_definition:
-
                     # Create the command definition
                     self.command_definition = ui.commandDefinitions.addButtonDefinition(
                         self.cmd_id,
@@ -221,7 +224,8 @@ class Fusion360CommandBase:
 
         except:
             if ui:
-                ui.messageBox('Command on Run Failed: {}'.format(traceback.format_exc()) + self.path + "         " + self.cmd_resources)
+                ui.messageBox('Command on Run Failed: {}'.format(
+                    traceback.format_exc()) + self.path + "         " + self.cmd_resources)
 
     def on_stop(self):
         app = adsk.core.Application.cast(adsk.core.Application.get())
@@ -240,7 +244,8 @@ class Fusion360CommandBase:
 
             if parent.objectType == adsk.core.ToolbarPanel.classType():
                 if parent.controls.count == 0:
-                    parent.deleteMe()
+                    if parent.isValid:
+                        parent.deleteMe()
 
         except:
             if ui:
@@ -400,4 +405,3 @@ class CommandCreatedEventHandler(adsk.core.CommandCreatedEventHandler):
         except:
             if ui:
                 ui.messageBox('Command created failed: {}'.format(traceback.format_exc()))
-
