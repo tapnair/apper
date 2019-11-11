@@ -4,7 +4,7 @@ import adsk.core
 import adsk.fusion
 
 import os.path
-
+import sys
 
 def _destroy_object(obj_to_be_deleted):
     app = adsk.core.Application.cast(adsk.core.Application.get())
@@ -20,8 +20,8 @@ def _destroy_object(obj_to_be_deleted):
 class Fusion360CommandBase:
     def __init__(self, name, options):
 
-        self.app_name = None
-        self.fusion_app = None
+        self.app_name = options.get('app_name')
+        self.fusion_app = options.get('fusion_app')
 
         self.cmd_name = name
 
@@ -44,7 +44,7 @@ class Fusion360CommandBase:
         self.command_enabled = options.get('command_enabled', True)
         self.command_promoted = options.get('command_promoted', False)
 
-        self.debug = False
+        self.debug = options.get('debug')
 
         self.command = None
         self.command_inputs = None
@@ -55,12 +55,17 @@ class Fusion360CommandBase:
         self.args = None
 
         resources_folder = options.get('cmd_resources', 'demo_icons')
-        self.cmd_resources = os.path.join('./', 'commands', 'resources', resources_folder)
+        # self.path = os.path.dirname(os.path.relpath(sys.modules[self.__class__.__module__].__file__, "/Users/tapnair/Dropbox/n3rdlab/Fusion-Apps-Dev/n3rDtools"))
+        self.path = os.path.dirname(os.path.relpath(sys.modules[self.__class__.__module__].__file__, self.fusion_app.root_path))
+        resource_path = os.path.join('./', self.path, 'resources', resources_folder)
+
+        self.cmd_resources = resource_path
+
 
         # global set of event handlers to keep them referenced for the duration of the command
         self.handlers = []
 
-        # self.fusion_app.commands.append(self)
+        # self.fusion_app.appCommands.append(self)
 
     def on_preview(self, command: adsk.core.Command, inputs: adsk.core.CommandInputs, args, input_values):
         pass
@@ -216,7 +221,7 @@ class Fusion360CommandBase:
 
         except:
             if ui:
-                ui.messageBox('AddIn Start Failed: {}'.format(traceback.format_exc()))
+                ui.messageBox('Command on Run Failed: {}'.format(traceback.format_exc()) + self.path + "         " + self.cmd_resources)
 
     def on_stop(self):
         app = adsk.core.Application.cast(adsk.core.Application.get())

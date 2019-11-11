@@ -4,6 +4,8 @@ import adsk.core
 from .Fusion360CommandBase import Fusion360CommandBase
 
 # handlers = []
+import os
+import sys
 
 
 class PaletteCommandBase(Fusion360CommandBase):
@@ -12,7 +14,16 @@ class PaletteCommandBase(Fusion360CommandBase):
 
         self.palette_id = options.get('palette_id', 'Default Command Name')
         self.palette_name = options.get('palette_name', 'Palette Name')
-        self.palette_html_file_url = options.get('palette_html_file_url', '')
+
+        rel_path = options.get('palette_html_file_url', '')
+
+        self.path = os.path.dirname(
+            os.path.relpath(sys.modules[self.__class__.__module__].__file__, self.fusion_app.root_path))
+
+        resource_path = os.path.join('./', self.path, 'palette_html', 'demo.html')
+
+        self.palette_html_file_url = resource_path
+
         self.palette_is_visible = options.get('palette_is_visible', True)
         self.palette_show_close_button = options.get('palette_show_close_button', True)
         self.palette_is_resizable = options.get('palette_is_resizable', True)
@@ -129,7 +140,7 @@ class PaletteExecuteHandler(adsk.core.CommandEventHandler):
 
         except:
             if ui:
-                ui.messageBox('command executed failed: {}'.format(traceback.format_exc()))
+                ui.messageBox('Palette Execution Failed: {}'.format(traceback.format_exc()) + self.cmd_object_.palette_html_file_url)
 
 
 # Event handler for the palette HTML event.

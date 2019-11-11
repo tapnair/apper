@@ -5,7 +5,7 @@ import json
 
 import os
 from os.path import expanduser
-
+from pathlib import Path
 
 class FusionApp:
     def __init__(self, name, company, debug):
@@ -19,6 +19,7 @@ class FusionApp:
         self.tabs = []
         self.default_dir = self._get_default_dir()
         self.preferences = self.get_preferences()
+        self.root_path = Path(__file__).parent.parent.parent
 
     def add_command(self, name, command_class, options):
         app = adsk.core.Application.cast(adsk.core.Application.get())
@@ -37,7 +38,7 @@ class FusionApp:
 
         except:
             if ui:
-                ui.messageBox('Input changed event failed: {}'.format(traceback.format_exc()))
+                ui.messageBox('Apper Add Command failed: {}'.format(traceback.format_exc()))
 
     def add_document_event(self, event_id, event_type, event_class):
         doc_event = event_class(event_id, event_type)
@@ -65,7 +66,7 @@ class FusionApp:
                 run_command.on_run()
         except:
             if ui:
-                ui.messageBox('Input changed event failed: {}'.format(traceback.format_exc()))
+                ui.messageBox('Running App failed: {}'.format(traceback.format_exc()))
 
     def stop_app(self):
         app = adsk.core.Application.cast(adsk.core.Application.get())
