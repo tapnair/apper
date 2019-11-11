@@ -36,7 +36,7 @@ class Fusion360CommandBase:
 
         self.add_to_drop_down = options.get('add_to_drop_down', False)
         self.drop_down_cmd_id = options.get('drop_down_cmd_id', 'Default_DC_CmdId')
-        self.drop_down_resources = options.get('drop_down_resources', './resources')
+
         self.drop_down_name = options.get('drop_down_name', 'Drop Name')
 
         self.command_in_nav_bar = options.get('command_in_nav_bar', False)
@@ -55,16 +55,21 @@ class Fusion360CommandBase:
         self.changed_input = None
         self.args = None
 
+        drop_down_folder = options.get('drop_down_resources', 'demo_icons')
         resources_folder = options.get('cmd_resources', 'demo_icons')
+
         self.path = os.path.dirname(
             os.path.relpath(
                 sys.modules[self.__class__.__module__].__file__,
                 self.fusion_app.root_path
             )
         )
+
         resource_path = os.path.join('./', self.path, 'resources', resources_folder)
+        drop_resources_path = os.path.join('./', self.path, 'resources', drop_down_folder)
 
         self.cmd_resources = resource_path
+        self.drop_down_resources = drop_resources_path
 
         # global set of event handlers to keep them referenced for the duration of the command
         self.handlers = []
@@ -225,7 +230,7 @@ class Fusion360CommandBase:
         except:
             if ui:
                 ui.messageBox('Command on Run Failed: {}'.format(
-                    traceback.format_exc()) + self.path + "         " + self.cmd_resources)
+                    traceback.format_exc()) + self.path + "         " + self.drop_down_resources)
 
     def on_stop(self):
         app = adsk.core.Application.cast(adsk.core.Application.get())

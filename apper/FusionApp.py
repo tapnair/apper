@@ -37,10 +37,23 @@ class FusionApp:
             tab_name = options.get('toolbar_tab_id')
             if tab_name is None:
                 options['toolbar_tab_id'] = self.name
+            _workspace = options.get('workspace')
 
-            command = command_class(name, options)
-            self.commands.append(command)
-            self.command_dict[base_cmd_id] = new_id
+            if isinstance(_workspace, str):
+                command = command_class(name, options)
+                self.commands.append(command)
+                self.command_dict[base_cmd_id] = new_id
+
+            elif all(isinstance(item, str) for item in _workspace):
+                for workspace in _workspace:
+                    options['workspace'] = workspace
+                    _this_id = new_id + '_' + workspace
+                    options['cmd_id'] = _this_id
+                    command = command_class(name, options)
+                    self.commands.append(command)
+                    self.command_dict[base_cmd_id] = _this_id
+            else:
+                raise TypeError  # or something along that line
 
         except:
             if ui:
