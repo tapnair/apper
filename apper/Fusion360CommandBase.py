@@ -36,7 +36,7 @@ class Fusion360CommandBase:
 
         self.add_to_drop_down = options.get('add_to_drop_down', False)
         self.drop_down_cmd_id = options.get('drop_down_cmd_id', 'Default_DC_CmdId')
-        self.drop_down_resources = options.get('drop_down_resources', './displayer_icons')
+        self.drop_down_resources = options.get('drop_down_resources', './resources')
         self.drop_down_name = options.get('drop_down_name', 'Drop Name')
 
         self.command_in_nav_bar = options.get('command_in_nav_bar', False)
@@ -55,14 +55,14 @@ class Fusion360CommandBase:
         self.changed_input = None
         self.args = None
 
-        resources_folder = options.get('cmd_resources', 'csv_icons')
+        resources_folder = options.get('cmd_resources', 'demo_icons')
         self.path = os.path.dirname(
             os.path.relpath(
                 sys.modules[self.__class__.__module__].__file__,
                 self.fusion_app.root_path
             )
         )
-        resource_path = os.path.join('./', self.path, 'displayer_icons', resources_folder)
+        resource_path = os.path.join('./', self.path, 'resources', resources_folder)
 
         self.cmd_resources = resource_path
 
