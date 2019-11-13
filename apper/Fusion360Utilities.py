@@ -87,8 +87,8 @@ class AppObjects(object):
 
 
 def start_group() -> int:
-    """
-    Starts a time line group
+    """Starts a time line group
+
     :return: The index of the time line
     :rtype: int
     """
@@ -102,12 +102,11 @@ def start_group() -> int:
 
 
 def end_group(start_index: int):
-    """
-    Ends a time line group
+    """Ends a time line group
+
     :param start_index: Time line index
     :type start_index: int
-    :return:
-    :rtype:
+
     """
 
     # Gets necessary application objects
@@ -119,8 +118,8 @@ def end_group(start_index: int):
 
 
 def import_dxf(dxf_file, component, plane) -> adsk.fusion.Sketches:
-    """
-    Import dxf file with one sketch per layer.
+    """Import dxf file with one sketch per layer.
+
     :param dxf_file: The full path to the dxf file
     :type dxf_file: str
     :param component: The target component for the new sketch(es)
@@ -129,6 +128,7 @@ def import_dxf(dxf_file, component, plane) -> adsk.fusion.Sketches:
     :type plane: adsk.fusion.ConstructionPlane or adsk.fusion.BRepFace
     :return: A Collection of the created sketches
     :rtype: adsk.core.ObjectCollection
+
     """
     import_manager = get_app_objects()['import_manager']
     dxf_options = import_manager.createDXF2DImportOptions(dxf_file, plane)
@@ -138,14 +138,17 @@ def import_dxf(dxf_file, component, plane) -> adsk.fusion.Sketches:
 
 
 def sketch_by_name(sketches: adsk.fusion.Sketches, name: str) -> adsk.fusion.Sketch:
-    """
-    Finds a sketch by name in a list of sketches
-    Useful for parsing a collection of  sketches such as DXF import results.
+    """Finds a sketch by name in a list of sketches Useful for parsing a collection of sketches such as DXF import results.
+
     :param sketches: A list of sketches.
     :type sketches: adsk.fusion.Sketches
     :param name: The name of the sketch to find.
     :return: The sketch matching the name if it is found.
     :rtype: adsk.fusion.Sketch
+
+    Args:
+        sketches (adsk.fusion.Sketches):
+        name (str):
     """
     return_sketch = None
     for sketch in sketches:
@@ -155,19 +158,20 @@ def sketch_by_name(sketches: adsk.fusion.Sketches, name: str) -> adsk.fusion.Ske
 
 
 def extrude_all_profiles(sketch, distance, component, operation) -> adsk.fusion.ExtrudeFeature:
-    """
-    Create extrude features of all profiles in a sketch
-    The new feature will be created in the given target component and extruded by a distance
+    """Create extrude features of all profiles in a sketch The new feature will
+    be created in the given target component and extruded by a distance
+
     :param sketch: The sketch from which to get profiles
     :type sketch: adsk.fusion.Sketch
     :param distance: The distance to extrude the profiles.
     :type distance: float
     :param component: The target component for the extrude feature
     :type component: adsk.fusion.Component
-    :param operation: The feature operation type from enumerator.  
+    :param operation: The feature operation type from enumerator.
     :type operation: adsk.fusion.FeatureOperations
     :return: THe new extrude feature.
     :rtype: adsk.fusion.ExtrudeFeature
+
     """
     profile_collection = adsk.core.ObjectCollection.create()
     for profile in sketch.profiles:
@@ -182,14 +186,15 @@ def extrude_all_profiles(sketch, distance, component, operation) -> adsk.fusion.
 
 
 def create_component(target_component, name) -> adsk.fusion.Occurrence:
-    """
-    Creates a new empty component in the target component
+    """Creates a new empty component in the target component
+
     :param target_component: The target component for the new component
     :type target_component:
     :param name: The name of the new component
     :type name: str
     :return: The reference to the occurrence of the newly created component.
     :rtype: adsk.fusion.Occurrence
+
     """
     transform = adsk.core.Matrix3D.create()
     new_occurrence = target_component.occurrences.addNewComponent(transform)
@@ -197,10 +202,21 @@ def create_component(target_component, name) -> adsk.fusion.Occurrence:
     return new_occurrence
 
 
-# Creates rectangle pattern of bodies based on vectors
 def rect_body_pattern(target_component, bodies, x_axis, y_axis, x_qty, x_distance, y_qty,
                       y_distance) -> adsk.core.ObjectCollection:
+    """Creates rectangle pattern of bodies based on vectors
 
+    Args:
+        target_component: Component in which to create the patern
+        bodies (list of adsk.fusion.BRepBody): bodies to pattern
+        x_axis(adsk.core.Vector3D): vector defining direction 1
+        y_axis (adsk.core.Vector3D): vector defining direction 2
+        x_qty (int): Number of instances in direction 1
+        x_distance (float): Distance between instances in direction 1
+        y_qty (int): Number of instances in direction 1
+        y_distance (float): Distance between instances in direction 1
+
+    """
     move_feats = target_component.features.moveFeatures
 
     x_bodies = adsk.core.ObjectCollection.create()
@@ -250,11 +266,15 @@ def rect_body_pattern(target_component, bodies, x_axis, y_axis, x_qty, x_distanc
 
 
 # Creates Combine Feature in target with all tool bodies as source
-# Specify operation as: adsk.fusion.FeatureOperations
-# target_body -> single body
-# tool_bodies -> list of bodies
 def combine_feature(target_body: adsk.fusion.BRepBody, tool_bodies: List[adsk.fusion.BRepBody],
                     operation: adsk.fusion.FeatureOperations):
+    """Creates Combine Feature in target with all tool bodies as source
+
+    Args:
+        target_body (adsk.fusion.BRepBody): Target body for the combine feature
+        tool_bodies: (list of adsk.fusion.BRepBody): A list of tool bodies for the combine
+        operation (adsk.fusion.FeatureOperations): An Enumerator defining the feature operation type
+    """
 
     # Get Combine Features
     combine_features = target_body.parentComponent.features.combineFeatures
@@ -274,6 +294,11 @@ def combine_feature(target_body: adsk.fusion.BRepBody, tool_bodies: List[adsk.fu
 
 # Get default directory
 def get_default_dir(app_name):
+    """Creates a directory in the user's home folder to store data related to this app
+
+    Args:
+        app_name (str): Name of the Application
+    """
 
     # Get user's home directory
     default_dir = expanduser("~")
@@ -289,6 +314,11 @@ def get_default_dir(app_name):
 
 
 def get_settings_file(app_name):
+    """Create (or get) a settings file name in the default app directory
+
+    Args:
+        app_name (str): Name of the Application
+    """
     default_dir = get_default_dir(app_name)
     file_name = os.path.join(default_dir, ".settings.json")
     return file_name
@@ -296,7 +326,12 @@ def get_settings_file(app_name):
 
 # Write App Settings
 def write_settings(app_name, settings):
+    """Write a settings file into the default directory for the app
 
+    Args:
+        app_name (str): Name of the Application
+        settings (dict): Stores a dictionary as a json string
+    """
     settings_text = json.dumps(settings)
     file_name = get_settings_file(app_name)
 
@@ -307,6 +342,11 @@ def write_settings(app_name, settings):
 
 # Read App Settings
 def read_settings(app_name):
+    """Read a settings file into the default directory for the app
+
+    Args:
+        app_name (str): Name of the Application
+    """
     file_name = get_settings_file(app_name)
     if os.path.exists(file_name):
         with open(file_name) as f:
@@ -322,6 +362,7 @@ def read_settings(app_name):
 
 # Creates directory and returns file name for log file
 def get_log_file_name(app_name):
+
     default_dir = get_default_dir(app_name)
 
     log_dir = os.path.join(default_dir, "logs", "")
@@ -339,7 +380,12 @@ def get_log_file_name(app_name):
     return file_name
 
 
-def open_doc(data_file):
+def open_doc(data_file: adsk.core.DataFile):
+    """Simple wrapper to open a dataFile in the application window
+
+    Args:
+        data_file(adsk.core.DataFile): The data file to open
+    """
     app = adsk.core.Application.get()
 
     try:
@@ -352,11 +398,19 @@ def open_doc(data_file):
 
 # get a UUID - URL safe, Base64
 def get_a_uuid():
+    """get a UUID - URL safe, Base64"""
+
     r_uuid = str(uuid.uuid4())
     return r_uuid
 
 
 def item_id(item, app_name):
+    """Gets (and possibly assigns) a unique identifier (UUID) to any item in Fusion 360
+
+    Args:
+        item: Any Fusion Object that supports attributes
+        app_name (str): Name of the Application
+    """
     this_id = None
     if item.attributes is not None:
         if item.attributes.itemByName(app_name, "id") is not None:
@@ -370,6 +424,12 @@ def item_id(item, app_name):
 
 
 def get_item_by_id(this_id, app_name):
+    """Returns an item based on the assigned ID set with item_id()
+
+    Args:
+        this_id(str): The unique id generated originally by calling item_id()
+        app_name (str): Name of the Application
+    """
     ao = AppObjects()
     attributes = ao.design.findAttributes(app_name, "id")
 
@@ -382,18 +442,33 @@ def get_item_by_id(this_id, app_name):
 
 
 def get_log_file(app_name):
+    """Gets the filename for a default log file
+
+    Args:
+        app_name (str): Name of the Application
+    """
     default_dir = get_default_dir(app_name)
     file_name = os.path.join(default_dir, "logger.log")
     return file_name
 
 
 def get_std_out_file(app_name):
+    """Get temporary stdout file for the app
+
+    Args:
+        app_name (str): Name of the Application
+    """
     default_dir = get_default_dir(app_name)
     file_name = os.path.join(default_dir, "std_out.txt")
     return file_name
 
 
 def get_std_err_file(app_name):
+    """Get temporary stderr file for the app
+
+    Args:
+        app_name (str): Name of the Application
+    """
     default_dir = get_default_dir(app_name)
     file_name = os.path.join(default_dir, "std_err.txt")
     return file_name

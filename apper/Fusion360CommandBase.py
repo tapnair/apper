@@ -8,6 +8,10 @@ import sys
 
 
 def _destroy_object(obj_to_be_deleted):
+    """
+    Args:
+        obj_to_be_deleted:
+    """
     app = adsk.core.Application.cast(adsk.core.Application.get())
     ui = app.userInterface
 
@@ -21,6 +25,11 @@ def _destroy_object(obj_to_be_deleted):
 class Fusion360CommandBase:
     def __init__(self, name, options):
 
+        """
+        Args:
+            name:
+            options:
+        """
         self.app_name = options.get('app_name')
         self.fusion_app = options.get('fusion_app')
 
@@ -77,19 +86,52 @@ class Fusion360CommandBase:
         # self.fusion_app.appCommands.append(self)
 
     def on_preview(self, command: adsk.core.Command, inputs: adsk.core.CommandInputs, args, input_values):
+        """
+        Args:
+            command (adsk.core.Command):
+            inputs (adsk.core.CommandInputs):
+            args:
+            input_values:
+        """
         pass
 
     def on_destroy(self, command: adsk.core.Command, inputs: adsk.core.CommandInputs, reason, input_values):
+        """
+        Args:
+            command (adsk.core.Command):
+            inputs (adsk.core.CommandInputs):
+            reason:
+            input_values:
+        """
         pass
 
     def on_input_changed(self, command: adsk.core.Command, inputs: adsk.core.CommandInputs, changed_input,
                          input_values):
+        """
+        Args:
+            command (adsk.core.Command):
+            inputs (adsk.core.CommandInputs):
+            changed_input:
+            input_values:
+        """
         pass
 
     def on_execute(self, command: adsk.core.Command, inputs: adsk.core.CommandInputs, args, input_values):
+        """
+        Args:
+            command (adsk.core.Command):
+            inputs (adsk.core.CommandInputs):
+            args:
+            input_values:
+        """
         pass
 
     def on_create(self, command: adsk.core.Command, inputs: adsk.core.CommandInputs):
+        """
+        Args:
+            command (adsk.core.Command):
+            inputs (adsk.core.CommandInputs):
+        """
         pass
 
     def _get_create_event(self):
@@ -259,10 +301,18 @@ class Fusion360CommandBase:
 
 class PreviewHandler(adsk.core.CommandEventHandler):
     def __init__(self, cmd_object):
+        """
+        Args:
+            cmd_object:
+        """
         super().__init__()
         self.cmd_object_ = cmd_object
 
     def notify(self, args):
+        """
+        Args:
+            args:
+        """
         app = adsk.core.Application.cast(adsk.core.Application.get())
         ui = app.userInterface
 
@@ -284,10 +334,18 @@ class PreviewHandler(adsk.core.CommandEventHandler):
 
 class DestroyHandler(adsk.core.CommandEventHandler):
     def __init__(self, cmd_object):
+        """
+        Args:
+            cmd_object:
+        """
         super().__init__()
         self.cmd_object_ = cmd_object
 
     def notify(self, args):
+        """
+        Args:
+            args:
+        """
         app = adsk.core.Application.cast(adsk.core.Application.get())
         ui = app.userInterface
 
@@ -313,10 +371,18 @@ class DestroyHandler(adsk.core.CommandEventHandler):
 
 class InputChangedHandler(adsk.core.InputChangedEventHandler):
     def __init__(self, cmd_object):
+        """
+        Args:
+            cmd_object:
+        """
         super().__init__()
         self.cmd_object_ = cmd_object
 
     def notify(self, args):
+        """
+        Args:
+            args:
+        """
         app = adsk.core.Application.cast(adsk.core.Application.get())
         ui = app.userInterface
 
@@ -346,10 +412,18 @@ class InputChangedHandler(adsk.core.InputChangedEventHandler):
 
 class CommandExecuteHandler(adsk.core.CommandEventHandler):
     def __init__(self, cmd_object):
+        """
+        Args:
+            cmd_object:
+        """
         super().__init__()
         self.cmd_object_ = cmd_object
 
     def notify(self, args):
+        """
+        Args:
+            args:
+        """
         app = adsk.core.Application.cast(adsk.core.Application.get())
         ui = app.userInterface
         try:
@@ -373,10 +447,18 @@ class CommandExecuteHandler(adsk.core.CommandEventHandler):
 
 class CommandCreatedEventHandler(adsk.core.CommandCreatedEventHandler):
     def __init__(self, cmd_object):
+        """
+        Args:
+            cmd_object:
+        """
         super().__init__()
         self.cmd_object_ = cmd_object
 
     def notify(self, args):
+        """
+        Args:
+            args:
+        """
         app = adsk.core.Application.cast(adsk.core.Application.get())
         ui = app.userInterface
 

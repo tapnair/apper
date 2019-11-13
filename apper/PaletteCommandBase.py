@@ -10,6 +10,11 @@ import sys
 
 class PaletteCommandBase(Fusion360CommandBase):
     def __init__(self, name, options):
+        """
+        Args:
+            name:
+            options:
+        """
         super().__init__(name, options)
 
         self.palette_id = options.get('palette_id', 'Default Command Name')
@@ -39,12 +44,20 @@ class PaletteCommandBase(Fusion360CommandBase):
         return PaletteCreatedHandler(self)
 
     def on_html_event(self, html_args: adsk.core.HTMLEventArgs):
+        """
+        Args:
+            html_args (adsk.core.HTMLEventArgs):
+        """
         pass
 
     def on_palette_close(self):
         pass
 
     def on_palette_execute(self, palette: adsk.core.Palette):
+        """
+        Args:
+            palette (adsk.core.Palette):
+        """
         pass
 
     def on_stop(self):
@@ -64,10 +77,18 @@ class PaletteCommandBase(Fusion360CommandBase):
 # Base Class for creating Fusion 360 Palette
 class PaletteCreatedHandler(adsk.core.CommandCreatedEventHandler):
     def __init__(self, cmd_object):
+        """
+        Args:
+            cmd_object:
+        """
         super().__init__()
         self.cmd_object_ = cmd_object
 
     def notify(self, args):
+        """
+        Args:
+            args:
+        """
         app = adsk.core.Application.cast(adsk.core.Application.get())
         ui = app.userInterface
 
@@ -92,10 +113,18 @@ class PaletteCreatedHandler(adsk.core.CommandCreatedEventHandler):
 
 class PaletteExecuteHandler(adsk.core.CommandEventHandler):
     def __init__(self, cmd_object):
+        """
+        Args:
+            cmd_object:
+        """
         super().__init__()
         self.cmd_object_ = cmd_object
 
     def notify(self, args):
+        """
+        Args:
+            args:
+        """
         app = adsk.core.Application.cast(adsk.core.Application.get())
         ui = app.userInterface
         try:
@@ -146,11 +175,19 @@ class PaletteExecuteHandler(adsk.core.CommandEventHandler):
 # Event handler for the palette HTML event.
 class HTMLEventHandler(adsk.core.HTMLEventHandler):
     def __init__(self, cmd_object):
+        """
+        Args:
+            cmd_object:
+        """
         super().__init__()
 
         self.cmd_object_ = cmd_object
 
     def notify(self, args):
+        """
+        Args:
+            args:
+        """
         app = adsk.core.Application.cast(adsk.core.Application.get())
         ui = app.userInterface
 
@@ -168,10 +205,18 @@ class HTMLEventHandler(adsk.core.HTMLEventHandler):
 # Event handler for the palette close event.
 class PaletteCloseHandler(adsk.core.UserInterfaceGeneralEventHandler):
     def __init__(self, cmd_object):
+        """
+        Args:
+            cmd_object:
+        """
         super().__init__()
         self.cmd_object_ = cmd_object
 
     def notify(self, args):
+        """
+        Args:
+            args:
+        """
         app = adsk.core.Application.cast(adsk.core.Application.get())
         ui = app.userInterface
 

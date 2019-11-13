@@ -13,6 +13,10 @@ handlers = []
 # The class for the new thread.
 class Fusion360CustomThread:
     def __init__(self, event_id):
+        """
+        Args:
+            event_id:
+        """
         pass
         self.event_id = event_id
         self.thread = None
@@ -43,9 +47,18 @@ class Fusion360CustomThread:
             print(e)
 
     def custom_event_received(self, event_dict):
+        """
+        Args:
+            event_dict:
+        """
         pass
 
     def run_in_thread(self, thread, event_id):
+        """
+        Args:
+            thread:
+            event_id:
+        """
         pass
 
     def on_stop(self):
@@ -57,10 +70,18 @@ class Fusion360CustomThread:
 # Assumes message being received is a json string
 class ThreadEventHandler(adsk.core.CustomEventHandler):
     def __init__(self, receiver_function):
+        """
+        Args:
+            receiver_function:
+        """
         self.receiver_function = receiver_function
         super().__init__()
 
     def notify(self, args):
+        """
+        Args:
+            args:
+        """
         app = adsk.core.Application.get()
         ui = adsk.core.UserInterface.cast(app.userInterface)
 
@@ -80,6 +101,11 @@ class ThreadEventHandler(adsk.core.CustomEventHandler):
 # The class for the new thread.
 class FusionThread(threading.Thread):
     def __init__(self, event_id, run_in_thread):
+        """
+        Args:
+            event_id:
+            run_in_thread:
+        """
         threading.Thread.__init__(self)
 
         self.event_id = event_id
@@ -95,6 +121,11 @@ class FusionThread(threading.Thread):
 # The class for the new thread.
 class Fusion360DocumentEvent:
     def __init__(self, event_id, event_type):
+        """
+        Args:
+            event_id:
+            event_type:
+        """
         self.event_id = event_id
         self.fusion_app = None
         self.event_type = event_type
@@ -103,6 +134,11 @@ class Fusion360DocumentEvent:
         handlers.append(self.document_handler)
 
     def document_event_received(self, event_args, document):
+        """
+        Args:
+            event_args:
+            document:
+        """
         pass
 
     def on_stop(self):
@@ -112,6 +148,11 @@ class Fusion360DocumentEvent:
 # The class for the new thread.
 class Fusion360WorkspaceEvent:
     def __init__(self, event_id, event_type):
+        """
+        Args:
+            event_id:
+            event_type:
+        """
         self.event_id = event_id
         self.fusion_app = None
         self.event_type = event_type
@@ -120,6 +161,11 @@ class Fusion360WorkspaceEvent:
         handlers.append(self.workspace_handler)
 
     def workspace_event_received(self, event_args, workspace):
+        """
+        Args:
+            event_args:
+            workspace:
+        """
         pass
 
     def on_stop(self):
@@ -129,10 +175,18 @@ class Fusion360WorkspaceEvent:
 # Event handler for the documentActivated event.
 class DocumentHandler(adsk.core.DocumentEventHandler):
     def __init__(self, document_event_received):
+        """
+        Args:
+            document_event_received:
+        """
         self.document_function = document_event_received
         super().__init__()
 
     def notify(self, args):
+        """
+        Args:
+            args:
+        """
         app = adsk.core.Application.cast(adsk.core.Application.get())
         ui = app.userInterface
         try:
@@ -151,10 +205,18 @@ class DocumentHandler(adsk.core.DocumentEventHandler):
 # Event handler for the workspaceActivated event.
 class WorkspaceHandler(adsk.core.WorkspaceEventHandler):
     def __init__(self, workspace_event_received):
+        """
+        Args:
+            workspace_event_received:
+        """
         super().__init__()
         self.workspace_function = workspace_event_received
 
     def notify(self, args):
+        """
+        Args:
+            args:
+        """
         pass
         app = adsk.core.Application.cast(adsk.core.Application.get())
         ui = app.userInterface

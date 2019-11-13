@@ -13,6 +13,10 @@ import traceback
 # Format of variables should be [[Variable name 1, variable value 1], [Variable name 2, variable value 2], ...]
 def variables_message(variables: list):
 
+    """
+    Args:
+        variables (list):
+    """
     message_string = ''
     for variable in variables:
         message_string += variable[0] + ' = ' + str(variable[1]) + '\n'
@@ -26,6 +30,11 @@ def variables_message(variables: list):
 
 def variable_message(variable, extra_info=''):
 
+    """
+    Args:
+        variable:
+        extra_info:
+    """
     message_string = str(variable)
 
     if len(extra_info) > 0:
@@ -42,11 +51,22 @@ def variable_message(variable, extra_info=''):
 
 # Performance time logging function
 def perf_log(log, function_reference, command, identifier=''):
+    """
+    Args:
+        log:
+        function_reference:
+        command:
+        identifier:
+    """
     log.append((function_reference, command, identifier, time.process_time()))
 
 
 def perf_message(log):
 
+    """
+    Args:
+        log:
+    """
     minimum_perf_time = .01
     message_string = ''
 

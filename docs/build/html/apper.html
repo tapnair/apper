@@ -1,0 +1,832 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Developer Interface &mdash; apper .1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Advanced" href="usage/advanced.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> apper
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="usage/intro.html">Intro</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage/setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage/AddingToExisting.html">Adding apper to an existing project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage/advanced.html">Advanced</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Developer Interface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#main-interface">Main Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#core-apper-modules">Core Apper Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#apper-fusionapp-module">apper.FusionApp module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#apper-fusion360commandbase-module">apper.Fusion360CommandBase module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#apper-palettecommandbase-module">apper.PaletteCommandBase module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#other-modules">Other Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-Fusion360DebugUtilities">apper.Fusion360DebugUtilities module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-Fusion360Utilities">apper.Fusion360Utilities module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">apper</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Developer Interface</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/apper.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="developer-interface">
+<h1>Developer Interface<a class="headerlink" href="#developer-interface" title="Permalink to this headline">¶</a></h1>
+<p>This part of the documentation covers all the interfaces of Requests. For
+parts where Requests depends on external libraries, we document the most
+important right here and provide links to the canonical documentation.</p>
+<span class="target" id="module-apper"></span><div class="section" id="main-interface">
+<h2>Main Interface<a class="headerlink" href="#main-interface" title="Permalink to this headline">¶</a></h2>
+<p>All of Requests’ functionality can be accessed by these 7 methods.
+They all return an instance of the <a class="reference internal" href="#apper.FusionApp" title="apper.FusionApp"><code class="xref py py-class docutils literal notranslate"><span class="pre">FusionApp</span></code></a> object.</p>
+</div>
+<div class="section" id="core-apper-modules">
+<h2>Core Apper Modules<a class="headerlink" href="#core-apper-modules" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="apper-fusionapp-module">
+<h3>apper.FusionApp module<a class="headerlink" href="#apper-fusionapp-module" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="apper.FusionApp">
+<em class="property">class </em><code class="sig-prename descclassname">apper.</code><code class="sig-name descname">FusionApp</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">company</em>, <em class="sig-param">debug</em><span class="sig-paren">)</span><a class="headerlink" href="#apper.FusionApp" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="apper.FusionApp.add_command">
+<code class="sig-name descname">add_command</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">command_class</em>, <em class="sig-param">options</em><span class="sig-paren">)</span><a class="headerlink" href="#apper.FusionApp.add_command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a command to the application</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – The name of the command</p></li>
+<li><p><strong>command_class</strong> (<a class="reference internal" href="#apper.Fusion360CommandBase" title="apper.Fusion360CommandBase"><em>Fusion360CommandBase</em></a>) – This should be your subclass of  Fusion360CommandBase or PaletteCommandBase</p></li>
+<li><p><strong>options</strong> (<em>dict</em>) – Set of options for the command</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="apper.FusionApp.add_custom_event">
+<code class="sig-name descname">add_custom_event</code><span class="sig-paren">(</span><em class="sig-param">event_id</em>, <em class="sig-param">event_class</em><span class="sig-paren">)</span><a class="headerlink" href="#apper.FusionApp.add_custom_event" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>event_id</strong> (<em>str</em>) – A unique identifier for the event</p></li>
+<li><p><strong>event_class</strong> (<em>Fusion360CustomThread</em>) – Your subclass of Fusion360CustomThread</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="apper.FusionApp.add_document_event">
+<code class="sig-name descname">add_document_event</code><span class="sig-paren">(</span><em class="sig-param">event_id</em>, <em class="sig-param">event_type</em>, <em class="sig-param">event_class</em><span class="sig-paren">)</span><a class="headerlink" href="#apper.FusionApp.add_document_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register a document event that can respond to various document actions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>event_id</strong> (<em>str</em>) – A unique identifier for the event</p></li>
+<li><p><strong>event_type</strong> (<em>adsk.core.DocumentEvent</em>) – Any document event in the current application</p></li>
+<li><p><strong>event_class</strong> (<em>Fusion360DocumentEvent</em>) – Your subclass of Fusion360DocumentEvent</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="apper.FusionApp.add_workspace_event">
+<code class="sig-name descname">add_workspace_event</code><span class="sig-paren">(</span><em class="sig-param">event_id</em>, <em class="sig-param">workspace_name</em>, <em class="sig-param">event_class</em><span class="sig-paren">)</span><a class="headerlink" href="#apper.FusionApp.add_workspace_event" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>event_id</strong> (<em>str</em>) – A unique identifier for the event</p></li>
+<li><p><strong>workspace_name</strong> (<em>str</em>) – name of the workspace (i.e.</p></li>
+<li><p><strong>event_class</strong> (<em>Fusion360WorkspaceEvent</em>) – Your subclass of Fusion360WorkspaceEvent</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="apper.FusionApp.command_id_from_name">
+<code class="sig-name descname">command_id_from_name</code><span class="sig-paren">(</span><em class="sig-param">name</em><span class="sig-paren">)</span><a class="headerlink" href="#apper.FusionApp.command_id_from_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the full cmd_id defined by apper</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> – this is the value set in options for cmd_id</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The full cmd_id (i.e. CompanyName_AppName_cmd_id)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="apper.FusionApp.save_preferences">
+<code class="sig-name descname">save_preferences</code><span class="sig-paren">(</span><em class="sig-param">preferences</em><span class="sig-paren">)</span><a class="headerlink" href="#apper.FusionApp.save_preferences" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>preferences</strong> – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="apper-fusion360commandbase-module">
+<h3>apper.Fusion360CommandBase module<a class="headerlink" href="#apper-fusion360commandbase-module" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="apper.Fusion360CommandBase">
+<em class="property">class </em><code class="sig-prename descclassname">apper.</code><code class="sig-name descname">Fusion360CommandBase</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">options</em><span class="sig-paren">)</span><a class="headerlink" href="#apper.Fusion360CommandBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="apper.Fusion360CommandBase.get_inputs">
+<code class="sig-name descname">get_inputs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#apper.Fusion360CommandBase.get_inputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="apper.Fusion360CommandBase.on_create">
+<code class="sig-name descname">on_create</code><span class="sig-paren">(</span><em class="sig-param">command: adsk.core.Command</em>, <em class="sig-param">inputs: adsk.core.CommandInputs</em><span class="sig-paren">)</span><a class="headerlink" href="#apper.Fusion360CommandBase.on_create" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>command</strong> (<em>adsk.core.Command</em>) – </p></li>
+<li><p><strong>inputs</strong> (<em>adsk.core.CommandInputs</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="apper.Fusion360CommandBase.on_destroy">
+<code class="sig-name descname">on_destroy</code><span class="sig-paren">(</span><em class="sig-param">command: adsk.core.Command</em>, <em class="sig-param">inputs: adsk.core.CommandInputs</em>, <em class="sig-param">reason</em>, <em class="sig-param">input_values</em><span class="sig-paren">)</span><a class="headerlink" href="#apper.Fusion360CommandBase.on_destroy" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>command</strong> (<em>adsk.core.Command</em>) – </p></li>
+<li><p><strong>inputs</strong> (<em>adsk.core.CommandInputs</em>) – </p></li>
+<li><p><strong>reason</strong> – </p></li>
+<li><p><strong>input_values</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="apper.Fusion360CommandBase.on_execute">
+<code class="sig-name descname">on_execute</code><span class="sig-paren">(</span><em class="sig-param">command: adsk.core.Command</em>, <em class="sig-param">inputs: adsk.core.CommandInputs</em>, <em class="sig-param">args</em>, <em class="sig-param">input_values</em><span class="sig-paren">)</span><a class="headerlink" href="#apper.Fusion360CommandBase.on_execute" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>command</strong> (<em>adsk.core.Command</em>) – </p></li>
+<li><p><strong>inputs</strong> (<em>adsk.core.CommandInputs</em>) – </p></li>
+<li><p><strong>args</strong> – </p></li>
+<li><p><strong>input_values</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="apper.Fusion360CommandBase.on_input_changed">
+<code class="sig-name descname">on_input_changed</code><span class="sig-paren">(</span><em class="sig-param">command: adsk.core.Command</em>, <em class="sig-param">inputs: adsk.core.CommandInputs</em>, <em class="sig-param">changed_input</em>, <em class="sig-param">input_values</em><span class="sig-paren">)</span><a class="headerlink" href="#apper.Fusion360CommandBase.on_input_changed" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>command</strong> (<em>adsk.core.Command</em>) – </p></li>
+<li><p><strong>inputs</strong> (<em>adsk.core.CommandInputs</em>) – </p></li>
+<li><p><strong>changed_input</strong> – </p></li>
+<li><p><strong>input_values</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="apper.Fusion360CommandBase.on_preview">
+<code class="sig-name descname">on_preview</code><span class="sig-paren">(</span><em class="sig-param">command: adsk.core.Command</em>, <em class="sig-param">inputs: adsk.core.CommandInputs</em>, <em class="sig-param">args</em>, <em class="sig-param">input_values</em><span class="sig-paren">)</span><a class="headerlink" href="#apper.Fusion360CommandBase.on_preview" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>command</strong> (<em>adsk.core.Command</em>) – </p></li>
+<li><p><strong>inputs</strong> (<em>adsk.core.CommandInputs</em>) – </p></li>
+<li><p><strong>args</strong> – </p></li>
+<li><p><strong>input_values</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="apper.Fusion360CommandBase.on_run">
+<code class="sig-name descname">on_run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#apper.Fusion360CommandBase.on_run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="apper.Fusion360CommandBase.on_stop">
+<code class="sig-name descname">on_stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#apper.Fusion360CommandBase.on_stop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="apper-palettecommandbase-module">
+<h3>apper.PaletteCommandBase module<a class="headerlink" href="#apper-palettecommandbase-module" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="apper.PaletteCommandBase">
+<em class="property">class </em><code class="sig-prename descclassname">apper.</code><code class="sig-name descname">PaletteCommandBase</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">options</em><span class="sig-paren">)</span><a class="headerlink" href="#apper.PaletteCommandBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">apper.Fusion360CommandBase.Fusion360CommandBase</span></code></p>
+<dl class="method">
+<dt id="apper.PaletteCommandBase.on_html_event">
+<code class="sig-name descname">on_html_event</code><span class="sig-paren">(</span><em class="sig-param">html_args: adsk.core.HTMLEventArgs</em><span class="sig-paren">)</span><a class="headerlink" href="#apper.PaletteCommandBase.on_html_event" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>html_args</strong> (<em>adsk.core.HTMLEventArgs</em>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="apper.PaletteCommandBase.on_palette_close">
+<code class="sig-name descname">on_palette_close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#apper.PaletteCommandBase.on_palette_close" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="apper.PaletteCommandBase.on_palette_execute">
+<code class="sig-name descname">on_palette_execute</code><span class="sig-paren">(</span><em class="sig-param">palette: adsk.core.Palette</em><span class="sig-paren">)</span><a class="headerlink" href="#apper.PaletteCommandBase.on_palette_execute" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>palette</strong> (<em>adsk.core.Palette</em>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="apper.PaletteCommandBase.on_stop">
+<code class="sig-name descname">on_stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#apper.PaletteCommandBase.on_stop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="other-modules">
+<h2>Other Modules<a class="headerlink" href="#other-modules" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-Fusion360DebugUtilities">
+<span id="apper-fusion360debugutilities-module"></span><h3>apper.Fusion360DebugUtilities module<a class="headerlink" href="#module-Fusion360DebugUtilities" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="Fusion360DebugUtilities.get_log_file_name">
+<code class="sig-prename descclassname">Fusion360DebugUtilities.</code><code class="sig-name descname">get_log_file_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Fusion360DebugUtilities.get_log_file_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="Fusion360DebugUtilities.perf_log">
+<code class="sig-prename descclassname">Fusion360DebugUtilities.</code><code class="sig-name descname">perf_log</code><span class="sig-paren">(</span><em class="sig-param">log</em>, <em class="sig-param">function_reference</em>, <em class="sig-param">command</em>, <em class="sig-param">identifier=''</em><span class="sig-paren">)</span><a class="headerlink" href="#Fusion360DebugUtilities.perf_log" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>log</strong> – </p></li>
+<li><p><strong>function_reference</strong> – </p></li>
+<li><p><strong>command</strong> – </p></li>
+<li><p><strong>identifier</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="Fusion360DebugUtilities.perf_message">
+<code class="sig-prename descclassname">Fusion360DebugUtilities.</code><code class="sig-name descname">perf_message</code><span class="sig-paren">(</span><em class="sig-param">log</em><span class="sig-paren">)</span><a class="headerlink" href="#Fusion360DebugUtilities.perf_message" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>log</strong> – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="Fusion360DebugUtilities.variable_message">
+<code class="sig-prename descclassname">Fusion360DebugUtilities.</code><code class="sig-name descname">variable_message</code><span class="sig-paren">(</span><em class="sig-param">variable</em>, <em class="sig-param">extra_info=''</em><span class="sig-paren">)</span><a class="headerlink" href="#Fusion360DebugUtilities.variable_message" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>variable</strong> – </p></li>
+<li><p><strong>extra_info</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="Fusion360DebugUtilities.variables_message">
+<code class="sig-prename descclassname">Fusion360DebugUtilities.</code><code class="sig-name descname">variables_message</code><span class="sig-paren">(</span><em class="sig-param">variables: list</em><span class="sig-paren">)</span><a class="headerlink" href="#Fusion360DebugUtilities.variables_message" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>variables</strong> (<em>list</em>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-Fusion360Utilities">
+<span id="apper-fusion360utilities-module"></span><h3>apper.Fusion360Utilities module<a class="headerlink" href="#module-Fusion360Utilities" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="Fusion360Utilities.AppObjects">
+<em class="property">class </em><code class="sig-prename descclassname">Fusion360Utilities.</code><code class="sig-name descname">AppObjects</code><a class="headerlink" href="#Fusion360Utilities.AppObjects" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="Fusion360Utilities.AppObjects.cam">
+<em class="property">property </em><code class="sig-name descname">cam</code><a class="headerlink" href="#Fusion360Utilities.AppObjects.cam" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Fusion360Utilities.AppObjects.design">
+<em class="property">property </em><code class="sig-name descname">design</code><a class="headerlink" href="#Fusion360Utilities.AppObjects.design" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Fusion360Utilities.AppObjects.export_manager">
+<em class="property">property </em><code class="sig-name descname">export_manager</code><a class="headerlink" href="#Fusion360Utilities.AppObjects.export_manager" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Fusion360Utilities.AppObjects.root_comp">
+<em class="property">property </em><code class="sig-name descname">root_comp</code><a class="headerlink" href="#Fusion360Utilities.AppObjects.root_comp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Fusion360Utilities.AppObjects.time_line">
+<em class="property">property </em><code class="sig-name descname">time_line</code><a class="headerlink" href="#Fusion360Utilities.AppObjects.time_line" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Fusion360Utilities.AppObjects.units_manager">
+<em class="property">property </em><code class="sig-name descname">units_manager</code><a class="headerlink" href="#Fusion360Utilities.AppObjects.units_manager" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="Fusion360Utilities.combine_feature">
+<code class="sig-prename descclassname">Fusion360Utilities.</code><code class="sig-name descname">combine_feature</code><span class="sig-paren">(</span><em class="sig-param">target_body: adsk.fusion.BRepBody, tool_bodies: List[adsk.fusion.BRepBody], operation: adsk.fusion.FeatureOperations</em><span class="sig-paren">)</span><a class="headerlink" href="#Fusion360Utilities.combine_feature" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates Combine Feature in target with all tool bodies as source</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target_body</strong> (<em>adsk.fusion.BRepBody</em>) – Target body for the combine feature</p></li>
+<li><p><strong>tool_bodies</strong> – (list of adsk.fusion.BRepBody): A list of tool bodies for the combine</p></li>
+<li><p><strong>operation</strong> (<em>adsk.fusion.FeatureOperations</em>) – An Enumerator defining the feature operation type</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="Fusion360Utilities.create_component">
+<code class="sig-prename descclassname">Fusion360Utilities.</code><code class="sig-name descname">create_component</code><span class="sig-paren">(</span><em class="sig-param">target_component</em>, <em class="sig-param">name</em><span class="sig-paren">)</span> &#x2192; adsk.fusion.Occurrence<a class="headerlink" href="#Fusion360Utilities.create_component" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new empty component in the target component</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target_component</strong> – The target component for the new component</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – The name of the new component</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The reference to the occurrence of the newly created component.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>adsk.fusion.Occurrence</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="Fusion360Utilities.end_group">
+<code class="sig-prename descclassname">Fusion360Utilities.</code><code class="sig-name descname">end_group</code><span class="sig-paren">(</span><em class="sig-param">start_index: int</em><span class="sig-paren">)</span><a class="headerlink" href="#Fusion360Utilities.end_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ends a time line group</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>start_index</strong> (<em>int</em>) – Time line index</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="Fusion360Utilities.extrude_all_profiles">
+<code class="sig-prename descclassname">Fusion360Utilities.</code><code class="sig-name descname">extrude_all_profiles</code><span class="sig-paren">(</span><em class="sig-param">sketch</em>, <em class="sig-param">distance</em>, <em class="sig-param">component</em>, <em class="sig-param">operation</em><span class="sig-paren">)</span> &#x2192; adsk.fusion.ExtrudeFeature<a class="headerlink" href="#Fusion360Utilities.extrude_all_profiles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create extrude features of all profiles in a sketch The new feature will
+be created in the given target component and extruded by a distance</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sketch</strong> (<em>adsk.fusion.Sketch</em>) – The sketch from which to get profiles</p></li>
+<li><p><strong>distance</strong> (<em>float</em>) – The distance to extrude the profiles.</p></li>
+<li><p><strong>component</strong> (<em>adsk.fusion.Component</em>) – The target component for the extrude feature</p></li>
+<li><p><strong>operation</strong> (<em>adsk.fusion.FeatureOperations</em>) – The feature operation type from enumerator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>THe new extrude feature.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>adsk.fusion.ExtrudeFeature</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="Fusion360Utilities.get_a_uuid">
+<code class="sig-prename descclassname">Fusion360Utilities.</code><code class="sig-name descname">get_a_uuid</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Fusion360Utilities.get_a_uuid" title="Permalink to this definition">¶</a></dt>
+<dd><p>get a UUID - URL safe, Base64</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="Fusion360Utilities.get_default_dir">
+<code class="sig-prename descclassname">Fusion360Utilities.</code><code class="sig-name descname">get_default_dir</code><span class="sig-paren">(</span><em class="sig-param">app_name</em><span class="sig-paren">)</span><a class="headerlink" href="#Fusion360Utilities.get_default_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a directory in the user’s home folder to store data related to this app</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>app_name</strong> (<em>str</em>) – Name of the Application</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="Fusion360Utilities.get_item_by_id">
+<code class="sig-prename descclassname">Fusion360Utilities.</code><code class="sig-name descname">get_item_by_id</code><span class="sig-paren">(</span><em class="sig-param">this_id</em>, <em class="sig-param">app_name</em><span class="sig-paren">)</span><a class="headerlink" href="#Fusion360Utilities.get_item_by_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an item based on the assigned ID set with item_id()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>this_id</strong> (<em>str</em>) – The unique id generated originally by calling item_id()</p></li>
+<li><p><strong>app_name</strong> (<em>str</em>) – Name of the Application</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="Fusion360Utilities.get_log_file">
+<code class="sig-prename descclassname">Fusion360Utilities.</code><code class="sig-name descname">get_log_file</code><span class="sig-paren">(</span><em class="sig-param">app_name</em><span class="sig-paren">)</span><a class="headerlink" href="#Fusion360Utilities.get_log_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the filename for a default log file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>app_name</strong> (<em>str</em>) – Name of the Application</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="Fusion360Utilities.get_log_file_name">
+<code class="sig-prename descclassname">Fusion360Utilities.</code><code class="sig-name descname">get_log_file_name</code><span class="sig-paren">(</span><em class="sig-param">app_name</em><span class="sig-paren">)</span><a class="headerlink" href="#Fusion360Utilities.get_log_file_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="Fusion360Utilities.get_settings_file">
+<code class="sig-prename descclassname">Fusion360Utilities.</code><code class="sig-name descname">get_settings_file</code><span class="sig-paren">(</span><em class="sig-param">app_name</em><span class="sig-paren">)</span><a class="headerlink" href="#Fusion360Utilities.get_settings_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create (or get) a settings file name in the default app directory</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>app_name</strong> (<em>str</em>) – Name of the Application</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="Fusion360Utilities.get_std_err_file">
+<code class="sig-prename descclassname">Fusion360Utilities.</code><code class="sig-name descname">get_std_err_file</code><span class="sig-paren">(</span><em class="sig-param">app_name</em><span class="sig-paren">)</span><a class="headerlink" href="#Fusion360Utilities.get_std_err_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get temporary stderr file for the app</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>app_name</strong> (<em>str</em>) – Name of the Application</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="Fusion360Utilities.get_std_out_file">
+<code class="sig-prename descclassname">Fusion360Utilities.</code><code class="sig-name descname">get_std_out_file</code><span class="sig-paren">(</span><em class="sig-param">app_name</em><span class="sig-paren">)</span><a class="headerlink" href="#Fusion360Utilities.get_std_out_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get temporary stdout file for the app</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>app_name</strong> (<em>str</em>) – Name of the Application</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="Fusion360Utilities.import_dxf">
+<code class="sig-prename descclassname">Fusion360Utilities.</code><code class="sig-name descname">import_dxf</code><span class="sig-paren">(</span><em class="sig-param">dxf_file</em>, <em class="sig-param">component</em>, <em class="sig-param">plane</em><span class="sig-paren">)</span> &#x2192; adsk.fusion.Sketches<a class="headerlink" href="#Fusion360Utilities.import_dxf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Import dxf file with one sketch per layer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dxf_file</strong> (<em>str</em>) – The full path to the dxf file</p></li>
+<li><p><strong>component</strong> (<em>adsk.fusion.Component</em>) – The target component for the new sketch(es)</p></li>
+<li><p><strong>plane</strong> (<em>adsk.fusion.ConstructionPlane</em><em> or </em><em>adsk.fusion.BRepFace</em>) – The plane on which to import the DXF file.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A Collection of the created sketches</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>adsk.core.ObjectCollection</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="Fusion360Utilities.item_id">
+<code class="sig-prename descclassname">Fusion360Utilities.</code><code class="sig-name descname">item_id</code><span class="sig-paren">(</span><em class="sig-param">item</em>, <em class="sig-param">app_name</em><span class="sig-paren">)</span><a class="headerlink" href="#Fusion360Utilities.item_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets (and possibly assigns) a unique identifier (UUID) to any item in Fusion 360</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>item</strong> – Any Fusion Object that supports attributes</p></li>
+<li><p><strong>app_name</strong> (<em>str</em>) – Name of the Application</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="Fusion360Utilities.open_doc">
+<code class="sig-prename descclassname">Fusion360Utilities.</code><code class="sig-name descname">open_doc</code><span class="sig-paren">(</span><em class="sig-param">data_file: adsk.core.DataFile</em><span class="sig-paren">)</span><a class="headerlink" href="#Fusion360Utilities.open_doc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simple wrapper to open a dataFile in the application window</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data_file</strong> (<em>adsk.core.DataFile</em>) – The data file to open</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="Fusion360Utilities.read_settings">
+<code class="sig-prename descclassname">Fusion360Utilities.</code><code class="sig-name descname">read_settings</code><span class="sig-paren">(</span><em class="sig-param">app_name</em><span class="sig-paren">)</span><a class="headerlink" href="#Fusion360Utilities.read_settings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read a settings file into the default directory for the app</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>app_name</strong> (<em>str</em>) – Name of the Application</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="Fusion360Utilities.rect_body_pattern">
+<code class="sig-prename descclassname">Fusion360Utilities.</code><code class="sig-name descname">rect_body_pattern</code><span class="sig-paren">(</span><em class="sig-param">target_component</em>, <em class="sig-param">bodies</em>, <em class="sig-param">x_axis</em>, <em class="sig-param">y_axis</em>, <em class="sig-param">x_qty</em>, <em class="sig-param">x_distance</em>, <em class="sig-param">y_qty</em>, <em class="sig-param">y_distance</em><span class="sig-paren">)</span> &#x2192; adsk.core.ObjectCollection<a class="headerlink" href="#Fusion360Utilities.rect_body_pattern" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates rectangle pattern of bodies based on vectors</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target_component</strong> – Component in which to create the patern</p></li>
+<li><p><strong>bodies</strong> (<em>list of adsk.fusion.BRepBody</em>) – bodies to pattern</p></li>
+<li><p><strong>x_axis</strong> (<em>adsk.core.Vector3D</em>) – vector defining direction 1</p></li>
+<li><p><strong>y_axis</strong> (<em>adsk.core.Vector3D</em>) – vector defining direction 2</p></li>
+<li><p><strong>x_qty</strong> (<em>int</em>) – Number of instances in direction 1</p></li>
+<li><p><strong>x_distance</strong> (<em>float</em>) – Distance between instances in direction 1</p></li>
+<li><p><strong>y_qty</strong> (<em>int</em>) – Number of instances in direction 1</p></li>
+<li><p><strong>y_distance</strong> (<em>float</em>) – Distance between instances in direction 1</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="Fusion360Utilities.sketch_by_name">
+<code class="sig-prename descclassname">Fusion360Utilities.</code><code class="sig-name descname">sketch_by_name</code><span class="sig-paren">(</span><em class="sig-param">sketches: adsk.fusion.Sketches</em>, <em class="sig-param">name: str</em><span class="sig-paren">)</span> &#x2192; adsk.fusion.Sketch<a class="headerlink" href="#Fusion360Utilities.sketch_by_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds a sketch by name in a list of sketches Useful for parsing a collection of sketches such as DXF import results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sketches</strong> (<em>adsk.fusion.Sketches</em>) – A list of sketches.</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – The name of the sketch to find.</p></li>
+<li><p><strong>sketches</strong> – </p></li>
+<li><p><strong>name</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The sketch matching the name if it is found.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>adsk.fusion.Sketch</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="Fusion360Utilities.start_group">
+<code class="sig-prename descclassname">Fusion360Utilities.</code><code class="sig-name descname">start_group</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#Fusion360Utilities.start_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts a time line group</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The index of the time line</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="Fusion360Utilities.write_settings">
+<code class="sig-prename descclassname">Fusion360Utilities.</code><code class="sig-name descname">write_settings</code><span class="sig-paren">(</span><em class="sig-param">app_name</em>, <em class="sig-param">settings</em><span class="sig-paren">)</span><a class="headerlink" href="#Fusion360Utilities.write_settings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write a settings file into the default directory for the app</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>app_name</strong> (<em>str</em>) – Name of the Application</p></li>
+<li><p><strong>settings</strong> (<em>dict</em>) – Stores a dictionary as a json string</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="usage/advanced.html" class="btn btn-neutral float-left" title="Advanced" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Patrick Rainsberry
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

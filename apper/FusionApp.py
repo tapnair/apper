@@ -1,3 +1,8 @@
+"""
+FusionApp.py
+=============================================
+Python module for creating a Fusion 360 Addin
+"""
 import traceback
 
 import adsk.core
@@ -7,8 +12,17 @@ import os
 from os.path import expanduser
 from pathlib import Path
 
+
 class FusionApp:
     def __init__(self, name, company, debug):
+        """
+        Base class for creating a Fusion 360 Add-in
+
+        Args:
+            name:
+            company:
+            debug:
+        """
         self.name = name
         self.company = company
         self.debug = debug
@@ -23,6 +37,14 @@ class FusionApp:
         self.command_dict = {}
 
     def add_command(self, name, command_class, options):
+        """
+        Add a command to the application
+
+        Args:
+            name (str): The name of the command
+            command_class (Fusion360CommandBase): This should be your subclass of  Fusion360CommandBase or PaletteCommandBase
+            options (dict): Set of options for the command
+        """
         app = adsk.core.Application.cast(adsk.core.Application.get())
         ui = app.userInterface
 
@@ -60,20 +82,48 @@ class FusionApp:
                 ui.messageBox('Apper Add Command failed: {}'.format(traceback.format_exc()))
 
     def command_id_from_name(self, name):
+        """
+        Returns the full cmd_id defined by apper
+
+        Args:
+            name: this is the value set in options for cmd_id
+
+        Returns:
+            str: The full cmd_id (i.e. CompanyName_AppName_cmd_id)
+        """
         cmd_id = self.command_dict.get(name)
         return cmd_id
 
     def add_document_event(self, event_id, event_type, event_class):
+        """
+        Register a document event that can respond to various document actions
+
+        Args:
+            event_id (str): A unique identifier for the event
+            event_type (adsk.core.DocumentEvent): Any document event in the current application
+            event_class (Fusion360DocumentEvent): Your subclass of Fusion360DocumentEvent
+        """
         doc_event = event_class(event_id, event_type)
         doc_event.fusion_app = self
         self.document_events.append(doc_event)
 
     def add_custom_event(self, event_id, event_class):
+        """
+        Args:
+            event_id (str): A unique identifier for the event
+            event_class (Fusion360CustomThread): Your subclass of Fusion360CustomThread
+        """
         custom_event = event_class(event_id)
         custom_event.fusion_app = self
         self.custom_events.append(custom_event)
 
     def add_workspace_event(self, event_id, workspace_name, event_class):
+        """
+        Args:
+            event_id (str): A unique identifier for the event
+            workspace_name (str): name of the workspace (i.e.
+            event_class (Fusion360WorkspaceEvent): Your subclass of Fusion360WorkspaceEvent
+        """
         workspace_event = event_class(event_id, workspace_name)
         workspace_event.fusion_app = self
         self.workspace_events.append(workspace_event)
@@ -144,10 +194,12 @@ class FusionApp:
 
     def save_preferences(self, preferences):
 
+        """
+        Args:
+            preferences:
+        """
         preferences_text = json.dumps(preferences)
 
         file_name = os.path.join(self.default_dir, ".preferences.json")
         with open(file_name, "w") as f:
             f.write(preferences_text)
-
-
