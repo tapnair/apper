@@ -1,6 +1,11 @@
 
-Adding apper to an existing project
-=====================================
+Existing Projects
+=================
+
+Adding apper to an existing project is not too difficult
+
+Adding a Git Submodule
+----------------------
 
 The best way to leverage apper in your addin project is to use `Git Submodules <https://git-scm.com/book/en/v2/Git-Tools-Submodules>`_
 
@@ -28,10 +33,18 @@ remote: Compressing objects: 100% (25/25), done.
 remote: Total 31 (delta 6), reused 29 (delta 4), pack-reused 0
 Unpacking objects: 100% (31/31), done.
 
+Status of a Git Submodule
+-------------------------
+
 To check the status of apper from the project root directory:
 
 >>> git submodule status
 +e951ad1030b6ed8fb60db3bac7e1098d64289833 apper (remotes/origin/HEAD)
+
+Update a Git Submodule
+----------------------
+
+As apper continues to be developed, the advantage of submodules is that you can always simply and easily updated the apper framework inside of your addin.
 
 To update apper from the project root directory:
 
