@@ -14,11 +14,14 @@ import os
 import sys
 import sphinx_rtd_theme
 
+# Local Build
 sys.path.insert(0, os.path.abspath('/Users/rainsbp/Dropbox/n3rdlab/OpenSource/apper'))
 sys.path.insert(0, os.path.abspath('/Users/rainsbp/Dropbox/n3rdlab/OpenSource/apper/apper'))
 sys.path.insert(0, os.path.abspath(
     '/Users/rainsbp/Library/Application Support/Autodesk/Autodesk Fusion 360/API/Python/defs'))
-sys.path.insert(0, os.path.abspath('/apper'))
+
+# Server Build
+sys.path.insert(0, os.path.abspath('../..'))
 
 # -- Project information -----------------------------------------------------
 
