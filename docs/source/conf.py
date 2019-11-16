@@ -22,6 +22,8 @@ sys.path.insert(0, os.path.abspath(
 
 # Server Build
 sys.path.insert(0, os.path.abspath('../..'))
+sys.path.insert(0, os.path.abspath('../../apper'))
+sys.path.insert(0, os.path.abspath('./modules'))
 
 # -- Project information -----------------------------------------------------
 
