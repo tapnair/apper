@@ -18,6 +18,7 @@ sys.path.insert(0, os.path.abspath('/Users/rainsbp/Dropbox/n3rdlab/OpenSource/ap
 sys.path.insert(0, os.path.abspath('/Users/rainsbp/Dropbox/n3rdlab/OpenSource/apper/apper'))
 sys.path.insert(0, os.path.abspath(
     '/Users/rainsbp/Library/Application Support/Autodesk/Autodesk Fusion 360/API/Python/defs'))
+sys.path.insert(0, os.path.abspath('/apper'))
 
 # -- Project information -----------------------------------------------------
 
