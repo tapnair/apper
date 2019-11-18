@@ -81,8 +81,8 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="usage/intro.html">Intro</a></li>
-<li class="toctree-l1"><a class="reference internal" href="usage/setup.html">Setup</a></li>
-<li class="toctree-l1"><a class="reference internal" href="usage/AddingToExisting.html">Adding apper to an existing project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage/setup.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage/AddingToExisting.html">Existing Projects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage/advanced.html">Advanced</a></li>
 </ul>
 <ul class="current">
@@ -257,11 +257,33 @@ They all return an instance of the <a class="reference internal" href="#apper.Fu
 </dd></dl>
 
 <dl class="method">
-<dt id="apper.FusionApp.save_preferences">
-<code class="sig-name descname">save_preferences</code><span class="sig-paren">(</span><em class="sig-param">preferences</em><span class="sig-paren">)</span><a class="headerlink" href="#apper.FusionApp.save_preferences" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dt id="apper.FusionApp.get_all_preferences">
+<code class="sig-name descname">get_all_preferences</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#apper.FusionApp.get_all_preferences" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets preferences for a particular group (typically a given command)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="apper.FusionApp.get_group_preferences">
+<code class="sig-name descname">get_group_preferences</code><span class="sig-paren">(</span><em class="sig-param">group_name</em><span class="sig-paren">)</span><a class="headerlink" href="#apper.FusionApp.get_group_preferences" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets preferences for a particular group (typically a given command)</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>preferences</strong> – </p>
+<dd class="field-odd"><p><strong>group_name</strong> (<em>str</em>) – name of parent group in which to store preferences</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="apper.FusionApp.save_preferences">
+<code class="sig-name descname">save_preferences</code><span class="sig-paren">(</span><em class="sig-param">group_name</em>, <em class="sig-param">new_group_preferences</em>, <em class="sig-param">merge</em><span class="sig-paren">)</span><a class="headerlink" href="#apper.FusionApp.save_preferences" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves preferences for the application</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>group_name</strong> (<em>str</em>) – name of parent group in which to store preferences</p></li>
+<li><p><strong>new_group_preferences</strong> (<em>dict</em>) – Dictionary of preferences to save</p></li>
+<li><p><strong>merge</strong> (<em>bool</em>) – If True then the new preferences in the group will be merged, if False all old values are deleted</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -274,15 +296,9 @@ They all return an instance of the <a class="reference internal" href="#apper.Fu
 <dl class="class">
 <dt id="apper.Fusion360CommandBase">
 <em class="property">class </em><code class="sig-prename descclassname">apper.</code><code class="sig-name descname">Fusion360CommandBase</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">options</em><span class="sig-paren">)</span><a class="headerlink" href="#apper.Fusion360CommandBase" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="apper.Fusion360CommandBase.get_inputs">
-<code class="sig-name descname">get_inputs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#apper.Fusion360CommandBase.get_inputs" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
+<dd><dl class="method">
 <dt id="apper.Fusion360CommandBase.on_create">
-<code class="sig-name descname">on_create</code><span class="sig-paren">(</span><em class="sig-param">command: adsk.core.Command</em>, <em class="sig-param">inputs: adsk.core.CommandInputs</em><span class="sig-paren">)</span><a class="headerlink" href="#apper.Fusion360CommandBase.on_create" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">on_create</code><span class="sig-paren">(</span><em class="sig-param">command</em>, <em class="sig-param">inputs</em><span class="sig-paren">)</span><a class="headerlink" href="#apper.Fusion360CommandBase.on_create" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -295,7 +311,7 @@ They all return an instance of the <a class="reference internal" href="#apper.Fu
 
 <dl class="method">
 <dt id="apper.Fusion360CommandBase.on_destroy">
-<code class="sig-name descname">on_destroy</code><span class="sig-paren">(</span><em class="sig-param">command: adsk.core.Command</em>, <em class="sig-param">inputs: adsk.core.CommandInputs</em>, <em class="sig-param">reason</em>, <em class="sig-param">input_values</em><span class="sig-paren">)</span><a class="headerlink" href="#apper.Fusion360CommandBase.on_destroy" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">on_destroy</code><span class="sig-paren">(</span><em class="sig-param">command</em>, <em class="sig-param">inputs</em>, <em class="sig-param">reason</em>, <em class="sig-param">input_values</em><span class="sig-paren">)</span><a class="headerlink" href="#apper.Fusion360CommandBase.on_destroy" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -310,7 +326,7 @@ They all return an instance of the <a class="reference internal" href="#apper.Fu
 
 <dl class="method">
 <dt id="apper.Fusion360CommandBase.on_execute">
-<code class="sig-name descname">on_execute</code><span class="sig-paren">(</span><em class="sig-param">command: adsk.core.Command</em>, <em class="sig-param">inputs: adsk.core.CommandInputs</em>, <em class="sig-param">args</em>, <em class="sig-param">input_values</em><span class="sig-paren">)</span><a class="headerlink" href="#apper.Fusion360CommandBase.on_execute" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">on_execute</code><span class="sig-paren">(</span><em class="sig-param">command</em>, <em class="sig-param">inputs</em>, <em class="sig-param">args</em>, <em class="sig-param">input_values</em><span class="sig-paren">)</span><a class="headerlink" href="#apper.Fusion360CommandBase.on_execute" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -325,7 +341,7 @@ They all return an instance of the <a class="reference internal" href="#apper.Fu
 
 <dl class="method">
 <dt id="apper.Fusion360CommandBase.on_input_changed">
-<code class="sig-name descname">on_input_changed</code><span class="sig-paren">(</span><em class="sig-param">command: adsk.core.Command</em>, <em class="sig-param">inputs: adsk.core.CommandInputs</em>, <em class="sig-param">changed_input</em>, <em class="sig-param">input_values</em><span class="sig-paren">)</span><a class="headerlink" href="#apper.Fusion360CommandBase.on_input_changed" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">on_input_changed</code><span class="sig-paren">(</span><em class="sig-param">command</em>, <em class="sig-param">inputs</em>, <em class="sig-param">changed_input</em>, <em class="sig-param">input_values</em><span class="sig-paren">)</span><a class="headerlink" href="#apper.Fusion360CommandBase.on_input_changed" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -340,7 +356,7 @@ They all return an instance of the <a class="reference internal" href="#apper.Fu
 
 <dl class="method">
 <dt id="apper.Fusion360CommandBase.on_preview">
-<code class="sig-name descname">on_preview</code><span class="sig-paren">(</span><em class="sig-param">command: adsk.core.Command</em>, <em class="sig-param">inputs: adsk.core.CommandInputs</em>, <em class="sig-param">args</em>, <em class="sig-param">input_values</em><span class="sig-paren">)</span><a class="headerlink" href="#apper.Fusion360CommandBase.on_preview" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">on_preview</code><span class="sig-paren">(</span><em class="sig-param">command</em>, <em class="sig-param">inputs</em>, <em class="sig-param">args</em>, <em class="sig-param">input_values</em><span class="sig-paren">)</span><a class="headerlink" href="#apper.Fusion360CommandBase.on_preview" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -353,16 +369,6 @@ They all return an instance of the <a class="reference internal" href="#apper.Fu
 </dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="apper.Fusion360CommandBase.on_run">
-<code class="sig-name descname">on_run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#apper.Fusion360CommandBase.on_run" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="apper.Fusion360CommandBase.on_stop">
-<code class="sig-name descname">on_stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#apper.Fusion360CommandBase.on_stop" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 </div>
@@ -371,10 +377,9 @@ They all return an instance of the <a class="reference internal" href="#apper.Fu
 <dl class="class">
 <dt id="apper.PaletteCommandBase">
 <em class="property">class </em><code class="sig-prename descclassname">apper.</code><code class="sig-name descname">PaletteCommandBase</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">options</em><span class="sig-paren">)</span><a class="headerlink" href="#apper.PaletteCommandBase" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">apper.Fusion360CommandBase.Fusion360CommandBase</span></code></p>
-<dl class="method">
+<dd><dl class="method">
 <dt id="apper.PaletteCommandBase.on_html_event">
-<code class="sig-name descname">on_html_event</code><span class="sig-paren">(</span><em class="sig-param">html_args: adsk.core.HTMLEventArgs</em><span class="sig-paren">)</span><a class="headerlink" href="#apper.PaletteCommandBase.on_html_event" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">on_html_event</code><span class="sig-paren">(</span><em class="sig-param">html_args</em><span class="sig-paren">)</span><a class="headerlink" href="#apper.PaletteCommandBase.on_html_event" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>html_args</strong> (<em>adsk.core.HTMLEventArgs</em>) – </p>
@@ -383,24 +388,14 @@ They all return an instance of the <a class="reference internal" href="#apper.Fu
 </dd></dl>
 
 <dl class="method">
-<dt id="apper.PaletteCommandBase.on_palette_close">
-<code class="sig-name descname">on_palette_close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#apper.PaletteCommandBase.on_palette_close" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
 <dt id="apper.PaletteCommandBase.on_palette_execute">
-<code class="sig-name descname">on_palette_execute</code><span class="sig-paren">(</span><em class="sig-param">palette: adsk.core.Palette</em><span class="sig-paren">)</span><a class="headerlink" href="#apper.PaletteCommandBase.on_palette_execute" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">on_palette_execute</code><span class="sig-paren">(</span><em class="sig-param">palette</em><span class="sig-paren">)</span><a class="headerlink" href="#apper.PaletteCommandBase.on_palette_execute" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>palette</strong> (<em>adsk.core.Palette</em>) – </p>
 </dd>
 </dl>
 </dd></dl>
-
-<dl class="method">
-<dt id="apper.PaletteCommandBase.on_stop">
-<code class="sig-name descname">on_stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#apper.PaletteCommandBase.on_stop" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 </dd></dl>
 
@@ -410,11 +405,6 @@ They all return an instance of the <a class="reference internal" href="#apper.Fu
 <h2>Other Modules<a class="headerlink" href="#other-modules" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="module-Fusion360DebugUtilities">
 <span id="apper-fusion360debugutilities-module"></span><h3>apper.Fusion360DebugUtilities module<a class="headerlink" href="#module-Fusion360DebugUtilities" title="Permalink to this headline">¶</a></h3>
-<dl class="function">
-<dt id="Fusion360DebugUtilities.get_log_file_name">
-<code class="sig-prename descclassname">Fusion360DebugUtilities.</code><code class="sig-name descname">get_log_file_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Fusion360DebugUtilities.get_log_file_name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="function">
 <dt id="Fusion360DebugUtilities.perf_log">
 <code class="sig-prename descclassname">Fusion360DebugUtilities.</code><code class="sig-name descname">perf_log</code><span class="sig-paren">(</span><em class="sig-param">log</em>, <em class="sig-param">function_reference</em>, <em class="sig-param">command</em>, <em class="sig-param">identifier=''</em><span class="sig-paren">)</span><a class="headerlink" href="#Fusion360DebugUtilities.perf_log" title="Permalink to this definition">¶</a></dt>
@@ -455,7 +445,7 @@ They all return an instance of the <a class="reference internal" href="#apper.Fu
 
 <dl class="function">
 <dt id="Fusion360DebugUtilities.variables_message">
-<code class="sig-prename descclassname">Fusion360DebugUtilities.</code><code class="sig-name descname">variables_message</code><span class="sig-paren">(</span><em class="sig-param">variables: list</em><span class="sig-paren">)</span><a class="headerlink" href="#Fusion360DebugUtilities.variables_message" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">Fusion360DebugUtilities.</code><code class="sig-name descname">variables_message</code><span class="sig-paren">(</span><em class="sig-param">variables</em><span class="sig-paren">)</span><a class="headerlink" href="#Fusion360DebugUtilities.variables_message" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>variables</strong> (<em>list</em>) – </p>
@@ -466,51 +456,15 @@ They all return an instance of the <a class="reference internal" href="#apper.Fu
 </div>
 <div class="section" id="module-Fusion360Utilities">
 <span id="apper-fusion360utilities-module"></span><h3>apper.Fusion360Utilities module<a class="headerlink" href="#module-Fusion360Utilities" title="Permalink to this headline">¶</a></h3>
-<dl class="class">
-<dt id="Fusion360Utilities.AppObjects">
-<em class="property">class </em><code class="sig-prename descclassname">Fusion360Utilities.</code><code class="sig-name descname">AppObjects</code><a class="headerlink" href="#Fusion360Utilities.AppObjects" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="Fusion360Utilities.AppObjects.cam">
-<em class="property">property </em><code class="sig-name descname">cam</code><a class="headerlink" href="#Fusion360Utilities.AppObjects.cam" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="Fusion360Utilities.AppObjects.design">
-<em class="property">property </em><code class="sig-name descname">design</code><a class="headerlink" href="#Fusion360Utilities.AppObjects.design" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="Fusion360Utilities.AppObjects.export_manager">
-<em class="property">property </em><code class="sig-name descname">export_manager</code><a class="headerlink" href="#Fusion360Utilities.AppObjects.export_manager" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="Fusion360Utilities.AppObjects.root_comp">
-<em class="property">property </em><code class="sig-name descname">root_comp</code><a class="headerlink" href="#Fusion360Utilities.AppObjects.root_comp" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="Fusion360Utilities.AppObjects.time_line">
-<em class="property">property </em><code class="sig-name descname">time_line</code><a class="headerlink" href="#Fusion360Utilities.AppObjects.time_line" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="Fusion360Utilities.AppObjects.units_manager">
-<em class="property">property </em><code class="sig-name descname">units_manager</code><a class="headerlink" href="#Fusion360Utilities.AppObjects.units_manager" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
 <dl class="function">
 <dt id="Fusion360Utilities.combine_feature">
-<code class="sig-prename descclassname">Fusion360Utilities.</code><code class="sig-name descname">combine_feature</code><span class="sig-paren">(</span><em class="sig-param">target_body: adsk.fusion.BRepBody, tool_bodies: List[adsk.fusion.BRepBody], operation: adsk.fusion.FeatureOperations</em><span class="sig-paren">)</span><a class="headerlink" href="#Fusion360Utilities.combine_feature" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">Fusion360Utilities.</code><code class="sig-name descname">combine_feature</code><span class="sig-paren">(</span><em class="sig-param">target_body</em>, <em class="sig-param">tool_bodies</em>, <em class="sig-param">operation</em><span class="sig-paren">)</span><a class="headerlink" href="#Fusion360Utilities.combine_feature" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates Combine Feature in target with all tool bodies as source</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>target_body</strong> (<em>adsk.fusion.BRepBody</em>) – Target body for the combine feature</p></li>
-<li><p><strong>tool_bodies</strong> – (list of adsk.fusion.BRepBody): A list of tool bodies for the combine</p></li>
+<li><p><strong>tool_bodies</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">BRepBody</span></code>]) – (list of adsk.fusion.BRepBody): A list of tool bodies for the combine</p></li>
 <li><p><strong>operation</strong> (<em>adsk.fusion.FeatureOperations</em>) – An Enumerator defining the feature operation type</p></li>
 </ul>
 </dd>
@@ -519,7 +473,7 @@ They all return an instance of the <a class="reference internal" href="#apper.Fu
 
 <dl class="function">
 <dt id="Fusion360Utilities.create_component">
-<code class="sig-prename descclassname">Fusion360Utilities.</code><code class="sig-name descname">create_component</code><span class="sig-paren">(</span><em class="sig-param">target_component</em>, <em class="sig-param">name</em><span class="sig-paren">)</span> &#x2192; adsk.fusion.Occurrence<a class="headerlink" href="#Fusion360Utilities.create_component" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">Fusion360Utilities.</code><code class="sig-name descname">create_component</code><span class="sig-paren">(</span><em class="sig-param">target_component</em>, <em class="sig-param">name</em><span class="sig-paren">)</span><a class="headerlink" href="#Fusion360Utilities.create_component" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a new empty component in the target component</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -539,7 +493,7 @@ They all return an instance of the <a class="reference internal" href="#apper.Fu
 
 <dl class="function">
 <dt id="Fusion360Utilities.end_group">
-<code class="sig-prename descclassname">Fusion360Utilities.</code><code class="sig-name descname">end_group</code><span class="sig-paren">(</span><em class="sig-param">start_index: int</em><span class="sig-paren">)</span><a class="headerlink" href="#Fusion360Utilities.end_group" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">Fusion360Utilities.</code><code class="sig-name descname">end_group</code><span class="sig-paren">(</span><em class="sig-param">start_index</em><span class="sig-paren">)</span><a class="headerlink" href="#Fusion360Utilities.end_group" title="Permalink to this definition">¶</a></dt>
 <dd><p>Ends a time line group</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -550,7 +504,7 @@ They all return an instance of the <a class="reference internal" href="#apper.Fu
 
 <dl class="function">
 <dt id="Fusion360Utilities.extrude_all_profiles">
-<code class="sig-prename descclassname">Fusion360Utilities.</code><code class="sig-name descname">extrude_all_profiles</code><span class="sig-paren">(</span><em class="sig-param">sketch</em>, <em class="sig-param">distance</em>, <em class="sig-param">component</em>, <em class="sig-param">operation</em><span class="sig-paren">)</span> &#x2192; adsk.fusion.ExtrudeFeature<a class="headerlink" href="#Fusion360Utilities.extrude_all_profiles" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">Fusion360Utilities.</code><code class="sig-name descname">extrude_all_profiles</code><span class="sig-paren">(</span><em class="sig-param">sketch</em>, <em class="sig-param">distance</em>, <em class="sig-param">component</em>, <em class="sig-param">operation</em><span class="sig-paren">)</span><a class="headerlink" href="#Fusion360Utilities.extrude_all_profiles" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create extrude features of all profiles in a sketch The new feature will
 be created in the given target component and extruded by a distance</p>
 <dl class="field-list simple">
@@ -591,13 +545,19 @@ be created in the given target component and extruded by a distance</p>
 <dl class="function">
 <dt id="Fusion360Utilities.get_item_by_id">
 <code class="sig-prename descclassname">Fusion360Utilities.</code><code class="sig-name descname">get_item_by_id</code><span class="sig-paren">(</span><em class="sig-param">this_id</em>, <em class="sig-param">app_name</em><span class="sig-paren">)</span><a class="headerlink" href="#Fusion360Utilities.get_item_by_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns an item based on the assigned ID set with item_id()</p>
+<dd><p>Returns an item based on the assigned ID set with <a class="reference internal" href="#Fusion360Utilities.item_id" title="Fusion360Utilities.item_id"><code class="xref py py-func docutils literal notranslate"><span class="pre">item_id</span></code></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>this_id</strong> (<em>str</em>) – The unique id generated originally by calling item_id()</p></li>
-<li><p><strong>app_name</strong> (<em>str</em>) – Name of the Application</p></li>
+<li><p><strong>this_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The unique id generated originally by calling item_id()</p></li>
+<li><p><strong>app_name</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Name of the Application</p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Base</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The Fusion 360 object that the id attribute was attached to.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -612,11 +572,6 @@ be created in the given target component and extruded by a distance</p>
 </dd>
 </dl>
 </dd></dl>
-
-<dl class="function">
-<dt id="Fusion360Utilities.get_log_file_name">
-<code class="sig-prename descclassname">Fusion360Utilities.</code><code class="sig-name descname">get_log_file_name</code><span class="sig-paren">(</span><em class="sig-param">app_name</em><span class="sig-paren">)</span><a class="headerlink" href="#Fusion360Utilities.get_log_file_name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 <dl class="function">
 <dt id="Fusion360Utilities.get_settings_file">
@@ -653,7 +608,7 @@ be created in the given target component and extruded by a distance</p>
 
 <dl class="function">
 <dt id="Fusion360Utilities.import_dxf">
-<code class="sig-prename descclassname">Fusion360Utilities.</code><code class="sig-name descname">import_dxf</code><span class="sig-paren">(</span><em class="sig-param">dxf_file</em>, <em class="sig-param">component</em>, <em class="sig-param">plane</em><span class="sig-paren">)</span> &#x2192; adsk.fusion.Sketches<a class="headerlink" href="#Fusion360Utilities.import_dxf" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">Fusion360Utilities.</code><code class="sig-name descname">import_dxf</code><span class="sig-paren">(</span><em class="sig-param">dxf_file</em>, <em class="sig-param">component</em>, <em class="sig-param">plane</em><span class="sig-paren">)</span><a class="headerlink" href="#Fusion360Utilities.import_dxf" title="Permalink to this definition">¶</a></dt>
 <dd><p>Import dxf file with one sketch per layer.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -679,16 +634,22 @@ be created in the given target component and extruded by a distance</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>item</strong> – Any Fusion Object that supports attributes</p></li>
-<li><p><strong>app_name</strong> (<em>str</em>) – Name of the Application</p></li>
+<li><p><strong>item</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Base</span></code>) – Any Fusion Object that supports attributes</p></li>
+<li><p><strong>app_name</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Name of the Application</p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The id that was generated or was previously existing</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="Fusion360Utilities.open_doc">
-<code class="sig-prename descclassname">Fusion360Utilities.</code><code class="sig-name descname">open_doc</code><span class="sig-paren">(</span><em class="sig-param">data_file: adsk.core.DataFile</em><span class="sig-paren">)</span><a class="headerlink" href="#Fusion360Utilities.open_doc" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">Fusion360Utilities.</code><code class="sig-name descname">open_doc</code><span class="sig-paren">(</span><em class="sig-param">data_file</em><span class="sig-paren">)</span><a class="headerlink" href="#Fusion360Utilities.open_doc" title="Permalink to this definition">¶</a></dt>
 <dd><p>Simple wrapper to open a dataFile in the application window</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -710,7 +671,7 @@ be created in the given target component and extruded by a distance</p>
 
 <dl class="function">
 <dt id="Fusion360Utilities.rect_body_pattern">
-<code class="sig-prename descclassname">Fusion360Utilities.</code><code class="sig-name descname">rect_body_pattern</code><span class="sig-paren">(</span><em class="sig-param">target_component</em>, <em class="sig-param">bodies</em>, <em class="sig-param">x_axis</em>, <em class="sig-param">y_axis</em>, <em class="sig-param">x_qty</em>, <em class="sig-param">x_distance</em>, <em class="sig-param">y_qty</em>, <em class="sig-param">y_distance</em><span class="sig-paren">)</span> &#x2192; adsk.core.ObjectCollection<a class="headerlink" href="#Fusion360Utilities.rect_body_pattern" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">Fusion360Utilities.</code><code class="sig-name descname">rect_body_pattern</code><span class="sig-paren">(</span><em class="sig-param">target_component</em>, <em class="sig-param">bodies</em>, <em class="sig-param">x_axis</em>, <em class="sig-param">y_axis</em>, <em class="sig-param">x_qty</em>, <em class="sig-param">x_distance</em>, <em class="sig-param">y_qty</em>, <em class="sig-param">y_distance</em><span class="sig-paren">)</span><a class="headerlink" href="#Fusion360Utilities.rect_body_pattern" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates rectangle pattern of bodies based on vectors</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -725,12 +686,15 @@ be created in the given target component and extruded by a distance</p>
 <li><p><strong>y_distance</strong> (<em>float</em>) – Distance between instances in direction 1</p></li>
 </ul>
 </dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">ObjectCollection</span></code></p>
+</dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="Fusion360Utilities.sketch_by_name">
-<code class="sig-prename descclassname">Fusion360Utilities.</code><code class="sig-name descname">sketch_by_name</code><span class="sig-paren">(</span><em class="sig-param">sketches: adsk.fusion.Sketches</em>, <em class="sig-param">name: str</em><span class="sig-paren">)</span> &#x2192; adsk.fusion.Sketch<a class="headerlink" href="#Fusion360Utilities.sketch_by_name" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">Fusion360Utilities.</code><code class="sig-name descname">sketch_by_name</code><span class="sig-paren">(</span><em class="sig-param">sketches</em>, <em class="sig-param">name</em><span class="sig-paren">)</span><a class="headerlink" href="#Fusion360Utilities.sketch_by_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Finds a sketch by name in a list of sketches Useful for parsing a collection of sketches such as DXF import results.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -752,7 +716,7 @@ be created in the given target component and extruded by a distance</p>
 
 <dl class="function">
 <dt id="Fusion360Utilities.start_group">
-<code class="sig-prename descclassname">Fusion360Utilities.</code><code class="sig-name descname">start_group</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#Fusion360Utilities.start_group" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">Fusion360Utilities.</code><code class="sig-name descname">start_group</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Fusion360Utilities.start_group" title="Permalink to this definition">¶</a></dt>
 <dd><p>Starts a time line group</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>

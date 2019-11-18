@@ -273,18 +273,12 @@ def combine_feature(target_body: adsk.fusion.BRepBody, tool_bodies: List[adsk.fu
     """Creates Combine Feature in target with all tool bodies as source
 
     Args:
-        target_body (adsk.fusion.BRepBody): Target body for the combine feature
-        tool_bodies: (list of adsk.fusion.BRepBody): A list of tool bodies for the combine
-        operation (adsk.fusion.FeatureOperations): An Enumerator defining the feature operation type
+        target_body: Target body for the combine feature
+        tool_bodies: A list of tool bodies for the combine
+        operation: An Enumerator defining the feature operation type
     """
 
     # Get Combine Features
-    """
-    Args:
-        target_body (adsk.fusion.BRepBody):
-        tool_bodies:
-        operation (adsk.fusion.FeatureOperations):
-    """
     combine_features = target_body.parentComponent.features.combineFeatures
 
     # Define a collection and add all tool bodies to it
@@ -412,12 +406,15 @@ def get_a_uuid():
     return r_uuid
 
 
-def item_id(item, app_name):
+def item_id(item: adsk.core.Base, app_name: str) -> str:
     """Gets (and possibly assigns) a unique identifier (UUID) to any item in Fusion 360
 
     Args:
         item: Any Fusion Object that supports attributes
-        app_name (str): Name of the Application
+        app_name: Name of the Application
+
+    Returns:
+        The id that was generated or was previously existing
     """
     this_id = None
     if item.attributes is not None:
@@ -431,12 +428,16 @@ def item_id(item, app_name):
     return this_id
 
 
-def get_item_by_id(this_id, app_name):
-    """Returns an item based on the assigned ID set with item_id()
+def get_item_by_id(this_id: str, app_name: str) -> adsk.core.Base:
+    """Returns an item based on the assigned ID set with :func:`item_id <item_id>`
 
     Args:
-        this_id(str): The unique id generated originally by calling item_id()
-        app_name (str): Name of the Application
+        this_id: The unique id generated originally by calling item_id()
+        
+        app_name: Name of the Application
+        
+    Returns:
+        The Fusion 360 object that the id attribute was attached to.
     """
     ao = AppObjects()
     attributes = ao.design.findAttributes(app_name, "id")

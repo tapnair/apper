@@ -30,16 +30,12 @@ apper.Fusion360CommandBase module
 
 .. autoclass:: Fusion360CommandBase
    :members:
-   :undoc-members:
-   :show-inheritance:
 
 apper.PaletteCommandBase module
 -------------------------------
 
 .. autoclass:: PaletteCommandBase
    :members:
-   :undoc-members:
-   :show-inheritance:
 
 
 Other Modules
@@ -50,13 +46,9 @@ apper.Fusion360DebugUtilities module
 
 .. automodule:: Fusion360DebugUtilities
    :members:
-   :undoc-members:
-   :show-inheritance:
 
 apper.Fusion360Utilities module
 -------------------------------
 
 .. automodule:: Fusion360Utilities
    :members:
-   :undoc-members:
-   :show-inheritance:
