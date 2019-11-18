@@ -14,10 +14,16 @@ import os
 import sys
 import sphinx_rtd_theme
 
+# Local Build
 sys.path.insert(0, os.path.abspath('/Users/rainsbp/Dropbox/n3rdlab/OpenSource/apper'))
 sys.path.insert(0, os.path.abspath('/Users/rainsbp/Dropbox/n3rdlab/OpenSource/apper/apper'))
 sys.path.insert(0, os.path.abspath(
     '/Users/rainsbp/Library/Application Support/Autodesk/Autodesk Fusion 360/API/Python/defs'))
+
+# Server Build
+sys.path.insert(0, os.path.abspath('../..'))
+sys.path.insert(0, os.path.abspath('../../apper'))
+sys.path.insert(0, os.path.abspath('./modules'))
 
 # -- Project information -----------------------------------------------------
 
@@ -35,8 +41,7 @@ release = '.1'
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
-    'sphinx_rtd_theme',
-    'sphinxcontrib.napoleon'
+    'sphinx_rtd_theme'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -58,3 +63,6 @@ html_theme = 'sphinx_rtd_theme'
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
+
+
+master_doc = 'index'

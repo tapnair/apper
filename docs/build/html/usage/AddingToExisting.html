@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Adding apper to an existing project &mdash; apper .1 documentation</title>
+  <title>Existing Projects &mdash; apper .1 documentation</title>
   
 
   
@@ -36,7 +36,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Advanced" href="advanced.html" />
-    <link rel="prev" title="Setup" href="setup.html" /> 
+    <link rel="prev" title="Getting Started" href="setup.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -82,8 +82,13 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Intro</a></li>
-<li class="toctree-l1"><a class="reference internal" href="setup.html">Setup</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Adding apper to an existing project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Existing Projects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#adding-a-git-submodule">Adding a Git Submodule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#status-of-a-git-submodule">Status of a Git Submodule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#update-a-git-submodule">Update a Git Submodule</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced</a></li>
 </ul>
 <ul>
@@ -133,7 +138,7 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>Adding apper to an existing project</li>
+      <li>Existing Projects</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -152,8 +157,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="adding-apper-to-an-existing-project">
-<h1>Adding apper to an existing project<a class="headerlink" href="#adding-apper-to-an-existing-project" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="existing-projects">
+<h1>Existing Projects<a class="headerlink" href="#existing-projects" title="Permalink to this headline">¶</a></h1>
+<p>Adding apper to an existing project is not too difficult</p>
+<div class="section" id="adding-a-git-submodule">
+<h2>Adding a Git Submodule<a class="headerlink" href="#adding-a-git-submodule" title="Permalink to this headline">¶</a></h2>
 <p>The best way to leverage apper in your addin project is to use <a class="reference external" href="https://git-scm.com/book/en/v2/Git-Tools-Submodules">Git Submodules</a></p>
 <p>This way you can easily update to the latest version of apper
 if it is enhanced</p>
@@ -175,11 +183,18 @@ if it is enhanced</p>
 <span class="go">Unpacking objects: 100% (31/31), done.</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="status-of-a-git-submodule">
+<h2>Status of a Git Submodule<a class="headerlink" href="#status-of-a-git-submodule" title="Permalink to this headline">¶</a></h2>
 <p>To check the status of apper from the project root directory:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">git</span> <span class="n">submodule</span> <span class="n">status</span>
 <span class="go">+e951ad1030b6ed8fb60db3bac7e1098d64289833 apper (remotes/origin/HEAD)</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="update-a-git-submodule">
+<h2>Update a Git Submodule<a class="headerlink" href="#update-a-git-submodule" title="Permalink to this headline">¶</a></h2>
+<p>As apper continues to be developed, the advantage of submodules is that you can always simply and easily updated the apper framework inside of your addin.</p>
 <p>To update apper from the project root directory:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">git</span> <span class="n">submodule</span> <span class="n">update</span> <span class="o">--</span><span class="n">remote</span>
 <span class="go">remote: Enumerating objects: 6, done.</span>
@@ -191,6 +206,7 @@ if it is enhanced</p>
 <span class="go">   5035ffb..e951ad1  master     -&gt; origin/master</span>
 <span class="go">Submodule path &#39;apper&#39;: checked out &#39;e951ad1030b6ed8fb60db3bac7e1098d64289833&#39;</span>
 </pre></div>
+</div>
 </div>
 </div>
 
@@ -205,7 +221,7 @@ if it is enhanced</p>
         <a href="advanced.html" class="btn btn-neutral float-right" title="Advanced" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="setup.html" class="btn btn-neutral float-left" title="Setup" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="setup.html" class="btn btn-neutral float-left" title="Getting Started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

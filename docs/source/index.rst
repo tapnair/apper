@@ -6,14 +6,16 @@
 Welcome to apper's documentation!
 =================================
 
-lorem
+Apper is a framework to simplify the creation of Fusion 360 Addin.
+
+There are many tasks and to launch and clean up a standard Fusion 360 add-in.  This project aims to simplify that process and help you get started as quickly as possible.
+
+It also includes a number of resources to simplify and speed up the process of creating Fusion 360 add-ins.
 
 The User Guide
 --------------
 
-This part of the documentation, which is mostly prose, begins with some
-background information about Requests, then focuses on step-by-step
-instructions for getting the most out of Requests.
+This part of the documentation, will give you a quick introduction to the project and help get you started creating your first addin.
 
 .. toctree::
    :maxdepth: 2
@@ -27,7 +29,7 @@ instructions for getting the most out of Requests.
 The API Documentation / Guide
 -----------------------------
 
-If you are looking for information on a specific function, class, or method,
+If you are looking for information on a specific function, class, or event,
 this part of the documentation is for you.
 
 .. toctree::
