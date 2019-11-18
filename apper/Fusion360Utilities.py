@@ -130,7 +130,9 @@ def import_dxf(dxf_file, component, plane) -> adsk.fusion.Sketches:
     :rtype: adsk.core.ObjectCollection
 
     """
-    import_manager = get_app_objects()['import_manager']
+
+    ao = AppObjects()
+    import_manager = ao.import_manager
     dxf_options = import_manager.createDXF2DImportOptions(dxf_file, plane)
     import_manager.importToTarget(dxf_options, component)
     sketches = dxf_options.results

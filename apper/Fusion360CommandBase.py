@@ -41,6 +41,7 @@ class Fusion360CommandBase:
         self.workspace = options.get('workspace', 'FusionSolidEnvironment')
         self.toolbar_panel_id = options.get('toolbar_panel_id', 'SolidScriptsAddinsPanel')
         self.toolbar_tab_id = options.get('toolbar_tab_id', 'ToolsTab')
+        self.toolbar_tab_name = options.get('toolbar_tab_name', 'ToolsTab')
         self.custom_tab = False
 
         self.add_to_drop_down = options.get('add_to_drop_down', False)
@@ -218,7 +219,7 @@ class Fusion360CommandBase:
                 all_toolbar_tabs = this_workspace.toolbarTabs
                 toolbar_tab = all_toolbar_tabs.itemById(self.toolbar_tab_id)
                 if toolbar_tab is None:
-                    toolbar_tab = all_toolbar_tabs.add(self.toolbar_tab_id, self.toolbar_tab_id)
+                    toolbar_tab = all_toolbar_tabs.add(self.toolbar_tab_id, self.toolbar_tab_name)
                     toolbar_tab.activate()
                     self.fusion_app.tabs.append(toolbar_tab)
 
@@ -279,20 +280,26 @@ class Fusion360CommandBase:
         ui = app.userInterface
 
         try:
-            parent = self.control.parent
+            parent = None
+            try:
+                parent = self.control.parent
+            except:
+                pass
+
             _destroy_object(self.control)
             _destroy_object(self.command_definition)
 
-            if parent.objectType == adsk.core.DropDownControl.classType():
-                if parent.controls.count == 0:
-                    drop_control = parent
-                    parent = drop_control.parent
-                    drop_control.deleteMe()
+            if parent is not None:
+                if parent.objectType == adsk.core.DropDownControl.classType():
+                    if parent.controls.count == 0:
+                        drop_control = parent
+                        parent = drop_control.parent
+                        drop_control.deleteMe()
 
-            if parent.objectType == adsk.core.ToolbarPanel.classType():
-                if parent.controls.count == 0:
-                    if parent.isValid:
-                        parent.deleteMe()
+                if parent.objectType == adsk.core.ToolbarPanel.classType():
+                    if parent.controls.count == 0:
+                        if parent.isValid:
+                            parent.deleteMe()
 
         except:
             if ui:

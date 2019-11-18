@@ -32,7 +32,7 @@ class FusionApp:
         self.workspace_events = []
         self.tabs = []
         self.default_dir = self._get_default_dir()
-        self.preferences = self.get_preferences()
+        self.preferences = self.get_all_preferences()
         self.root_path = Path(__file__).parent.parent.parent
         self.command_dict = {}
 
@@ -56,21 +56,38 @@ class FusionApp:
             options['app_name'] = self.name
             options['fusion_app'] = self
             options['debug'] = self.debug
-            tab_name = options.get('toolbar_tab_id')
+
+            tab_id = options.get('toolbar_tab_id')
+            tab_name = options.get('toolbar_tab_name')
+
             if tab_name is None:
+                options['toolbar_tab_name'] = self.name
+
+            if tab_id is None:
                 options['toolbar_tab_id'] = self.name
+
             _workspace = options.get('workspace')
 
             if isinstance(_workspace, str):
+                _this_tab_id = options['toolbar_tab_id'] + '_' + _workspace
+                options['toolbar_tab_id'] = _this_tab_id
+
                 command = command_class(name, options)
+
                 self.commands.append(command)
                 self.command_dict[base_cmd_id] = new_id
 
             elif all(isinstance(item, str) for item in _workspace):
                 for workspace in _workspace:
+
                     options['workspace'] = workspace
+
                     _this_id = new_id + '_' + workspace
                     options['cmd_id'] = _this_id
+
+                    _this_tab_id = options['toolbar_tab_id'] + '_' + workspace
+                    options['toolbar_tab_id'] = _this_tab_id
+
                     command = command_class(name, options)
                     self.commands.append(command)
                     self.command_dict[base_cmd_id] = _this_id
@@ -178,28 +195,63 @@ class FusionApp:
 
         return default_dir
 
-    def get_preferences(self):
+    def get_all_preferences(self):
+        """Gets preferences for a particular group (typically a given command)"""
+
         file_name = os.path.join(self.default_dir, ".preferences.json")
 
         if os.path.exists(file_name):
             with open(file_name) as f:
                 try:
-                    preferences = json.load(f)
+                    all_preferences = json.load(f)
                 except:
-                    preferences = {}
+                    all_preferences = {}
         else:
-            preferences = {}
+            all_preferences = {}
 
-        return preferences
+        return all_preferences
 
-    def save_preferences(self, preferences):
+    def get_group_preferences(self, group_name):
+        """Gets preferences for a particular group (typically a given command)
 
+                Args:
+                    group_name (str): name of parent group in which to store preferences
         """
+
+        all_preferences = self.get_all_preferences()
+
+        group_preferences = all_preferences.get(group_name, {})
+
+        return group_preferences
+
+    def save_preferences(self, group_name, new_group_preferences, merge):
+        """Saves preferences for the application
+
         Args:
-            preferences:
+            group_name (str): name of parent group in which to store preferences
+            new_group_preferences (dict): Dictionary of preferences to save
+            merge (bool): If True then the new preferences in the group will be merged, if False all old values are deleted
         """
-        preferences_text = json.dumps(preferences)
+
+        all_preferences = self.get_all_preferences()
+
+        old_group_preferences = all_preferences.get(group_name, None)
+
+        if old_group_preferences is not None:
+            result = "Updated"
+        else:
+            result = "Created"
+
+        if merge:
+            old_group_preferences.update(new_group_preferences)
+            all_preferences[group_name] = old_group_preferences
+        else:
+            all_preferences[group_name] = new_group_preferences
+
+        preferences_text = json.dumps(all_preferences)
 
         file_name = os.path.join(self.default_dir, ".preferences.json")
         with open(file_name, "w") as f:
             f.write(preferences_text)
+
+        return result
