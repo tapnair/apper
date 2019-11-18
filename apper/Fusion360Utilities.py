@@ -279,6 +279,12 @@ def combine_feature(target_body: adsk.fusion.BRepBody, tool_bodies: List[adsk.fu
     """
 
     # Get Combine Features
+    """
+    Args:
+        target_body (adsk.fusion.BRepBody):
+        tool_bodies:
+        operation (adsk.fusion.FeatureOperations):
+    """
     combine_features = target_body.parentComponent.features.combineFeatures
 
     # Define a collection and add all tool bodies to it
