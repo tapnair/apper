@@ -24,6 +24,10 @@ This part of the documentation, will give you a quick introduction to the projec
    usage/installation
    usage/existing
    usage/advanced
+   usage/options
+   sample/intro
+   sample/commands
+   sample/events
 
 
 The API Documentation / Guide

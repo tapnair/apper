@@ -35,7 +35,7 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Existing Projects" href="AddingToExisting.html" />
+    <link rel="next" title="Existing Projects" href="existing.html" />
     <link rel="prev" title="Intro" href="intro.html" /> 
 </head>
 
@@ -102,7 +102,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="AddingToExisting.html">Existing Projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="existing.html">Existing Projects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced</a></li>
 </ul>
 <ul>
@@ -224,11 +224,11 @@
 <p><a class="reference external" href="https://git-scm.com/book/en/v2/Git-Tools-Submodules">cookiecutter</a> creates projects from project templates and is an amazing resource</p>
 <p>For more detailed installation instructions see their <a class="reference external" href="https://cookiecutter.readthedocs.io/en/latest/installation.html">documentation</a></p>
 <p>First install cookie cutter into your local python environment</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ pip install cookiecutter
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install cookiecutter
 </pre></div>
 </div>
 <p>Or potentially if you have a separate python 3 installation you may need to use:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ pip3 install cookiecutter
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip3 install cookiecutter
 </pre></div>
 </div>
 </div>
@@ -239,19 +239,19 @@
 <h3>Navigate to the Fusion 360 Addins directory<a class="headerlink" href="#navigate-to-the-fusion-360-addins-directory" title="Permalink to this headline">¶</a></h3>
 <p>Putting your addin in the following directory will allow Fusion 360 to automatically recognize it</p>
 <p><strong>Mac:</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~
-$ <span class="nb">cd</span> /Library/Application Support/Autodesk/Autodesk<span class="se">\ </span>Fusion<span class="se">\ </span><span class="m">360</span>/API/AddIns/
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~
+<span class="nb">cd</span> /Library/Application Support/Autodesk/Autodesk<span class="se">\ </span>Fusion<span class="se">\ </span><span class="m">360</span>/API/AddIns/
 </pre></div>
 </div>
 <p><strong>Windows:</strong></p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span>  C:<span class="se">\U</span>sers<span class="se">\Y</span>OUR_USER_NAME<span class="se">\A</span>ppData<span class="se">\R</span>oaming<span class="se">\A</span>utodesk<span class="se">\A</span>utodesk Fusion <span class="m">360</span><span class="se">\A</span>PI<span class="se">\A</span>ddIns
+<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span><span class="k">cd</span>  C:\Users\<span class="nv">%YOUR_USER_NAME%</span>\AppData\Roaming\Autodesk\Autodesk Fusion 360\API\AddIns
 </pre></div>
 </div>
 </div>
 <div class="section" id="run-the-cookiecutter-template">
 <h3>Run the cookiecutter template<a class="headerlink" href="#run-the-cookiecutter-template" title="Permalink to this headline">¶</a></h3>
 <p>This will create your add-in directory.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ cookiecutter https://github.com/tapnair/cookiecutter-fusion360-addin.git
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cookiecutter https://github.com/tapnair/cookiecutter-fusion360-addin.git
 </pre></div>
 </div>
 </div>
@@ -272,7 +272,7 @@ $ <span class="nb">cd</span> /Library/Application Support/Autodesk/Autodesk<span
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="AddingToExisting.html" class="btn btn-neutral float-right" title="Existing Projects" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="existing.html" class="btn btn-neutral float-right" title="Existing Projects" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="intro.html" class="btn btn-neutral float-left" title="Intro" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

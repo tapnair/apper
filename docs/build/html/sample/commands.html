@@ -1,0 +1,335 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Commands &mdash; apper .1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Events" href="events.html" />
+    <link rel="prev" title="Sample Intro" href="intro.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> apper
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../usage/intro.html">Intro</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage/existing.html">Existing Projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage/advanced.html">Advanced</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage/options.html">Command Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Sample Intro</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Commands</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#app-structure">App Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#imports">Imports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-the-app">Create the App</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#standard-commands">Standard Commands</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#command-definition">Command Definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#command-class">Command Class</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="events.html">Events</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../apper.html">Developer Interface</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">apper</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Commands</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/sample/commands.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="commands">
+<h1>Commands<a class="headerlink" href="#commands" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="app-structure">
+<h2>App Structure<a class="headerlink" href="#app-structure" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>ApperSample
+├── apper
+│   └── ...
+├── commands
+│   ├── SampleCommand1.py
+│   ├── SampleCommand2.py
+│   ├── SamplePaletteCommand.py
+│   ├── SampleCustomEvent.py
+│   ├── SampleDocumentEvent.py
+│   ├── SampleWorkspaceEvent.py
+│   └── resources
+│       ├── command_icons
+│       │   └── ...
+│       └── palette_icons
+│           └── ...
+├── ApperSample.py
+├── ApperSample.manifest
+├── LICENCE.txt
+├── README.md
+└── LICENCE.txt
+</pre></div>
+</div>
+</div>
+<div class="section" id="imports">
+<h2>Imports<a class="headerlink" href="#imports" title="Permalink to this headline">¶</a></h2>
+<p>In this sample the commands and events are defined in a number of files that need to be imported.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">traceback</span>
+
+<span class="kn">import</span> <span class="nn">adsk.core</span>
+<span class="kn">from</span> <span class="nn">.apper</span> <span class="k">import</span> <span class="n">apper</span>
+
+<span class="c1"># Basic Fusion 360 Command Base samples</span>
+<span class="kn">from</span> <span class="nn">.commands.SampleCommand1</span> <span class="k">import</span> <span class="n">SampleCommand1</span>
+<span class="kn">from</span> <span class="nn">.commands.SampleCommand2</span> <span class="k">import</span> <span class="n">SampleCommand2</span>
+
+<span class="c1"># Palette Command Base samples</span>
+<span class="kn">from</span> <span class="nn">.commands.SamplePaletteCommand</span> <span class="k">import</span> <span class="n">SamplePaletteSendCommand</span><span class="p">,</span> <span class="n">SamplePaletteShowCommand</span>
+
+<span class="c1"># Various Application event samples</span>
+<span class="kn">from</span> <span class="nn">.commands.SampleCustomEvent</span> <span class="k">import</span> <span class="n">SampleCustomEvent1</span>
+<span class="kn">from</span> <span class="nn">.commands.SampleDocumentEvents</span> <span class="k">import</span> <span class="n">SampleDocumentEvent1</span><span class="p">,</span> <span class="n">SampleDocumentEvent2</span>
+<span class="kn">from</span> <span class="nn">.commands.SampleWorkspaceEvents</span> <span class="k">import</span> <span class="n">SampleWorkspaceEvent1</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="create-the-app">
+<h2>Create the App<a class="headerlink" href="#create-the-app" title="Permalink to this headline">¶</a></h2>
+<p>To create commands in your addin the first step is to create an instance of <a class="reference internal" href="../apper.html#apper.FusionApp" title="apper.FusionApp"><code class="xref py py-class docutils literal notranslate"><span class="pre">FusionApp</span></code></a>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_addin</span> <span class="o">=</span> <span class="n">apper</span><span class="o">.</span><span class="n">FusionApp</span><span class="p">(</span><span class="s1">&#39;ApperSample &#39;</span><span class="p">,</span> <span class="s2">&quot;Autodesk &quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="standard-commands">
+<h2>Standard Commands<a class="headerlink" href="#standard-commands" title="Permalink to this headline">¶</a></h2>
+<p>Commands are created by subclassing <a class="reference internal" href="../apper.html#apper.Fusion360CommandBase" title="apper.Fusion360CommandBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">FusionCommandBase</span></code></a> and overriding their <em>on_xxx</em> methods.</p>
+<p>You add commands to an apper based add-in by calling the <a class="reference internal" href="../apper.html#apper.FusionApp.add_command" title="apper.FusionApp.add_command"><code class="xref py py-func docutils literal notranslate"><span class="pre">add_command</span></code></a> function</p>
+<blockquote>
+<div><dl class="function">
+<dt id="apper.FusionApp.FusionApp.add_command">
+<code class="sig-prename descclassname">apper.FusionApp.FusionApp.</code><code class="sig-name descname">add_command</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">name</em>, <em class="sig-param">command_class</em>, <em class="sig-param">options</em><span class="sig-paren">)</span><a class="headerlink" href="#apper.FusionApp.FusionApp.add_command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a command to the application</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The name of the command</p></li>
+<li><p><strong>command_class</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Fusion360CommandBase</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">PaletteCommandBase</span></code>]) – This should be your subclass of  Fusion360CommandBase or PaletteCommandBase</p></li>
+<li><p><strong>options</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>) – Set of options for the command see the full set of <a class="reference external" href="usage/options">options</a></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div></blockquote>
+<div class="section" id="command-definition">
+<h3>Command Definition<a class="headerlink" href="#command-definition" title="Permalink to this headline">¶</a></h3>
+<p>This is adding the command to a panel called “Commands” on the apps Tab in the solid environment.</p>
+<p><strong>SampleCommand1</strong> is the basic <em>Hello World</em> Fusion 360 command.</p>
+<p>It adds a button to the UI that, when clicked, will display a message box with some text.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_addin</span><span class="o">.</span><span class="n">add_command</span><span class="p">(</span>
+    <span class="s1">&#39;Sample Command 1&#39;</span><span class="p">,</span>
+    <span class="n">SampleCommand1</span><span class="p">,</span>
+    <span class="p">{</span>
+        <span class="s1">&#39;cmd_description&#39;</span><span class="p">:</span> <span class="s1">&#39;Hello World!&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;cmd_id&#39;</span><span class="p">:</span> <span class="s1">&#39;sample_cmd_1&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;workspace&#39;</span><span class="p">:</span> <span class="s1">&#39;FusionSolidEnvironment&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;toolbar_panel_id&#39;</span><span class="p">:</span> <span class="s1">&#39;Commands&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;cmd_resources&#39;</span><span class="p">:</span> <span class="s1">&#39;command_icons&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;command_visible&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s1">&#39;command_promoted&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="usage/options">Learn more about available options by clicking here</a></p>
+</div>
+<div class="section" id="command-class">
+<h3>Command Class<a class="headerlink" href="#command-class" title="Permalink to this headline">¶</a></h3>
+<p>This command class is defined in a separate file called <strong>SampleCommand1.py</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">adsk.core</span>
+<span class="kn">from</span> <span class="nn">..apper</span> <span class="k">import</span> <span class="n">apper</span>
+<span class="kn">from</span> <span class="nn">..apper.apper</span> <span class="k">import</span> <span class="n">AppObjects</span>
+
+
+<span class="k">class</span> <span class="nc">SampleCommand1</span><span class="p">(</span><span class="n">apper</span><span class="o">.</span><span class="n">Fusion360CommandBase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">on_execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">:</span> <span class="n">adsk</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">Command</span><span class="p">,</span> <span class="n">inputs</span><span class="p">:</span> <span class="n">adsk</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">CommandInputs</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">input_values</span><span class="p">):</span>
+        <span class="n">ao</span> <span class="o">=</span> <span class="n">AppObjects</span><span class="p">()</span>
+        <span class="n">ao</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">messageBox</span><span class="p">(</span><span class="s2">&quot;Hello World!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="events.html" class="btn btn-neutral float-right" title="Events" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="intro.html" class="btn btn-neutral float-left" title="Sample Intro" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Patrick Rainsberry
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

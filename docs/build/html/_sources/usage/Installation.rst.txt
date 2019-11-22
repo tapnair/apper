@@ -78,13 +78,13 @@ First install cookie cutter into your local python environment
 
 .. code-block:: bash
 
-    $ pip install cookiecutter
+    pip install cookiecutter
 
 Or potentially if you have a separate python 3 installation you may need to use:
 
 .. code-block:: bash
 
-    $ pip3 install cookiecutter
+    pip3 install cookiecutter
 
 Using the Template
 ------------------
@@ -98,14 +98,14 @@ Putting your addin in the following directory will allow Fusion 360 to automatic
 
 .. code-block:: bash
 
-    $ cd ~
-    $ cd /Library/Application Support/Autodesk/Autodesk\ Fusion\ 360/API/AddIns/
+    cd ~
+    cd /Library/Application Support/Autodesk/Autodesk\ Fusion\ 360/API/AddIns/
 
 **Windows:**
 
-.. code-block:: shell
+.. code-block:: bat
 
-    cd  C:\Users\YOUR_USER_NAME\AppData\Roaming\Autodesk\Autodesk Fusion 360\API\AddIns
+    cd  C:\Users\%YOUR_USER_NAME%\AppData\Roaming\Autodesk\Autodesk Fusion 360\API\AddIns
 
 
 Run the cookiecutter template
@@ -115,7 +115,7 @@ This will create your add-in directory.
 
 .. code-block:: bash
 
-    $ cookiecutter https://github.com/tapnair/cookiecutter-fusion360-addin.git
+    cookiecutter https://github.com/tapnair/cookiecutter-fusion360-addin.git
 
 Open your new add-in
 ^^^^^^^^^^^^^^^^^^^^

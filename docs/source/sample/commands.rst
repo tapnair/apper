@@ -1,0 +1,117 @@
+========
+Commands
+========
+
+App Structure
+-------------
+
+
+::
+
+    ApperSample
+    ├── apper
+    │   └── ...
+    ├── commands
+    │   ├── SampleCommand1.py
+    │   ├── SampleCommand2.py
+    │   ├── SamplePaletteCommand.py
+    │   ├── SampleCustomEvent.py
+    │   ├── SampleDocumentEvent.py
+    │   ├── SampleWorkspaceEvent.py
+    │   └── resources
+    │       ├── command_icons
+    │       │   └── ...
+    │       └── palette_icons
+    │           └── ...
+    ├── ApperSample.py
+    ├── ApperSample.manifest
+    ├── LICENCE.txt
+    └── README.md
+
+Imports
+-------
+
+In this sample the commands and events are defined in a number of files that need to be imported.
+
+.. code-block::
+
+    import traceback
+
+    import adsk.core
+    from .apper import apper
+
+    # Basic Fusion 360 Command Base samples
+    from .commands.SampleCommand1 import SampleCommand1
+    from .commands.SampleCommand2 import SampleCommand2
+
+    # Palette Command Base samples
+    from .commands.SamplePaletteCommand import SamplePaletteSendCommand, SamplePaletteShowCommand
+
+    # Various Application event samples
+    from .commands.SampleCustomEvent import SampleCustomEvent1
+    from .commands.SampleDocumentEvents import SampleDocumentEvent1, SampleDocumentEvent2
+    from .commands.SampleWorkspaceEvents import SampleWorkspaceEvent1
+
+
+Create the App
+--------------
+
+To create commands in your addin the first step is to create an instance of :class:`FusionApp <apper.FusionApp>`.
+
+.. code-block::
+
+    my_addin = apper.FusionApp('ApperSample ', "Autodesk ", False)
+
+Standard Commands
+-----------------
+
+Commands are created by subclassing :class:`FusionCommandBase <apper.Fusion360CommandBase>` and overriding their *on_xxx* methods.
+
+You add commands to an apper based add-in by calling the :func:`add_command <apper.FusionApp.add_command>` function
+
+    .. autofunction:: apper.FusionApp.FusionApp.add_command
+
+Command Definition
+^^^^^^^^^^^^^^^^^^
+
+This is adding the command to a panel called "Commands" on the apps Tab in the solid environment.
+
+**SampleCommand1** is the basic *Hello World* Fusion 360 command.
+
+It adds a button to the UI that, when clicked, will display a message box with some text.
+
+.. code-block::
+
+    my_addin.add_command(
+        'Sample Command 1',
+        SampleCommand1,
+        {
+            'cmd_description': 'Hello World!',
+            'cmd_id': 'sample_cmd_1',
+            'workspace': 'FusionSolidEnvironment',
+            'toolbar_panel_id': 'Commands',
+            'cmd_resources': 'command_icons',
+            'command_visible': True,
+            'command_promoted': True,
+        }
+    )
+
+`Learn more about available options by clicking here <usage/options>`_
+
+Command Class
+^^^^^^^^^^^^^
+
+This command class is defined in a separate file called **SampleCommand1.py**
+
+.. code-block::
+
+    import adsk.core
+    from ..apper import apper
+    from ..apper.apper import AppObjects
+
+
+    class SampleCommand1(apper.Fusion360CommandBase):
+        def on_execute(self, command: adsk.core.Command, inputs: adsk.core.CommandInputs, args, input_values):
+            ao = AppObjects()
+            ao.ui.messageBox("Hello World!")
+

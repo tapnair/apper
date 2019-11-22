@@ -35,7 +35,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Advanced" href="usage/advanced.html" /> 
+    <link rel="prev" title="Events" href="sample/events.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -81,9 +81,13 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="usage/intro.html">Intro</a></li>
-<li class="toctree-l1"><a class="reference internal" href="usage/setup.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="usage/AddingToExisting.html">Existing Projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage/existing.html">Existing Projects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage/advanced.html">Advanced</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage/options.html">Command Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sample/intro.html">Sample Intro</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sample/commands.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sample/events.html">Events</a></li>
 </ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Developer Interface</a><ul>
@@ -182,16 +186,26 @@ They all return an instance of the <a class="reference internal" href="#apper.Fu
 <dl class="class">
 <dt id="apper.FusionApp">
 <em class="property">class </em><code class="sig-prename descclassname">apper.</code><code class="sig-name descname">FusionApp</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">company</em>, <em class="sig-param">debug</em><span class="sig-paren">)</span><a class="headerlink" href="#apper.FusionApp" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
-<dt id="apper.FusionApp.add_command">
-<code class="sig-name descname">add_command</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">command_class</em>, <em class="sig-param">options</em><span class="sig-paren">)</span><a class="headerlink" href="#apper.FusionApp.add_command" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add a command to the application</p>
+<dd><p>Base class for creating a Fusion 360 Add-in</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<em>str</em>) – The name of the command</p></li>
-<li><p><strong>command_class</strong> (<a class="reference internal" href="#apper.Fusion360CommandBase" title="apper.Fusion360CommandBase"><em>Fusion360CommandBase</em></a>) – This should be your subclass of  Fusion360CommandBase or PaletteCommandBase</p></li>
-<li><p><strong>options</strong> (<em>dict</em>) – Set of options for the command</p></li>
+<li><p><strong>name</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The name of the addin</p></li>
+<li><p><strong>company</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – the name of your company or organization</p></li>
+<li><p><strong>debug</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – set this flag as True to enable more interactive feedback when developing.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="apper.FusionApp.add_command">
+<code class="sig-name descname">add_command</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">command_class</em>, <em class="sig-param">options</em><span class="sig-paren">)</span><a class="headerlink" href="#apper.FusionApp.add_command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a command to the application</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The name of the command</p></li>
+<li><p><strong>command_class</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Fusion360CommandBase</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">PaletteCommandBase</span></code>]) – This should be your subclass of  Fusion360CommandBase or PaletteCommandBase</p></li>
+<li><p><strong>options</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>) – Set of options for the command see the full set of <a class="reference external" href="usage/options">options</a></p></li>
 </ul>
 </dd>
 </dl>
@@ -200,11 +214,12 @@ They all return an instance of the <a class="reference internal" href="#apper.Fu
 <dl class="method">
 <dt id="apper.FusionApp.add_custom_event">
 <code class="sig-name descname">add_custom_event</code><span class="sig-paren">(</span><em class="sig-param">event_id</em>, <em class="sig-param">event_class</em><span class="sig-paren">)</span><a class="headerlink" href="#apper.FusionApp.add_custom_event" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Register a custom event to respond to a function running in a new thread</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>event_id</strong> (<em>str</em>) – A unique identifier for the event</p></li>
-<li><p><strong>event_class</strong> (<em>Fusion360CustomThread</em>) – Your subclass of Fusion360CustomThread</p></li>
+<li><p><strong>event_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – A unique identifier for the event</p></li>
+<li><p><strong>event_class</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Fusion360CustomThread</span></code>) – Your subclass of Fusion360CustomThread</p></li>
 </ul>
 </dd>
 </dl>
@@ -217,9 +232,9 @@ They all return an instance of the <a class="reference internal" href="#apper.Fu
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>event_id</strong> (<em>str</em>) – A unique identifier for the event</p></li>
-<li><p><strong>event_type</strong> (<em>adsk.core.DocumentEvent</em>) – Any document event in the current application</p></li>
-<li><p><strong>event_class</strong> (<em>Fusion360DocumentEvent</em>) – Your subclass of Fusion360DocumentEvent</p></li>
+<li><p><strong>event_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – A unique identifier for the event</p></li>
+<li><p><strong>event_type</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">DocumentEvent</span></code>) – Any document event in the current application</p></li>
+<li><p><strong>event_class</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Fusion360DocumentEvent</span></code>) – Your subclass of Fusion360DocumentEvent</p></li>
 </ul>
 </dd>
 </dl>
@@ -228,15 +243,22 @@ They all return an instance of the <a class="reference internal" href="#apper.Fu
 <dl class="method">
 <dt id="apper.FusionApp.add_workspace_event">
 <code class="sig-name descname">add_workspace_event</code><span class="sig-paren">(</span><em class="sig-param">event_id</em>, <em class="sig-param">workspace_name</em>, <em class="sig-param">event_class</em><span class="sig-paren">)</span><a class="headerlink" href="#apper.FusionApp.add_workspace_event" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Register a workspace event that can respond to various workspace actions</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>event_id</strong> (<em>str</em>) – A unique identifier for the event</p></li>
-<li><p><strong>workspace_name</strong> (<em>str</em>) – name of the workspace (i.e.</p></li>
-<li><p><strong>event_class</strong> (<em>Fusion360WorkspaceEvent</em>) – Your subclass of Fusion360WorkspaceEvent</p></li>
+<li><p><strong>event_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – A unique identifier for the event</p></li>
+<li><p><strong>workspace_name</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – name of the workspace (i.e.</p></li>
+<li><p><strong>event_class</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Fusion360WorkspaceEvent</span></code>) – Your subclass of Fusion360WorkspaceEvent</p></li>
 </ul>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="apper.FusionApp.check_for_updates">
+<code class="sig-name descname">check_for_updates</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#apper.FusionApp.check_for_updates" title="Permalink to this definition">¶</a></dt>
+<dd><p>Not Implemented</p>
 </dd></dl>
 
 <dl class="method">
@@ -245,13 +267,13 @@ They all return an instance of the <a class="reference internal" href="#apper.Fu
 <dd><p>Returns the full cmd_id defined by apper</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>name</strong> – this is the value set in options for cmd_id</p>
+<dd class="field-odd"><p><strong>name</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – this is the value set in options for cmd_id</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The full cmd_id (i.e. CompanyName_AppName_cmd_id)</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>str</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The full cmd_id (i.e. CompanyName_AppName_cmd_id)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -259,7 +281,15 @@ They all return an instance of the <a class="reference internal" href="#apper.Fu
 <dl class="method">
 <dt id="apper.FusionApp.get_all_preferences">
 <code class="sig-name descname">get_all_preferences</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#apper.FusionApp.get_all_preferences" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets preferences for a particular group (typically a given command)</p>
+<dd><p>Gets all preferences stored for this application</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>All preferences as a dictionary</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -268,9 +298,21 @@ They all return an instance of the <a class="reference internal" href="#apper.Fu
 <dd><p>Gets preferences for a particular group (typically a given command)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>group_name</strong> (<em>str</em>) – name of parent group in which to store preferences</p>
+<dd class="field-odd"><p><strong>group_name</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – name of parent group in which to store preferences</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A dictionary of just the options associated to this particular group</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="apper.FusionApp.run_app">
+<code class="sig-name descname">run_app</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#apper.FusionApp.run_app" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs the Addin</p>
 </dd></dl>
 
 <dl class="method">
@@ -280,12 +322,18 @@ They all return an instance of the <a class="reference internal" href="#apper.Fu
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>group_name</strong> (<em>str</em>) – name of parent group in which to store preferences</p></li>
-<li><p><strong>new_group_preferences</strong> (<em>dict</em>) – Dictionary of preferences to save</p></li>
-<li><p><strong>merge</strong> (<em>bool</em>) – If True then the new preferences in the group will be merged, if False all old values are deleted</p></li>
+<li><p><strong>group_name</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – name of parent group in which to store preferences</p></li>
+<li><p><strong>new_group_preferences</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>) – Dictionary of preferences to save</p></li>
+<li><p><strong>merge</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – If True then the new preferences in the group will be merged, if False all old values are deleted</p></li>
 </ul>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="apper.FusionApp.stop_app">
+<code class="sig-name descname">stop_app</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#apper.FusionApp.stop_app" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stops the Addin and cleans up all of the created UI elements</p>
 </dd></dl>
 
 </dd></dl>
@@ -769,7 +817,7 @@ Note if your addin is complex it may be useful to only preview a subset of the f
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
       
-        <a href="usage/advanced.html" class="btn btn-neutral float-left" title="Advanced" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="sample/events.html" class="btn btn-neutral float-left" title="Events" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
