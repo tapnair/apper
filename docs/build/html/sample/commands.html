@@ -170,6 +170,8 @@
 <h1>Commands<a class="headerlink" href="#commands" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="app-structure">
 <h2>App Structure<a class="headerlink" href="#app-structure" title="Permalink to this headline">¶</a></h2>
+<p>Once you have executed the cookiecutter template.  You will have the following directory and file structure in your new addin folder.</p>
+<p>When running an addin Fusion 360 expects to see a directory with a .py and .manifest file all with the same name.  This is the minimum requirement for your application to be recognized.  You should see these two files with your app name in the new directory.  The manifest file doesn’t really require much editing.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>ApperSample
 ├── apper
 │   └── ...
@@ -188,14 +190,14 @@
 ├── ApperSample.py
 ├── ApperSample.manifest
 ├── LICENCE.txt
-├── README.md
-└── LICENCE.txt
+└── README.md
 </pre></div>
 </div>
+<p>Your_App.py (ApperSample in this case) is the main entry point to the app.  Here you will define the commands that will be added and where they will be placed in the ui.</p>
 </div>
 <div class="section" id="imports">
 <h2>Imports<a class="headerlink" href="#imports" title="Permalink to this headline">¶</a></h2>
-<p>In this sample the commands and events are defined in a number of files that need to be imported.</p>
+<p>In this sample the commands and events are defined in a number of files that need to be imported.  Typically I create each command in its own file unless there are two commands that will be sharing much of the same logic, but it doesn’t really matter.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">traceback</span>
 
 <span class="kn">import</span> <span class="nn">adsk.core</span>
@@ -268,6 +270,15 @@
 <div class="section" id="command-class">
 <h3>Command Class<a class="headerlink" href="#command-class" title="Permalink to this headline">¶</a></h3>
 <p>This command class is defined in a separate file called <strong>SampleCommand1.py</strong></p>
+<p>You can see we are subclassing the Fusion360CommandBase.  It is not really important to understand the details of this, but if you just follow this format it will be easy to replicate.</p>
+<p>Inside your command class definition you will override one or methods :</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../apper.html#apper.Fusion360CommandBase.on_create" title="apper.Fusion360CommandBase.on_create"><code class="xref py py-func docutils literal notranslate"><span class="pre">on_create</span></code></a></p></li>
+<li><p><a class="reference internal" href="../apper.html#apper.Fusion360CommandBase.on_execute" title="apper.Fusion360CommandBase.on_execute"><code class="xref py py-func docutils literal notranslate"><span class="pre">on_execute</span></code></a></p></li>
+<li><p><a class="reference internal" href="../apper.html#apper.Fusion360CommandBase.on_preview" title="apper.Fusion360CommandBase.on_preview"><code class="xref py py-func docutils literal notranslate"><span class="pre">on_preview</span></code></a></p></li>
+<li><p><a class="reference internal" href="../apper.html#apper.Fusion360CommandBase.on_input_changed" title="apper.Fusion360CommandBase.on_input_changed"><code class="xref py py-func docutils literal notranslate"><span class="pre">on_input_changed</span></code></a></p></li>
+<li><p><a class="reference internal" href="../apper.html#apper.Fusion360CommandBase.on_destroy" title="apper.Fusion360CommandBase.on_destroy"><code class="xref py py-func docutils literal notranslate"><span class="pre">on_destroy</span></code></a></p></li>
+</ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">adsk.core</span>
 <span class="kn">from</span> <span class="nn">..apper</span> <span class="k">import</span> <span class="n">apper</span>
 <span class="kn">from</span> <span class="nn">..apper.apper</span> <span class="k">import</span> <span class="n">AppObjects</span>
