@@ -8,10 +8,6 @@ import sys
 
 
 def _destroy_object(obj_to_be_deleted):
-    """
-    Args:
-        obj_to_be_deleted:
-    """
     app = adsk.core.Application.cast(adsk.core.Application.get())
     ui = app.userInterface
 
@@ -19,16 +15,20 @@ def _destroy_object(obj_to_be_deleted):
         if obj_to_be_deleted.isValid:
             obj_to_be_deleted.deleteMe()
         # else:
-            # ui.messageBox(obj_to_be_deleted.id + 'is not a valid object')
+        # ui.messageBox(obj_to_be_deleted.id + 'is not a valid object')
 
 
 class Fusion360CommandBase:
-    def __init__(self, name, options):
+    def __init__(self, name: str, options: dict):
 
-        """
+        """The Fusion360CommandBase class wraps the common tasks used when creating a Fusion 360 Command.
+
+        To create a new command create a new subclass of  Fusion360CommandBase
+        Then override the methods and add functionality as required
+
         Args:
-            name:
-            options:
+            name: The name of the command
+            options: A dictionary of options for the command placement in the ui.  (TODO - Add docs for this)
         """
         self.app_name = options.get('app_name')
         self.fusion_app = options.get('fusion_app')
@@ -87,51 +87,73 @@ class Fusion360CommandBase:
         # self.fusion_app.appCommands.append(self)
 
     def on_preview(self, command: adsk.core.Command, inputs: adsk.core.CommandInputs, args, input_values):
-        """
+        """Executed when any inputs have changed, will updated the geometry in the graphics window
+
+        Code in this function will cause the graphics to refresh.
+        Note if your addin is complex it may be useful to only preview a subset of the full operations
+
+
         Args:
-            command (adsk.core.Command):
-            inputs (adsk.core.CommandInputs):
+            input_values: Opinionated dictionary of the useful values a user entered.  The key is the command_id.
             args:
-            input_values:
+            command: reference to the command object
+            inputs: quick reference directly to the commandInputs object
         """
         pass
 
-    def on_destroy(self, command: adsk.core.Command, inputs: adsk.core.CommandInputs, reason, input_values):
-        """
+    def on_destroy(self, command: adsk.core.Command, inputs: adsk.core.CommandInputs,
+                   reason: adsk.core.CommandTerminationReason, input_values: dict):
+        """Executed when the command is done.  Sometimes useful to check if a user hit cancel
+
+        You can use this to do any clean up that may otherwise be difficult until after the command has completed
+        Like firing a second command for example
+
         Args:
-            command (adsk.core.Command):
-            inputs (adsk.core.CommandInputs):
-            reason:
-            input_values:
+            command: reference to the command object
+            inputs: quick reference directly to the commandInputs object
+            reason: The reason the command was terminated. Enumerator defined in adsk.core.CommandTerminationReason
+            input_values: Opinionated dictionary of the useful values a user entered.  The key is the command_id.
         """
         pass
 
-    def on_input_changed(self, command: adsk.core.Command, inputs: adsk.core.CommandInputs, changed_input,
-                         input_values):
-        """
+    def on_input_changed(self, command: adsk.core.Command, inputs: adsk.core.CommandInputs,
+                         changed_input: adsk.core.CommandInput, input_values: dict ):
+        """Executed when any inputs have changed.  Useful for updating command UI.
+
+        When a user changes anything in the command dialog this method is executed.
+        Typically used for making changes to the command dialog itself.
+
         Args:
-            command (adsk.core.Command):
-            inputs (adsk.core.CommandInputs):
-            changed_input:
-            input_values:
+            command: reference to the command object
+            inputs: quick reference directly to the commandInputs object
+            changed_input: The specific commandInput that was modified.
+            input_values: Opinionated dictionary of the useful values a user entered.  The key is the command_id.
         """
         pass
 
-    def on_execute(self, command: adsk.core.Command, inputs: adsk.core.CommandInputs, args, input_values):
-        """
+    def on_execute(self, command: adsk.core.Command, inputs: adsk.core.CommandInputs,
+                   args: adsk.core.CommandEventArgs, input_values: dict):
+        """Will be executed when user selects OK in command dialog.
+
+
         Args:
-            command (adsk.core.Command):
-            inputs (adsk.core.CommandInputs):
-            args:
-            input_values:
+            command: reference to the command object
+            inputs: quick reference directly to the commandInputs object
+            args: All of the args associated with the CommandEvent
+            input_values: Opinionated dictionary of the useful values a user entered.  The key is the command_id.
         """
         pass
 
     def on_create(self, command: adsk.core.Command, inputs: adsk.core.CommandInputs):
-        """
+        """Build your UI components here
+
+        When the user clicks the command icon in the Fusion ui (command control) this function will be executed
+        By referencing the inputs object you can easily add dialog box elements to your command
+        Sometimes you may want to read some data or analyze the model BEFORE creating the dialog box
+
         Args:
-            command (adsk.core.Command):
-            inputs (adsk.core.CommandInputs):
+            command: reference to the command object
+            inputs: quick reference directly to the commandInputs object
         """
         pass
 
@@ -140,7 +162,7 @@ class Fusion360CommandBase:
         return CommandCreatedEventHandler(self)
 
     # Returns a dictionary for all inputs. Very useful for creating quick Fusion 360 Add-ins
-    def get_inputs(self):
+    def _get_inputs(self):
         value_types = [adsk.core.BoolValueCommandInput.classType(), adsk.core.DistanceValueCommandInput.classType(),
                        adsk.core.FloatSliderCommandInput.classType(), adsk.core.FloatSpinnerCommandInput.classType(),
                        adsk.core.IntegerSliderCommandInput.classType(),
@@ -313,18 +335,10 @@ class Fusion360CommandBase:
 
 class PreviewHandler(adsk.core.CommandEventHandler):
     def __init__(self, cmd_object):
-        """
-        Args:
-            cmd_object:
-        """
         super().__init__()
         self.cmd_object_ = cmd_object
 
     def notify(self, args):
-        """
-        Args:
-            args:
-        """
         app = adsk.core.Application.cast(adsk.core.Application.get())
         ui = app.userInterface
 
@@ -336,7 +350,7 @@ class PreviewHandler(adsk.core.CommandEventHandler):
             if self.cmd_object_.debug:
                 ui.messageBox('***Debug *** Preview: {} execute preview event triggered'.
                               format(self.cmd_object.command.parentCommandDefinition.id))
-            input_values = self.cmd_object_.get_inputs()
+            input_values = self.cmd_object_._get_inputs()
             self.cmd_object_.on_preview(command_, command_inputs, args, input_values)
 
         except:
@@ -346,18 +360,10 @@ class PreviewHandler(adsk.core.CommandEventHandler):
 
 class DestroyHandler(adsk.core.CommandEventHandler):
     def __init__(self, cmd_object):
-        """
-        Args:
-            cmd_object:
-        """
         super().__init__()
         self.cmd_object_ = cmd_object
 
     def notify(self, args):
-        """
-        Args:
-            args:
-        """
         app = adsk.core.Application.cast(adsk.core.Application.get())
         ui = app.userInterface
 
@@ -373,7 +379,7 @@ class DestroyHandler(adsk.core.CommandEventHandler):
                     )
                 )
                 ui.messageBox("***Debug ***Reason for termination= " + str(args.terminationReason))
-            input_values = self.cmd_object_.get_inputs()
+            input_values = self.cmd_object_._get_inputs()
             self.cmd_object_.on_destroy(command_, command_inputs, reason_, input_values)
 
         except:
@@ -383,18 +389,10 @@ class DestroyHandler(adsk.core.CommandEventHandler):
 
 class InputChangedHandler(adsk.core.InputChangedEventHandler):
     def __init__(self, cmd_object):
-        """
-        Args:
-            cmd_object:
-        """
         super().__init__()
         self.cmd_object_ = cmd_object
 
     def notify(self, args):
-        """
-        Args:
-            args:
-        """
         app = adsk.core.Application.cast(adsk.core.Application.get())
         ui = app.userInterface
 
@@ -413,7 +411,7 @@ class InputChangedHandler(adsk.core.InputChangedEventHandler):
                     '***Debug The Input: {} was the command'.format(self.cmd_object.changed_input.id)
                 )
 
-            input_values = self.cmd_object_.get_inputs()
+            input_values = self.cmd_object_._get_inputs()
 
             self.cmd_object_.on_input_changed(command_, command_inputs, changed_input, input_values)
 
@@ -424,18 +422,10 @@ class InputChangedHandler(adsk.core.InputChangedEventHandler):
 
 class CommandExecuteHandler(adsk.core.CommandEventHandler):
     def __init__(self, cmd_object):
-        """
-        Args:
-            cmd_object:
-        """
         super().__init__()
         self.cmd_object_ = cmd_object
 
     def notify(self, args):
-        """
-        Args:
-            args:
-        """
         app = adsk.core.Application.cast(adsk.core.Application.get())
         ui = app.userInterface
         try:
@@ -448,7 +438,7 @@ class CommandExecuteHandler(adsk.core.CommandEventHandler):
                         self.cmd_object.command.parentCommandDefinition.id
                     )
                 )
-            input_values = self.cmd_object_.get_inputs()
+            input_values = self.cmd_object_._get_inputs()
 
             self.cmd_object_.on_execute(command_, command_inputs, args, input_values)
 
@@ -459,18 +449,10 @@ class CommandExecuteHandler(adsk.core.CommandEventHandler):
 
 class CommandCreatedEventHandler(adsk.core.CommandCreatedEventHandler):
     def __init__(self, cmd_object):
-        """
-        Args:
-            cmd_object:
-        """
         super().__init__()
         self.cmd_object_ = cmd_object
 
     def notify(self, args):
-        """
-        Args:
-            args:
-        """
         app = adsk.core.Application.cast(adsk.core.Application.get())
         ui = app.userInterface
 

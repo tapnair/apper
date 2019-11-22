@@ -15,15 +15,19 @@ It also includes a number of resources to simplify and speed up the process of c
 The User Guide
 --------------
 
-This part of the documentation, will give you a quick introduction to the project and help get you started creating your first addin.
+This part of the documentation, will give you a quick introduction to the project and help get you started creating your first add-in.
 
 .. toctree::
    :maxdepth: 2
 
    usage/intro
-   usage/setup
-   usage/AddingToExisting
+   usage/installation
+   usage/existing
    usage/advanced
+   usage/options
+   sample/intro
+   sample/commands
+   sample/events
 
 
 The API Documentation / Guide

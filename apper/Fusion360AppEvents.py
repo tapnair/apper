@@ -120,7 +120,7 @@ class FusionThread(threading.Thread):
 
 # The class for the new thread.
 class Fusion360DocumentEvent:
-    def __init__(self, event_id, event_type):
+    def __init__(self, event_id: str, event_type):
         """
         Args:
             event_id:

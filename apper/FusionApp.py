@@ -12,17 +12,23 @@ import os
 from os.path import expanduser
 from pathlib import Path
 
+from typing import Optional, List, Union
+
+from .Fusion360CommandBase import Fusion360CommandBase
+from .PaletteCommandBase import PaletteCommandBase
+from .Fusion360AppEvents import Fusion360DocumentEvent, Fusion360CustomThread, Fusion360WorkspaceEvent
+
 
 class FusionApp:
-    def __init__(self, name, company, debug):
-        """
-        Base class for creating a Fusion 360 Add-in
+    """Base class for creating a Fusion 360 Add-in
 
-        Args:
-            name:
-            company:
-            debug:
-        """
+    Args:
+        name: The name of the addin
+        company: the name of your company or organization
+        debug: set this flag as True to enable more interactive feedback when developing.
+    """
+
+    def __init__(self, name: str, company: str, debug: bool):
         self.name = name
         self.company = company
         self.debug = debug
@@ -36,14 +42,18 @@ class FusionApp:
         self.root_path = Path(__file__).parent.parent.parent
         self.command_dict = {}
 
-    def add_command(self, name, command_class, options):
-        """
-        Add a command to the application
+    def add_command(
+            self,
+            name: str,
+            command_class: Union[Fusion360CommandBase, PaletteCommandBase],
+            options: dict
+    ):
+        """Adds a command to the application
 
         Args:
-            name (str): The name of the command
-            command_class (Fusion360CommandBase): This should be your subclass of  Fusion360CommandBase or PaletteCommandBase
-            options (dict): Set of options for the command
+            name: The name of the command
+            command_class: This should be your subclass of  Fusion360CommandBase or PaletteCommandBase
+            options: Set of options for the command see the full set of `options <usage/options>`_
         """
         app = adsk.core.Application.cast(adsk.core.Application.get())
         ui = app.userInterface
@@ -79,7 +89,6 @@ class FusionApp:
 
             elif all(isinstance(item, str) for item in _workspace):
                 for workspace in _workspace:
-
                     options['workspace'] = workspace
 
                     _this_id = new_id + '_' + workspace
@@ -98,57 +107,66 @@ class FusionApp:
             if ui:
                 ui.messageBox('Apper Add Command failed: {}'.format(traceback.format_exc()))
 
-    def command_id_from_name(self, name):
-        """
-        Returns the full cmd_id defined by apper
+    def command_id_from_name(self, name: str) -> str:
+        """Returns the full cmd_id defined by apper
 
         Args:
             name: this is the value set in options for cmd_id
 
         Returns:
-            str: The full cmd_id (i.e. CompanyName_AppName_cmd_id)
+            The full cmd_id (i.e. CompanyName_AppName_cmd_id)
         """
         cmd_id = self.command_dict.get(name)
         return cmd_id
 
-    def add_document_event(self, event_id, event_type, event_class):
-        """
-        Register a document event that can respond to various document actions
+    def add_document_event(
+            self,
+            event_id: str,
+            event_type: adsk.core.DocumentEvent,
+            event_class: Fusion360DocumentEvent
+    ):
+        """Register a document event that can respond to various document actions
 
         Args:
-            event_id (str): A unique identifier for the event
-            event_type (adsk.core.DocumentEvent): Any document event in the current application
-            event_class (Fusion360DocumentEvent): Your subclass of Fusion360DocumentEvent
+            event_id: A unique identifier for the event
+            event_type: Any document event in the current application
+            event_class: Your subclass of Fusion360DocumentEvent
         """
         doc_event = event_class(event_id, event_type)
         doc_event.fusion_app = self
         self.document_events.append(doc_event)
 
-    def add_custom_event(self, event_id, event_class):
-        """
+    def add_custom_event(self, event_id: str, event_class: Fusion360CustomThread):
+        """Register a custom event to respond to a function running in a new thread
+
         Args:
-            event_id (str): A unique identifier for the event
-            event_class (Fusion360CustomThread): Your subclass of Fusion360CustomThread
+            event_id: A unique identifier for the event
+            event_class: Your subclass of Fusion360CustomThread
         """
+
         custom_event = event_class(event_id)
         custom_event.fusion_app = self
         self.custom_events.append(custom_event)
 
-    def add_workspace_event(self, event_id, workspace_name, event_class):
-        """
+    def add_workspace_event(self, event_id: str, workspace_name: str, event_class: Fusion360WorkspaceEvent):
+        """Register a workspace event that can respond to various workspace actions
+
         Args:
-            event_id (str): A unique identifier for the event
-            workspace_name (str): name of the workspace (i.e.
-            event_class (Fusion360WorkspaceEvent): Your subclass of Fusion360WorkspaceEvent
+            event_id: A unique identifier for the event
+            workspace_name: name of the workspace (i.e.
+            event_class: Your subclass of Fusion360WorkspaceEvent
         """
         workspace_event = event_class(event_id, workspace_name)
         workspace_event.fusion_app = self
         self.workspace_events.append(workspace_event)
 
     def check_for_updates(self):
+        """Not Implemented"""
         pass
 
     def run_app(self):
+        """Runs the Addin"""
+
         app = adsk.core.Application.cast(adsk.core.Application.get())
         ui = app.userInterface
         try:
@@ -159,6 +177,8 @@ class FusionApp:
                 ui.messageBox('Running App failed: {}'.format(traceback.format_exc()))
 
     def stop_app(self):
+        """Stops the Addin and cleans up all of the created UI elements"""
+
         app = adsk.core.Application.cast(adsk.core.Application.get())
         ui = app.userInterface
 
@@ -195,8 +215,12 @@ class FusionApp:
 
         return default_dir
 
-    def get_all_preferences(self):
-        """Gets preferences for a particular group (typically a given command)"""
+    def get_all_preferences(self) -> dict:
+        """Gets all preferences stored for this application
+
+        Returns:
+            All preferences as a dictionary
+        """
 
         file_name = os.path.join(self.default_dir, ".preferences.json")
 
@@ -211,11 +235,14 @@ class FusionApp:
 
         return all_preferences
 
-    def get_group_preferences(self, group_name):
+    def get_group_preferences(self, group_name: str) -> dict:
         """Gets preferences for a particular group (typically a given command)
 
-                Args:
-                    group_name (str): name of parent group in which to store preferences
+        Args:
+            group_name: name of parent group in which to store preferences
+
+        Returns:
+            A dictionary of just the options associated to this particular group
         """
 
         all_preferences = self.get_all_preferences()
@@ -224,13 +251,13 @@ class FusionApp:
 
         return group_preferences
 
-    def save_preferences(self, group_name, new_group_preferences, merge):
+    def save_preferences(self, group_name: str, new_group_preferences: dict, merge: bool):
         """Saves preferences for the application
 
         Args:
-            group_name (str): name of parent group in which to store preferences
-            new_group_preferences (dict): Dictionary of preferences to save
-            merge (bool): If True then the new preferences in the group will be merged, if False all old values are deleted
+            group_name: name of parent group in which to store preferences
+            new_group_preferences: Dictionary of preferences to save
+            merge: If True then the new preferences in the group will be merged, if False all old values are deleted
         """
 
         all_preferences = self.get_all_preferences()
