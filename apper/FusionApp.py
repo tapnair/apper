@@ -83,16 +83,16 @@ class FusionApp:
                     options['workspace'] = workspace
 
                     _this_id = new_id + '_' + workspace
-                    options['cmd_id'] = _this_id
+                    options['cmd_ctrl_id'] = _this_id
 
                     _this_tab_id = options['toolbar_tab_id'] + '_' + workspace
                     options['toolbar_tab_id'] = _this_tab_id
 
                     command = command_class(name, options)
                     self.commands.append(command)
-                    self.command_dict[base_cmd_id] = _this_id
+                    self.command_dict[base_cmd_id] = new_id
             else:
-                raise TypeError  # or something along that line
+                raise TypeError  # TODO or something along that line
 
         except:
             if ui:

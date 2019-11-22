@@ -37,7 +37,7 @@ class Fusion360CommandBase:
 
         self.cmd_description = options.get('cmd_description', 'Default Command Description')
         self.cmd_id = options.get('cmd_id', 'default_cmd_id')
-
+        self.cmd_ctrl_id = options.get('cmd_ctrl_id', self.cmd_id)
         self.workspace = options.get('workspace', 'FusionSolidEnvironment')
         self.toolbar_panel_id = options.get('toolbar_panel_id', 'SolidScriptsAddinsPanel')
         self.toolbar_tab_id = options.get('toolbar_tab_id', 'ToolsTab')
@@ -244,11 +244,14 @@ class Fusion360CommandBase:
 
             # Check if control exists (with apper this should never happen)
             self.control = controls.itemById(self.cmd_id)
+
             if self.control is None:
 
                 # Check if control exists (with apper this should never happen)
                 self.command_definition = ui.commandDefinitions.itemById(self.cmd_id)
+
                 if not self.command_definition:
+
                     # Create the command definition
                     self.command_definition = ui.commandDefinitions.addButtonDefinition(
                         self.cmd_id,
@@ -257,18 +260,20 @@ class Fusion360CommandBase:
                         self.cmd_resources
                     )
 
-                # Add command created event handler
-                on_command_created_handler = self._get_create_event()
-                self.command_definition.commandCreated.add(on_command_created_handler)
-                self.handlers.append(on_command_created_handler)
+                    # Add command created event handler
+                    on_command_created_handler = self._get_create_event()
+                    self.command_definition.commandCreated.add(on_command_created_handler)
+                    self.handlers.append(on_command_created_handler)
 
                 # Create the new control
                 self.control = controls.addCommand(self.command_definition)
 
-                # Set options for control
-                self.control.isVisible = self.command_visible
-                self.control.isEnabled = self.command_enabled
-                self.control.isPromoted = self.command_promoted
+            # Set options for control
+            self.control.isVisible = self.command_visible
+            self.control.isPromoted = self.command_promoted
+
+            # TODO this is broken for some reason.  No access to ui in the run method?
+            self.command_definition.controlDefinition.isEnabled = self.command_enabled
 
         except:
             if ui:
