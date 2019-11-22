@@ -144,7 +144,7 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/usage/AddingToExisting.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/usage/existing.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -169,12 +169,13 @@ if it is enhanced</p>
 <p>This assumes you already have your project in a <a class="reference external" href="https://git-scm.com/docs/gittutorial">Git Repository</a></p>
 <p>Open a terminal and navigate to your addin’s root directory:</p>
 <p>You should be someplace like this:</p>
-<div class="highlight-shell-session notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span><span class="nb">pwd</span>
+<div class="highlight-shell-session notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> <span class="nb">pwd</span>
+
 <span class="go">/Users/rainsbp/Library/Application Support/Autodesk/Autodesk Fusion 360/API/AddIns/FusionApperSample</span>
 </pre></div>
 </div>
 <p>Now add the submodule to your project:</p>
-<div class="highlight-shell-session notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span>git submodule add https://github.com/tapnair/apper
+<div class="highlight-shell-session notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> git submodule add https://github.com/tapnair/apper
 <span class="go">Cloning into &#39;/Users/rainsbp/Library/Application Support/Autodesk/Autodesk Fusion 360/API/AddIns/FusionApperSample/apper&#39;...</span>
 <span class="go">remote: Enumerating objects: 31, done.</span>
 <span class="go">remote: Counting objects: 100% (31/31), done.</span>
@@ -187,7 +188,7 @@ if it is enhanced</p>
 <div class="section" id="status-of-a-git-submodule">
 <h2>Status of a Git Submodule<a class="headerlink" href="#status-of-a-git-submodule" title="Permalink to this headline">¶</a></h2>
 <p>To check the status of apper from the project root directory:</p>
-<div class="highlight-shell-session notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span>git submodule status
+<div class="highlight-shell-session notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> git submodule status
 <span class="go">+e951ad1030b6ed8fb60db3bac7e1098d64289833 apper (remotes/origin/HEAD)</span>
 </pre></div>
 </div>
@@ -196,14 +197,13 @@ if it is enhanced</p>
 <h2>Update a Git Submodule<a class="headerlink" href="#update-a-git-submodule" title="Permalink to this headline">¶</a></h2>
 <p>As apper continues to be developed, the advantage of submodules is that you can always simply and easily updated the apper framework inside of your addin.</p>
 <p>To update apper from the project root directory:</p>
-<div class="highlight-shell-session notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span>git submodule update --remote
+<div class="highlight-shell-session notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> git submodule update --remote
 <span class="go">remote: Enumerating objects: 6, done.</span>
 <span class="go">remote: Counting objects: 100% (6/6), done.</span>
 <span class="go">remote: Compressing objects: 100% (3/3), done.</span>
 <span class="go">remote: Total 4 (delta 1), reused 4 (delta 1), pack-reused 0</span>
 <span class="go">Unpacking objects: 100% (4/4), done.</span>
-<span class="go">From https://github.com/tapnair/apper</span>
-<span class="go">5035ffb..e951ad1  master     -&gt; origin/master</span>
+<span class="go">From https://github.com/tapnair/apper 5035ffb..e951ad1  master     -&gt; origin/master</span>
 <span class="go">Submodule path &#39;apper&#39;: checked out &#39;e951ad1030b6ed8fb60db3bac7e1098d64289833&#39;</span>
 </pre></div>
 </div>

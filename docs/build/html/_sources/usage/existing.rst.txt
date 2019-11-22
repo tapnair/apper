@@ -22,14 +22,15 @@ You should be someplace like this:
 
 .. code:: shell-session
 
-    $pwd
+    $ pwd
+
     /Users/rainsbp/Library/Application Support/Autodesk/Autodesk Fusion 360/API/AddIns/FusionApperSample
 
 Now add the submodule to your project:
 
 .. code:: shell-session
 
-    $git submodule add https://github.com/tapnair/apper
+    $ git submodule add https://github.com/tapnair/apper
     Cloning into '/Users/rainsbp/Library/Application Support/Autodesk/Autodesk Fusion 360/API/AddIns/FusionApperSample/apper'...
     remote: Enumerating objects: 31, done.
     remote: Counting objects: 100% (31/31), done.
@@ -44,7 +45,7 @@ To check the status of apper from the project root directory:
 
 .. code:: shell-session
 
-    $git submodule status
+    $ git submodule status
     +e951ad1030b6ed8fb60db3bac7e1098d64289833 apper (remotes/origin/HEAD)
 
 Update a Git Submodule
@@ -56,14 +57,13 @@ To update apper from the project root directory:
 
 .. code:: shell-session
 
-    $git submodule update --remote
+    $ git submodule update --remote
     remote: Enumerating objects: 6, done.
     remote: Counting objects: 100% (6/6), done.
     remote: Compressing objects: 100% (3/3), done.
     remote: Total 4 (delta 1), reused 4 (delta 1), pack-reused 0
     Unpacking objects: 100% (4/4), done.
-    From https://github.com/tapnair/apper
-    5035ffb..e951ad1  master     -> origin/master
+    From https://github.com/tapnair/apper 5035ffb..e951ad1  master     -> origin/master
     Submodule path 'apper': checked out 'e951ad1030b6ed8fb60db3bac7e1098d64289833'
 
 
