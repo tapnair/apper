@@ -299,8 +299,10 @@ class Fusion360CommandBase:
 
         except:
             if ui:
-                ui.messageBox('Command on Run Failed: {}'.format(
-                    traceback.format_exc()) + self.path + "         " + self.drop_down_resources)
+                ui.messageBox('Command Named: {} on Run Method Failed:\n {}'.format(
+                    self.__class__.__name__,
+                    traceback.format_exc()
+                ))
 
     def on_stop(self):
         app = adsk.core.Application.cast(adsk.core.Application.get())

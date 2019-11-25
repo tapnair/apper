@@ -5,12 +5,16 @@ import traceback
 
 from typing import Optional, List, Union
 
+from functools import wraps
+
 import os
 from os.path import expanduser
 import json
 import uuid
 
 import time
+
+import logging
 
 
 # Class to quickly access Fusion Application Objects
@@ -398,6 +402,16 @@ def open_doc(data_file: adsk.core.DataFile):
         pass
 
 
+def get_a_uuid() -> str:
+    """Gets a base 64 uuid
+
+    Returns:
+         The id that was generated
+    """
+    r_uuid = str(uuid.uuid4())
+    return r_uuid
+
+
 def item_id(item: adsk.core.Base, group_name: str) -> str:
     """Gets (and possibly assigns) a unique identifier (UUID) to any item in Fusion 360
 
@@ -473,20 +487,106 @@ def get_std_err_file(app_name: str):
     file_name = os.path.join(default_dir, "std_err.txt")
     return file_name
 
+#
+# def timed(func):
+#     """This decorator prints the execution time for the decorated function."""
+#
+#     @wraps(func)
+#     def wrapper(*args, **kwargs):
+#         start = time.time()
+#         result = func(*args, **kwargs)
+#         end = time.time()
+#         logger.debug("{}, ran in ,{}".format(func.__name__, round(end - start, 3)))
+#         return result
+#
+#     return wrapper
+#
+#
+# def create_timed_logger(app_name):
+#     logger = logging.getLogger(__name__)
+#     logger.handlers = []
+#     logger.setLevel("DEBUG")
+#     handler = logging.FileHandler(get_log_file())
+#     log_format = "%(asctime)s, %(levelname)s, -- ,%(message)s"
+#     formatter = logging.Formatter(log_format)
+#     handler.setFormatter(formatter)
+#     logger.addHandler(handler)
 
-def some_test():
-    object_collection_of_interesting_fusion_objects = []
-    ao = AppObjects()
-    document = ao.document
 
-    items_to_remember = []
-    for item in object_collection_of_interesting_fusion_objects:
-        items_to_remember.append(item_id(item, "MyAppName"))
-    document_settings = {"items_to_remember": items_to_remember}
-    document.attributes.add("MyAppName", "settings", json.dumps(document_settings))
+class ProgressDialog:
 
-    settings_attribute = document.attributes.itemByName("MyAppName", "settings")
-    settings = json.loads(settings_attribute.value)
-    remembered_items = []
-    for object_id in settings["items_to_remember"]:
-        remembered_items.append(get_item_by_id(object_id, "MyAppName"))
+    def __init__(
+            self, cancel_text='cancel', progress_message='Processing: %v of %m',
+            max_value=10, min_value=0, quit_message='Operation Cancelled', title='Progress'
+    ):
+
+        self.progress_message = progress_message
+        self.quit_message = quit_message
+        self.condition = False
+        self.title = title
+        self.min_value = min_value
+        self.max_value = max_value
+
+        ao = AppObjects()
+        self.progress_dialog = ao.ui.createProgressDialog()
+        self.progress_dialog.cancelButtonText = cancel_text
+        self.progress_dialog.isBackgroundTranslucent = False
+        self.progress_dialog.isCancelButtonShown = True
+        # self.progress_dialog.message = progress_message
+        self.progress_dialog.minimumValue = min_value
+        self.progress_dialog.maximumValue = max_value
+
+        self.progress_dialog.hide()
+
+    def wait_with_progress(self):
+
+        iteration = 0
+
+        while self.condition is False:
+
+            self.progress_dialog.progressValue = iteration
+
+            self.my_wait_function()
+
+            adsk.doEvents()
+
+            if self.progress_dialog.wasCancelled:
+                ao = AppObjects()
+                ao.ui.messageBox(self.quit_message)
+
+            time.sleep(1)
+
+            iteration += 1
+
+        self.progress_dialog.hide()
+
+    def my_wait_function(self):
+        pass
+
+    def update_progress(self, progress_value, progress_message=None, max_value=None, reset=False):
+
+        if max_value is not None:
+            self.progress_dialog.maximumValue = max_value
+
+        if progress_message is not None:
+            self.progress_dialog.message = progress_message
+
+        if reset:
+            self.progress_dialog.reset()
+            # self.progress_dialog.show(self.title, self.progress_message, self.min_value, self.max_value, 1)
+
+        adsk.doEvents()
+
+        self.progress_dialog.progressValue = progress_value
+
+        adsk.doEvents()
+
+        if self.progress_dialog.wasCancelled:
+            # app = adsk.core.Application.get()
+            # ao.ui.messageBox(self.quit_message)
+            # app.userInterface.terminateActiveCommand()
+            # raise InterruptedError()
+            pass
+
+        return True
+# EOF
