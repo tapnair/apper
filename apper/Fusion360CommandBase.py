@@ -6,6 +6,8 @@ import adsk.fusion
 import os.path
 import sys
 
+import config
+
 
 def _destroy_object(obj_to_be_deleted):
     app = adsk.core.Application.cast(adsk.core.Application.get())
@@ -75,8 +77,8 @@ class Fusion360CommandBase:
             )
         )
 
-        resource_path = os.path.join('./', self.path, 'resources', resources_folder)
-        drop_resources_path = os.path.join('./', self.path, 'resources', drop_down_folder)
+        resource_path = os.path.join(self.fusion_app.root_path, self.path, 'resources', resources_folder)
+        drop_resources_path = os.path.join(self.fusion_app.root_path, self.path, 'resources', drop_down_folder)
 
         self.cmd_resources = resource_path
         self.drop_down_resources = drop_resources_path
