@@ -52,7 +52,7 @@ class FusionApp:
 
         Args:
             name: The name of the command
-            command_class: This should be your subclass of  Fusion360CommandBase or PaletteCommandBase
+            command_class: This should be your subclass of Fusion360CommandBase or PaletteCommandBase
             options: Set of options for the command see the full set of `options <usage/options>`_
         """
         app = adsk.core.Application.cast(adsk.core.Application.get())
