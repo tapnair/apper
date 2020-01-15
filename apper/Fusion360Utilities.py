@@ -3,7 +3,7 @@ import adsk.fusion
 import adsk.cam
 import traceback
 
-from typing import Optional, List, Union
+from typing import Optional, List, Union, Iterable, Any
 
 from functools import wraps
 
@@ -53,16 +53,14 @@ class AppObjects(object):
             return None
 
     @property
-    def units_manager(self) -> Optional[adsk.core.UnitsManager]:
+    def units_manager(self) -> Union[adsk.core.UnitsManager, adsk.fusion.FusionUnitsManager]:
         if self.product.productType == 'DesignProductType':
             units_manager_ = self._design.fusionUnitsManager
         else:
             units_manager_ = self.product.unitsManager
 
-        if units_manager_ is not None:
-            return units_manager_
-        else:
-            return None
+        return units_manager_
+
 
     @property
     def export_manager(self) -> Optional[adsk.fusion.ExportManager]:
@@ -75,10 +73,11 @@ class AppObjects(object):
     @property
     def root_comp(self) -> Optional[adsk.fusion.Component]:
         if self.product.productType == 'DesignProductType':
-            root_comp_ = self.design.rootComponent
-            return root_comp_
-        else:
-            return None
+            if self.design is not None:
+                root_comp_ = self.design.rootComponent
+                return root_comp_
+
+        return None
 
     @property
     def time_line(self) -> Optional[adsk.fusion.Timeline]:
@@ -91,7 +90,7 @@ class AppObjects(object):
         return None
 
 
-def start_group() -> int:
+def start_group() -> Optional[int]:
     """Starts a time line group
 
     Returns:
@@ -100,27 +99,31 @@ def start_group() -> int:
     ao = AppObjects()
 
     # Start time line group
-    start_index = ao.time_line.markerPosition
+    if ao.time_line is not None:
+        start_index = ao.time_line.markerPosition
+        return start_index
 
-    return start_index
+    else:
+        return None
 
 
-def end_group(start_index: int):
+def end_group(start_index: int) -> None:
     """Ends a time line group
 
     start_index: Time line index
     """
-
-    # Gets necessary application objects
     ao = AppObjects()
 
-    end_index = ao.time_line.markerPosition - 1
+    # End of group and create it
+    if ao.time_line is not None:
+        end_index = ao.time_line.markerPosition - 1
+        ao.time_line.timelineGroups.add(start_index, end_index)
 
-    ao.time_line.timelineGroups.add(start_index, end_index)
 
-
-def import_dxf(dxf_file: str, component: adsk.fusion.Component,
-               plane: Union[adsk.fusion.ConstructionPlane, adsk.fusion.BRepFace]) -> adsk.core.ObjectCollection:
+def import_dxf(
+        dxf_file: str, component: adsk.fusion.Component,
+        plane: Union[adsk.fusion.ConstructionPlane, adsk.fusion.BRepFace]
+) -> adsk.core.ObjectCollection:
     """Import dxf file with one sketch per layer.
 
     Args:
@@ -140,7 +143,7 @@ def import_dxf(dxf_file: str, component: adsk.fusion.Component,
     return sketches
 
 
-def sketch_by_name(sketches: adsk.fusion.Sketches, name: str) -> adsk.fusion.Sketch:
+def sketch_by_name(sketches: Iterable[adsk.fusion.Sketch], name: str) -> Optional[adsk.fusion.Sketch]:
     """Finds a sketch by name in a list of sketches
 
     Useful for parsing a collection of sketches such as DXF import results.
@@ -159,7 +162,7 @@ def sketch_by_name(sketches: adsk.fusion.Sketches, name: str) -> adsk.fusion.Ske
     return return_sketch
 
 
-def extrude_all_profiles(sketch: adsk.fusion.Sketch, distance: float, component:adsk.fusion.Component,
+def extrude_all_profiles(sketch: adsk.fusion.Sketch, distance: float, component: adsk.fusion.Component,
                          operation: adsk.fusion.FeatureOperations) -> adsk.fusion.ExtrudeFeature:
     """Create extrude features of all profiles in a sketch
 
@@ -412,7 +415,7 @@ def get_a_uuid() -> str:
     return r_uuid
 
 
-def item_id(item: adsk.core.Base, group_name: str) -> str:
+def item_id(item: Any, group_name: str) -> Optional[str]:
     """Gets (and possibly assigns) a unique identifier (UUID) to any item in Fusion 360
 
     Args:
@@ -420,7 +423,7 @@ def item_id(item: adsk.core.Base, group_name: str) -> str:
         group_name: Name of the Attribute Group (typically use app_name)
 
     Returns:
-        The id that was generated or was previously existing
+        The id that was generated or was previously existing if the item supports attributes
     """
     this_id = None
     if item.attributes is not None:
@@ -434,7 +437,7 @@ def item_id(item: adsk.core.Base, group_name: str) -> str:
     return this_id
 
 
-def get_item_by_id(this_item_id: str, app_name: str) -> adsk.core.Base:
+def get_item_by_id(this_item_id: str, app_name: str) -> Optional[Any]:
     """Returns an item based on the assigned ID set with :func:`item_id <item_id>`
 
     Args:
@@ -445,12 +448,14 @@ def get_item_by_id(this_item_id: str, app_name: str) -> adsk.core.Base:
         The Fusion 360 object that the id attribute was attached to.
     """
     ao = AppObjects()
-    attributes = ao.design.findAttributes(app_name, "id")
-
     item = None
-    for attribute in attributes:
-        if attribute.value == this_item_id:
-            item = attribute.parent
+
+    if ao.design is not None:
+        attributes = ao.design.findAttributes(app_name, "id")
+        if attributes is not None:
+            for attribute in attributes:
+                if attribute.value == this_item_id:
+                    item = attribute.parent
 
     return item
 
@@ -486,6 +491,7 @@ def get_std_err_file(app_name: str):
     default_dir = get_default_dir(app_name)
     file_name = os.path.join(default_dir, "std_err.txt")
     return file_name
+
 
 #
 # def timed(func):

@@ -6,7 +6,7 @@ import adsk.fusion
 import os.path
 import sys
 
-import config
+import apper
 
 
 def _destroy_object(obj_to_be_deleted):
@@ -33,7 +33,7 @@ class Fusion360CommandBase:
             options: A dictionary of options for the command placement in the ui.  (TODO - Add docs for this)
         """
         self.app_name = options.get('app_name')
-        self.fusion_app = options.get('fusion_app')
+        self.fusion_app: apper.FusionApp = options.get('fusion_app', None)
 
         self.cmd_name = name
 
