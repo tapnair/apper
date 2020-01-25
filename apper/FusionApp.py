@@ -54,6 +54,7 @@ class FusionApp:
             name: The name of the command
             command_class: This should be your subclass of  Fusion360CommandBase or PaletteCommandBase
             options: Set of options for the command see the full set of `options <usage/options>`_
+            :type command_class: object
         """
         app = adsk.core.Application.cast(adsk.core.Application.get())
         ui = app.userInterface
