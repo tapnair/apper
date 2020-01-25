@@ -12,7 +12,7 @@ import os
 from os.path import expanduser
 from pathlib import Path
 
-from typing import Optional, List, Union
+from typing import Optional, List, Union, Any, Iterable
 
 from .Fusion360CommandBase import Fusion360CommandBase
 from .PaletteCommandBase import PaletteCommandBase
@@ -45,14 +45,14 @@ class FusionApp:
     def add_command(
             self,
             name: str,
-            command_class: Union[Fusion360CommandBase, PaletteCommandBase],
+            command_class: Any,
             options: dict
     ):
         """Adds a command to the application
 
         Args:
             name: The name of the command
-            command_class: This should be your subclass of  Fusion360CommandBase or PaletteCommandBase
+            command_class: This should be your subclass of Fusion360CommandBase or PaletteCommandBase
             options: Set of options for the command see the full set of `options <usage/options>`_
             :type command_class: object
         """
@@ -88,19 +88,20 @@ class FusionApp:
                 self.commands.append(command)
                 self.command_dict[base_cmd_id] = new_id
 
-            elif all(isinstance(item, str) for item in _workspace):
-                for workspace in _workspace:
-                    options['workspace'] = workspace
+            elif isinstance(_workspace, Iterable):
+                if all(isinstance(item, str) for item in _workspace):
+                    for workspace in _workspace:
+                        options['workspace'] = workspace
 
-                    _this_id = new_id + '_' + workspace
-                    options['cmd_ctrl_id'] = _this_id
+                        _this_id = new_id + '_' + workspace
+                        options['cmd_ctrl_id'] = _this_id
 
-                    _this_tab_id = options['toolbar_tab_id'] + '_' + workspace
-                    options['toolbar_tab_id'] = _this_tab_id
+                        _this_tab_id = options['toolbar_tab_id'] + '_' + workspace
+                        options['toolbar_tab_id'] = _this_tab_id
 
-                    command = command_class(name, options)
-                    self.commands.append(command)
-                    self.command_dict[base_cmd_id] = new_id
+                        command = command_class(name, options)
+                        self.commands.append(command)
+                        self.command_dict[base_cmd_id] = new_id
             else:
                 raise TypeError  # TODO or something along that line
 
@@ -108,7 +109,7 @@ class FusionApp:
             if ui:
                 ui.messageBox('Apper Add Command failed: {}'.format(traceback.format_exc()))
 
-    def command_id_from_name(self, name: str) -> str:
+    def command_id_from_name(self, name: str) -> Optional[str]:
         """Returns the full cmd_id defined by apper
 
         Args:

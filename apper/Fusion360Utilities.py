@@ -434,7 +434,7 @@ def item_id(item: adsk.core.Base, group_name: str) -> str:
     return this_id
 
 
-def get_item_by_id(this_item_id: str, app_name: str):
+def get_item_by_id(this_item_id: str, app_name: str) -> adsk.core.Base:
     """Returns an item based on the assigned ID set with :func:`item_id <item_id>`
 
     Args:

@@ -2,141 +2,133 @@
 # It does not reflect the actual implementation.
 
 
-class CustomEventHandler:
+class Base:
     def __init__(self):
         pass
 
-
-class DocumentEventHandler:
-    def __init__(self):
-        pass
-
-
-class WorkspaceEventHandler:
-    def __init__(self):
-        pass
-
-
-class CommandEventHandler:
-    def __init__(self):
-        pass
-
-
-class InputChangedEventHandler:
-    def __init__(self):
-        pass
-
-
-class CommandCreatedEventHandler:
-    def __init__(self):
-        pass
-
-
-class HTMLEventHandler:
-    def __init__(self):
-        pass
-
-
-class UserInterfaceGeneralEventHandler:
-    def __init__(self):
-        pass
-
-
-class Base():
-    def __init__(self):
-        pass
     @staticmethod
     def cast(arg):
         return Base()
+
     @staticmethod
     def classType():
         return str()
+
     def _get_objectType(self):
         return str()
+
     def _get_isValid(self):
         return bool()
+
     objectType = property(_get_objectType, None, doc="")
     isValid = property(_get_isValid, None, doc="")
+
 
 class Appearance(Base):
     """
     An appearance.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return Appearance()
+
     def _get_id(self):
         return str()
+
     def _get_isUsed(self):
         return bool()
+
     def _get_usedBy(self):
         return ObjectCollection()
+
     def _set_name(self, name):
         pass
+
     def _get_name(self):
         return str()
+
     def _get_parent(self):
         return Base()
+
     def _get_hasTexture(self):
         return bool()
+
     def _get_appearanceProperties(self):
         return Properties()
-    def deleteMe():
+
+    def deleteMe(self):
         """
         Deletes the Appearance from the Design. This method is only valid for appearances that are in a Design and are unused.
         Returns true if the delete was successful.
         """
         return bool()
-    def copyTo(target):
+
+    def copyTo(self, target):
         """
         Copies this appearance to the specified target. ***Depricated Method: Use the addByCopyMethod on the Appearances object instead, where you can rename the copied Appearance and the return type is Appearance rather than bool.***
         target : The target can be a Design or MaterialFavorites object.
         Returns true if the copy was successful.
         """
         return bool()
+
     id = property(_get_id, None, doc="The unique internal ID of this Appearance.")
     isUsed = property(_get_isUsed, None, doc="Returns true if this Appearance is used in the Design.")
-    usedBy = property(_get_usedBy, None, doc="Returns a collection of the entities currently using this appearance. This property is only valid for an appearance in a Design and where the IsUsed property returns true. The collection returned can contain")
-    name = property(_get_name, _set_name, doc="Returns the name of this Appearance. This is the localized name shown in the UI.")
-    parent = property(_get_parent, None, doc="Property that returns the Parent object of this Appearance (a MaterialLibrary, Design, or AppearanceFavorites collection).")
-    hasTexture = property(_get_hasTexture, None, doc="Property that indicates if this appearance has a texture associated with it.")
-    appearanceProperties = property(_get_appearanceProperties, None, doc="returns the collection of Properties that define this appearance")
+    usedBy = property(_get_usedBy, None,
+                      doc="Returns a collection of the entities currently using this appearance. This property is only valid for an appearance in a Design and where the IsUsed property returns true. The collection returned can contain")
+    name = property(_get_name, _set_name,
+                    doc="Returns the name of this Appearance. This is the localized name shown in the UI.")
+    parent = property(_get_parent, None,
+                      doc="Property that returns the Parent object of this Appearance (a MaterialLibrary, Design, or AppearanceFavorites collection).")
+    hasTexture = property(_get_hasTexture, None,
+                          doc="Property that indicates if this appearance has a texture associated with it.")
+    appearanceProperties = property(_get_appearanceProperties, None,
+                                    doc="returns the collection of Properties that define this appearance")
+
 
 class Appearances(Base):
     """
     A collection of appearances.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return Appearances()
+
     def _get_count(self):
         return int()
-    def item(index):
+
+    def item(self, index):
         """
         Returns the specified Appearance using an index into the collection.
         index : The index of the appearance to return where the first item in the collection is 0.
         Returns the specified appearance or null if an invalid index is specified.
         """
         return Appearance()
-    def itemByName(name):
+
+    def itemByName(self, name):
         """
         Returns the specified Appearance using the name as seen in the user interface. This often isn't a reliable way of accessing a specific appearance because appearances are not required to be unique.
         name : The name of the appearance to return,.
         Returns the specified appearance or null if there isn't a matching name.
         """
         return Appearance()
-    def itemById(id):
+
+    def itemById(self, id):
         """
         Returns the Appearance by it's internal unique ID.
         id : The ID of the appearance to return.
         Returns the specified appearance or null if there isn't a matching ID.
         """
         return Appearance()
-    def addByCopy(appearanceToCopy, name):
+
+    def addByCopy(self, appearanceToCopy, name):
         """
         Add an Appearance to a Design by copying an existing Appearance from Favorites, a Library or from the appearances stored in the Design. This method currently only applies to the Appearances collection from a Design and cannot be used to copy an Appearance to a library.
         appearanceToCopy : The Appearance you want to copy. The Appearance to copy can be from Favorites, a Library or from the appearances stored in the Design.
@@ -144,52 +136,68 @@ class Appearances(Base):
         Returns the newly created Appearance or null if the copy operation failed.
         """
         return Appearance()
+
     count = property(_get_count, None, doc="The number of Materials in the collection.")
 
-class AppearanceSourceTypes():
+
+class AppearanceSourceTypes:
     """
     The different types of sources for an appearance.
     """
+
     def __init__(self):
         pass
+
     MaterialAppearanceSource = 0
     BodyAppearanceSource = 1
     OccurrenceAppearanceSource = 2
     FaceAppearanceSource = 3
     OverrideAppearanceSource = 4
 
+
 class AppearanceTexture(Base):
     """
     Provides access to a list of properties that define a texture.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return AppearanceTexture()
+
     def _get_properties(self):
         return Properties()
+
     def _get_textureType(self):
         return TextureTypes()
-    def changeTextureImage(imageFilename):
+
+    def changeTextureImage(self, imageFilename):
         """
         Changes the image of this texture.
         imageFilename : Input String specifying the full filename of the texture file to use.
         Returns true if the change was successful.
         """
         return bool()
-    properties = property(_get_properties, None, doc="Returns a collection of the properties associated with this texture.")
+
+    properties = property(_get_properties, None,
+                          doc="Returns a collection of the properties associated with this texture.")
     textureType = property(_get_textureType, None, doc="Gets the type of texture this appearance currently is.")
+
 
 class Application(Base):
     """
     The top-level object that represents the Fusion 360 application (all of Fusion 360). This provides access to the modeler and files.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return Application()
+
     @staticmethod
     def get():
         """
@@ -197,103 +205,147 @@ class Application(Base):
         Return the root Application object or null if it failed.
         """
         return Application()
+
     def _get_documents(self):
         return Documents()
+
     def _get_activeDocument(self):
         return Document()
+
     def _get_activeProduct(self):
         return Product()
+
     def _get_activeViewport(self):
         return Viewport()
+
     def _get_activeEditObject(self):
         return Base()
+
     def _get_data(self):
         return Data()
+
     def _get_pointTolerance(self):
         return float()
+
     def _get_vectorAngleTolerance(self):
         return float()
+
     def _get_preferences(self):
         return Preferences()
+
     def _get_documentOpening(self):
         return DocumentEvent()
+
     def _get_documentOpened(self):
         return DocumentEvent()
+
     def _get_userInterface(self):
         return UserInterface()
+
     def _get_materialLibraries(self):
         return MaterialLibraries()
+
     def _get_favoriteMaterials(self):
         return FavoriteMaterials()
+
     def _get_favoriteAppearances(self):
         return FavoriteAppearances()
+
     def _get_supportedProductTypes(self):
         return str()
+
     def _get_importManager(self):
         return ImportManager()
+
     def _get_userName(self):
         return str()
+
     def _get_userId(self):
         return str()
+
     def _set_isOffLine(self, isOffLine):
         pass
+
     def _get_isOffLine(self):
         return bool()
+
     def _get_isStartupComplete(self):
         return bool()
+
     def _get_onlineStatusChanged(self):
         return ApplicationEvent()
+
     def _get_startupCompleted(self):
         return ApplicationEvent()
+
     def _get_currentUser(self):
         return User()
+
     def _get_insertingFromURL(self):
         return WebRequestEvent()
+
     def _get_insertedFromURL(self):
         return WebRequestEvent()
+
     def _get_openingFromURL(self):
         return WebRequestEvent()
+
     def _get_openedFromURL(self):
         return WebRequestEvent()
+
     def _get_version(self):
         return str()
+
     def _get_documentCreated(self):
         return DocumentEvent()
+
     def _get_documentClosing(self):
         return DocumentEvent()
+
     def _get_documentClosed(self):
         return DocumentEvent()
+
     def _get_documentSaving(self):
         return DocumentEvent()
+
     def _get_documentSaved(self):
         return DocumentEvent()
+
     def _get_documentActivating(self):
         return DocumentEvent()
+
     def _get_documentActivated(self):
         return DocumentEvent()
+
     def _get_documentDeactivating(self):
         return DocumentEvent()
+
     def _get_documentDeactivated(self):
         return DocumentEvent()
+
     def _get_cameraChanged(self):
         return CameraEvent()
+
     def _get_measureManager(self):
         return MeasureManager()
-    def getLastError():
+
+    def getLastError(self):
         """
         Returns information about the last error that occurred.
         description : A description of the last error in English.
         Returns the number of the specific error.
         """
-        return (int(), str())
-    def registerCustomEvent(eventId):
+        return int(), str()
+
+    def registerCustomEvent(self, eventId):
         """
         This registers a new CustomEvent which is intended to be primarily used used to send an event from a worker thread you've created back to your add-in running in the primary thread. It's also possible that two add-ins could be cooperating and another add-in can fire the event to your add-in.
         eventId : This serves as the unique ID for this event and is used by the worker thread or other add-in to identify which custom event to fire using the fireCustomEvent method.
         Returns the registered CustomEvent or null in the case of failure, which would typically be because the provided eventId is not unique.
         """
         return CustomEvent()
-    def fireCustomEvent(eventId, additionalInfo):
+
+    def fireCustomEvent(self, eventId, additionalInfo):
         """
         Fires a previously registered custom event. This method is used by a worker thread or another add-in to fire an event to the add-in that registered the event and is running in the primary thread. Firing a custom event does not immediately result in the event handler being called. When a custom event is fired the event is put on the queue and will be handled in the main thread when Fusion 360 is idle.
         eventId : The ID of the custom event you want to fire.
@@ -301,108 +353,160 @@ class Application(Base):
         Returns true if the event was successfully added to the event queue. A value of true does not indicate that the event was fired and handled but only that it's been put on the primary thread's event queue to be fired when application is idle.
         """
         return bool()
-    def unregisterCustomEvent(eventId):
+
+    def unregisterCustomEvent(self, eventId):
         """
         Unregisters an existing CustomEvent.
         eventId : Th unique ID of the custom event you want to unregister.
         Returns True if the unregister succeeded.
         """
         return bool()
-    documents = property(_get_documents, None, doc="Returns the Documents collection object which supports accessing opened documents, opening existing documents, and creating new documents.")
+
+    documents = property(_get_documents, None,
+                         doc="Returns the Documents collection object which supports accessing opened documents, opening existing documents, and creating new documents.")
     activeDocument = property(_get_activeDocument, None, doc="Returns the current active document.")
     activeProduct = property(_get_activeProduct, None, doc="Returns the current active product.")
     activeViewport = property(_get_activeViewport, None, doc="Returns the currently active graphics view.")
-    activeEditObject = property(_get_activeEditObject, None, doc="Returns the current edit target as seen in the user interface. This edit target is defined as the container object that will be added to if something is created. For example, a component can be an edit target so that when new bodies are created they are added to that component. A sketch can also be an edit target.")
+    activeEditObject = property(_get_activeEditObject, None,
+                                doc="Returns the current edit target as seen in the user interface. This edit target is defined as the container object that will be added to if something is created. For example, a component can be an edit target so that when new bodies are created they are added to that component. A sketch can also be an edit target.")
     data = property(_get_data, None, doc="Returns the Data object which provides access the files.")
-    pointTolerance = property(_get_pointTolerance, None, doc="The modeling tolerance used internally when comparing two points. The value is in centimeters.")
-    vectorAngleTolerance = property(_get_vectorAngleTolerance, None, doc="The modeling tolerance used when comparing vector angles. The value is in radians.")
+    pointTolerance = property(_get_pointTolerance, None,
+                              doc="The modeling tolerance used internally when comparing two points. The value is in centimeters.")
+    vectorAngleTolerance = property(_get_vectorAngleTolerance, None,
+                                    doc="The modeling tolerance used when comparing vector angles. The value is in radians.")
     preferences = property(_get_preferences, None, doc="Provides access to all of the application preferences.")
-    documentOpening = property(_get_documentOpening, None, doc="The DocumentOpening event fires at the VERY start of a document being opened. There is no promise that the document will be opened, hence a documentOpened event may not follow. When a document is being opened that references other documents, only the top-level document will cause a documentOpening event to be fired.")
-    documentOpened = property(_get_documentOpened, None, doc="The DocumentOpened event fires at the VERY end of a document being opened so the Document object is avialable to be used. When a document is opened that references other documents, only the top-level document will cause the documentOpened event to be fired. You can access the referenced documents by using the documentReferences property of the Document object.")
-    userInterface = property(_get_userInterface, None, doc="Provides access to functionality specific to the user interface.")
-    materialLibraries = property(_get_materialLibraries, None, doc="Returns the collection of material libraries currently available.")
+    documentOpening = property(_get_documentOpening, None,
+                               doc="The DocumentOpening event fires at the VERY start of a document being opened. There is no promise that the document will be opened, hence a documentOpened event may not follow. When a document is being opened that references other documents, only the top-level document will cause a documentOpening event to be fired.")
+    documentOpened = property(_get_documentOpened, None,
+                              doc="The DocumentOpened event fires at the VERY end of a document being opened so the Document object is avialable to be used. When a document is opened that references other documents, only the top-level document will cause the documentOpened event to be fired. You can access the referenced documents by using the documentReferences property of the Document object.")
+    userInterface = property(_get_userInterface, None,
+                             doc="Provides access to functionality specific to the user interface.")
+    materialLibraries = property(_get_materialLibraries, None,
+                                 doc="Returns the collection of material libraries currently available.")
     favoriteMaterials = property(_get_favoriteMaterials, None, doc="Returns the set of favorite materials.")
     favoriteAppearances = property(_get_favoriteAppearances, None, doc="Returns the set of favorite appearances.")
-    supportedProductTypes = property(_get_supportedProductTypes, None, doc="Returns an array containing the names of the products types currently supported by Fusion 360. For example, the name returned for Fusion 360 is 'DesignProductType'. These product type names are used to identify specific products in some other API functions such as the productType property on the Workspace and ToolbarPanel objects.")
-    importManager = property(_get_importManager, None, doc="Returns the ImportManager. You use the ImportManager to import files (of various neutral formats.) into existing components or new document.")
+    supportedProductTypes = property(_get_supportedProductTypes, None,
+                                     doc="Returns an array containing the names of the products types currently supported by Fusion 360. For example, the name returned for Fusion 360 is 'DesignProductType'. These product type names are used to identify specific products in some other API functions such as the productType property on the Workspace and ToolbarPanel objects.")
+    importManager = property(_get_importManager, None,
+                             doc="Returns the ImportManager. You use the ImportManager to import files (of various neutral formats.) into existing components or new document.")
     userName = property(_get_userName, None, doc="Returns the user name of the Autodesk account currently logged in.")
-    userId = property(_get_userId, None, doc="Returns the internal name of the Autodesk account currently logged in. This can be used by applications sold through the Autodesk Exchange Store to verify that the user has in fact purchased the product.")
+    userId = property(_get_userId, None,
+                      doc="Returns the internal name of the Autodesk account currently logged in. This can be used by applications sold through the Autodesk Exchange Store to verify that the user has in fact purchased the product.")
     isOffLine = property(_get_isOffLine, _set_isOffLine, doc="Gets and sets if Fusion 360 is offline or not.")
-    isStartupComplete = property(_get_isStartupComplete, None, doc="Boolean property indicating whether Fusion 360 has completed its initialization. This includes initialization of all the Add-ins loaded at startup.")
-    onlineStatusChanged = property(_get_onlineStatusChanged, None, doc="The onlineStatusChanged event fires immediately after Fusion 360 goes Online or Offline. This event fires whether or not the online status was changed deliberately by the user by using the Fusion 360 'Work Offline' command or because of inadvertent network/internet connectivity issues. You can get the isOffline property of ApplicationEventArgs to determine whether Fusion 360 has gone Offline or has come back Online. The client can add or remove ApplicationEventHandlers from the ApplicationEvent.")
-    startupCompleted = property(_get_startupCompleted, None, doc="The startupCompleted event fires after Fusion 360 has completed its initialization. This includes initialization of all the Add-ins loaded at startup. The client can add or remove ApplicationEventHandlers from the ApplicationEvent.")
+    isStartupComplete = property(_get_isStartupComplete, None,
+                                 doc="Boolean property indicating whether Fusion 360 has completed its initialization. This includes initialization of all the Add-ins loaded at startup.")
+    onlineStatusChanged = property(_get_onlineStatusChanged, None,
+                                   doc="The onlineStatusChanged event fires immediately after Fusion 360 goes Online or Offline. This event fires whether or not the online status was changed deliberately by the user by using the Fusion 360 'Work Offline' command or because of inadvertent network/internet connectivity issues. You can get the isOffline property of ApplicationEventArgs to determine whether Fusion 360 has gone Offline or has come back Online. The client can add or remove ApplicationEventHandlers from the ApplicationEvent.")
+    startupCompleted = property(_get_startupCompleted, None,
+                                doc="The startupCompleted event fires after Fusion 360 has completed its initialization. This includes initialization of all the Add-ins loaded at startup. The client can add or remove ApplicationEventHandlers from the ApplicationEvent.")
     currentUser = property(_get_currentUser, None, doc="Returns the User that is currently logged in.")
-    insertingFromURL = property(_get_insertingFromURL, None, doc="The insertingFromURL event fires when the user has clicked a link in a web page that uses the Fusion 360 protocol handler to insert a file as new component. This event is fired at the beginning of the request but before Fusion 360 has take any action so that it's still possible to cancel the operation.")
-    insertedFromURL = property(_get_insertedFromURL, None, doc="The insertedFromURL event fires after the user has clicked a link in a web page that uses the Fusion 360 protocol handler to insert a file as new component and that operation has completed.")
-    openingFromURL = property(_get_openingFromURL, None, doc="The openingFromURL event fires when the user has clicked a link in a web page that uses the Fusion 360 protocol handler to create a new file using an existing file as the initial contents. This event is fired at the beginning of the request but before Fusion 360 has take any action so that it's still possible to cancel the operation.")
-    openedFromURL = property(_get_openedFromURL, None, doc="The openedFromURL event fires after the user has clicked a link in a web page that uses the Fusion 360 protocol handler to create a new using an existing file as the initial contents and that operation has completed.")
+    insertingFromURL = property(_get_insertingFromURL, None,
+                                doc="The insertingFromURL event fires when the user has clicked a link in a web page that uses the Fusion 360 protocol handler to insert a file as new component. This event is fired at the beginning of the request but before Fusion 360 has take any action so that it's still possible to cancel the operation.")
+    insertedFromURL = property(_get_insertedFromURL, None,
+                               doc="The insertedFromURL event fires after the user has clicked a link in a web page that uses the Fusion 360 protocol handler to insert a file as new component and that operation has completed.")
+    openingFromURL = property(_get_openingFromURL, None,
+                              doc="The openingFromURL event fires when the user has clicked a link in a web page that uses the Fusion 360 protocol handler to create a new file using an existing file as the initial contents. This event is fired at the beginning of the request but before Fusion 360 has take any action so that it's still possible to cancel the operation.")
+    openedFromURL = property(_get_openedFromURL, None,
+                             doc="The openedFromURL event fires after the user has clicked a link in a web page that uses the Fusion 360 protocol handler to create a new using an existing file as the initial contents and that operation has completed.")
     version = property(_get_version, None, doc="Returns the current version of the Fusion 360 application.")
-    documentCreated = property(_get_documentCreated, None, doc="The DocumentCreated event fires when a new document is created.")
-    documentClosing = property(_get_documentClosing, None, doc="The DocumentClosing event fires at the VERY start of a document being closed. User can set the isSaveCanceled property of DocumentEventArgs to true to cancel the document close.")
-    documentClosed = property(_get_documentClosed, None, doc="The DocumentClosed event fires at the VERY end of a document being closed. The Document object is not longer available because it has been closed.")
-    documentSaving = property(_get_documentSaving, None, doc="The DocumentSaving event fires at the VERY start of a document being saved. You can set the isSaveCanceled property of DocumentEventArgs to true to cancel the document save.")
-    documentSaved = property(_get_documentSaved, None, doc="The DocumentSaved event fires after the save operation has been completed.")
-    documentActivating = property(_get_documentActivating, None, doc="The DocumentActivating event fires at the VERY start of a document being activated.")
-    documentActivated = property(_get_documentActivated, None, doc="The DocumentActivated event fires at the VERY end of a document being activated.")
-    documentDeactivating = property(_get_documentDeactivating, None, doc="The DocumentDeactivating event fires at the VERY start of a document being deactivated.")
-    documentDeactivated = property(_get_documentDeactivated, None, doc="The DocumentDeactivated event fires at the VERY end of a document being deactivated.")
-    cameraChanged = property(_get_cameraChanged, None, doc="The cameraChanged event fires immediately after a change in the camera has been made. Camera changes happen when user changes the view by rotating, zooming in or out, panning, changing from parallel to perspective, or when the extents of the viewport changes. You can add or remove event handlers from the CameraEvent.")
-    measureManager = property(_get_measureManager, None, doc="Get the MeasureManager object which can be used to perform measurements of geometry.")
+    documentCreated = property(_get_documentCreated, None,
+                               doc="The DocumentCreated event fires when a new document is created.")
+    documentClosing = property(_get_documentClosing, None,
+                               doc="The DocumentClosing event fires at the VERY start of a document being closed. User can set the isSaveCanceled property of DocumentEventArgs to true to cancel the document close.")
+    documentClosed = property(_get_documentClosed, None,
+                              doc="The DocumentClosed event fires at the VERY end of a document being closed. The Document object is not longer available because it has been closed.")
+    documentSaving = property(_get_documentSaving, None,
+                              doc="The DocumentSaving event fires at the VERY start of a document being saved. You can set the isSaveCanceled property of DocumentEventArgs to true to cancel the document save.")
+    documentSaved = property(_get_documentSaved, None,
+                             doc="The DocumentSaved event fires after the save operation has been completed.")
+    documentActivating = property(_get_documentActivating, None,
+                                  doc="The DocumentActivating event fires at the VERY start of a document being activated.")
+    documentActivated = property(_get_documentActivated, None,
+                                 doc="The DocumentActivated event fires at the VERY end of a document being activated.")
+    documentDeactivating = property(_get_documentDeactivating, None,
+                                    doc="The DocumentDeactivating event fires at the VERY start of a document being deactivated.")
+    documentDeactivated = property(_get_documentDeactivated, None,
+                                   doc="The DocumentDeactivated event fires at the VERY end of a document being deactivated.")
+    cameraChanged = property(_get_cameraChanged, None,
+                             doc="The cameraChanged event fires immediately after a change in the camera has been made. Camera changes happen when user changes the view by rotating, zooming in or out, panning, changing from parallel to perspective, or when the extents of the viewport changes. You can add or remove event handlers from the CameraEvent.")
+    measureManager = property(_get_measureManager, None,
+                              doc="Get the MeasureManager object which can be used to perform measurements of geometry.")
+
 
 class Attribute(Base):
     """
     Represents an attribute associated with a specific entity, Product, or Document. An attribute is a named value.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return Attribute()
+
     def _get_groupName(self):
         return str()
+
     def _get_name(self):
         return str()
+
     def _set_value(self, value):
         pass
+
     def _get_value(self):
         return str()
+
     def _get_parent(self):
         return Base()
+
     def _get_otherParents(self):
         return ObjectCollection()
-    def deleteMe():
+
+    def deleteMe(self):
         """
         Deletes this attribute.
         Returns true if the delete was successful.
         """
         return bool()
+
     groupName = property(_get_groupName, None, doc="Gets the name of the group this attribute is a part of.")
     name = property(_get_name, None, doc="Gets the name of the attribute.")
-    value = property(_get_value, _set_value, doc="Gets and sets the value of this attribute. The size of an attribute value is limited to 2MB (2097152 bytes). If you need to save data that is larger than 2MB you'll need to break the data into pieces and save it in multiple attributes.")
-    parent = property(_get_parent, None, doc="Returns the parent entity this attribute is associated with. This can return null in some cases. For example a BRepEdge might have been consumed by a fillet feature but can come back if the model is rolled back or the fillet is deleted. It's possible that the original parent that an attribute was placed on has been split. For example, if an attribute is placed on a face and then a slot is created that cuts the face into two pieces and the attribute is available from each face. In this case the parent property will return the 'primary' face, which in most cases is somewhat arbitrary. You can get the other entities the attribute is associated with by using the otherParents property.")
-    otherParents = property(_get_otherParents, None, doc="In the case where the entity the attribute was originally placed on has been split, this property will return the other entities the attribute is associated with. For example, if an attribute is placed on a face and then a slot is created that cuts the face into two pieces and the attribute is available from both faces. The parent property returns the 'primary' entity and this property returns any other entities, if any. If there aren't any other associated entities the ObjectCollection returned will be empty.")
+    value = property(_get_value, _set_value,
+                     doc="Gets and sets the value of this attribute. The size of an attribute value is limited to 2MB (2097152 bytes). If you need to save data that is larger than 2MB you'll need to break the data into pieces and save it in multiple attributes.")
+    parent = property(_get_parent, None,
+                      doc="Returns the parent entity this attribute is associated with. This can return null in some cases. For example a BRepEdge might have been consumed by a fillet feature but can come back if the model is rolled back or the fillet is deleted. It's possible that the original parent that an attribute was placed on has been split. For example, if an attribute is placed on a face and then a slot is created that cuts the face into two pieces and the attribute is available from each face. In this case the parent property will return the 'primary' face, which in most cases is somewhat arbitrary. You can get the other entities the attribute is associated with by using the otherParents property.")
+    otherParents = property(_get_otherParents, None,
+                            doc="In the case where the entity the attribute was originally placed on has been split, this property will return the other entities the attribute is associated with. For example, if an attribute is placed on a face and then a slot is created that cuts the face into two pieces and the attribute is available from both faces. The parent property returns the 'primary' entity and this property returns any other entities, if any. If there aren't any other associated entities the ObjectCollection returned will be empty.")
+
 
 class Attributes(Base):
     """
     Provides access to attributes associated with a specific entity, Product, or Document. Also supports the creation of new attributes.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return Attributes()
+
     def _get_count(self):
         return int()
+
     def _get_groupNames(self):
         return str()
-    def item(index):
+
+    def item(self, index):
         """
         Returns the specified attribute using an index into the collection.
         index : The index of the attribute within the collection to return. The first item in the collection has an index of 0.
         Returns the specified attribute or null if an invalid index was specified.
         """
         return Attribute()
-    def itemByName(groupName, name):
+
+    def itemByName(self, groupName, name):
         """
         Returns the specified attribute using the name of the attribute.
         groupName : The name of the attribute group this attribute will belong to.
@@ -410,7 +514,8 @@ class Attributes(Base):
         Returns the specified attribute or null if no attribute exists with the specified name.
         """
         return Attribute()
-    def add(groupName, name, value):
+
+    def add(self, groupName, name, value):
         """
         Adds a new attribute to the parent entity. If an attribute already exists on the entity with the same groupName and name already exists, this will update the existing attribute with the new value.
         groupName : The name of the attribute group to create this attribute within.
@@ -419,25 +524,32 @@ class Attributes(Base):
         Returns the newly created attribute or null if the creation failed. If an attribute with the same groupName and name already exists, it will return the existing attribute.
         """
         return Attribute()
-    def itemsByGroup(groupName):
+
+    def itemsByGroup(self, groupName):
         """
         Returns an array of all of the attributes that belong to the specified group.
         groupName : The name of the group.
         Returns an array of attributes or will fail in the case where an invalid group name is specified.
         """
         return Attribute()
+
     count = property(_get_count, None, doc="Returns the number of attributes in the collection.")
-    groupNames = property(_get_groupNames, None, doc="Returns an array of strings that are all of the name of attribute groups that exist on this entity. An empty array can be returns if there are no attributes on the entity.")
+    groupNames = property(_get_groupNames, None,
+                          doc="Returns an array of strings that are all of the name of attribute groups that exist on this entity. An empty array can be returns if there are no attributes on the entity.")
+
 
 class BoundingBox2D(Base):
     """
     Transient object that represents a 2D bounding box. A 2D bounding box is a rectangle box that is parallel to the x and y axes. The box is defined by a minimum point (smallest x-y values) and maximum point (largest x-y values). This object is a wrapper for these points and serves as a way to pass bounding box information in and out of functions. It also provides some convenience function when working with the bounding box data. They are created statically using the create method of the BoundingBox2D class.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return BoundingBox2D()
+
     @staticmethod
     def create(minPoint, maxPoint):
         """
@@ -447,60 +559,74 @@ class BoundingBox2D(Base):
         Returns the new bounding box.
         """
         return BoundingBox2D()
+
     def _set_minPoint(self, minPoint):
         pass
+
     def _get_minPoint(self):
         return Point2D()
+
     def _set_maxPoint(self, maxPoint):
         pass
+
     def _get_maxPoint(self):
         return Point2D()
-    def contains(point):
+
+    def contains(self, point):
         """
         Determines if the specified point lies within the bounding box.
         point : The point to test containment with.
         Returns true if the point lies within the bounding box.
         """
         return bool()
-    def expand(point):
+
+    def expand(self, point):
         """
         Expand this bounding box to contain the specified point.
         point : The point to expand the box to.
         Returns true if successful.
         """
         return bool()
-    def intersects(boundingBox):
+
+    def intersects(self, boundingBox):
         """
         Test if this bounding box intersects with the specified bounding box.
         boundingBox : The bounding box to test intersection with.
         Returns true if the bounding boxes intersect.
         """
         return bool()
-    def copy():
+
+    def copy(self):
         """
         Create a copy of this bounding box.
         Returns the new bounding box copy.
         """
         return BoundingBox2D()
-    def combine(boundingBox):
+
+    def combine(self, boundingBox):
         """
         Combines this bounding box with the input bounding box. If the input bounding box extends outside this bounding box then this bounding box will be extended to encompass both of the original bounding boxes.
         boundingBox : The other bounding box. It is not edited but is used to extend the boundaries of the bounding box the method is being called on.
         Returns true if the combine was successful.
         """
         return bool()
+
     minPoint = property(_get_minPoint, _set_minPoint, doc="Gets and sets the minimum point of the box.")
     maxPoint = property(_get_maxPoint, _set_maxPoint, doc="Gets and sets the maximum point of the box.")
+
 
 class BoundingBox3D(Base):
     """
     Transient object that represents a 3D bounding box. It defines a rectangular box whose sides are parallel to the model space x, y, and z planes. Because of the fixed orientation of the box it can be fully defined by two points at opposing corners; the min and max points. This object is usually used to provide a rough approximation of the volume in space that an entity occupies. It also provides some convenience function when working with the bounding box data. They are created statically using the create method of the BoundingBox3D class.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return BoundingBox3D()
+
     @staticmethod
     def create(minPoint, maxPoint):
         """
@@ -510,133 +636,181 @@ class BoundingBox3D(Base):
         Returns the newly created bounding box or null if the creation failed.
         """
         return BoundingBox3D()
+
     def _set_minPoint(self, minPoint):
         pass
+
     def _get_minPoint(self):
         return Point3D()
+
     def _set_maxPoint(self, maxPoint):
         pass
+
     def _get_maxPoint(self):
         return Point3D()
-    def contains(point):
+
+    def contains(self, point):
         """
         Determines if the specified point is within the bound box.
         point : The point you want to check to see if it's in the bounding box.
         Returns true if the point is within the bounding box.
         """
         return bool()
-    def expand(point):
+
+    def expand(self, point):
         """
         Expands the size of bounding box to include the specified point.
         point : The point to include within the bounding box.
         Returns true if the expansion was successful.
         """
         return bool()
-    def intersects(boundingBox):
+
+    def intersects(self, boundingBox):
         """
         Determines if the two bounding boxes intersect.
         boundingBox : The other bounding box to check for intersection with.
         Returns true if the two boxes intersect.
         """
         return bool()
-    def copy():
+
+    def copy(self):
         """
         Creates an independent copy of this bounding box.
         Returns the new bounding box or null if the copy failed.
         """
         return BoundingBox3D()
-    def combine(boundingBox):
+
+    def combine(self, boundingBox):
         """
         Combines this bounding box with the input bounding box. If the input bounding box extends outside this bounding box then this bounding box will be extended to encompass both of the original bounding boxes.
         boundingBox : The other bounding box. It is not edited but is used to extend the boundaries of the bounding box the method is being called on.
         Returns true if the combine was successful.
         """
         return bool()
+
     minPoint = property(_get_minPoint, _set_minPoint, doc="Gets and sets the minimum point corner of the box.")
     maxPoint = property(_get_maxPoint, _set_maxPoint, doc="Gets and sets the maximum point corner of the box.")
+
 
 class Camera(Base):
     """
     The Camera class represents the information that specifies how a model is viewed and displayed. It's analogous to a real camera where it has a position in space, is pointed towards a specific point and is oriented in a particular way.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return Camera()
+
     def _set_eye(self, eye):
         pass
+
     def _get_eye(self):
         return Point3D()
+
     def _set_target(self, target):
         pass
+
     def _get_target(self):
         return Point3D()
+
     def _set_cameraType(self, cameraType):
         pass
+
     def _get_cameraType(self):
         return CameraTypes()
+
     def _set_perspectiveAngle(self, perspectiveAngle):
         pass
+
     def _get_perspectiveAngle(self):
         return float()
+
     def _set_upVector(self, upVector):
         pass
+
     def _get_upVector(self):
         return Vector3D()
+
     def _set_viewExtents(self, viewExtents):
         pass
+
     def _get_viewExtents(self):
         return float()
+
     def _set_isFitView(self, isFitView):
         pass
+
     def _get_isFitView(self):
         return bool()
+
     def _set_isSmoothTransition(self, isSmoothTransition):
         pass
+
     def _get_isSmoothTransition(self):
         return bool()
+
     def _set_viewOrientation(self, viewOrientation):
         pass
+
     def _get_viewOrientation(self):
         return ViewOrientations()
+
     eye = property(_get_eye, _set_eye, doc="Gets and sets the position of the eye in world space.")
     target = property(_get_target, _set_target, doc="Gets and sets the camera target point in world space.")
     cameraType = property(_get_cameraType, _set_cameraType, doc="Gets and sets the current camera type.")
-    perspectiveAngle = property(_get_perspectiveAngle, _set_perspectiveAngle, doc="Gets and sets the perspective angle of the camera. This property is only valid when the CameraType property is either Perspective or PerspectiveWithOrthoFaces.")
-    upVector = property(_get_upVector, _set_upVector, doc="Defines the 'up' direction for the camera which controls the orientation of the camera around the line defined between the eye and target points.")
-    viewExtents = property(_get_viewExtents, _set_viewExtents, doc="Defines the area that's visible by the camera. This value is the radius of a sphere centered at the target point. The camera will display everything within that sphere and everything in front of and behind the sphere. Additional geometry outside of the sphere will also be visible depending on the shape of the window. Setting this value can cause the eye and/or perspective angle to be modified when the camera type is perspective.")
-    isFitView = property(_get_isFitView, _set_isFitView, doc="If this property is true, when this camera is applied to a viewport it will modify the camera such that the entire model is displayed in the viewport. When getting a camera from a viewport this property is always initialized to false.")
-    isSmoothTransition = property(_get_isSmoothTransition, _set_isSmoothTransition, doc="Determines whether Fusion 360 does a smooth transition to this camera positoin when the camera is assigned to a ViewPort. If this is true it will do a smooth transition from the current camera position to the new camera position. If false, the view will jump to the position defined by the camera with no intermediate steps. This is useful if you're providing a series of cameras to control the camera animation.")
-    viewOrientation = property(_get_viewOrientation, _set_viewOrientation, doc="Sets the camera to a standard orientation. If this is set, it will result in resetting all of the camera values except the camera type.")
+    perspectiveAngle = property(_get_perspectiveAngle, _set_perspectiveAngle,
+                                doc="Gets and sets the perspective angle of the camera. This property is only valid when the CameraType property is either Perspective or PerspectiveWithOrthoFaces.")
+    upVector = property(_get_upVector, _set_upVector,
+                        doc="Defines the 'up' direction for the camera which controls the orientation of the camera around the line defined between the eye and target points.")
+    viewExtents = property(_get_viewExtents, _set_viewExtents,
+                           doc="Defines the area that's visible by the camera. This value is the radius of a sphere centered at the target point. The camera will display everything within that sphere and everything in front of and behind the sphere. Additional geometry outside of the sphere will also be visible depending on the shape of the window. Setting this value can cause the eye and/or perspective angle to be modified when the camera type is perspective.")
+    isFitView = property(_get_isFitView, _set_isFitView,
+                         doc="If this property is true, when this camera is applied to a viewport it will modify the camera such that the entire model is displayed in the viewport. When getting a camera from a viewport this property is always initialized to false.")
+    isSmoothTransition = property(_get_isSmoothTransition, _set_isSmoothTransition,
+                                  doc="Determines whether Fusion 360 does a smooth transition to this camera positoin when the camera is assigned to a ViewPort. If this is true it will do a smooth transition from the current camera position to the new camera position. If false, the view will jump to the position defined by the camera with no intermediate steps. This is useful if you're providing a series of cameras to control the camera animation.")
+    viewOrientation = property(_get_viewOrientation, _set_viewOrientation,
+                               doc="Sets the camera to a standard orientation. If this is set, it will result in resetting all of the camera values except the camera type.")
 
-class CameraTypes():
+
+class CameraTypes:
     """
     The different types of cameras.
     """
+
     def __init__(self):
         pass
+
     OrthographicCameraType = 0
     PerspectiveCameraType = 1
     PerspectiveWithOrthoFacesCameraType = 2
 
-class CloseError():
+
+class CloseError:
     """
     List of possible errors when closing a document.
     """
+
     def __init__(self):
         pass
+
     CloseCancelledError = 0
+
 
 class Color(Base):
     """
     The Color class wraps all of the information that defines a simple color.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return Color()
+
     @staticmethod
     def create(red, green, blue, opacity):
         """
@@ -648,23 +822,32 @@ class Color(Base):
         Returns the newly created color or null if the creation failed.
         """
         return Color()
+
     def _set_red(self, red):
         pass
+
     def _get_red(self):
-        return Int16()
+        return int
+
     def _set_green(self, green):
         pass
+
     def _get_green(self):
-        return Int16()
+        return int
+
     def _set_blue(self, blue):
         pass
+
     def _get_blue(self):
-        return Int16()
+        return int
+
     def _set_opacity(self, opacity):
         pass
+
     def _get_opacity(self):
-        return Int16()
-    def getColor():
+        return int
+
+    def getColor(self):
         """
         Gets all of the information defining this color.
         red : The red component of the color. The value can be 0 to 255.
@@ -673,8 +856,9 @@ class Color(Base):
         opacity : The opacity of the color. The value can be 0 to 255. A value of 255 indicates it is completely opaque.
         Returns true if getting the color information was successful.
         """
-        return (bool(), Int16(), Int16(), Int16(), Int16())
-    def setColor(red, green, blue, opacity):
+        return bool(), int, int, int, int
+
+    def setColor(self, red, green, blue, opacity):
         """
         Sets all of the color information.
         red : The red component of the color. The value can be 0 to 255.
@@ -684,105 +868,155 @@ class Color(Base):
         Returns true if setting the color information was successful.
         """
         return bool()
+
     red = property(_get_red, _set_red, doc="Gets and sets the red component of the color. The value can be 0 to 255.")
-    green = property(_get_green, _set_green, doc="Gets and sets the green component of the color. The value can be 0 to 255.")
-    blue = property(_get_blue, _set_blue, doc="Gets and sets the blue component of the color. The value can be 0 to 255.")
-    opacity = property(_get_opacity, _set_opacity, doc="Gets and sets the opacity of the color. The value can be 0 to 255.")
+    green = property(_get_green, _set_green,
+                     doc="Gets and sets the green component of the color. The value can be 0 to 255.")
+    blue = property(_get_blue, _set_blue,
+                    doc="Gets and sets the blue component of the color. The value can be 0 to 255.")
+    opacity = property(_get_opacity, _set_opacity,
+                       doc="Gets and sets the opacity of the color. The value can be 0 to 255.")
+
 
 class Command(Base):
     """
     The Command class contains all of the functionality needed by a command to gather various command input from a user, provide previews, and create the final result which is also encapsulated within a transaction so it can be undone.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return Command()
+
     def _get_parentCommandDefinition(self):
         return CommandDefinition()
+
     def _get_activate(self):
         return CommandEvent()
+
     def _get_deactivate(self):
         return CommandEvent()
+
     def _get_destroy(self):
         return CommandEvent()
+
     def _get_execute(self):
         return CommandEvent()
+
     def _get_executePreview(self):
         return CommandEvent()
+
     def _get_commandInputs(self):
         return CommandInputs()
+
     def _get_inputChanged(self):
         return InputChangedEvent()
+
     def _get_validateInputs(self):
         return ValidateInputsEvent()
+
     def _get_keyDown(self):
         return KeyboardEvent()
+
     def _get_keyUp(self):
         return KeyboardEvent()
+
     def _get_mouseClick(self):
         return MouseEvent()
+
     def _get_mouseDoubleClick(self):
         return MouseEvent()
+
     def _get_mouseDown(self):
         return MouseEvent()
+
     def _get_mouseMove(self):
         return MouseEvent()
+
     def _get_mouseUp(self):
         return MouseEvent()
+
     def _get_mouseWheel(self):
         return MouseEvent()
+
     def _get_mouseDragBegin(self):
         return MouseEvent()
+
     def _get_mouseDrag(self):
         return MouseEvent()
+
     def _get_mouseDragEnd(self):
         return MouseEvent()
+
     def _set_isOKButtonVisible(self, isOKButtonVisible):
         pass
+
     def _get_isOKButtonVisible(self):
         return bool()
+
     def _set_okButtonText(self, okButtonText):
         pass
+
     def _get_okButtonText(self):
         return str()
+
     def _set_cancelButtonText(self, cancelButtonText):
         pass
+
     def _get_cancelButtonText(self):
         return str()
+
     def _set_isRepeatable(self, isRepeatable):
         pass
+
     def _get_isRepeatable(self):
         return bool()
+
     def _get_selectionEvent(self):
         return SelectionEvent()
+
     def _set_isExecutedWhenPreEmpted(self, isExecutedWhenPreEmpted):
         pass
+
     def _get_isExecutedWhenPreEmpted(self):
         return bool()
+
     def _set_helpFile(self, helpFile):
         pass
+
     def _get_helpFile(self):
         return str()
+
     def _set_isAutoExecute(self, isAutoExecute):
         pass
+
     def _get_isAutoExecute(self):
         return bool()
+
     def _set_isPositionDependent(self, isPositionDependent):
         pass
+
     def _get_isPositionDependent(self):
         return bool()
+
     def _get_preSelect(self):
         return SelectionEvent()
+
     def _get_preSelectMouseMove(self):
         return SelectionEvent()
+
     def _get_preSelectEnd(self):
         return SelectionEvent()
+
     def _get_select(self):
         return SelectionEvent()
+
     def _get_unselect(self):
         return SelectionEvent()
-    def setDialogInitialSize(width, height):
+
+    def setDialogInitialSize(self, width, height):
         """
         Sets the initial size of the dialog when it is first displayed. If this is not set, Fusion 360 will use a default size for the dialog.
         width : The width of the dialog in pixels.
@@ -790,7 +1024,8 @@ class Command(Base):
         Returns true if the default size was successfully set.
         """
         return bool()
-    def setDialogMinimumSize(width, height):
+
+    def setDialogMinimumSize(self, width, height):
         """
         Sets the minimum size for the dialog when resized to by the user. If this is not set, a default minimum size is used.
         width : The minimum width of the dialog in pixels.
@@ -798,20 +1033,23 @@ class Command(Base):
         Returns true if the minimum size was successfully set.
         """
         return bool()
-    def doExecute(terminate):
+
+    def doExecute(self, terminate):
         """
         Causes the execution of this command which results in the execute event being fired. This is the same effect as the user clicking the 'OK' button in the command dialog and is most useful when there is no command dialog (no command inputs where created) and the isAutoExecute property has been set to False. This allows you to execute the command through code.
         terminate : In the case where there isn't a command dialog you can also use the terminate argument to specify if the command should terminate after execution or continue running. This is similar to the sketch line command where each line placement results in the creation of an undoable line but the command continues to run to allow additional lines to be placed.
         Returns true if the execution of the command was successful.
         """
         return bool()
-    def doExecutePreview():
+
+    def doExecutePreview(self):
         """
         Causes the executePreview event of this command to be fired. This is most useful when there is no command dialog (no command inputs where created) and the isAutoExecute property has been set to False. This allows you to force the preview to be generated instead of relying on changing command inputs.
         Returns true if the execute Preview event was successfully fired..
         """
         return bool()
-    def setCursor(cursorImage, xHotSpot, yHotSpot):
+
+    def setCursor(self, cursorImage, xHotSpot, yHotSpot):
         """
         Specifies the cursor to display at the mouse.
         cursorImage : The path to the png image to display as the cursor. This can either be a relative path from the py, dll, or dylib file of the full path. Specifying an empty string will set the cursor back to the default cursor.
@@ -820,7 +1058,8 @@ class Command(Base):
         Returns true if setting the cursor was successful.
         """
         return bool()
-    def getCursor():
+
+    def getCursor(self):
         """
         Gets the custom cursor information currently being used.
         cursorImage : The full path to the png image that is being displayed as the cursor.
@@ -828,109 +1067,170 @@ class Command(Base):
         yHotSpot : Gets the position of the y pixel within the image that is the 'hot' spot or the point that is used as the mouse point. A value of zero indicates the top of the image.
         Returns true if getting the cursor information was successful.
         """
-        return (bool(), str(), int(), int())
-    parentCommandDefinition = property(_get_parentCommandDefinition, None, doc="Gets the parent CommandDefinition object.")
-    activate = property(_get_activate, None, doc="Gets an event that is fired when the command is first activated or re-activated after being suspended.\nReturns a CommandEvent object that is used to connect and release from the event.")
-    deactivate = property(_get_deactivate, None, doc="Gets an event that is fired when the command is deactivated. The command still exists and could still be activated again.\nReturns a CommandEvent object that is used to connect and release from the event.")
-    destroy = property(_get_destroy, None, doc="Gets an event that is fired when the command is destroyed. The command is destroyed and can be cleaned up.\nReturns a CommandEvent object that is used to connect and release from the event.")
-    execute = property(_get_execute, None, doc="Gets an event that is fired when the command has completed gathering the required input and now needs to perform whatever action the command does.\nReturns a CommandEvent object that is used to connect and release from the event.")
-    executePreview = property(_get_executePreview, None, doc="Gets an event that is fired when the command has completed gathering the required input and now needs to perform a preview.\nReturns a CommandEvent object that is used to connect and release from the event.")
-    commandInputs = property(_get_commandInputs, None, doc="Gets the associated CommandInputs object which provides the ability to create new command inputs and provides access to any existing inputs that have already been created for this command.")
-    inputChanged = property(_get_inputChanged, None, doc="Gets an event that is fired whenever an input value is changed.\nReturns an InputChangedEvent object that is used to connect and release from the event.")
-    validateInputs = property(_get_validateInputs, None, doc="Gets an event that is fired to allow you to check if the current state of the inputs are valid for execution.\nReturns a ValidateInputsEvent object that is used to connect and release from the event.")
-    keyDown = property(_get_keyDown, None, doc="Geta an event that is fired when a key on the keyboard is pressed down.")
+        return bool(), str(), int(), int()
+
+    parentCommandDefinition = property(_get_parentCommandDefinition, None,
+                                       doc="Gets the parent CommandDefinition object.")
+    activate = property(_get_activate, None,
+                        doc="Gets an event that is fired when the command is first activated or re-activated after being suspended.\nReturns a CommandEvent object that is used to connect and release from the event.")
+    deactivate = property(_get_deactivate, None,
+                          doc="Gets an event that is fired when the command is deactivated. The command still exists and could still be activated again.\nReturns a CommandEvent object that is used to connect and release from the event.")
+    destroy = property(_get_destroy, None,
+                       doc="Gets an event that is fired when the command is destroyed. The command is destroyed and can be cleaned up.\nReturns a CommandEvent object that is used to connect and release from the event.")
+    execute = property(_get_execute, None,
+                       doc="Gets an event that is fired when the command has completed gathering the required input and now needs to perform whatever action the command does.\nReturns a CommandEvent object that is used to connect and release from the event.")
+    executePreview = property(_get_executePreview, None,
+                              doc="Gets an event that is fired when the command has completed gathering the required input and now needs to perform a preview.\nReturns a CommandEvent object that is used to connect and release from the event.")
+    commandInputs = property(_get_commandInputs, None,
+                             doc="Gets the associated CommandInputs object which provides the ability to create new command inputs and provides access to any existing inputs that have already been created for this command.")
+    inputChanged = property(_get_inputChanged, None,
+                            doc="Gets an event that is fired whenever an input value is changed.\nReturns an InputChangedEvent object that is used to connect and release from the event.")
+    validateInputs = property(_get_validateInputs, None,
+                              doc="Gets an event that is fired to allow you to check if the current state of the inputs are valid for execution.\nReturns a ValidateInputsEvent object that is used to connect and release from the event.")
+    keyDown = property(_get_keyDown, None,
+                       doc="Geta an event that is fired when a key on the keyboard is pressed down.")
     keyUp = property(_get_keyUp, None, doc="Gets an event that is fired when a key on the keyboard goes up.")
-    mouseClick = property(_get_mouseClick, None, doc="Gets an event that is fired when the mouse is clicked, (a button is pressed and released).")
-    mouseDoubleClick = property(_get_mouseDoubleClick, None, doc="Gets an event that is fired when the mouse is double-clicked, (clicked twice within the time specified by a system setting.)")
+    mouseClick = property(_get_mouseClick, None,
+                          doc="Gets an event that is fired when the mouse is clicked, (a button is pressed and released).")
+    mouseDoubleClick = property(_get_mouseDoubleClick, None,
+                                doc="Gets an event that is fired when the mouse is double-clicked, (clicked twice within the time specified by a system setting.)")
     mouseDown = property(_get_mouseDown, None, doc="Gets an event that is fired when a mouse button is pressed.")
     mouseMove = property(_get_mouseMove, None, doc="Gets an event that is fired when the mouse is moved.")
     mouseUp = property(_get_mouseUp, None, doc="Gets an event that is fired when a mouse button is released.")
     mouseWheel = property(_get_mouseWheel, None, doc="Gets an event that is fired when the mouse wheel is rotated.")
-    mouseDragBegin = property(_get_mouseDragBegin, None, doc="Gets an event that is fired when a mouse drag starts, (the mouse is pressed and moved).")
-    mouseDrag = property(_get_mouseDrag, None, doc="Gets an event that is fired when the mouse is in drag mode, (being moved while a button is pressed).")
-    mouseDragEnd = property(_get_mouseDragEnd, None, doc="Gets an event that is fired when the mouse button is released after a drag.")
-    isOKButtonVisible = property(_get_isOKButtonVisible, _set_isOKButtonVisible, doc="Specifies if the OK button is visible or not. If set to false then the OK button is removed and the 'CANCEL' button text changes to 'CLOSE'. You can override the default button text using the cancelButtonText property.")
-    okButtonText = property(_get_okButtonText, _set_okButtonText, doc="Gets and sets the text displayed on the OK button. When the OK and Cancel buttons are displayed, this text defaults to 'OK'. If the Cancel button is not displayed the text defaults to 'CLOSE'.")
-    cancelButtonText = property(_get_cancelButtonText, _set_cancelButtonText, doc="Gets and sets the text displayed on the Cancel button. The value of this property is ignored if the isCancelButtonVisible property is false.")
-    isRepeatable = property(_get_isRepeatable, _set_isRepeatable, doc="Gets and Sets if this command is repeatable using the 'Repeat Last Command' option from the Fusion 360 marking menu.")
-    selectionEvent = property(_get_selectionEvent, None, doc="This event has been retired. Equivalent functionality is supported by the preSelect event.")
-    isExecutedWhenPreEmpted = property(_get_isExecutedWhenPreEmpted, _set_isExecutedWhenPreEmpted, doc="Specifies what the behavior will be when a command is pre-empted by the user executing another command. If true (the default), and all of the current inputs are valid, the command will be executed just the same as if the user clicked the OK button. If false, the command is terminated.")
-    helpFile = property(_get_helpFile, _set_helpFile, doc="<p class='api'>Gets and sets the associated html help file for this command. If this is defined then the help button will be displayed in the lower-left corner of the command dialog and when clicked the help file will be displayed using the application defined by the operating system for that file type. For example if the helpfile references a .htm or .html file, the default browser will be invoked to display the file. If a .pdf file is used then whatever the default application is for viewing a pdf file will be invoked.</p> <p class='api'>The file referenced must be a local file and cannot be a url. However, you can use a local html file that redirects to a url.</p> <pre class='api-code'><html> &lt;head&gt; &lt;meta http-equiv='refresh' content='0; url=http://example.com/' /&gt; &lt;/head&gt; &lt;body&gt;&lt;/body&gt; &lt;/html&gt; </pre> <p class='api'>The filename can be either a full path or a relative path with respect to the script or add-in .py, .js, .dll, or .dylib file. If this is an empty string, (which is the default), then the help button will not be displayed.</p>")
-    isAutoExecute = property(_get_isAutoExecute, _set_isAutoExecute, doc="Gets and sets whether this command will automatically execute if no command inputs have been defined. If any command inputs have been created, the value of this property is ignored and the command dialog will be displayed and the command will execute when the user clicks 'OK'. if no command inputs have been defined and this is set to False, then the command will not execute but will remain running. The default value for this property is true so that the command will execute if no command inputs have been defined.")
-    isPositionDependent = property(_get_isPositionDependent, _set_isPositionDependent, doc="When working in a parametric design in Fusion and you move any occurrences, those move operations are pending and aren't captured until you use the 'Capture Position' command from the POSITION panel or use the 'Revert' command from the same panel to move them all back to their original positions. If the design is in a pending situation and you run a command like 'Create Sketch', a dialog appears asking if you want to capture the current position or not before continuing. This is because the creation of a sketch can be dependent on the current positions of occurrences in the design. Other comamnds, like 'Fillet', depend directly on model geometry and do not rely on occurrence positions so running the Fillet command does not display the dialog and does not affect the pending state of the occurrences. This property allows you to specify if your command is dependent on the current position of occurrences or not. One good way to know if your command is dependent or not is to run the commands in the UI that are equivalent to the API functions you're using and see if the dialog that prompts to save or abort appears. If it does, then you know your command is dependent on occurrence positions. If this property is true, then the dialog will appear if there are any pending moved occurrences. The user can choose whether to capture the current changes or abort them, and then your command will continue. If you set this property to false, (which is the default), then even if there are pending changes, the occurrences are left in their current positions and your command will run.")
-    preSelect = property(_get_preSelect, None, doc="This event is used to be able to particpate in the selection process in a dynamic way. When a user is selecting geometry, they move the mouse over the model and if the entity the mouse is currently over is valid for selection it will highlight indicating that it can be selected. This process of determining what is available for selection and highlighting it is refered to as the 'pre-select' behavior. You use functions on the SelectionCommandInput object to define what types of entities are selectable and in many cases this coarse level of specification is all that's needed, but in other cases you may need more control over the selection. For example, you might want to allow the user to selection construction planes and planar faces, which can easily be controlled by defining those as valid entities for selection in the SelectionCommandInput object. But if you only want to allow the user to select planes that are parallel then you need some dynamic control over the selection, which can be done using the preSelect event. In the example of selecting parallel planes, you would still set the valid selection types for the SelectionCommandInput to allow selection of construction planes and planar faces. This will limit the selection to only planes but any plane can still be selected. You'll also need to connect to the preSelect event for the command. As the user moves the mouse over any construction plane or planar face, the preSelect event will fire for the plane the mouse is current over. If no planes have yet been selected, then you allow allow the user to select this plane. If one or more planes have already selected, then in the preSelect event you'll check to see if the plane the mouse is over is parallel to the first plane already selected. If it is then you allow it to be selected. If it isn't parallel then you set the isSelectable property of the provided SelectEventArgs object to False so that it won't pre-highlight and won't be selectable. The entity and mouse position on the entity can be obtained through the Selection object returned through the selection property of the SelectionEventArgs object provided through the event.")
-    preSelectMouseMove = property(_get_preSelectMouseMove, None, doc="This event fires continually while the mouse is moved over an entity that is valid for selected. The entity and mouse position on the entity can be obtained through the Selection object returned through the selection property of the SelectionEventArgs object provided through the event.")
-    preSelectEnd = property(_get_preSelectEnd, None, doc="This event fires when the moused is moved away from an entity that was in a pre-select state. If your add-in has done something in reaction to the preSelect, like draw some custom graphics, this event provides the notification to clean up whatever you've done that's associated with the current pre-select. The entity and mouse position on the entity can be obtained through the Selection object returned through the selection property of the SelectionEventArgs object provided through the event.")
-    select = property(_get_select, None, doc="This even fires when the user selects an entity. This is different from the pre-select where an entity is shown as being available for selection as the mouse passes over the entity. This is the actual selection where the user has clicked the mouse on the entity. The entity and mouse position on the entity can be obtained through the Selection object returned through the selection property of the SelectionEventArgs object provided through the event.")
-    unselect = property(_get_unselect, None, doc="This even fires when the user unselects an entity by clicking the mouse again on selected entity or canceling previous selection. The entity and mouse position on the entity can be obtained through the Selection object returned through the selection property of the SelectionEventArgs object provided through the event.")
+    mouseDragBegin = property(_get_mouseDragBegin, None,
+                              doc="Gets an event that is fired when a mouse drag starts, (the mouse is pressed and moved).")
+    mouseDrag = property(_get_mouseDrag, None,
+                         doc="Gets an event that is fired when the mouse is in drag mode, (being moved while a button is pressed).")
+    mouseDragEnd = property(_get_mouseDragEnd, None,
+                            doc="Gets an event that is fired when the mouse button is released after a drag.")
+    isOKButtonVisible = property(_get_isOKButtonVisible, _set_isOKButtonVisible,
+                                 doc="Specifies if the OK button is visible or not. If set to false then the OK button is removed and the 'CANCEL' button text changes to 'CLOSE'. You can override the default button text using the cancelButtonText property.")
+    okButtonText = property(_get_okButtonText, _set_okButtonText,
+                            doc="Gets and sets the text displayed on the OK button. When the OK and Cancel buttons are displayed, this text defaults to 'OK'. If the Cancel button is not displayed the text defaults to 'CLOSE'.")
+    cancelButtonText = property(_get_cancelButtonText, _set_cancelButtonText,
+                                doc="Gets and sets the text displayed on the Cancel button. The value of this property is ignored if the isCancelButtonVisible property is false.")
+    isRepeatable = property(_get_isRepeatable, _set_isRepeatable,
+                            doc="Gets and Sets if this command is repeatable using the 'Repeat Last Command' option from the Fusion 360 marking menu.")
+    selectionEvent = property(_get_selectionEvent, None,
+                              doc="This event has been retired. Equivalent functionality is supported by the preSelect event.")
+    isExecutedWhenPreEmpted = property(_get_isExecutedWhenPreEmpted, _set_isExecutedWhenPreEmpted,
+                                       doc="Specifies what the behavior will be when a command is pre-empted by the user executing another command. If true (the default), and all of the current inputs are valid, the command will be executed just the same as if the user clicked the OK button. If false, the command is terminated.")
+    helpFile = property(_get_helpFile, _set_helpFile,
+                        doc="<p class='api'>Gets and sets the associated html help file for this command. If this is defined then the help button will be displayed in the lower-left corner of the command dialog and when clicked the help file will be displayed using the application defined by the operating system for that file type. For example if the helpfile references a .htm or .html file, the default browser will be invoked to display the file. If a .pdf file is used then whatever the default application is for viewing a pdf file will be invoked.</p> <p class='api'>The file referenced must be a local file and cannot be a url. However, you can use a local html file that redirects to a url.</p> <pre class='api-code'><html> &lt;head&gt; &lt;meta http-equiv='refresh' content='0; url=http://example.com/' /&gt; &lt;/head&gt; &lt;body&gt;&lt;/body&gt; &lt;/html&gt; </pre> <p class='api'>The filename can be either a full path or a relative path with respect to the script or add-in .py, .js, .dll, or .dylib file. If this is an empty string, (which is the default), then the help button will not be displayed.</p>")
+    isAutoExecute = property(_get_isAutoExecute, _set_isAutoExecute,
+                             doc="Gets and sets whether this command will automatically execute if no command inputs have been defined. If any command inputs have been created, the value of this property is ignored and the command dialog will be displayed and the command will execute when the user clicks 'OK'. if no command inputs have been defined and this is set to False, then the command will not execute but will remain running. The default value for this property is true so that the command will execute if no command inputs have been defined.")
+    isPositionDependent = property(_get_isPositionDependent, _set_isPositionDependent,
+                                   doc="When working in a parametric design in Fusion and you move any occurrences, those move operations are pending and aren't captured until you use the 'Capture Position' command from the POSITION panel or use the 'Revert' command from the same panel to move them all back to their original positions. If the design is in a pending situation and you run a command like 'Create Sketch', a dialog appears asking if you want to capture the current position or not before continuing. This is because the creation of a sketch can be dependent on the current positions of occurrences in the design. Other comamnds, like 'Fillet', depend directly on model geometry and do not rely on occurrence positions so running the Fillet command does not display the dialog and does not affect the pending state of the occurrences. This property allows you to specify if your command is dependent on the current position of occurrences or not. One good way to know if your command is dependent or not is to run the commands in the UI that are equivalent to the API functions you're using and see if the dialog that prompts to save or abort appears. If it does, then you know your command is dependent on occurrence positions. If this property is true, then the dialog will appear if there are any pending moved occurrences. The user can choose whether to capture the current changes or abort them, and then your command will continue. If you set this property to false, (which is the default), then even if there are pending changes, the occurrences are left in their current positions and your command will run.")
+    preSelect = property(_get_preSelect, None,
+                         doc="This event is used to be able to particpate in the selection process in a dynamic way. When a user is selecting geometry, they move the mouse over the model and if the entity the mouse is currently over is valid for selection it will highlight indicating that it can be selected. This process of determining what is available for selection and highlighting it is refered to as the 'pre-select' behavior. You use functions on the SelectionCommandInput object to define what types of entities are selectable and in many cases this coarse level of specification is all that's needed, but in other cases you may need more control over the selection. For example, you might want to allow the user to selection construction planes and planar faces, which can easily be controlled by defining those as valid entities for selection in the SelectionCommandInput object. But if you only want to allow the user to select planes that are parallel then you need some dynamic control over the selection, which can be done using the preSelect event. In the example of selecting parallel planes, you would still set the valid selection types for the SelectionCommandInput to allow selection of construction planes and planar faces. This will limit the selection to only planes but any plane can still be selected. You'll also need to connect to the preSelect event for the command. As the user moves the mouse over any construction plane or planar face, the preSelect event will fire for the plane the mouse is current over. If no planes have yet been selected, then you allow allow the user to select this plane. If one or more planes have already selected, then in the preSelect event you'll check to see if the plane the mouse is over is parallel to the first plane already selected. If it is then you allow it to be selected. If it isn't parallel then you set the isSelectable property of the provided SelectEventArgs object to False so that it won't pre-highlight and won't be selectable. The entity and mouse position on the entity can be obtained through the Selection object returned through the selection property of the SelectionEventArgs object provided through the event.")
+    preSelectMouseMove = property(_get_preSelectMouseMove, None,
+                                  doc="This event fires continually while the mouse is moved over an entity that is valid for selected. The entity and mouse position on the entity can be obtained through the Selection object returned through the selection property of the SelectionEventArgs object provided through the event.")
+    preSelectEnd = property(_get_preSelectEnd, None,
+                            doc="This event fires when the moused is moved away from an entity that was in a pre-select state. If your add-in has done something in reaction to the preSelect, like draw some custom graphics, this event provides the notification to clean up whatever you've done that's associated with the current pre-select. The entity and mouse position on the entity can be obtained through the Selection object returned through the selection property of the SelectionEventArgs object provided through the event.")
+    select = property(_get_select, None,
+                      doc="This even fires when the user selects an entity. This is different from the pre-select where an entity is shown as being available for selection as the mouse passes over the entity. This is the actual selection where the user has clicked the mouse on the entity. The entity and mouse position on the entity can be obtained through the Selection object returned through the selection property of the SelectionEventArgs object provided through the event.")
+    unselect = property(_get_unselect, None,
+                        doc="This even fires when the user unselects an entity by clicking the mouse again on selected entity or canceling previous selection. The entity and mouse position on the entity can be obtained through the Selection object returned through the selection property of the SelectionEventArgs object provided through the event.")
+
 
 class CommandDefinition(Base):
     """
     The CommandDefinition is the base class of the various types of commands. Command types are based on the type of control used to execute them in the user-interface. For example, most commands will use a ButtonDefinition since they're executed using a button in the user-interface. A command definition contains the information that defines the user-interface. For example, the name and icon. The command definition and also gets the notification when the user interacts with the associated control.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return CommandDefinition()
+
     def _get_commandCreated(self):
         return CommandCreatedEvent()
+
     def _get_isNative(self):
         return bool()
+
     def _get_id(self):
         return str()
+
     def _set_toolClipFilename(self, toolClipFilename):
         pass
+
     def _get_toolClipFilename(self):
         return str()
+
     def _set_tooltip(self, tooltip):
         pass
+
     def _get_tooltip(self):
         return str()
+
     def _set_resourceFolder(self, resourceFolder):
         pass
+
     def _get_resourceFolder(self):
         return str()
+
     def _get_controlDefinition(self):
         return ControlDefinition()
+
     def _set_name(self, name):
         pass
+
     def _get_name(self):
         return str()
-    def execute(input):
+
+    def execute(self, input):
         """
         Executes this command definition. This is the same as the user clicking a button that is associated with this command definition.
         input : A list of named values that will provide input to the command. The values supported are unique for each command. and not all commands support input values.
         Returns true or false indicating if the execution was successful.
         """
         return bool()
-    def deleteMe():
+
+    def deleteMe(self):
         """
         Deletes this command definition. This is only valid for API created command definitions and will fail if the isNative property is true.
         Returns true or false indicating if the deletion was successful.
         """
         return bool()
-    commandCreated = property(_get_commandCreated, None, doc="This event is fired when the associated control is manipulated by the user. A new Command object is created and passed back through this event which you can then use to interact with the user to get any input the command requires.")
-    isNative = property(_get_isNative, None, doc="Gets if this is a native command definition. If True then there are limitations to edits that can be done on the command definition. For example a native command definition cannot be deleted.")
-    id = property(_get_id, None, doc="Gets the unique id for this command definition. This is guaranteed to be unique with respect to all other command definitions.")
-    toolClipFilename = property(_get_toolClipFilename, _set_toolClipFilename, doc="Gets or sets the full filename of the image file (png) used for the tool clip. The tooltip is always shown but as the user hovers over the control it will progressively display the tool clip along with the tooltip text.")
-    tooltip = property(_get_tooltip, _set_tooltip, doc="Gets or sets the base tooltip string. This is always shown for commands. If the tooltip description and/or tool clip are also specified then the tooltip will progressively display more information as the user hovers the mouse over the control.")
-    resourceFolder = property(_get_resourceFolder, _set_resourceFolder, doc="Gets or sets the directory that contains any additional files associated with this command. These are typically the image files that will be used for a button and the html files for a tool clip or helps and tips.")
-    controlDefinition = property(_get_controlDefinition, None, doc="Gets the ControlDefinition associated with this command. The control definition defines the type of control that can exist in the user interface to execute this command. You can use properties on the control definition to define the look and behavior of the control.")
-    name = property(_get_name, _set_name, doc="Gets or sets the visible name of the command when seen in the user interface.")
+
+    commandCreated = property(_get_commandCreated, None,
+                              doc="This event is fired when the associated control is manipulated by the user. A new Command object is created and passed back through this event which you can then use to interact with the user to get any input the command requires.")
+    isNative = property(_get_isNative, None,
+                        doc="Gets if this is a native command definition. If True then there are limitations to edits that can be done on the command definition. For example a native command definition cannot be deleted.")
+    id = property(_get_id, None,
+                  doc="Gets the unique id for this command definition. This is guaranteed to be unique with respect to all other command definitions.")
+    toolClipFilename = property(_get_toolClipFilename, _set_toolClipFilename,
+                                doc="Gets or sets the full filename of the image file (png) used for the tool clip. The tooltip is always shown but as the user hovers over the control it will progressively display the tool clip along with the tooltip text.")
+    tooltip = property(_get_tooltip, _set_tooltip,
+                       doc="Gets or sets the base tooltip string. This is always shown for commands. If the tooltip description and/or tool clip are also specified then the tooltip will progressively display more information as the user hovers the mouse over the control.")
+    resourceFolder = property(_get_resourceFolder, _set_resourceFolder,
+                              doc="Gets or sets the directory that contains any additional files associated with this command. These are typically the image files that will be used for a button and the html files for a tool clip or helps and tips.")
+    controlDefinition = property(_get_controlDefinition, None,
+                                 doc="Gets the ControlDefinition associated with this command. The control definition defines the type of control that can exist in the user interface to execute this command. You can use properties on the control definition to define the look and behavior of the control.")
+    name = property(_get_name, _set_name,
+                    doc="Gets or sets the visible name of the command when seen in the user interface.")
+
 
 class CommandDefinitions(Base):
     """
     Provides access to all of the available command definitions. This is all those created via the API but also includes the command definitions defined by Fusion 360 for the native commands.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return CommandDefinitions()
+
     def _get_count(self):
         return int()
-    def addButtonDefinition(id, name, tooltip, resourceFolder):
+
+    def addButtonDefinition(self, id, name, tooltip, resourceFolder):
         """
         Creates a new command definition that can be used to create a button control and handle the response when the button is clicked.
         id : The unique identifier for this command definition. It must be unique with respect to all other command definitions and is limited to the following set of characters, [A-Z][a-z][0-9] and _.
@@ -940,7 +1240,8 @@ class CommandDefinitions(Base):
         Returns the created CommandDefinition object or null if the creation failed.
         """
         return CommandDefinition()
-    def addCheckBoxDefinition(id, name, tooltip, isChecked):
+
+    def addCheckBoxDefinition(self, id, name, tooltip, isChecked):
         """
         Creates a new command definition that can be used to create a single check box control and handle the response when the check box is clicked.
         id : The unique identifier for this command definition. It must be unique with respect to all other command definitions and is limited to the following set of characters, [A-Z][a-z][0-9] and _.
@@ -950,7 +1251,8 @@ class CommandDefinitions(Base):
         Returns the created CommandDefinition object or null if the creation failed.
         """
         return CommandDefinition()
-    def addListDefinition(id, name, listControlDisplayType, resourceFolder):
+
+    def addListDefinition(self, id, name, listControlDisplayType, resourceFolder):
         """
         Creates a new command definition that can be used to create a list of check boxes, radio buttons, or text with an icon within a pop-up. When the list is of check boxes any combinations of items in the list can be checked. The drop-down also remains displayed allowing the user to check and uncheck multiple items however a CommandCreated event is fired for every change. When the list is of radio buttons or a list of text items, only one item in the list can be selected at a time. When an item is selected the drop-down is immediately dismissed. The items in the list and their initial state are defined using functionality on the associated ListControlDefinition, which is accessible through the returned CommandDefinition.
         id : The unique identifier for this command definition. It must be unique with respect to all other command definitions and is limited to the following set of characters, [A-Z][a-z][0-9] and _.
@@ -960,105 +1262,144 @@ class CommandDefinitions(Base):
         Returns the created CommandDefinition object or null if the creation failed.
         """
         return CommandDefinition()
-    def item(index):
+
+    def item(self, index):
         """
         Returns the CommandDefinition at the specified index.
         index : The index of the command definition within the collection to return. The first item in the collection has in index of 0.
         Returns the CommandDefinition at the specified index or null if an invalid index is specified.
         """
         return CommandDefinition()
-    def itemById(id):
+
+    def itemById(self, id):
         """
         Returns the CommandDefinition that has the specified ID.
         id : The ID of the command definition to return.
         Returns the CommandDefinition with the specified ID or null if there isn't a command definition with that ID.
         """
         return CommandDefinition()
+
     count = property(_get_count, None, doc="Gets the number of command definitions.")
+
 
 class CommandInput(Base):
     """
     The base class for all command inputs. A CommandInput is used to gather an input value from the user when a command is executed.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return CommandInput()
+
     def _get_commandInputs(self):
         return CommandInputs()
+
     def _get_id(self):
         return str()
+
     def _get_name(self):
         return str()
+
     def _set_isEnabled(self, isEnabled):
         pass
+
     def _get_isEnabled(self):
         return bool()
+
     def _set_isVisible(self, isVisible):
         pass
+
     def _get_isVisible(self):
         return bool()
+
     def _get_parentCommand(self):
         return Command()
+
     def _set_isFullWidth(self, isFullWidth):
         pass
+
     def _get_isFullWidth(self):
         return bool()
+
     def _set_toolClipFilename(self, toolClipFilename):
         pass
+
     def _get_toolClipFilename(self):
         return str()
+
     def _set_tooltip(self, tooltip):
         pass
+
     def _get_tooltip(self):
         return str()
+
     def _set_tooltipDescription(self, tooltipDescription):
         pass
+
     def _get_tooltipDescription(self):
         return str()
+
     def _get_parentCommandInput(self):
         return CommandInput()
-    commandInputs = property(_get_commandInputs, None, doc="Gets the CommandInputs class of the parent, which can be a Command, GroupCommandInput or TabCommandInput.")
+
+    commandInputs = property(_get_commandInputs, None,
+                             doc="Gets the CommandInputs class of the parent, which can be a Command, GroupCommandInput or TabCommandInput.")
     id = property(_get_id, None, doc="Gets the unique identifier for this input in the command's CommandInputs.")
     name = property(_get_name, None, doc="Gets the user visible name of this input.")
-    isEnabled = property(_get_isEnabled, _set_isEnabled, doc="Gets or sets if this input is currently enabled or disabled for user interaction.")
+    isEnabled = property(_get_isEnabled, _set_isEnabled,
+                         doc="Gets or sets if this input is currently enabled or disabled for user interaction.")
     isVisible = property(_get_isVisible, _set_isVisible, doc="Gets or sets if this input will be visible to the user.")
     parentCommand = property(_get_parentCommand, None, doc="Gets the parent Command.")
-    isFullWidth = property(_get_isFullWidth, _set_isFullWidth, doc="Gets or sets if this input fills the entire width of the dialog. If true, the name is ignored and the input control will fill the entire width of the command dialog. The default value for this property in a new command input if false, or not to fill the width. This property does not apply to GroupCommandInputs or TabCommandInputs.")
-    toolClipFilename = property(_get_toolClipFilename, _set_toolClipFilename, doc="Gets or sets the full filename of the image file (png) used for the tool clip. The tooltip is always shown but as the user hovers over the control it will progressively display the tool clip and description text.")
-    tooltip = property(_get_tooltip, _set_tooltip, doc="Gets or sets the base tooltip string. This is always shown for commands. If the tooltip description and/or tool clip are also specified then the tooltip will progressively display more information as the user hovers the mouse over the control.")
-    tooltipDescription = property(_get_tooltipDescription, _set_tooltipDescription, doc="Gets or sets additional text to display progressively along with the tooltip. The text for the description can contain some basic html formatting tags to format the tags. For example the br tag can be used to create multiple paragraphs. The tooltip is always shown but as the user hovers over the control it will progressively display the tool clip and description text.")
-    parentCommandInput = property(_get_parentCommandInput, None, doc="Gets the parent CommandInput if this commandInput is the child of a TabCommandInput or GroupCommandInput. Returns null if their is no parent.")
+    isFullWidth = property(_get_isFullWidth, _set_isFullWidth,
+                           doc="Gets or sets if this input fills the entire width of the dialog. If true, the name is ignored and the input control will fill the entire width of the command dialog. The default value for this property in a new command input if false, or not to fill the width. This property does not apply to GroupCommandInputs or TabCommandInputs.")
+    toolClipFilename = property(_get_toolClipFilename, _set_toolClipFilename,
+                                doc="Gets or sets the full filename of the image file (png) used for the tool clip. The tooltip is always shown but as the user hovers over the control it will progressively display the tool clip and description text.")
+    tooltip = property(_get_tooltip, _set_tooltip,
+                       doc="Gets or sets the base tooltip string. This is always shown for commands. If the tooltip description and/or tool clip are also specified then the tooltip will progressively display more information as the user hovers the mouse over the control.")
+    tooltipDescription = property(_get_tooltipDescription, _set_tooltipDescription,
+                                  doc="Gets or sets additional text to display progressively along with the tooltip. The text for the description can contain some basic html formatting tags to format the tags. For example the br tag can be used to create multiple paragraphs. The tooltip is always shown but as the user hovers over the control it will progressively display the tool clip and description text.")
+    parentCommandInput = property(_get_parentCommandInput, None,
+                                  doc="Gets the parent CommandInput if this commandInput is the child of a TabCommandInput or GroupCommandInput. Returns null if their is no parent.")
+
 
 class CommandInputs(Base):
     """
     Provides access to the set of inputs for a command. Command inputs are used to gather inputs from the user when a command is executed. The set of inputs used by a command are created and added to the command with the methods in this class.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return CommandInputs()
+
     def _get_command(self):
         return Command()
+
     def _get_count(self):
         return int()
-    def item(index):
+
+    def item(self, index):
         """
         Returns the specified command input using an index into the collection.
         index : The index of the item within the collection to return. The first item in the collection has an index of 0.
         Returns the specified item or null if an invalid index was specified.
         """
         return CommandInput()
-    def itemById(id):
+
+    def itemById(self, id):
         """
         Returns the command input that has the specified ID.
         id : The unique ID of the command input you want to get.
         Returns the specified command input or null if the input ID doesn't match an existing command input.
         """
         return CommandInput()
-    def addValueInput(id, name, unitType, initialValue):
+
+    def addValueInput(self, id, name, unitType, initialValue):
         """
         Adds a new value input to the command.
         id : The unique ID of this command input. It must be unique with respect to the other inputs associated with this command.
@@ -1068,7 +1409,8 @@ class CommandInputs(Base):
         Returns the created ValueCommandInput object or null if the creation failed.
         """
         return ValueCommandInput()
-    def addBoolValueInput(id, name, isCheckBox, resourceFolder, initialValue):
+
+    def addBoolValueInput(self, id, name, isCheckBox, resourceFolder, initialValue):
         """
         Adds a new boolean input to the command. The input can be shown as a check box or a button. If it's a button you need to specify the resource folder to define the icon to use. Buttons don't have an up or down state but can just be clicked.
         id : The unique ID of this command input. It must be unique with respect to the other inputs associated with this command.
@@ -1079,7 +1421,8 @@ class CommandInputs(Base):
         Returns the created BoolValueCommandInput object or null if the creation failed.
         """
         return BoolValueCommandInput()
-    def addStringValueInput(id, name, initialValue):
+
+    def addStringValueInput(self, id, name, initialValue):
         """
         Adds a new string input to the command.
         id : The unique ID of this command input. It must be unique with respect to the other inputs associated with this command.
@@ -1088,7 +1431,8 @@ class CommandInputs(Base):
         Returns the created StringValueCommandInput object or null if the creation failed.
         """
         return StringValueCommandInput()
-    def addSelectionInput(id, name, commandPrompt):
+
+    def addSelectionInput(self, id, name, commandPrompt):
         """
         Adds a new selection input to the command. This allows you to get entity selections from the user. The default behavior is that only one entity can be selected and it can be of any type. To change the selection behavior to select specific types and control the number of items selected use the methods and properties on the returned SelectionCommandInput object. You can also use the selectionEvent event that's associated with the command to have additional control over the selection process.
         id : The unique ID of this command input. It must be unique with respect to the other inputs associated with this command.
@@ -1097,7 +1441,8 @@ class CommandInputs(Base):
         Returns the created SelectionCommandInput object or null if the creation failed.
         """
         return SelectionCommandInput()
-    def addDropDownCommandInput(id, name, dropDownStyle):
+
+    def addDropDownCommandInput(self, id, name, dropDownStyle):
         """
         Adds a new empty drop-down input to the command. drop-downs of various types are supported. To add items to the drop down use the returned DropDownCommandInput object.
         id : The unique ID of this command input. It must be unique with respect to the other inputs associated with this command.
@@ -1106,7 +1451,8 @@ class CommandInputs(Base):
         Returns the created DropDownCommandInput object or null if the creation failed.
         """
         return DropDownCommandInput()
-    def addButtonRowCommandInput(id, name, isMultiSelectEnabled):
+
+    def addButtonRowCommandInput(self, id, name, isMultiSelectEnabled):
         """
         Adds a new row of buttons as a command input. Depending on the isMultiSelectEnabled argument it can act like an option list where only a single button on the row can be selected at a time or multiple buttons can be selected. The buttons are defined by using the returned ButtonRowCommandInput object.
         id : The unique ID of this command input. It must be unique with respect to the other inputs associated with this command.
@@ -1115,7 +1461,8 @@ class CommandInputs(Base):
         Returns the created ButtonRowCommandInput object or null if the creation failed.
         """
         return ButtonRowCommandInput()
-    def addFloatSliderCommandInput(id, name, unitType, min, max, hasTwoSliders):
+
+    def addFloatSliderCommandInput(self, id, name, unitType, min, max, hasTwoSliders):
         """
         Adds a new slider input to the command. The value type is double.
         id : The unique ID of this command input. It must be unique with respect to the other inputs associated with this command.
@@ -1127,7 +1474,8 @@ class CommandInputs(Base):
         Returns the created FloatSliderCommandInput object or null if the creation failed.
         """
         return FloatSliderCommandInput()
-    def addFloatSliderListCommandInput(id, name, unitType, valueList, hasTwoSliders):
+
+    def addFloatSliderListCommandInput(self, id, name, unitType, valueList, hasTwoSliders):
         """
         Adds a new slider input to the command. The value type is float.
         id : The unique ID of this command input. It must be unique with respect to the other inputs associated with this command.
@@ -1138,7 +1486,8 @@ class CommandInputs(Base):
         Returns the created FloatSliderCommandInput object or null if the creation failed.
         """
         return FloatSliderCommandInput()
-    def addIntegerSliderCommandInput(id, name, min, max, hasTwoSliders):
+
+    def addIntegerSliderCommandInput(self, id, name, min, max, hasTwoSliders):
         """
         Adds a new slider input to the command. The value type is integer.
         id : The unique ID of this command input. It must be unique with respect to the other inputs associated with this command.
@@ -1149,7 +1498,8 @@ class CommandInputs(Base):
         Returns the created IntegerSliderCommandInput object or null if the creation failed.
         """
         return IntegerSliderCommandInput()
-    def addIntegerSliderListCommandInput(id, name, valueList, hasTwoSliders):
+
+    def addIntegerSliderListCommandInput(self, id, name, valueList, hasTwoSliders):
         """
         Adds a new slider input to the command. The value type is integer.
         id : The unique ID of this command input. It must be unique with respect to the other inputs associated with this command.
@@ -1159,7 +1509,8 @@ class CommandInputs(Base):
         Returns the created IntegerSliderCommandInput object or null if the creation failed.
         """
         return IntegerSliderCommandInput()
-    def addTextBoxCommandInput(id, name, formattedText, numRows, isReadOnly):
+
+    def addTextBoxCommandInput(self, id, name, formattedText, numRows, isReadOnly):
         """
         Adds a text box input to the command.
         id : The unique ID of this command input. It must be unique with respect to the other inputs associated with this command.
@@ -1170,7 +1521,8 @@ class CommandInputs(Base):
         Returns the created TextBoxCommandInput object or null if the creation failed.
         """
         return TextBoxCommandInput()
-    def addFloatSpinnerCommandInput(id, name, unitType, min, max, spinStep, initialValue):
+
+    def addFloatSpinnerCommandInput(self, id, name, unitType, min, max, spinStep, initialValue):
         """
         Adds a new spinner input to the command. The value type is float.
         id : The unique ID of this command input. It must be unique with respect to the other inputs associated with this command.
@@ -1183,7 +1535,8 @@ class CommandInputs(Base):
         Returns the created FloatSpinnerCommandInput object or null if the creation failed.
         """
         return FloatSpinnerCommandInput()
-    def addIntegerSpinnerCommandInput(id, name, min, max, spinStep, initialValue):
+
+    def addIntegerSpinnerCommandInput(self, id, name, min, max, spinStep, initialValue):
         """
         Adds a new spinner input to the command. The value type is integer.
         id : The unique ID of this command input. It must be unique with respect to the other inputs associated with this command.
@@ -1195,7 +1548,8 @@ class CommandInputs(Base):
         Returns the created IntegerSpinnerCommandInput object or null if the creation failed.
         """
         return IntegerSpinnerCommandInput()
-    def addRadioButtonGroupCommandInput(id, name):
+
+    def addRadioButtonGroupCommandInput(self, id, name):
         """
         Adds a new Radio Button Group input to the command.
         id : The unique ID of this command input. It must be unique with respect to the other inputs associated with this command.
@@ -1203,7 +1557,8 @@ class CommandInputs(Base):
         Returns the created RadioButtonGroupCommandInput object or null if the creation failed.
         """
         return RadioButtonGroupCommandInput()
-    def addGroupCommandInput(id, name):
+
+    def addGroupCommandInput(self, id, name):
         """
         Adds a new Group input to the command. Group Command inputs organize a set of command inputs into a collapsible list within a command dialog.
         id : The unique ID of this command input. It must be unique with respect to the other inputs associated with this command.
@@ -1211,7 +1566,8 @@ class CommandInputs(Base):
         Returns the created GroupCommandInput object or null if the creation failed.
         """
         return GroupCommandInput()
-    def addTabCommandInput(id, name, resourceFolder):
+
+    def addTabCommandInput(self, id, name, resourceFolder):
         """
         Adds a new Tab input to the command. Tab command inputs contain a set of command inputs and/or group command inputs
         id : The unique ID of this command input. It must be unique with respect to the other inputs associated with this command.
@@ -1220,7 +1576,8 @@ class CommandInputs(Base):
         Returns the created TabCommandInput object or null if the creation failed.
         """
         return TabCommandInput()
-    def addImageCommandInput(id, name, imageFile):
+
+    def addImageCommandInput(self, id, name, imageFile):
         """
         Adds a new Image input to the command.
         id : The unique ID of this command input. It must be unique with respect to the other inputs associated with this command.
@@ -1229,7 +1586,8 @@ class CommandInputs(Base):
         Returns the created ImageCommandInput object or null if the creation failed.
         """
         return ImageCommandInput()
-    def addDistanceValueCommandInput(id, name, initialValue):
+
+    def addDistanceValueCommandInput(self, id, name, initialValue):
         """
         Adds a new distance value input to the command. This displays a field in the command dialog where a distance value can be entered. It displays the distance in the dialog using current document default unit. There is also a graphical manipulator associated with the input. You use the setManipulator method of the returned DistanceValueCommandInput object to define the position and orientation of the manipulator.
         id : The unique ID of this command input. It must be unique with respect to the other inputs associated with this command.
@@ -1238,7 +1596,8 @@ class CommandInputs(Base):
         Returns the created DistanceValueCommandInput object or null if the creation failed.
         """
         return DistanceValueCommandInput()
-    def addDirectionCommandInput(id, name, resourceFolder):
+
+    def addDirectionCommandInput(self, id, name, resourceFolder):
         """
         Adds a new direction command input to the command. The input can be shown as a check box or a button. If it's a button you need to specify the resource folder to define the icon to use for the Button.
         id : The unique ID of this command input. It must be unique with respect to the other inputs associated with this command.
@@ -1247,7 +1606,8 @@ class CommandInputs(Base):
         Returns the created DirectionCommandInput object or null if the creation failed.
         """
         return DirectionCommandInput()
-    def addTableCommandInput(id, name, numberOfColumns, columnRatio):
+
+    def addTableCommandInput(self, id, name, numberOfColumns, columnRatio):
         """
         Adds a new table command input to the command.
         id : The unique ID of this command input. It must be unique with respect to the other inputs associated with this command.
@@ -1257,7 +1617,8 @@ class CommandInputs(Base):
         Returns the created TableCommandInput object or null if the creation failed.
         """
         return TableCommandInput()
-    def addAngleValueCommandInput(id, name, initialValue):
+
+    def addAngleValueCommandInput(self, id, name, initialValue):
         """
         Adds a new angle value input to the command. This displays a field in the command dialog where an angle value can be entered. It displays the angle in the dialog using degrees. There is also a graphical manipulator associated with the input to allow the user to graphically set the value. You use the setManipulator method of the returned AngleValueCommandInput object to define the position and orientation of the manipulator.
         id : The unique ID of this command input. It must be unique with respect to the other inputs associated with this command.
@@ -1266,15 +1627,19 @@ class CommandInputs(Base):
         Returns the created AngleValueCommandInput object or null if the creation failed.
         """
         return AngleValueCommandInput()
+
     command = property(_get_command, None, doc="Gets the parent Command object.")
     count = property(_get_count, None, doc="Gets the number of inputs.")
 
-class CommandTerminationReason():
+
+class CommandTerminationReason:
     """
     Defines the termination reason for a command. Commands can be terminated for a number of different reasons, and based on the reason commands have to do different things during termination so this enum defines various reasons for termination
     """
+
     def __init__(self):
         pass
+
     UnknownTerminationReason = 0
     CompletedTerminationReason = 1
     CancelledTerminationReason = 2
@@ -1282,60 +1647,84 @@ class CommandTerminationReason():
     PreEmptedTerminationReason = 4
     SessionEndingTerminationReason = 5
 
+
 class ControlDefinition(Base):
     """
     The ControlDefinition is the base class for the various types of control definitions. You can use properties on the control definition to define the look and behavior of the control.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return ControlDefinition()
+
     def _set_isEnabled(self, isEnabled):
         pass
+
     def _get_isEnabled(self):
         return bool()
+
     def _set_isVisible(self, isVisible):
         pass
+
     def _get_isVisible(self):
         return bool()
+
     def _set_name(self, name):
         pass
+
     def _get_name(self):
         return str()
-    isEnabled = property(_get_isEnabled, _set_isEnabled, doc="Gets or sets if this definition is enabled or not. This has the effect of enabling and disabling any associated controls.")
-    isVisible = property(_get_isVisible, _set_isVisible, doc="Gets or sets if this definition is visible or not. This has the effect of making any associated controls visible or invisible in the user interface.")
-    name = property(_get_name, _set_name, doc="Gets or sets the name for this control. This is the visible name displayed in the user interface.")
+
+    isEnabled = property(_get_isEnabled, _set_isEnabled,
+                         doc="Gets or sets if this definition is enabled or not. This has the effect of enabling and disabling any associated controls.")
+    isVisible = property(_get_isVisible, _set_isVisible,
+                         doc="Gets or sets if this definition is visible or not. This has the effect of making any associated controls visible or invisible in the user interface.")
+    name = property(_get_name, _set_name,
+                    doc="Gets or sets the name for this control. This is the visible name displayed in the user interface.")
+
 
 class Curve2D(Base):
     """
     The base class for all 2D transient geometry classes.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return Curve2D()
+
     def _get_curveType(self):
         return Curve2DTypes()
+
     def _get_evaluator(self):
         return CurveEvaluator2D()
-    def transformBy(matrix):
+
+    def transformBy(self, matrix):
         """
         Transforms this curve in 2D space.
         matrix : A 2D matrix that defines the transform to apply to the curve.
         Return true if the transform was successful.
         """
         return bool()
-    curveType = property(_get_curveType, None, doc="Returns the type of geometry this curve represents.")
-    evaluator = property(_get_evaluator, None, doc="Returns an evaluator object that lets you perform additional evaluations on the curve.")
 
-class Curve2DTypes():
+    curveType = property(_get_curveType, None, doc="Returns the type of geometry this curve represents.")
+    evaluator = property(_get_evaluator, None,
+                         doc="Returns an evaluator object that lets you perform additional evaluations on the curve.")
+
+
+class Curve2DTypes:
     """
     The different types of 2D curves.
     """
+
     def __init__(self):
         pass
+
     Line2DCurveType = 0
     Arc2DCurveType = 1
     Circle2DCurveType = 2
@@ -1344,35 +1733,46 @@ class Curve2DTypes():
     InfiniteLine2DCurveType = 5
     NurbsCurve2DCurveType = 6
 
+
 class Curve3D(Base):
     """
     The base class for all 3D transient geometry classes.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return Curve3D()
+
     def _get_curveType(self):
         return Curve3DTypes()
+
     def _get_evaluator(self):
         return CurveEvaluator3D()
-    def transformBy(matrix):
+
+    def transformBy(self, matrix):
         """
         Transforms this curve in 3D space.
         matrix : A 3D matrix that defines the transform to apply to the curve.
         Return true if the transform was successful.
         """
         return bool()
-    curveType = property(_get_curveType, None, doc="Returns the type of geometry this curve represents.")
-    evaluator = property(_get_evaluator, None, doc="Returns an evaluator object that lets you perform additional evaluations on the curve.")
 
-class Curve3DTypes():
+    curveType = property(_get_curveType, None, doc="Returns the type of geometry this curve represents.")
+    evaluator = property(_get_evaluator, None,
+                         doc="Returns an evaluator object that lets you perform additional evaluations on the curve.")
+
+
+class Curve3DTypes:
     """
     The different types of 3D curves.
     """
+
     def __init__(self):
         pass
+
     Line3DCurveType = 0
     Arc3DCurveType = 1
     Circle3DCurveType = 2
@@ -1381,16 +1781,20 @@ class Curve3DTypes():
     InfiniteLine3DCurveType = 5
     NurbsCurve3DCurveType = 6
 
+
 class CurveEvaluator2D(Base):
     """
     2D curve evaluator that is obtained from a transient curve and allows you to perform various evaluations on the curve.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return CurveEvaluator2D()
-    def getCurvatures(parameters):
+
+    def getCurvatures(self, parameters):
         """
         Get the curvature values at a number of parameter positions on the curve.
         parameters : The array of parameter positions to return curvature information at. Each parameter value must be within the range of the parameter extents as provided by getParameterExtents.
@@ -1398,8 +1802,9 @@ class CurveEvaluator2D(Base):
         curvatures : The output array of the magnitude of the curvature at the position on the curve. The length of this array will be the same as the length of the parameters array provided.
         Returns true if the curvatures were successfully returned.
         """
-        return (bool(), Vector2D(), float())
-    def getCurvature(parameter):
+        return bool(), Vector2D(), float()
+
+    def getCurvature(self, parameter):
         """
         Get the curvature value at a parameter position on the curve.
         parameter : The parameter position to return the curvature information at. This value must be within the range of the parameter extents as provided by getParameterExtents.
@@ -1407,32 +1812,36 @@ class CurveEvaluator2D(Base):
         curvature : The output magnitude of the curvature at the position on the curve.
         Returns true if the curvature was successfully returned.
         """
-        return (bool(), Vector2D(), float())
-    def getTangents(parameters):
+        return bool(), Vector2D(), float()
+
+    def getTangents(self, parameters):
         """
         Get the tangent to the curve at a number of parameter positions on the curve.
         parameters : The array of parameter positions to return the tangent at. Each parameter value must be within the range of the parameter extents as provided by getParameterExtents.
         tangents : The output array of tangent vectors for each position on the curve. The length of this array will be the same as the length of the parameters array provided.
         Returns true if the tangents were successfully returned.
         """
-        return (bool(), Vector2D())
-    def getTangent(parameter):
+        return bool(), Vector2D()
+
+    def getTangent(self, parameter):
         """
         Get the tangent to the curve at a parameter position on the curve.
         parameter : The parameter position to return the tangent at. This value must be within the range of the parameter extents as provided by getParameterExtents.
         tangent : The output tangent vector at the curve position.
         Returns true if the tangent was successfully returned.
         """
-        return (bool(), Vector2D())
-    def getEndPoints():
+        return bool(), Vector2D()
+
+    def getEndPoints(self):
         """
         Get the end points of the curve.
         startPoint : The output start point of the curve. If the curve is unbounded at the start, this value will be null.
         endPoint : The output end point of the curve. If the curve is unbounded at the end, this value will be null.
         Returns true if the end points were successfully returned.
         """
-        return (bool(), Point2D(), Point2D())
-    def getLengthAtParameter(fromParameter, toParameter):
+        return bool(), Point2D(), Point2D()
+
+    def getLengthAtParameter(self, fromParameter, toParameter):
         """
         Get the length of the curve between two parameter positions on the curve.
         fromParameter : The parameter position to measure the curve length from. This value must be within the range of the parameter extents as provided by getParameterExtents.
@@ -1440,8 +1849,9 @@ class CurveEvaluator2D(Base):
         length : The output curve length between the from and to parameter positions on the curve.
         Returns true if the length was successfully returned.
         """
-        return (bool(), float())
-    def getParameterAtLength(fromParameter, length):
+        return bool(), float()
+
+    def getParameterAtLength(self, fromParameter, length):
         """
         Get the parameter position on the curve that is the specified curve length from the specified starting parameter position.
         fromParameter : The parameter position to start measuring the curve length from. This value must be within the range of the parameter extents as provided by getParameterExtents.
@@ -1449,96 +1859,108 @@ class CurveEvaluator2D(Base):
         parameter : The output parameter value that is the specified curve length from the starting parameter position.
         Returns true if the parameter was successfully returned.
         """
-        return (bool(), float())
-    def getParametersAtPoints(points):
+        return bool(), float()
+
+    def getParametersAtPoints(self, points):
         """
         Get the parameter positions that correspond to a set of points on the curve. For reliable results, the points should lie on the curve within model tolerance. If the points do not lie on the curve, the parameter of the nearest point on the curve will generally be returned.
         points : An array of points to get the curve parameter values at.
         parameters : The output array of parameter positions corresponding to the set of points. The length of this array will be equal to the length of the points array specified.
         Returns true if the parameters were successfully returned.
         """
-        return (bool(), float())
-    def getParameterAtPoint(point):
+        return bool(), float()
+
+    def getParameterAtPoint(self, point):
         """
         Get the parameter position that correspond to a point on the curve. For reliable results, the point should lie on the curve within model tolerance. If the point does not lie on the curve, the parameter of the nearest point on the curve will generally be returned.
         point : The point to get the curve parameter value at.
         parameter : The output parameter position corresponding to the point.
         Returns true of the parameter was successfully returned.
         """
-        return (bool(), float())
-    def getParameterExtents():
+        return bool(), float()
+
+    def getParameterExtents(self):
         """
         Get the parametric range of the curve.
         startParameter : The output lower bound of the parameter range.
         endParameter : The output upper bound of the parameter range.
         Returns true if the curve is bounded and the parameter extents were successfully returned.
         """
-        return (bool(), float(), float())
-    def getPointsAtParameters(parameters):
+        return bool(), float(), float()
+
+    def getPointsAtParameters(self, parameters):
         """
         Get the points on the curve that correspond to evaluating a set of parameter positions on the curve.
         parameters : The array of parameter positions to evaluate the curve position at. Each parameter value must be within the range of the parameter extents as provided by getParameterExtents.
         points : The output array of curve positions corresponding to evaluating the curve at that parameter position. The length of this array will be equal to the length of the parameters array specified.
         Returns true if the points were successfully returned.
         """
-        return (bool(), Point2D())
-    def getPointAtParameter(parameter):
+        return bool(), Point2D()
+
+    def getPointAtParameter(self, parameter):
         """
         Get the point on the curve that corresponds to evaluating a parameter position on the curve.
         parameter : The parameter position to evaluate the curve position at. The parameter value must be within the range of the parameter extents as provided by getParameterExtents.
         point : The output curve position corresponding to evaluating the curve at that parameter position.
         Returns true if the point was successfully returned.
         """
-        return (bool(), Point2D())
-    def getFirstDerivatives(parameters):
+        return bool(), Point2D()
+
+    def getFirstDerivatives(self, parameters):
         """
         Get the first derivatives of the curve at the specified parameter positions.
         parameters : The array of parameter positions to get the curve first derivative at. Each parameter value must be within the range of the parameter extents as provided by getParameterExtents.
         firstDerivatives : The output array of first derivative vectors at each parameter position specified. The length of this array is equal to the length of the parameters array specified.
         Returns true if the first derivatives were successfully returned.
         """
-        return (bool(), Vector2D())
-    def getFirstDerivative(parameter):
+        return bool(), Vector2D()
+
+    def getFirstDerivative(self, parameter):
         """
         Get the first derivative of the curve at the specified parameter position.
         parameter : The parameter position to get the curve first derivative at. The parameter value must be within the range of the parameter extents as provided by getParameterExtents.
         firstDerivative : The output first derivative vector at the parameter position specified.
         Returns true if the first derivative was successfully returned.
         """
-        return (bool(), Vector2D())
-    def getSecondDerivatives(parameters):
+        return bool(), Vector2D()
+
+    def getSecondDerivatives(self, parameters):
         """
         Get the second derivatives of the curve at the specified parameter positions.
         parameters : The array of parameter positions to get the curve second derivative at. Each parameter value must be within the range of the parameter extents as provided by getParameterExtents.
         secondDerivatives : The output array of second derivative vectors at each parameter position specified. The length of this array is equal to the length of the parameters array specified.
         Returns true if the second derivatives were successfully returned.
         """
-        return (bool(), Vector2D())
-    def getSecondDerivative(parameter):
+        return bool(), Vector2D()
+
+    def getSecondDerivative(self, parameter):
         """
         Get the second derivative of the curve at the specified parameter position.
         parameter : The parameter position to get the curve second derivative at. The parameter value must be within the range of the parameter extents as provided by getParameterExtents.
         secondDerivative : The output second derivative vector at the parameter position specified.
         Returns true if the second derivative was successfully returned.
         """
-        return (bool(), Vector2D())
-    def getThirdDerivatives(parameters):
+        return bool(), Vector2D()
+
+    def getThirdDerivatives(self, parameters):
         """
         Get the third derivatives of the curve at the specified parameter positions.
         parameters : The array of parameter positions to get the curve third derivative at. Each parameter value must be within the range of the parameter extents as provided by getParameterExtents.
         thirdDerivatives : The output array of third derivative vectors at each parameter position specified. The length of this array is equal to the length of the parameters array specified.
         Returns true if the third derivatives were successfully returned.
         """
-        return (bool(), Vector2D())
-    def getThirdDerivative(parameter):
+        return bool(), Vector2D()
+
+    def getThirdDerivative(self, parameter):
         """
         Get the third derivative of the curve at the specified parameter position.
         parameter : The parameter position to get the curve third derivative at. The parameter value must be within the range of the parameter extents as provided by getParameterExtents.
         thirdDerivative : The output third derivative vector at the parameter position specified.
         Returns true if the third derivative was successfully returned.
         """
-        return (bool(), Vector2D())
-    def getStrokes(fromParameter, toParameter, tolerance):
+        return bool(), Vector2D()
+
+    def getStrokes(self, fromParameter, toParameter, tolerance):
         """
         Get a sequence of points between two curve parameter positions. The points will be a linear interpolation along the curve between these two parameter positions where the maximum deviation between the curve and each line segment will not exceed the specified tolerance value.
         fromParameter : The starting parameter position to interpolate points from. The parameter value must be within the range of the parameter extents as provided by getParameterExtents.
@@ -1547,18 +1969,22 @@ class CurveEvaluator2D(Base):
         vertexCoordinates : The output array of linear interpolation points.
         Returns true if the interpolation points were successfully returned.
         """
-        return (bool(), Point2D())
+        return bool(), Point2D()
+
 
 class CurveEvaluator3D(Base):
     """
     3D curve evaluator that is obtained from a transient curve and allows you to perform various evaluations on the curve.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return CurveEvaluator3D()
-    def getCurvatures(parameters):
+
+    def getCurvatures(self, parameters):
         """
         Get the curvature values at a number of parameter positions on the curve.
         parameters : The array of parameter positions to return curvature information at. Each parameter value must be within the range of the parameter extents as provided by getParameterExtents.
@@ -1566,8 +1992,9 @@ class CurveEvaluator3D(Base):
         curvatures : The output array of the magnitude of the curvature at the position on the curve. The length of this array will be the same as the length of the parameters array provided.
         Returns true if the curvatures were successfully returned.
         """
-        return (bool(), Vector3D(), float())
-    def getCurvature(parameter):
+        return bool(), Vector3D(), float()
+
+    def getCurvature(self, parameter):
         """
         Get the curvature value at a parameter position on the curve.
         parameter : The parameter position to return the curvature information at. This value must be within the range of the parameter extents as provided by getParameterExtents.
@@ -1575,16 +2002,18 @@ class CurveEvaluator3D(Base):
         curvature : The output magnitude of the curvature at the position on the curve.
         Returns true if the curvature was successfully returned.
         """
-        return (bool(), Vector3D(), float())
-    def getEndPoints():
+        return bool(), Vector3D(), float()
+
+    def getEndPoints(self):
         """
         Get the end points of the curve.
         startPoint : The output start point of the curve. If the curve is unbounded at the start, this value will be null.
         endPoint : The output end point of the curve. If the curve is unbounded at the end, this value will be null.
         Returns true if the end points were successfully returned.
         """
-        return (bool(), Point3D(), Point3D())
-    def getLengthAtParameter(fromParameter, toParameter):
+        return bool(), Point3D(), Point3D()
+
+    def getLengthAtParameter(self, fromParameter, toParameter):
         """
         Get the length of the curve between two parameter positions on the curve.
         fromParameter : The parameter position to measure the curve length from. This value must be within the range of the parameter extents as provided by getParameterExtents.
@@ -1592,8 +2021,9 @@ class CurveEvaluator3D(Base):
         length : The output curve length between the from and to parameter positions on the curve.
         Returns true if the length was successfully returned.
         """
-        return (bool(), float())
-    def getParameterAtLength(fromParameter, length):
+        return bool(), float()
+
+    def getParameterAtLength(self, fromParameter, length):
         """
         Get the parameter position on the curve that is the specified curve length from the specified starting parameter position.
         fromParameter : The parameter position to start measuring the curve length from. This value must be within the range of the parameter extents as provided by getParameterExtents.
@@ -1601,96 +2031,108 @@ class CurveEvaluator3D(Base):
         parameter : The output parameter value that is the specified curve length from the starting parameter position.
         Returns true if the parameter was successfully returned.
         """
-        return (bool(), float())
-    def getParametersAtPoints(points):
+        return bool(), float()
+
+    def getParametersAtPoints(self, points):
         """
         Get the parameter positions that correspond to a set of points on the curve. For reliable results, the points should lie on the curve within model tolerance. If the points do not lie on the curve, the parameter of the nearest point on the curve will generally be returned.
         points : An array of points to get the curve parameter values at.
         parameters : The output array of parameter positions corresponding to the set of points. The length of this array will be equal to the length of the points array specified.
         Returns true if the parameters were successfully returned.
         """
-        return (bool(), float())
-    def getParameterAtPoint(point):
+        return bool(), float()
+
+    def getParameterAtPoint(self, point):
         """
         Get the parameter position that correspond to a point on the curve. For reliable results, the point should lie on the curve within model tolerance. If the point does not lie on the curve, the parameter of the nearest point on the curve will generally be returned.
         point : The point to get the curve parameter value at.
         parameter : The output parameter position corresponding to the point.
         Returns true of the parameter was successfully returned.
         """
-        return (bool(), float())
-    def getParameterExtents():
+        return bool(), float()
+
+    def getParameterExtents(self):
         """
         Get the parametric range of the curve.
         startParameter : The output lower bound of the parameter range.
         endParameter : The output upper bound of the parameter range.
         Returns true if the curve is bounded and the parameter extents were successfully returned.
         """
-        return (bool(), float(), float())
-    def getPointsAtParameters(parameters):
+        return bool(), float(), float()
+
+    def getPointsAtParameters(self, parameters):
         """
         Get the points on the curve that correspond to evaluating a set of parameter positions on the curve.
         parameters : The array of parameter positions to evaluate the curve position at. Each parameter value must be within the range of the parameter extents as provided by getParameterExtents.
         points : The output array of curve positions corresponding to evaluating the curve at that parameter position. The length of this array will be equal to the length of the parameters array specified.
         Returns true if the points were successfully returned.
         """
-        return (bool(), Point3D())
-    def getPointAtParameter(parameter):
+        return bool(), Point3D()
+
+    def getPointAtParameter(self, parameter):
         """
         Get the point on the curve that corresponds to evaluating a parameter position on the curve.
         parameter : The parameter position to evaluate the curve position at. The parameter value must be within the range of the parameter extents as provided by getParameterExtents.
         point : The output curve position corresponding to evaluating the curve at that parameter position.
         Returns true if the point was successfully returned.
         """
-        return (bool(), Point3D())
-    def getFirstDerivatives(parameters):
+        return bool(), Point3D()
+
+    def getFirstDerivatives(self, parameters):
         """
         Get the first derivatives of the curve at the specified parameter positions.
         parameters : The array of parameter positions to get the curve first derivative at. Each parameter value must be within the range of the parameter extents as provided by getParameterExtents.
         firstDerivatives : The output array of first derivative vectors at each parameter position specified. The length of this array is equal to the length of the parameters array specified.
         Returns true if the first derivatives were successfully returned.
         """
-        return (bool(), Vector3D())
-    def getFirstDerivative(parameter):
+        return bool(), Vector3D()
+
+    def getFirstDerivative(self, parameter):
         """
         Get the first derivative of the curve at the specified parameter position.
         parameter : The parameter position to get the curve first derivative at. The parameter value must be within the range of the parameter extents as provided by getParameterExtents.
         firstDerivative : The output first derivative vector at the parameter position specified.
         Returns true if the first derivative was successfully returned.
         """
-        return (bool(), Vector3D())
-    def getSecondDerivatives(parameters):
+        return bool(), Vector3D()
+
+    def getSecondDerivatives(self, parameters):
         """
         Get the second derivatives of the curve at the specified parameter positions.
         parameters : The array of parameter positions to get the curve second derivative at. Each parameter value must be within the range of the parameter extents as provided by getParameterExtents.
         secondDerivatives : The output array of second derivative vectors at each parameter position specified. The length of this array is equal to the length of the parameters array specified.
         Returns true if the second derivatives were successfully returned.
         """
-        return (bool(), Vector3D())
-    def getSecondDerivative(parameter):
+        return bool(), Vector3D()
+
+    def getSecondDerivative(self, parameter):
         """
         Get the second derivative of the curve at the specified parameter position.
         parameter : The parameter position to get the curve second derivative at. The parameter value must be within the range of the parameter extents as provided by getParameterExtents.
         secondDerivative : The output second derivative vector at the parameter position specified.
         Returns true if the second derivative was successfully returned.
         """
-        return (bool(), Vector3D())
-    def getThirdDerivatives(parameters):
+        return bool(), Vector3D()
+
+    def getThirdDerivatives(self, parameters):
         """
         Get the third derivatives of the curve at the specified parameter positions.
         parameters : The array of parameter positions to get the curve third derivative at. Each parameter value must be within the range of the parameter extents as provided by getParameterExtents.
         thirdDerivatives : The output array of third derivative vectors at each parameter position specified. The length of this array is equal to the length of the parameters array specified.
         Returns true if the third derivatives were successfully returned.
         """
-        return (bool(), Vector3D())
-    def getThirdDerivative(parameter):
+        return bool(), Vector3D()
+
+    def getThirdDerivative(self, parameter):
         """
         Get the third derivative of the curve at the specified parameter position.
         parameter : The parameter position to get the curve third derivative at. The parameter value must be within the range of the parameter extents as provided by getParameterExtents.
         thirdDerivative : The output third derivative vector at the parameter position specified.
         Returns true if the third derivative was successfully returned.
         """
-        return (bool(), Vector3D())
-    def getStrokes(fromParameter, toParameter, tolerance):
+        return bool(), Vector3D()
+
+    def getStrokes(self, fromParameter, toParameter, tolerance):
         """
         Get a sequence of points between two curve parameter positions. The points will be a linear interpolation along the curve between these two parameter positions where the maximum deviation between the curve and each line segment will not exceed the specified tolerance value.
         fromParameter : The starting parameter position to interpolate points from. The parameter value must be within the range of the parameter extents as provided by getParameterExtents.
@@ -1699,371 +2141,504 @@ class CurveEvaluator3D(Base):
         vertexCoordinates : The output array of linear interpolation points.
         Returns true if the interpolation points were successfully returned.
         """
-        return (bool(), Point3D())
-    def getTangents(parameters):
+        return bool(), Point3D()
+
+    def getTangents(self, parameters):
         """
         Get the tangent to the curve at a number of parameter positions on the curve.
         parameters : The array of parameter positions to return the tangent at. Each parameter value must be within the range of the parameter extents as provided by getParameterExtents.
         tangents : The output array of tangent vectors for each position on the curve. The length of this array will be the same as the length of the parameters array provided.
         Returns true if the tangents were successfully returned.
         """
-        return (bool(), Vector3D())
-    def getTangent(parameter):
+        return bool(), Vector3D()
+
+    def getTangent(self, parameter):
         """
         Get the tangent to the curve at a parameter position on the curve.
         parameter : The parameter position to return the tangent at. This value must be within the range of the parameter extents as provided by getParameterExtents.
         tangent : The output tangent vector at the curve position.
         Returns true if the tangent was successfully returned.
         """
-        return (bool(), Vector3D())
+        return bool(), Vector3D()
+
 
 class Data(Base):
     """
     The Data class provides access to data files
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return Data()
+
     def _set_activeProject(self, activeProject):
         pass
+
     def _get_activeProject(self):
         return DataProject()
+
     def _get_dataProjects(self):
         return DataProjects()
+
     def _get_dataHubs(self):
         return DataHubs()
+
     def _set_activeHub(self, activeHub):
         pass
+
     def _get_activeHub(self):
         return DataHub()
+
     def _set_isDataPanelVisible(self, isDataPanelVisible):
         pass
+
     def _get_isDataPanelVisible(self):
         return bool()
-    def refreshDataPanel():
+
+    def refreshDataPanel(self):
         """
         Refreshes the contents of the data panel to ensure what is displayed reflects the latest state.
         Returns true if the refresh was successful.
         """
         return bool()
-    activeProject = property(_get_activeProject, _set_activeProject, doc="Gets and sets the active DataProject. This is the project currently displayed in the Fusion 360 Data Panel.")
-    dataProjects = property(_get_dataProjects, None, doc="Gets the collection of DataProjects associated with the active Hub.")
-    dataHubs = property(_get_dataHubs, None, doc="Returns a collection of accessible hubs for the current user. A DataHub represents an A360 Team or Personal hub.")
+
+    activeProject = property(_get_activeProject, _set_activeProject,
+                             doc="Gets and sets the active DataProject. This is the project currently displayed in the Fusion 360 Data Panel.")
+    dataProjects = property(_get_dataProjects, None,
+                            doc="Gets the collection of DataProjects associated with the active Hub.")
+    dataHubs = property(_get_dataHubs, None,
+                        doc="Returns a collection of accessible hubs for the current user. A DataHub represents an A360 Team or Personal hub.")
     activeHub = property(_get_activeHub, _set_activeHub, doc="Gets the active DataHub.")
-    isDataPanelVisible = property(_get_isDataPanelVisible, _set_isDataPanelVisible, doc="Gets and sets if the data panel is visible within Fusion 360.")
+    isDataPanelVisible = property(_get_isDataPanelVisible, _set_isDataPanelVisible,
+                                  doc="Gets and sets if the data panel is visible within Fusion 360.")
+
 
 class DataFile(Base):
     """
     A data file in a data folder.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return DataFile()
+
     def _set_name(self, name):
         pass
+
     def _get_name(self):
         return str()
+
     def _get_description(self):
         return str()
+
     def _get_parentFolder(self):
         return DataFolder()
+
     def _get_parentProject(self):
         return DataProject()
+
     def _get_id(self):
         return str()
+
     def _get_versionNumber(self):
         return int()
+
     def _get_versions(self):
         return DataFiles()
+
     def _get_latestVersionNumber(self):
         return int()
+
     def _get_latestVersion(self):
         return DataFile()
+
     def _get_fileExtension(self):
         return str()
+
     def _get_isInUse(self):
         return bool()
+
     def _get_inUseBy(self):
         return User()
+
     def _get_createdBy(self):
         return User()
+
     def _get_lastUpdatedBy(self):
         return User()
+
     def _get_hasOutofDateChildReferences(self):
         return bool()
+
     def _get_hasChildReferences(self):
         return bool()
+
     def _get_hasParentReferences(self):
         return bool()
+
     def _get_childReferences(self):
         return DataFiles()
+
     def _get_parentReferences(self):
         return DataFiles()
+
     def _get_publicLink(self):
         return str()
-    def deleteMe():
+
+    def deleteMe(self):
         """
         Deletes this DataFile. This can fail if this file is referenced by another file or is currently open.
         Returns true if the deletion was successful.
         """
         return bool()
-    def move(targetFolder):
+
+    def move(self, targetFolder):
         """
         Moves this DataFile to the specified folder.
         targetFolder : The folder to move this DataFile to.
         Returns true if the move was successful.
         """
         return bool()
-    def copy(targetFolder):
+
+    def copy(self, targetFolder):
         """
         Copies this DataFile to the specified folder.
         targetFolder : The folder to copy this DataFile to.
         Returns the copied DataFile if the copy was successful.
         """
         return DataFile()
-    def promote():
+
+    def promote(self):
         """
         Promotes this version to be the latest version. If this is the latest version, nothing happens.
         Returns true if successful.
         """
         return bool()
+
     name = property(_get_name, _set_name, doc="Gets and sets the displayed name of this item.")
-    description = property(_get_description, None, doc="Gets and sets the description information associated with this item.")
+    description = property(_get_description, None,
+                           doc="Gets and sets the description information associated with this item.")
     parentFolder = property(_get_parentFolder, None, doc="Returns the parent folder this item is contained within.")
     parentProject = property(_get_parentProject, None, doc="Returns the parent project that this item is in.")
-    id = property(_get_id, None, doc="Returns the unique ID for this DataFile. This is the same id used in the Forge Data Management API for an Item and is in the unencoded form and will look similar to this: 'urn:adsk.wipprod:dm.lineage:hC6k4hndRWaeIVhIjvHu8w'")
+    id = property(_get_id, None,
+                  doc="Returns the unique ID for this DataFile. This is the same id used in the Forge Data Management API for an Item and is in the unencoded form and will look similar to this: 'urn:adsk.wipprod:dm.lineage:hC6k4hndRWaeIVhIjvHu8w'")
     versionNumber = property(_get_versionNumber, None, doc="Gets the version number of this DataFile.")
     versions = property(_get_versions, None, doc="Gets the other version of this item.")
-    latestVersionNumber = property(_get_latestVersionNumber, None, doc="Gets the latest version number for this DataFile.")
-    latestVersion = property(_get_latestVersion, None, doc="Returns the latest version of the DataFile. It can return a reference to the same DataFile is this DataFile is the latest version.")
-    fileExtension = property(_get_fileExtension, None, doc="Gets the file extension for this data file. The file type can be inferred from this.")
-    isInUse = property(_get_isInUse, None, doc="Gets if this DataFile is currently in use (opened for edit) by any other user.")
-    inUseBy = property(_get_inUseBy, None, doc="Returns the array of users that are currently using (have open for edit) this data file.")
+    latestVersionNumber = property(_get_latestVersionNumber, None,
+                                   doc="Gets the latest version number for this DataFile.")
+    latestVersion = property(_get_latestVersion, None,
+                             doc="Returns the latest version of the DataFile. It can return a reference to the same DataFile is this DataFile is the latest version.")
+    fileExtension = property(_get_fileExtension, None,
+                             doc="Gets the file extension for this data file. The file type can be inferred from this.")
+    isInUse = property(_get_isInUse, None,
+                       doc="Gets if this DataFile is currently in use (opened for edit) by any other user.")
+    inUseBy = property(_get_inUseBy, None,
+                       doc="Returns the array of users that are currently using (have open for edit) this data file.")
     createdBy = property(_get_createdBy, None, doc="Returns the User that created this data file.")
     lastUpdatedBy = property(_get_lastUpdatedBy, None, doc="Returns the User that last updated this data file")
-    hasOutofDateChildReferences = property(_get_hasOutofDateChildReferences, None, doc="Gets if this datafile has Children (referenced components) that are out of date (not the latest version).")
-    hasChildReferences = property(_get_hasChildReferences, None, doc="Gets if this datafile has children, (i.e. a Fusion 360 Design containing referenced components).")
-    hasParentReferences = property(_get_hasParentReferences, None, doc="Gets if this datafile has parents, (i.e. this is a child being referenced in another Fusion 360 design).")
-    childReferences = property(_get_childReferences, None, doc="Returns a collection of DataFiles that are the children (referenced designs) this datafile references.")
-    parentReferences = property(_get_parentReferences, None, doc="Returns a collection DataFiles collection that are the parents (designs that reference) this datafile.")
-    publicLink = property(_get_publicLink, None, doc="Returns a short url of this data file which can be shared with others.")
+    hasOutofDateChildReferences = property(_get_hasOutofDateChildReferences, None,
+                                           doc="Gets if this datafile has Children (referenced components) that are out of date (not the latest version).")
+    hasChildReferences = property(_get_hasChildReferences, None,
+                                  doc="Gets if this datafile has children, (i.e. a Fusion 360 Design containing referenced components).")
+    hasParentReferences = property(_get_hasParentReferences, None,
+                                   doc="Gets if this datafile has parents, (i.e. this is a child being referenced in another Fusion 360 design).")
+    childReferences = property(_get_childReferences, None,
+                               doc="Returns a collection of DataFiles that are the children (referenced designs) this datafile references.")
+    parentReferences = property(_get_parentReferences, None,
+                                doc="Returns a collection DataFiles collection that are the parents (designs that reference) this datafile.")
+    publicLink = property(_get_publicLink, None,
+                          doc="Returns a short url of this data file which can be shared with others.")
+
 
 class DataFileFuture(Base):
     """
     Used to check the state and get back the results of a file upload.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return DataFileFuture()
+
     def _get_dataFile(self):
         return DataFile()
+
     def _get_uploadState(self):
         return UploadStates()
-    dataFile = property(_get_dataFile, None, doc="Returns the DataFile when the upload is complete (uplodeState returns UploadFinished). Returns null if the upload is still running or has failed.")
+
+    dataFile = property(_get_dataFile, None,
+                        doc="Returns the DataFile when the upload is complete (uplodeState returns UploadFinished). Returns null if the upload is still running or has failed.")
     uploadState = property(_get_uploadState, None, doc="Returns the current state of the upload.")
+
 
 class DataFiles(Base):
     """
     Returns the items within a folder. This includes everything in a folder except for other folders.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return DataFiles()
+
     def _get_count(self):
         return int()
-    def item(index):
+
+    def item(self, index):
         """
         Returns the specified data file.
         index : The index of the file to return. The first file in the list has an index of 0.
         Returns the specified file or null if an invalid index was specified.
         """
         return DataFile()
+
     count = property(_get_count, None, doc="The number of data items in this collection.")
+
 
 class DataFolder(Base):
     """
     A data folder that contains a collection of data items.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return DataFolder()
+
     def _set_name(self, name):
         pass
+
     def _get_name(self):
         return str()
+
     def _get_dataFiles(self):
         return DataFiles()
+
     def _get_dataFolders(self):
         return DataFolders()
+
     def _get_parentFolder(self):
         return DataFolder()
+
     def _get_parentProject(self):
         return DataProject()
+
     def _get_isRoot(self):
         return bool()
+
     def _get_id(self):
         return str()
-    def uploadFile(filename):
+
+    def uploadFile(self, filename):
         """
         Uploads a single file to this directory.
         filename : The full filename of the file to upload.
         The upload process is asynchronous which means that this method will return before the upload process had completed. The returned DataFileFuture object can be used to check on the current state of the upload to determine if it is still uploading, is complete, or has failed. If it is complete the final DataFinal can be retrieved through the DataFileFuture object.
         """
         return DataFileFuture()
-    def uploadAssembly(filenames):
+
+    def uploadAssembly(self, filenames):
         """
         Uploads a set of files that represent an assembly There should only be a single top-level assembly file but there can be any number of other files that represent subassemblies.
         filenames : An array of strings that contains the list of all of the files that are part of the assembly. The name of the the top-level assembly file must be the first file in the array.
         The upload process is asynchronous which means that this method will return before the upload process had completed. The returned DataFileFuture object can be used to check on the current state of the upload to determine if it is still uploading, is complete, or has failed. If it is complete the final DataFinal can be retrieved through the DataFileFuture object.
         """
         return DataFileFuture()
-    def deleteMe():
+
+    def deleteMe(self):
         """
         Deletes this folder item.
         Returns true if the deletion was successful.
         """
         return bool()
+
     name = property(_get_name, _set_name, doc="Gets and sets the displayed name of this folder.")
-    dataFiles = property(_get_dataFiles, None, doc="Returns a collection containing all of the items within this folder, excluding folders. Use the dataFolders property to get the folders.")
-    dataFolders = property(_get_dataFolders, None, doc="Returns a collection containing all of the folders within this folder.")
-    parentFolder = property(_get_parentFolder, None, doc="Returns the parent folder this folder is contained within. Returns null if this is the project's root folder.")
+    dataFiles = property(_get_dataFiles, None,
+                         doc="Returns a collection containing all of the items within this folder, excluding folders. Use the dataFolders property to get the folders.")
+    dataFolders = property(_get_dataFolders, None,
+                           doc="Returns a collection containing all of the folders within this folder.")
+    parentFolder = property(_get_parentFolder, None,
+                            doc="Returns the parent folder this folder is contained within. Returns null if this is the project's root folder.")
     parentProject = property(_get_parentProject, None, doc="Returns the parent project that owns this folder.")
     isRoot = property(_get_isRoot, None, doc="Indicates if this folder is the root folder within the parent project.")
-    id = property(_get_id, None, doc="Returns the unique ID for this folder. This is the same id used in the Forge Data Management API.")
+    id = property(_get_id, None,
+                  doc="Returns the unique ID for this folder. This is the same id used in the Forge Data Management API.")
+
 
 class DataFolders(Base):
     """
     Collection object the provides a list of data folders.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return DataFolders()
+
     def _get_count(self):
         return int()
-    def item(index):
+
+    def item(self, index):
         """
         Returns the specified folder.
         index : The index of the folder to return. The first folder in the list has an index of 0.
         Returns the item or null if an invalid index was specified.
         """
         return DataFolder()
-    def itemByName(name):
+
+    def itemByName(self, name):
         """
         Returns the folder specified using the name of the folder.
         name : The name of the folder to return.
         Returns the folder or null if a folder of the specified name is not found.
         """
         return DataFolder()
-    def itemById(id):
+
+    def itemById(self, id):
         """
         Returns the folder specified using the ID of the folder.
         id : The ID of the folder to return. This is the same ID used by the Forge Data Management API.
         Returns the folder or null if a folder with the specified ID is not found.
         """
         return DataFolder()
-    def add(name):
+
+    def add(self, name):
         """
         Creates a new folder within the parent folder.
         name : The name of the folder. This must be unique with respect to the other folders within the parent folder.
         Returns the created DataFolder or null if the creation failed.
         """
         return DataFolder()
+
     count = property(_get_count, None, doc="The number of folders in this collection.")
+
 
 class DataHub(Base):
     """
     Represents a hub within the data.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return DataHub()
+
     def _get_name(self):
         return str()
+
     def _get_dataProjects(self):
         return DataProjects()
+
     def _get_hubType(self):
         return HubTypes()
+
     name = property(_get_name, None, doc="Returns the name of the hub.")
     dataProjects = property(_get_dataProjects, None, doc="Returns the projects within this hub.")
-    hubType = property(_get_hubType, None, doc="Gets if this hub is a Personal (PersonalHubType) or Team (TeamHubType) type hub.")
+    hubType = property(_get_hubType, None,
+                       doc="Gets if this hub is a Personal (PersonalHubType) or Team (TeamHubType) type hub.")
+
 
 class DataHubs(Base):
     """
     Collection object that provides a list of all available hubs.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return DataHubs()
+
     def _get_count(self):
         return int()
-    def item(index):
+
+    def item(self, index):
         """
         Returns the specified hub.
         index : The index of the hub to return. The first hub in the list has an index of 0.
         Returns the specified item or null if an invalid index was specified.
         """
         return DataHub()
+
     count = property(_get_count, None, doc="The number of hubs in this collection.")
+
 
 class DataProject(Base):
     """
     Represents the master branch project within a hub.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return DataProject()
+
     def _set_name(self, name):
         pass
+
     def _get_name(self):
         return str()
+
     def _get_rootFolder(self):
         return DataFolder()
+
     def _get_id(self):
         return str()
+
     def _get_parentHub(self):
         return DataHub()
+
     name = property(_get_name, _set_name, doc="Gets and sets the name of the project.")
-    rootFolder = property(_get_rootFolder, None, doc="Returns the project's root folder. This provides access to all of the folders and the files in the top level of the project.")
-    id = property(_get_id, None, doc="Returns the unique ID for this project. This is the same id used in the Forge Data Management API in an unencoded form and will look something like this: 'a.45637'.")
+    rootFolder = property(_get_rootFolder, None,
+                          doc="Returns the project's root folder. This provides access to all of the folders and the files in the top level of the project.")
+    id = property(_get_id, None,
+                  doc="Returns the unique ID for this project. This is the same id used in the Forge Data Management API in an unencoded form and will look something like this: 'a.45637'.")
     parentHub = property(_get_parentHub, None, doc="Returns the parent DataHub of this project.")
+
 
 class DataProjects(Base):
     """
     Collection object that provides a list of all available projects.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return DataProjects()
+
     def _get_count(self):
         return int()
-    def item(index):
+
+    def item(self, index):
         """
         Returns the specified project.
         index : The index of the project to return. The first project in the list has an index of 0.
         Returns the specified item or null if an invalid index was specified.
         """
         return DataProject()
-    def add(name, purpose, contributors):
+
+    def add(self, name, purpose, contributors):
         """
         Creates a new project in the parent hub.
         name : The name of the project. This is the name visible to the user.
@@ -2072,154 +2647,203 @@ class DataProjects(Base):
         Returns the created DataProject object or null if the creation failed.
         """
         return DataProject()
+
     count = property(_get_count, None, doc="The number of projects in this collection.")
 
-class DefaultModelingOrientations():
+
+class DefaultModelingOrientations:
     """
     A list of the valid modeling orientations.
     """
+
     def __init__(self):
         pass
+
     YUpModelingOrientation = 0
     ZUpModelingOrientation = 1
 
-class DefaultOrbits():
+
+class DefaultOrbits:
     """
     A list of the valid orbit modes.
     """
+
     def __init__(self):
         pass
+
     ConstrainedOrbit = 0
     FreeOrbit = 1
+
 
 class DefaultUnitsPreferences(Base):
     """
     The base class for the default units preference. There is a derived class supported by each product where the specific preference values are exposed.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return DefaultUnitsPreferences()
+
     def _get_name(self):
         return str()
+
     name = property(_get_name, None, doc="Returns the name of this DefaultUnitPreferences object.")
+
 
 class DefaultUnitsPreferencesCollection(Base):
     """
     A collection that provides access to product specific unit preference objects.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return DefaultUnitsPreferencesCollection()
+
     def _get_count(self):
         return int()
-    def item(index):
+
+    def item(self, index):
         """
         Function that returns the specified DefaultUnitPreferences object using an index into the collection.
         index : The index of the item within the collection to return. The first item in the collection has an index of 0.
         Returns the specified item or null if an invalid index was specified.
         """
         return DefaultUnitsPreferences()
-    def itemByName(name):
+
+    def itemByName(self, name):
         """
         Returns the DefaultUnitsPreference object with the specified name.
         name : The name of the DefaultUnitsPreference to return.
         Returns the DefaultUnitsPreference object or null if if an invalid name was specified.
         """
         return DefaultUnitsPreferences()
+
     count = property(_get_count, None, doc="Returns the number of DefaultUnitsPreference objects.")
 
-class DegradedSelectionDisplayStyles():
+
+class DegradedSelectionDisplayStyles:
     """
     A list of the valid degraded display styles.
     """
+
     def __init__(self):
         pass
+
     NormalWithGlowDegradedSelectionStyle = 0
     SimpleWithoutGlowDegradedSelectionStyle = 1
 
-class DegreeDisplayFormats():
+
+class DegreeDisplayFormats:
     """
     List of the valid degree display formats.
     """
+
     def __init__(self):
         pass
+
     DecimalDegreeDisplay = 0
     MinutesAndSecondsDegreeDisplay = 1
 
-class DialogResults():
+
+class DialogResults:
     """
     Defines the valid return types from a dialog.
     """
+
     def __init__(self):
         pass
+
     DialogError = 0
     DialogOK = 1
     DialogCancel = 2
     DialogYes = 3
     DialogNo = 4
 
+
 class Document(Base):
     """
     Object that represents an open document. This is the base class for all document types.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return Document()
+
     def _set_name(self, name):
         pass
+
     def _get_name(self):
         return str()
+
     def _get_isModified(self):
         return bool()
+
     def _get_isSaved(self):
         return bool()
+
     def _get_parent(self):
         return Application()
+
     def _get_products(self):
         return Products()
+
     def _get_isActive(self):
         return bool()
+
     def _get_isVisible(self):
         return bool()
+
     def _get_attributes(self):
         return Attributes()
+
     def _get_dataFile(self):
         return DataFile()
+
     def _get_version(self):
         return str()
+
     def _get_documentReferences(self):
         return DocumentReferences()
+
     def _get_isUpToDate(self):
         return bool()
+
     def _get_allDocumentReferences(self):
         return DocumentReferences()
-    def activate():
+
+    def activate(self):
         """
         Causes this document to become the active document in the user interface.
         Returns true if the activation was successful.
         """
         return bool()
-    def close(saveChanges):
+
+    def close(self, saveChanges):
         """
         Closes this document.
         saveChanges : This argument defines what the behavior of the close is when the document has been modified. If the document hasn't been modified then this argument is ignored and the document is closed. If the document has been modified and this argument is false then Fusion 360 will close the document and lose any changes. If the document has been modified and this argument is true then it will prompt the user if they want to save the changes or not, just the same as if the user was to interactively close the document.
         Returns true if closing the document was successful.
         """
         return bool()
-    def save(description):
+
+    def save(self, description):
         """
         Saves a version of the current document. You must use the SaveAs method the first time a document is saved. You can determine if a document has been saved by checking the value of the isSaved property.
         description : The version description for this document
         Returns true if saving the document was successful.
         """
         return bool()
-    def saveAs(name, dataFolder, description, tag):
+
+    def saveAs(self, name, dataFolder, description, tag):
         """
         Performs a Save As on this document. This saves the currently open document to the specified location and this document becomes the saved document. If this is a new document that has never been saved you must use the SaveAs method in order to specify the location and name. You can determine if the document has been saved by checking the value of the isSaved property.
         name : The name to use for this document. If this is an empty string, Fusion 360 will use the default name assigned when the document was created.
@@ -2229,85 +2853,118 @@ class Document(Base):
         Returns true if the save as was successful.
         """
         return bool()
+
     name = property(_get_name, _set_name, doc="Gets and sets the name of the document.")
-    isModified = property(_get_isModified, None, doc="Property that indicates if the document has been modified since it was last saved.")
-    isSaved = property(_get_isSaved, None, doc="Property that indicates if this document has been saved or not. The initial save of a document requires that the name and location be specified and requires the saveAs method to be used. If the document has been saved then the save method can be used to save changes made.")
+    isModified = property(_get_isModified, None,
+                          doc="Property that indicates if the document has been modified since it was last saved.")
+    isSaved = property(_get_isSaved, None,
+                       doc="Property that indicates if this document has been saved or not. The initial save of a document requires that the name and location be specified and requires the saveAs method to be used. If the document has been saved then the save method can be used to save changes made.")
     parent = property(_get_parent, None, doc="Returns the parent Application object.")
     products = property(_get_products, None, doc="Returns the products associated with this document.")
     isActive = property(_get_isActive, None, doc="Gets if this document is the active document in the user interface.")
     isVisible = property(_get_isVisible, None, doc="Gets if a currently open document is open as visible.")
-    attributes = property(_get_attributes, None, doc="Returns the collection of attributes associated with this document.")
+    attributes = property(_get_attributes, None,
+                          doc="Returns the collection of attributes associated with this document.")
     dataFile = property(_get_dataFile, None, doc="Gets the DataFile that represents this document in A360.")
     version = property(_get_version, None, doc="Returns the Fusion 360 version this document was last saved with.")
-    documentReferences = property(_get_documentReferences, None, doc="Returns a collection containing the documents directly referenced by this document.")
-    isUpToDate = property(_get_isUpToDate, None, doc="Indicates if any references in the assembly are out of date. This is the API equivalent to the 'Out of Date' notification displayed in the Quick Access Toolbar.")
-    allDocumentReferences = property(_get_allDocumentReferences, None, doc="Returns a collection containing all of the documents referenced directly by this document and those referenced by all sub-assemblies.")
+    documentReferences = property(_get_documentReferences, None,
+                                  doc="Returns a collection containing the documents directly referenced by this document.")
+    isUpToDate = property(_get_isUpToDate, None,
+                          doc="Indicates if any references in the assembly are out of date. This is the API equivalent to the 'Out of Date' notification displayed in the Quick Access Toolbar.")
+    allDocumentReferences = property(_get_allDocumentReferences, None,
+                                     doc="Returns a collection containing all of the documents referenced directly by this document and those referenced by all sub-assemblies.")
+
 
 class DocumentReference(Base):
     """
     Represents a reference to a document from another document.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return DocumentReference()
+
     def _get_dataFile(self):
         return DataFile()
+
     def _get_referencedDocument(self):
         return Document()
+
     def _set_version(self, version):
         pass
+
     def _get_version(self):
         return int()
+
     def _get_parentDocument(self):
         return Document()
+
     def _get_isOutOfDate(self):
         return bool()
-    def getLatestVersion():
+
+    def getLatestVersion(self):
         """
         Updates the reference to use the latest version. This is only useful when the isOutOfDate property is true.
         Returns true if getting the latest version was successful.
         """
         return bool()
+
     dataFile = property(_get_dataFile, None, doc="The dataFile on A360 that this object references.")
-    referencedDocument = property(_get_referencedDocument, None, doc="The document currently open in Fusion 360 that this object references.")
-    version = property(_get_version, _set_version, doc="Gets and sets the version of the dataFile on A360 that this document currently represents. Setting this property will cause all occuurences referencing this document to update to that version.")
-    parentDocument = property(_get_parentDocument, None, doc="The document that is doing the referencing and owns this reference.")
-    isOutOfDate = property(_get_isOutOfDate, None, doc="Indicates if this reference is out of date, meaning that the reference is not referencing the latest version.")
+    referencedDocument = property(_get_referencedDocument, None,
+                                  doc="The document currently open in Fusion 360 that this object references.")
+    version = property(_get_version, _set_version,
+                       doc="Gets and sets the version of the dataFile on A360 that this document currently represents. Setting this property will cause all occuurences referencing this document to update to that version.")
+    parentDocument = property(_get_parentDocument, None,
+                              doc="The document that is doing the referencing and owns this reference.")
+    isOutOfDate = property(_get_isOutOfDate, None,
+                           doc="Indicates if this reference is out of date, meaning that the reference is not referencing the latest version.")
+
 
 class DocumentReferences(Base):
     """
     Provides access to the list of documents referenced from a document.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return DocumentReferences()
+
     def _get_count(self):
         return int()
-    def item(index):
+
+    def item(self, index):
         """
         Returns the specified DocumentReference.
         index : The index of the object to return where the first one in the collection has an index of 0.
         Returns the specified DocumentReference or null if an invalid index was specified.
         """
         return DocumentReference()
+
     count = property(_get_count, None, doc="The number of DocumentReference objects in this collection.")
+
 
 class Documents(Base):
     """
     The Documents object provides access to all of the currently open documents and provides methods to create and open documents.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return Documents()
+
     def _get_count(self):
         return int()
-    def add(documentType, visible, options):
+
+    def add(self, documentType, visible, options):
         """
         Creates and opens a new document of the specified type.
         documentType : A value from the DocumentTypes enum that specifies the type of document to create.
@@ -2316,14 +2973,16 @@ class Documents(Base):
         Returns the created document
         """
         return Document()
-    def item(index):
+
+    def item(self, index):
         """
         Function that returns the specified document using an index into the collection.
         index : The index of the item within the collection to return. The first item in the collection has an index of 0.
         Returns the specified item or null if an invalid index was specified.
         """
         return Document()
-    def open(dataFile, visible):
+
+    def open(self, dataFile, visible):
         """
         Opens an item that has previously been saved.
         dataFile : The item to open.
@@ -2331,330 +2990,466 @@ class Documents(Base):
         Returns the open document or null if the open failed.
         """
         return Document()
+
     count = property(_get_count, None, doc="Returns the number of currently open files.")
 
-class DocumentTypes():
+
+class DocumentTypes:
     """
     The types of documents that can be created.
     """
+
     def __init__(self):
         pass
+
     FusionDesignDocumentType = 0
 
-class DropDownStyles():
+
+class DropDownStyles:
     """
     Defines the different styles that a drop-down input can be.
     """
+
     def __init__(self):
         pass
+
     LabeledIconDropDownStyle = 0
     TextListDropDownStyle = 1
     CheckBoxDropDownStyle = 2
+
 
 class Event(Base):
     """
     Objects can have several Event properties that fire when some 'event' occurs. Clients can attach EventHandlers to one or more Events and they get notified when the 'event' occurs. This is a base class - classes like DocumentEvent add type safety (i.e. only allow the correct type of handler to be added to them).
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return Event()
+
     def _get_name(self):
         return str()
+
     def _get_sender(self):
         return Base()
+
     name = property(_get_name, None, doc="The name of the event - e.g. 'DocumentOpening'")
-    sender = property(_get_sender, None, doc="The object that is firing the event. For example, in the case of a command input event this will return the command.")
+    sender = property(_get_sender, None,
+                      doc="The object that is firing the event. For example, in the case of a command input event this will return the command.")
+
 
 class EventArgs(Base):
     """
     When an event handler is called, it is passed an EventArgs object that describes the 'event'. This is a base class - classes like DocumentEventArgs add more information on the 'event'.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return EventArgs()
+
     def _get_firingEvent(self):
         return Event()
+
     firingEvent = property(_get_firingEvent, None, doc="The event that the firing is in response to.")
+
 
 class FavoriteAppearances(Base):
     """
     Collection of the favorite appearances.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return FavoriteAppearances()
+
     def _get_count(self):
         return int()
-    def item(index):
+
+    def item(self, index):
         """
         Returns the specified Appearance using an index into the collection.
         index : The index of the appearance to return where the first item in the collection is 0.
         Returns the specified appearance or null if an invalid index is specified.
         """
         return Appearance()
-    def itemByName(name):
+
+    def itemByName(self, name):
         """
         Returns the specified appearance using the name as seen in the user interface. This often isn't a reliable way of accessing a specific appearance because appearances are not required to be unique.
         name : The name of the appearance to return,.
         Returns the specified appearance or null if there isn't a matching name.
         """
         return Appearance()
-    def itemById(id):
+
+    def itemById(self, id):
         """
         Returns the Appearance by it's internal unique ID.
         id : The ID of the appearance to return.
         Returns the specified appearance or null if there isn't a matching ID.
         """
         return Appearance()
-    def add(appearance):
+
+    def add(self, appearance):
         """
         Adds an existing appearance to the Favorites list
         appearance : The appearance to be added to the favorites list. This can come from a Library or from a Design.
         Returns the Appearance added to the favorites list or null if the operation failed.
         """
         return Appearance()
+
     count = property(_get_count, None, doc="The number of Appearances in the collection.")
+
 
 class FavoriteMaterials(Base):
     """
     Collection of the favorite materials.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return FavoriteMaterials()
+
     def _get_count(self):
         return int()
-    def item(index):
+
+    def item(self, index):
         """
         Returns the specified Material using an index into the collection.
         index : The index of the material to return where the first item in the collection is 0.
         Returns the specified material or null if an invalid index is specified.
         """
         return Material()
-    def itemByName(name):
+
+    def itemByName(self, name):
         """
         Returns the specified Material using the name as seen in the user interface. This often isn't a reliable way of accessing a specific material because materials are not required to be unique.
         name : The name of the material to return,.
         Returns the specified material or null if there isn't a matching name.
         """
         return Material()
-    def itemById(id):
+
+    def itemById(self, id):
         """
         Returns the Material by it's internal unique ID.
         id : The ID of the material to return.
         Returns the specified material or null if there isn't a matching ID.
         """
         return Material()
-    def add(material):
+
+    def add(self, material):
         """
         Adds an existing material to the Favorites list
         material : The material to be added to the favorites list. This can come from a Library or from a Design.
         Returns the Material added to the favorites list or null if the operation failed.
         """
         return Material()
+
     count = property(_get_count, None, doc="The number of Materials in the collection.")
+
 
 class FileDialog(Base):
     """
     Provides access to a file dialog. A file dialog can be used to prompt the user for file names to open or save to.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return FileDialog()
+
     def _set_title(self, title):
         pass
+
     def _get_title(self):
         return str()
+
     def _get_filename(self):
         return str()
+
     def _get_filenames(self):
         return str()
+
     def _set_filter(self, filter):
         pass
+
     def _get_filter(self):
         return str()
+
     def _set_filterIndex(self, filterIndex):
         pass
+
     def _get_filterIndex(self):
         return int()
+
     def _set_initialDirectory(self, initialDirectory):
         pass
+
     def _get_initialDirectory(self):
         return str()
+
     def _set_isMultiSelectEnabled(self, isMultiSelectEnabled):
         pass
+
     def _get_isMultiSelectEnabled(self):
         return bool()
+
     def _set_initialFilename(self, initialFilename):
         pass
+
     def _get_initialFilename(self):
         return str()
-    def showOpen():
+
+    def showOpen(self):
         """
         Displays a modal open dialog, allowing the user to select one or more files. The return value can be used to determine if the dialog was cancelled without selecting a file. The Filename and Filenames properties can be used to get the selected files.
         Returns an enum value indicating which button was clicked on the dialog.
         """
         return DialogResults()
-    def showSave():
+
+    def showSave(self):
         """
         Displays a modal save dialog, allowing the user to specify a file. The return value can be used to determine if the dialog was cancelled without selecting a file. The Filename and Filenames properties can be used to get the selected files.
         Returns an enum value indicating which button was clicked on the dialog.
         """
         return DialogResults()
+
     title = property(_get_title, _set_title, doc="Gets or sets the title displayed on the dialog.")
-    filename = property(_get_filename, None, doc="Gets the filename specified by the user in the dialog. This property is used after the ShowOpen or ShowSave methods have been called to retrieve the filename specified by the user. The file name includes both the file path and the extension. If ShowOpen was used and IsMultiSelectEnabled is true, then this property will only display the first filename selected and the Filenames property should be used instead to retrieved the full list. Is ShowSave was used, then only a single file name is ever returned.")
-    filenames = property(_get_filenames, None, doc="Gets the filenames specified by the user in the dialog. This property is used after the ShowOpen or ShowSave methods have been called to retrieve the filenames specified by the user. Each file name includes both the file path and the extension. If ShowOpen is used and IsMultiSelectEnabled is true, the user is able to select more than one file. This property returns all of the files that were selected. If ShowSave is used or IsMultiSelectEnabled is false then this array will contain the single file name.")
-    filter = property(_get_filter, _set_filter, doc="Gets or sets the current file name filter string, which determines the choices that appear in the 'Save as file type' or 'Files of type' box in the dialog box. For each filtering option, the filter string contains a description of the filter and the filter pattern as specified in parentheses and seperated by semi-colons. Multiple filters are seperated by a double semi-colon. These are illustrated below. The following is an example of a filter string: Text files (*.txt);;All files (*.*) You can add several filter patterns to a filter by separating the file types with semicolons, for example: Image Files (*.BMP;*.JPG;*.GIF);;All files (*.*)")
-    filterIndex = property(_get_filterIndex, _set_filterIndex, doc="Gets or sets the index of the filter currently selected in the file dialog box. Use the FilterIndex property to set which filtering option is shown first to the user. You can also use the value of FilterIndex after showing the file dialog to perform special file operations depending upon the filter chosen. The first item in the filter list is index 0.")
-    initialDirectory = property(_get_initialDirectory, _set_initialDirectory, doc="Gets or sets the initial directory displayed by the file dialog box.")
-    isMultiSelectEnabled = property(_get_isMultiSelectEnabled, _set_isMultiSelectEnabled, doc="Gets or sets a value indicating whether the dialog box allows multiple files to be selected.")
-    initialFilename = property(_get_initialFilename, _set_initialFilename, doc="Gets or sets the initial filename displayed when the dialog is first displayed. When a new FileDialog object is created this defaults to an empty string so no initial filename is specified. If the showOpen option is used, the file must already exist in the directory specified by the initialDirectory property. If it doesn't exist, the initial filename will not be used.")
+    filename = property(_get_filename, None,
+                        doc="Gets the filename specified by the user in the dialog. This property is used after the ShowOpen or ShowSave methods have been called to retrieve the filename specified by the user. The file name includes both the file path and the extension. If ShowOpen was used and IsMultiSelectEnabled is true, then this property will only display the first filename selected and the Filenames property should be used instead to retrieved the full list. Is ShowSave was used, then only a single file name is ever returned.")
+    filenames = property(_get_filenames, None,
+                         doc="Gets the filenames specified by the user in the dialog. This property is used after the ShowOpen or ShowSave methods have been called to retrieve the filenames specified by the user. Each file name includes both the file path and the extension. If ShowOpen is used and IsMultiSelectEnabled is true, the user is able to select more than one file. This property returns all of the files that were selected. If ShowSave is used or IsMultiSelectEnabled is false then this array will contain the single file name.")
+    filter = property(_get_filter, _set_filter,
+                      doc="Gets or sets the current file name filter string, which determines the choices that appear in the 'Save as file type' or 'Files of type' box in the dialog box. For each filtering option, the filter string contains a description of the filter and the filter pattern as specified in parentheses and seperated by semi-colons. Multiple filters are seperated by a double semi-colon. These are illustrated below. The following is an example of a filter string: Text files (*.txt);;All files (*.*) You can add several filter patterns to a filter by separating the file types with semicolons, for example: Image Files (*.BMP;*.JPG;*.GIF);;All files (*.*)")
+    filterIndex = property(_get_filterIndex, _set_filterIndex,
+                           doc="Gets or sets the index of the filter currently selected in the file dialog box. Use the FilterIndex property to set which filtering option is shown first to the user. You can also use the value of FilterIndex after showing the file dialog to perform special file operations depending upon the filter chosen. The first item in the filter list is index 0.")
+    initialDirectory = property(_get_initialDirectory, _set_initialDirectory,
+                                doc="Gets or sets the initial directory displayed by the file dialog box.")
+    isMultiSelectEnabled = property(_get_isMultiSelectEnabled, _set_isMultiSelectEnabled,
+                                    doc="Gets or sets a value indicating whether the dialog box allows multiple files to be selected.")
+    initialFilename = property(_get_initialFilename, _set_initialFilename,
+                               doc="Gets or sets the initial filename displayed when the dialog is first displayed. When a new FileDialog object is created this defaults to an empty string so no initial filename is specified. If the showOpen option is used, the file must already exist in the directory specified by the initialDirectory property. If it doesn't exist, the initial filename will not be used.")
+
 
 class FolderDialog(Base):
     """
     Provides access to a folder selection dialog to allow the user to select a folder.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return FolderDialog()
+
     def _set_title(self, title):
         pass
+
     def _get_title(self):
         return str()
+
     def _get_folder(self):
         return str()
+
     def _set_initialDirectory(self, initialDirectory):
         pass
+
     def _get_initialDirectory(self):
         return str()
-    def showDialog():
+
+    def showDialog(self):
         """
         Displays a modal dialog allowing the user to select a folder. The return value can be used to determine if the dialog was cancelled without selecting a foldre. the folder property can be used to get the selected folder.
         Returns an enum value indicating which button was clicked on the dialog.
         """
         return DialogResults()
-    title = property(_get_title, _set_title, doc="Gets or sets the title displayed on the dialog.")
-    folder = property(_get_folder, None, doc="Gets the folder selected by the user in the dialog. This property is used after the ShowDialog method has been called to retrieve the folder specified by the user.")
-    initialDirectory = property(_get_initialDirectory, _set_initialDirectory, doc="Gets or sets the initial directory displayed by the file dialog box.")
 
-class FootAndInchDisplayFormats():
+    title = property(_get_title, _set_title, doc="Gets or sets the title displayed on the dialog.")
+    folder = property(_get_folder, None,
+                      doc="Gets the folder selected by the user in the dialog. This property is used after the ShowDialog method has been called to retrieve the folder specified by the user.")
+    initialDirectory = property(_get_initialDirectory, _set_initialDirectory,
+                                doc="Gets or sets the initial directory displayed by the file dialog box.")
+
+
+class FootAndInchDisplayFormats:
     """
     List of the valid foot and inch formats.
     """
+
     def __init__(self):
         pass
+
     DecimalFootAndInchDisplay = 0
     FractionalFootAndInchDisplay = 1
     ArchitecturalFootAndInchDisplay = 2
+
 
 class GeneralPreferences(Base):
     """
     Provides access to the general preferences.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return GeneralPreferences()
+
     def _set_userLanguage(self, userLanguage):
         pass
+
     def _get_userLanguage(self):
         return UserLanguages()
+
     def _set_offlineCachePeriod(self, offlineCachePeriod):
         pass
+
     def _get_offlineCachePeriod(self):
         return float()
+
     def _set_graphicsDriver(self, graphicsDriver):
         pass
+
     def _get_graphicsDriver(self):
         return GraphicsDrivers()
+
     def _set_isAutomaticSaveOnCloseEnabled(self, isAutomaticSaveOnCloseEnabled):
         pass
+
     def _get_isAutomaticSaveOnCloseEnabled(self):
         return bool()
+
     def _set_isAutomaticVersioningEnabled(self, isAutomaticVersioningEnabled):
         pass
+
     def _get_isAutomaticVersioningEnabled(self):
         return bool()
+
     def _set_automateVersioningTimeInterval(self, automateVersioningTimeInterval):
         pass
+
     def _get_automateVersioningTimeInterval(self):
         return int()
+
     def _set_defaultModelingOrientation(self, defaultModelingOrientation):
         pass
+
     def _get_defaultModelingOrientation(self):
         return DefaultModelingOrientations()
+
     def _set_areTooltipsShown(self, areTooltipsShown):
         pass
+
     def _get_areTooltipsShown(self):
         return bool()
+
     def _set_isCommandPromptShown(self, isCommandPromptShown):
         pass
+
     def _get_isCommandPromptShown(self):
         return bool()
+
     def _set_areTipsAndTricksShown(self, areTipsAndTricksShown):
         pass
+
     def _get_areTipsAndTricksShown(self):
         return bool()
+
     def _set_areInCommandErrorsAndWarningsShown(self, areInCommandErrorsAndWarningsShown):
         pass
+
     def _get_areInCommandErrorsAndWarningsShown(self):
         return bool()
+
     def _set_areAutodesk360NotificationsShown(self, areAutodesk360NotificationsShown):
         pass
+
     def _get_areAutodesk360NotificationsShown(self):
         return bool()
+
     def _set_isGestureBasedViewNavigationUsed(self, isGestureBasedViewNavigationUsed):
         pass
+
     def _get_isGestureBasedViewNavigationUsed(self):
         return bool()
+
     def _set_isZoomDirectionReversed(self, isZoomDirectionReversed):
         pass
+
     def _get_isZoomDirectionReversed(self):
         return bool()
+
     def _set_isCameraPivotEnabled(self, isCameraPivotEnabled):
         pass
+
     def _get_isCameraPivotEnabled(self):
         return bool()
+
     def _set_defaultOrbit(self, defaultOrbit):
         pass
+
     def _get_defaultOrbit(self):
         return DefaultOrbits()
-    userLanguage = property(_get_userLanguage, _set_userLanguage, doc="Gets and sets the current language. Setting the language does not take effect until the next time Fusion 360 is started.")
-    offlineCachePeriod = property(_get_offlineCachePeriod, _set_offlineCachePeriod, doc="Gets and sets the length of time, in days, that the offline cache of a document will remain.")
-    graphicsDriver = property(_get_graphicsDriver, _set_graphicsDriver, doc="Gets and sets the graphics driver used to display the graphics.")
-    isAutomaticSaveOnCloseEnabled = property(_get_isAutomaticSaveOnCloseEnabled, _set_isAutomaticSaveOnCloseEnabled, doc="Gets and sets if the file is automatically saved on close.")
-    isAutomaticVersioningEnabled = property(_get_isAutomaticVersioningEnabled, _set_isAutomaticVersioningEnabled, doc="Gets and sets if a version of the file is automatically saved using a background thread.")
-    automateVersioningTimeInterval = property(_get_automateVersioningTimeInterval, _set_automateVersioningTimeInterval, doc="Gets and sets the interval, in minutes, for automatic versioning.")
-    defaultModelingOrientation = property(_get_defaultModelingOrientation, _set_defaultModelingOrientation, doc="Gets and sets the default for which direction is considered 'up'.")
-    areTooltipsShown = property(_get_areTooltipsShown, _set_areTooltipsShown, doc="Gets and sets if tooltips are shown.")
-    isCommandPromptShown = property(_get_isCommandPromptShown, _set_isCommandPromptShown, doc="Gets and sets if the command prompt is shown.")
-    areTipsAndTricksShown = property(_get_areTipsAndTricksShown, _set_areTipsAndTricksShown, doc="Gets and sets if in command tips and tricks are shown.")
-    areInCommandErrorsAndWarningsShown = property(_get_areInCommandErrorsAndWarningsShown, _set_areInCommandErrorsAndWarningsShown, doc="Gets and sets if in command errors and warnings are shown.")
-    areAutodesk360NotificationsShown = property(_get_areAutodesk360NotificationsShown, _set_areAutodesk360NotificationsShown, doc="Gets and sets if Autodesk 360 notifications are shown.")
-    isGestureBasedViewNavigationUsed = property(_get_isGestureBasedViewNavigationUsed, _set_isGestureBasedViewNavigationUsed, doc="Gets and sets if gesture based view navigation is used.")
-    isZoomDirectionReversed = property(_get_isZoomDirectionReversed, _set_isZoomDirectionReversed, doc="Gets and sets if the direction of the zoom is reversed.")
-    isCameraPivotEnabled = property(_get_isCameraPivotEnabled, _set_isCameraPivotEnabled, doc="Gets and sets if zoom and orbit commands use camera pivot point for transition.")
+
+    userLanguage = property(_get_userLanguage, _set_userLanguage,
+                            doc="Gets and sets the current language. Setting the language does not take effect until the next time Fusion 360 is started.")
+    offlineCachePeriod = property(_get_offlineCachePeriod, _set_offlineCachePeriod,
+                                  doc="Gets and sets the length of time, in days, that the offline cache of a document will remain.")
+    graphicsDriver = property(_get_graphicsDriver, _set_graphicsDriver,
+                              doc="Gets and sets the graphics driver used to display the graphics.")
+    isAutomaticSaveOnCloseEnabled = property(_get_isAutomaticSaveOnCloseEnabled, _set_isAutomaticSaveOnCloseEnabled,
+                                             doc="Gets and sets if the file is automatically saved on close.")
+    isAutomaticVersioningEnabled = property(_get_isAutomaticVersioningEnabled, _set_isAutomaticVersioningEnabled,
+                                            doc="Gets and sets if a version of the file is automatically saved using a background thread.")
+    automateVersioningTimeInterval = property(_get_automateVersioningTimeInterval, _set_automateVersioningTimeInterval,
+                                              doc="Gets and sets the interval, in minutes, for automatic versioning.")
+    defaultModelingOrientation = property(_get_defaultModelingOrientation, _set_defaultModelingOrientation,
+                                          doc="Gets and sets the default for which direction is considered 'up'.")
+    areTooltipsShown = property(_get_areTooltipsShown, _set_areTooltipsShown,
+                                doc="Gets and sets if tooltips are shown.")
+    isCommandPromptShown = property(_get_isCommandPromptShown, _set_isCommandPromptShown,
+                                    doc="Gets and sets if the command prompt is shown.")
+    areTipsAndTricksShown = property(_get_areTipsAndTricksShown, _set_areTipsAndTricksShown,
+                                     doc="Gets and sets if in command tips and tricks are shown.")
+    areInCommandErrorsAndWarningsShown = property(_get_areInCommandErrorsAndWarningsShown,
+                                                  _set_areInCommandErrorsAndWarningsShown,
+                                                  doc="Gets and sets if in command errors and warnings are shown.")
+    areAutodesk360NotificationsShown = property(_get_areAutodesk360NotificationsShown,
+                                                _set_areAutodesk360NotificationsShown,
+                                                doc="Gets and sets if Autodesk 360 notifications are shown.")
+    isGestureBasedViewNavigationUsed = property(_get_isGestureBasedViewNavigationUsed,
+                                                _set_isGestureBasedViewNavigationUsed,
+                                                doc="Gets and sets if gesture based view navigation is used.")
+    isZoomDirectionReversed = property(_get_isZoomDirectionReversed, _set_isZoomDirectionReversed,
+                                       doc="Gets and sets if the direction of the zoom is reversed.")
+    isCameraPivotEnabled = property(_get_isCameraPivotEnabled, _set_isCameraPivotEnabled,
+                                    doc="Gets and sets if zoom and orbit commands use camera pivot point for transition.")
     defaultOrbit = property(_get_defaultOrbit, _set_defaultOrbit, doc="Get and sets the type of orbit.")
 
-class GenericErrors():
+
+class GenericErrors:
     """
     Errors that every API call can return via Application::GetLastError. These can be augmented with class and function specific errors.
     """
+
     def __init__(self):
         pass
+
     Ok = 0
     UnexpectedError = 1
     InternalValidationError = 2
@@ -2666,134 +3461,179 @@ class GenericErrors():
     ClassSpecificError = 8
     FunctionSpecificError = 9
 
-class GraphicsDrivers():
+
+class GraphicsDrivers:
     """
     A list of the valid graphics drivers.
     """
+
     def __init__(self):
         pass
+
     DirectX9GraphicsDriver = 0
     DirectX11GraphicsDriver = 1
     AutoSelectGraphicsDriver = 2
     OpenGLCoreProfileGraphicsDriver = 3
     OpenGLGraphicsDriver = 4
 
+
 class GraphicsPreferences(Base):
     """
     The GraphicsPreferences object provides access to the various graphics related preferences.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return GraphicsPreferences()
+
     def _set_minimumFramesPerSecond(self, minimumFramesPerSecond):
         pass
+
     def _get_minimumFramesPerSecond(self):
         return float()
+
     def _set_selectionDisplayStyle(self, selectionDisplayStyle):
         pass
+
     def _get_selectionDisplayStyle(self):
         return SelectionDisplayStyles()
+
     def _set_degradedSelectionDisplayStyle(self, degradedSelectionDisplayStyle):
         pass
+
     def _get_degradedSelectionDisplayStyle(self):
         return DegradedSelectionDisplayStyles()
+
     def _set_transparencyEffects(self, transparencyEffects):
         pass
+
     def _get_transparencyEffects(self):
         return TransparencyDisplayEffects()
+
     def _set_autoThrottleEffects(self, autoThrottleEffects):
         pass
+
     def _get_autoThrottleEffects(self):
         return bool()
+
     def _set_hiddenEdgeDimming(self, hiddenEdgeDimming):
         pass
+
     def _get_hiddenEdgeDimming(self):
         return int()
-    minimumFramesPerSecond = property(_get_minimumFramesPerSecond, _set_minimumFramesPerSecond, doc="Gets and sets the minimum frames per second.")
-    selectionDisplayStyle = property(_get_selectionDisplayStyle, _set_selectionDisplayStyle, doc="Gets and sets the style of display to use for selections.")
-    degradedSelectionDisplayStyle = property(_get_degradedSelectionDisplayStyle, _set_degradedSelectionDisplayStyle, doc="Gets and sets the style of display for degraded selections.")
-    transparencyEffects = property(_get_transparencyEffects, _set_transparencyEffects, doc="Gets and sets the style of display for transparency effects.")
-    autoThrottleEffects = property(_get_autoThrottleEffects, _set_autoThrottleEffects, doc="Gets and sets if automatically disable or degrade visual effects to keep the video memory pressure under a safe threshold.")
-    hiddenEdgeDimming = property(_get_hiddenEdgeDimming, _set_hiddenEdgeDimming, doc="Gets and sets the dimming percentage to use for hidden edges. the value is a percentage expressed by a value between 0 and 100.")
+
+    minimumFramesPerSecond = property(_get_minimumFramesPerSecond, _set_minimumFramesPerSecond,
+                                      doc="Gets and sets the minimum frames per second.")
+    selectionDisplayStyle = property(_get_selectionDisplayStyle, _set_selectionDisplayStyle,
+                                     doc="Gets and sets the style of display to use for selections.")
+    degradedSelectionDisplayStyle = property(_get_degradedSelectionDisplayStyle, _set_degradedSelectionDisplayStyle,
+                                             doc="Gets and sets the style of display for degraded selections.")
+    transparencyEffects = property(_get_transparencyEffects, _set_transparencyEffects,
+                                   doc="Gets and sets the style of display for transparency effects.")
+    autoThrottleEffects = property(_get_autoThrottleEffects, _set_autoThrottleEffects,
+                                   doc="Gets and sets if automatically disable or degrade visual effects to keep the video memory pressure under a safe threshold.")
+    hiddenEdgeDimming = property(_get_hiddenEdgeDimming, _set_hiddenEdgeDimming,
+                                 doc="Gets and sets the dimming percentage to use for hidden edges. the value is a percentage expressed by a value between 0 and 100.")
+
 
 class GridPreferences(Base):
     """
     The GridPreferences object provides access to grid related preferences.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return GridPreferences()
+
     def _set_isLayoutGridLockEnabled(self, isLayoutGridLockEnabled):
         pass
+
     def _get_isLayoutGridLockEnabled(self):
         return bool()
-    isLayoutGridLockEnabled = property(_get_isLayoutGridLockEnabled, _set_isLayoutGridLockEnabled, doc="Gets and sets if the layout grid lock is enabled.")
 
-class HubTypes():
+    isLayoutGridLockEnabled = property(_get_isLayoutGridLockEnabled, _set_isLayoutGridLockEnabled,
+                                       doc="Gets and sets if the layout grid lock is enabled.")
+
+
+class HubTypes:
     """
     The different types of hubs.
     """
+
     def __init__(self):
         pass
+
     PersonalHubType = 0
     TeamHubType = 1
+
 
 class ImportManager(Base):
     """
     Provides access to functionality to support importing various modeling formats into Fusion 360.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return ImportManager()
-    def createIGESImportOptions(filename):
+
+    def createIGESImportOptions(self, filename):
         """
         Creates an IGESImportOptions object that is used to import a design from IGES format. Creation of the IGESImportOptions object does not perform the import. You must pass this object to one of the ImportManager import methods to perform the import. The IGESImportOptions supports any available options when importing from IGES format.
         filename : The filename or url of the IGES file to be imported.
         The created IGESImportOptions object or null if the creation failed.
         """
         return IGESImportOptions()
-    def createSTEPImportOptions(filename):
+
+    def createSTEPImportOptions(self, filename):
         """
         Creates an STEPImportOptions object that's used to import a design from STEP format. Creation of the STEPImportOptions object does not perform the import. You must pass this object to one of the ImportManager import methods to perform the import. The STEPImportOptions supports any available options when importing from STEP format.
         filename : The filename or url of the STEP file to be imported.
         The created STEPImportOptions object or null if the creation failed.
         """
         return STEPImportOptions()
-    def createSATImportOptions(filename):
+
+    def createSATImportOptions(self, filename):
         """
         Creates an SATImportOptions object that's used to import a design from SAT format. Creation of the SATImportOptions object does not perform the import. You must pass this object to one of the ImportManager import methods to perform the import. The SATImportOptions supports any available options when importing from SAT format.
         filename : The filename or url of the SAT file to be imported.
         The created SATImportOptions object or null if the creation failed.
         """
         return SATImportOptions()
-    def createSMTImportOptions(filename):
+
+    def createSMTImportOptions(self, filename):
         """
         Creates an SMTImportOptions object that's used to import a design from SMT format. Creation of the SMTImportOptions object does not perform the import. You must pass this object to one of the ImportManager import methods to perform the import. The SMTImportOptions supports any available options when importing from SMT format.
         filename : The filename or url of the SMT file to be imported.
         The created SMTImportOptions object or null if the creation failed.
         """
         return SMTImportOptions()
-    def createFusionArchiveImportOptions(filename):
+
+    def createFusionArchiveImportOptions(self, filename):
         """
         Creates an FusionArchiveImportOptions object that is used to import a design from a Fusion 360 archive format. Creation of the FusionArchiveImportOptions object does not perform the import. You must pass this object to one of the ImportManager import methods to perform the import. The FusionArchiveImportOptions supports any available options when importing from Fusion 360 archive format.
         filename : The filename or url of the Fusion 360 archive file to be imported. .f3z files and .f3d files containing externally referenced designs are currently not supported.
         The created FusionArchiveImportOptions object or null if the creation failed.
         """
         return FusionArchiveImportOptions()
-    def importToNewDocument(importOptions):
+
+    def importToNewDocument(self, importOptions):
         """
         Executes the import operation to import a file (of the format specified by the input ImportOptions object) to a new document. ***This method does not currently support the DXF2DImportOptions ImportOptions object.***
         importOptions : An ImportOptions object that is created using one of the create methods on the ImportManager object. This defines the type of file and any available options supported for that file type.
         Returns the newly created Document object or null if the creation failed. A new unnamed, unsaved document will be opened in Fusion 360 as a result.
         """
         return Document()
-    def importToTarget(importOptions, target):
+
+    def importToTarget(self, importOptions, target):
         """
         Executes the import operation to import a file (of the format specified by the input ImportOptions object) into an existing component in an existing design.
         importOptions : An ImportOptions object that is created using one of the create methods on the ImportManager object. This defines the type of file and any available options supported for that file type. Supplying a DXF2DImportOptions object will result in the creation of one or more sketches (depending on the layers in the DXF file) in the target component.
@@ -2801,7 +3641,8 @@ class ImportManager(Base):
         Returns true if the import was successful.
         """
         return bool()
-    def createDXF2DImportOptions(filename, planarEntity):
+
+    def createDXF2DImportOptions(self, filename, planarEntity):
         """
         Creates a DXF2DImportOptions object that is used to import 2D data to create sketches. Creation of the createDXF2DImportOptions object does not perform the import. You must pass this object to the ImportManager.importToTarget method to perform the import. The sketches created as a result of the import are available through the 'results' property of the DXF2DImportOptions.
         filename : The filename of the DXF file to be imported.
@@ -2809,7 +3650,8 @@ class ImportManager(Base):
         The created DXF2DImportOptions object or null if the creation failed.
         """
         return DXF2DImportOptions()
-    def importToTarget2(importOptions, target):
+
+    def importToTarget2(self, importOptions, target):
         """
         Executes the import operation to import a file (of the format specified by the input ImportOptions object) into an existing component in an existing design and returns the imported objects.
         importOptions : An ImportOptions object that is created using one of the create methods on the ImportManager object. This defines the type of file and any available options supported for that file type. Supplying a DXF2DImportOptions object will result in the creation of one or more sketches (depending on the layers in the DXF file) in the target component.
@@ -2818,44 +3660,60 @@ class ImportManager(Base):
         """
         return ObjectCollection()
 
+
 class ImportOptions(Base):
     """
     The base class for the different import types. This class is never directly used in an import because you need the specific import type to specify the type of import to be performed.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return ImportOptions()
+
     def _set_filename(self, filename):
         pass
+
     def _get_filename(self):
         return str()
+
     def _set_isViewFit(self, isViewFit):
         pass
+
     def _get_isViewFit(self):
         return bool()
-    filename = property(_get_filename, _set_filename, doc="Gets and sets the filename or url of the file to be imported.")
-    isViewFit = property(_get_isViewFit, _set_isViewFit, doc="Specifies if the camera should be adjusted to fit the geometry of the import. This defaults to true, which will cause a change in the current view. Setting this to false will leave the view as-is and just import the geometry.")
 
-class KeyboardModifiers():
+    filename = property(_get_filename, _set_filename,
+                        doc="Gets and sets the filename or url of the file to be imported.")
+    isViewFit = property(_get_isViewFit, _set_isViewFit,
+                         doc="Specifies if the camera should be adjusted to fit the geometry of the import. This defaults to true, which will cause a change in the current view. Setting this to false will leave the view as-is and just import the geometry.")
+
+
+class KeyboardModifiers:
     """
     Keyboard modifier values.
     """
+
     def __init__(self):
         pass
+
     NoKeyboardModifier = 0
     ShiftKeyboardModifier = 1
     CtrlKeyboardModifier = 2
     AltKeyboardModifier = 3
     MetaKeyboardModifier = 4
 
-class KeyCodes():
+
+class KeyCodes:
     """
     Key values on the keyboard.
     """
+
     def __init__(self):
         pass
+
     NoKeyCode = 0
     SpaceKeyCode = 1
     AsteriskKeyCode = 2
@@ -2955,87 +3813,119 @@ class KeyCodes():
     F12KeyCode = 96
     MenuKeyCode = 97
 
+
 class LinearMarkingMenu(Base):
     """
     Represents the linear marking menu which is the vertical menu that's displayed when the user right-clicks within Fusion 360. This supports customizing the contents of the context menu.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return LinearMarkingMenu()
+
     def _get_controls(self):
         return ToolbarControls()
-    def clear():
+
+    def clear(self):
         """
         Completely clears the contents of the context menu. If left in this state, the context menu will not be displayed.
         Returns true if the clear was successful.
         """
         return bool()
-    controls = property(_get_controls, None, doc="Return the collection of top-level controls in the context menu. It's possible to have drop-down controls (fly-outs) that provide access to additional conrols. You can remove and add controls to customize the contents of the context menu.")
 
-class ListControlDisplayTypes():
+    controls = property(_get_controls, None,
+                        doc="Return the collection of top-level controls in the context menu. It's possible to have drop-down controls (fly-outs) that provide access to additional conrols. You can remove and add controls to customize the contents of the context menu.")
+
+
+class ListControlDisplayTypes:
     """
     The different types of items that can be displayed in a list control.
     """
+
     def __init__(self):
         pass
+
     CheckBoxListType = 0
     RadioButtonlistType = 1
     StandardListType = 2
+
 
 class ListItem(Base):
     """
     Represents a single item in a check box list or a drop-down command input.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return ListItem()
+
     def _set_name(self, name):
         pass
+
     def _get_name(self):
         return str()
+
     def _set_icon(self, icon):
         pass
+
     def _get_icon(self):
         return str()
+
     def _set_isSelected(self, isSelected):
         pass
+
     def _get_isSelected(self):
         return bool()
+
     def _get_index(self):
         return int()
+
     def _get_parentList(self):
         return Base()
+
     def _get_isSeparator(self):
         return bool()
-    def deleteMe():
+
+    def deleteMe(self):
         """
         Deletes this item from the list.
         Returns true if the delete was successful.
         """
         return bool()
-    name = property(_get_name, _set_name, doc="Gets or sets the name of this item as displayed in the list. If this control is a separator (isSeparator is true) or it's a button row, setting this property is ignored and getting it will return an empty string.")
-    icon = property(_get_icon, _set_icon, doc="Gets or sets the location for the icon file used for this item in the list. This is the path to a directory that contains the image files associated with this item. This is only valid when this is a standard list or button row and is ignored for check box lists, radio control lists, and radio button groups.")
-    isSelected = property(_get_isSelected, _set_isSelected, doc="Gets or sets whether this item is selected. If the item is being displayed as a check box, this controls whether it is checked or not. If it's a drop-down list or button row it controls whether this is the single selected item. Setting a drop-down list, button row item, or radio button from a group to be selected will unselect the currently selected item. For a standard list, this will get or set the single item currently selected. For a separator, setting this property is ignored and it will always return false.")
+
+    name = property(_get_name, _set_name,
+                    doc="Gets or sets the name of this item as displayed in the list. If this control is a separator (isSeparator is true) or it's a button row, setting this property is ignored and getting it will return an empty string.")
+    icon = property(_get_icon, _set_icon,
+                    doc="Gets or sets the location for the icon file used for this item in the list. This is the path to a directory that contains the image files associated with this item. This is only valid when this is a standard list or button row and is ignored for check box lists, radio control lists, and radio button groups.")
+    isSelected = property(_get_isSelected, _set_isSelected,
+                          doc="Gets or sets whether this item is selected. If the item is being displayed as a check box, this controls whether it is checked or not. If it's a drop-down list or button row it controls whether this is the single selected item. Setting a drop-down list, button row item, or radio button from a group to be selected will unselect the currently selected item. For a standard list, this will get or set the single item currently selected. For a separator, setting this property is ignored and it will always return false.")
     index = property(_get_index, None, doc="Gets the index position within the list of this item.")
     parentList = property(_get_parentList, None, doc="Gets the parent CheckBoxListControlDefinition or object.")
     isSeparator = property(_get_isSeparator, None, doc="Gets if this control is a separator.")
+
 
 class ListItems(Base):
     """
     Provides access to the list of items in a check box list. This object supports the ability to add items to the list and iterate through the existing items.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return ListItems()
+
     def _get_count(self):
         return int()
-    def add(name, isSelected, icon, beforeIndex):
+
+    def add(self, name, isSelected, icon, beforeIndex):
         """
         Adds a new item to the list.
         name : The name of this item as it is displayed in the list.
@@ -3045,77 +3935,99 @@ class ListItems(Base):
         Returns the new ListControlItem or null in the case of a failure.
         """
         return ListItem()
-    def addSeparator(beforeIndex):
+
+    def addSeparator(self, beforeIndex):
         """
         Adds a separator to the list. This is not supported for button rows.
         beforeIndex : The position of the item within the list. This value indicates the index of the current item to insert this new item just before. For example, a value of 0 will insert it before the first item in the list. An index of -1 will position the button at the bottom of the list.
         Returns the new ListControlItem or null in the case of a failure.
         """
         return ListItem()
-    def item(index):
+
+    def item(self, index):
         """
         Returns the specified check box list item using an index into the collection.
         index : The index of the item within the collection to return. The first item in the collection has an index of 0.
         Returns the specified item or null if an invalid index was specified.
         """
         return ListItem()
-    def clear():
+
+    def clear(self):
         """
         Clears all of the items from the list.
         Returns true if successful.
         """
         return bool()
+
     count = property(_get_count, None, doc="Gets the number of items in the collection.")
+
 
 class Material(Base):
     """
     A material.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return Material()
+
     def _get_appearance(self):
         return Appearance()
+
     def _get_id(self):
         return str()
+
     def _get_isUsed(self):
         return bool()
+
     def _get_materialProperties(self):
         return Properties()
+
     def _set_name(self, name):
         pass
+
     def _get_name(self):
         return str()
+
     def _get_parent(self):
         return Base()
-    def deleteMe():
+
+    def deleteMe(self):
         """
         Deletes the material from the Design. This method only applies to materials in a Design that are unused
         Returns true if the delete was successful.
         """
         return bool()
-    def copyTo(target):
+
+    def copyTo(self, target):
         """
         Copies this material to the specified target. ***Depricated Method: Use the addByCopyMethod on the Materials object instead, where you can rename the copied Material***
         target : The target can be a Design or MaterialFavorites object.
         Returns the new copy of the material or null if the copy failed.
         """
         return Material()
+
     appearance = property(_get_appearance, None, doc="Gets the Appearance of this material.")
     id = property(_get_id, None, doc="Returns the unique internal ID of this material.")
     isUsed = property(_get_isUsed, None, doc="Returns true if this material is used in the Design")
-    materialProperties = property(_get_materialProperties, None, doc="Returns the collection of material properties associated with this material.")
-    name = property(_get_name, _set_name, doc="Returns the name of this Material. This is the name of the material as seen in the user interface. The name can only be edited if the material is in a Design or the favorites list.")
+    materialProperties = property(_get_materialProperties, None,
+                                  doc="Returns the collection of material properties associated with this material.")
+    name = property(_get_name, _set_name,
+                    doc="Returns the name of this Material. This is the name of the material as seen in the user interface. The name can only be edited if the material is in a Design or the favorites list.")
     parent = property(_get_parent, None, doc="Returns the Parent object (a Library or a Design).")
 
-class MaterialDisplayUnits():
+
+class MaterialDisplayUnits:
     """
     List of the different types of material related units supported for displaying values.
     """
+
     def __init__(self):
         pass
+
     MetricStandardDisplayUnits = 0
     MetricMKSDisplayUnits = 1
     MetricMMNSDisplayUnits = 2
@@ -3125,131 +4037,169 @@ class MaterialDisplayUnits():
     EnglishInchDisplayUnits = 6
     EnglishFootDisplayUnits = 7
 
+
 class MaterialLibraries(Base):
     """
     The MaterialLibraries collection object provides access to currently loaded Material and Appearance libraries
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return MaterialLibraries()
+
     def _get_count(self):
         return int()
-    def item(index):
+
+    def item(self, index):
         """
         Method that returns the specified Material Library using an index into the collection.
         index : The index of the item within the collection. The first item has an index of 0.
         Returns the specified material library or null if an invalid index was specified.
         """
         return MaterialLibrary()
-    def itemByName(name):
+
+    def itemByName(self, name):
         """
         Returns the specified Material Library using the name as seen in the user interface.
         name : The name of the library to return.
         Returns the specified material library or null if there's no match on the name.
         """
         return MaterialLibrary()
-    def itemById(id):
+
+    def itemById(self, id):
         """
         Returns the Material Library at the specified ID.
         id : The ID of the library to return.
         Returns the specified material library or null if there's no match on the ID.
         """
         return MaterialLibrary()
-    def load(filename):
+
+    def load(self, filename):
         """
         Loads the specified existing local material library. Fusion 360 remembers which libraries have been loaded from one session to the next so you should check to see if the local library is already loaded or not before loading it again.
         filename : The full filename of the .adsklib material file.
         Returns the MaterialLibrary object representing the opened library or null in the case of failure.
         """
         return MaterialLibrary()
+
     count = property(_get_count, None, doc="The number of Material Libraries in the collection.")
+
 
 class MaterialLibrary(Base):
     """
     A material library.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return MaterialLibrary()
+
     def _get_name(self):
         return str()
+
     def _get_id(self):
         return str()
+
     def _get_appearances(self):
         return Appearances()
+
     def _get_materials(self):
         return Materials()
+
     def _get_isNative(self):
         return bool()
-    def unload():
+
+    def unload(self):
         """
         Unloads this material from Fusion 360. Only non-native material libraries can be unloaded. You can determine this by checking the isNative property.
         Returns True if the library was successfully unloaded.
         """
         return bool()
-    name = property(_get_name, None, doc="Property that gets the name of this Library. This is the localized name shown in the user interface.")
+
+    name = property(_get_name, None,
+                    doc="Property that gets the name of this Library. This is the localized name shown in the user interface.")
     id = property(_get_id, None, doc="The unique internal ID of this Library.")
     appearances = property(_get_appearances, None, doc="Returns the appearances defined within this library.")
     materials = property(_get_materials, None, doc="Returns the materials defined within this library.")
-    isNative = property(_get_isNative, None, doc="Gets if this is a native material library. Native libraries are those that are delivered with Fusion 360 and are always available. And non-native libraries are user created. If This returns True then there are some limitations to what can be done with the library. For example, if this is a native material library it cannot be unloaded.")
+    isNative = property(_get_isNative, None,
+                        doc="Gets if this is a native material library. Native libraries are those that are delivered with Fusion 360 and are always available. And non-native libraries are user created. If This returns True then there are some limitations to what can be done with the library. For example, if this is a native material library it cannot be unloaded.")
+
 
 class MaterialPreferences(Base):
     """
     Provides access to the material related preferences.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return MaterialPreferences()
+
     def _set_defaultMaterial(self, defaultMaterial):
         pass
+
     def _get_defaultMaterial(self):
         return Material()
+
     def _set_appearanceOverride(self, appearanceOverride):
         pass
+
     def _get_appearanceOverride(self):
         return Appearance()
+
     defaultMaterial = property(_get_defaultMaterial, _set_defaultMaterial, doc="Gets and sets the default material.")
-    appearanceOverride = property(_get_appearanceOverride, _set_appearanceOverride, doc="Gets and sets an appearance override. This property return null indicating that there is no override, or be set to null to remove the current appearance override.")
+    appearanceOverride = property(_get_appearanceOverride, _set_appearanceOverride,
+                                  doc="Gets and sets an appearance override. This property return null indicating that there is no override, or be set to null to remove the current appearance override.")
+
 
 class Materials(Base):
     """
     Collection of materials within a Library or Design.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return Materials()
+
     def _get_count(self):
         return int()
-    def item(index):
+
+    def item(self, index):
         """
         Returns the specified Material using an index into the collection.
         index : The index of the material to return where the first item in the collection is 0.
         Returns the specified material or null if an invalid index is specified.
         """
         return Material()
-    def itemByName(name):
+
+    def itemByName(self, name):
         """
         Returns the specified Material using the name as seen in the user interface. This often isn't a reliable way of accessing a specific material because materials are not required to be unique.
         name : The name of the material to return,.
         Returns the specified material or null if there isn't a matching name.
         """
         return Material()
-    def itemById(id):
+
+    def itemById(self, id):
         """
         Returns the Material by it's internal unique ID.
         id : The ID of the material to return.
         Returns the specified material or null if there isn't a matching ID.
         """
         return Material()
-    def addByCopy(materialToCopy, name):
+
+    def addByCopy(self, materialToCopy, name):
         """
         Add a Material to a Design by copying an existing Material from Favorites, a Library or from the Materials stored in the Design. This method currently only applies to the Materials collection from a Design and cannot be used to copy a Material to a library.
         materialToCopy : The Material you want to copy. The Material to copy can be from Favorites, a Library or from the materials stored in the Design.
@@ -3257,17 +4207,22 @@ class Materials(Base):
         Returns the newly created Material or null if the copy operation failed.
         """
         return Material()
+
     count = property(_get_count, None, doc="The number of Materials in the collection.")
+
 
 class Matrix2D(Base):
     """
     Transient 2D 3x3 matrix. This object is a wrapper over 2D matrix data and is used as way to pass matrix data in and out of the API and as a convenience when operating on matrix data. They are created statically using the create method of the Matrix2D class.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return Matrix2D()
+
     @staticmethod
     def create():
         """
@@ -3275,34 +4230,40 @@ class Matrix2D(Base):
         Returns the new matrix.
         """
         return Matrix2D()
+
     def _get_determinant(self):
         return float()
-    def setToIdentity():
+
+    def setToIdentity(self):
         """
         Resets this matrix to be an identity matrix.
         Returns true if successful.
         """
         return bool()
-    def invert():
+
+    def invert(self):
         """
         Invert this matrix.
         Returns true if successful.
         """
         return bool()
-    def copy():
+
+    def copy(self):
         """
         Creates an independent copy of this matrix.
         Returns the new matrix copy.
         """
         return Matrix2D()
-    def transformBy(matrix):
+
+    def transformBy(self, matrix):
         """
         Transforms this matrix using the input matrix.
         matrix : The transformation matrix.
         Returns true if successful.
         """
         return bool()
-    def getCell(row, column):
+
+    def getCell(self, row, column):
         """
         Gets the value of the specified cell in the 3x3 matrix.
         row : The index of the row. The first row has in index of 0
@@ -3310,7 +4271,8 @@ class Matrix2D(Base):
         Returns the value at [row][column].
         """
         return float()
-    def setCell(row, column, value):
+
+    def setCell(self, row, column, value):
         """
         Sets the specified cell in the 3x3 matrix to the specified value.
         row : The index of the row. The first row has in index of 0
@@ -3319,21 +4281,24 @@ class Matrix2D(Base):
         Returns true if successful.
         """
         return bool()
-    def getAsCoordinateSystem():
+
+    def getAsCoordinateSystem(self):
         """
         Gets the matrix data as the components that define a coordinate system.
         origin : The output origin point of the coordinate system.
         xAxis : The output x axis direction of the coordinate system.
         yAxis : The output y axis direction of the coordinate system.
         """
-        return (Void(), Point2D(), Vector2D(), Vector2D())
-    def asArray():
+        return Point2D(), Vector2D(), Vector2D()
+
+    def asArray(self):
         """
         Returns the contents of the matrix as a 9 element array.
         Returns the array of matrix values.
         """
         return float()
-    def setWithCoordinateSystem(origin, xAxis, yAxis):
+
+    def setWithCoordinateSystem(self, origin, xAxis, yAxis):
         """
         Reset this matrix to align with a specific coordinate system.
         origin : The origin point of the coordinate system.
@@ -3342,21 +4307,24 @@ class Matrix2D(Base):
         Returns true if successful.
         """
         return bool()
-    def setWithArray(cells):
+
+    def setWithArray(self, cells):
         """
         Sets the contents of the array using a 9 element array.
         cells : The array of cell values.
         Returns true if successful.
         """
         return bool()
-    def isEqualTo(matrix):
+
+    def isEqualTo(self, matrix):
         """
         Compares this matrix with another matrix and returns True if they're identical.
         matrix : The matrix to compare to.
         Returns true if the matrix is equal to this matrix.
         """
         return bool()
-    def setToAlignCoordinateSystems(fromOrigin, fromXAxis, fromYAxis, toOrigin, toXAxis, toYAxis):
+
+    def setToAlignCoordinateSystems(self, fromOrigin, fromXAxis, fromYAxis, toOrigin, toXAxis, toYAxis):
         """
         Sets this matrix to be the matrix that maps from the 'from' coordinate system to the 'to' coordinate system.
         fromOrigin : The origin point of the from coordinate system.
@@ -3368,7 +4336,8 @@ class Matrix2D(Base):
         Returns true if successful.
         """
         return bool()
-    def setToRotateTo(_from, to):
+
+    def setToRotateTo(self, _from, to):
         """
         Sets to the matrix of rotation that would align the 'from' vector with the 'to' vector.
         from : The from vector.
@@ -3376,7 +4345,8 @@ class Matrix2D(Base):
         Returns true if successful.
         """
         return bool()
-    def setToRotation(angle, origin):
+
+    def setToRotation(self, angle, origin):
         """
         Sets this matrix to the matrix of rotation by the specified angle, through the specified origin.
         angle : The rotation angle in radians.
@@ -3384,17 +4354,23 @@ class Matrix2D(Base):
         Returns true if successful.
         """
         return bool()
-    determinant = property(_get_determinant, None, doc="Returns the determinant of the matrix.\nReturns the determinant value of this matrix.")
+
+    determinant = property(_get_determinant, None,
+                           doc="Returns the determinant of the matrix.\nReturns the determinant value of this matrix.")
+
 
 class Matrix3D(Base):
     """
     Transient 3D 4x4 matrix. This object is a wrapper over 3D matrix data and is used as way to pass matrix data in and out of the API and as a convenience when operating on matrix data. They are created statically using the create method of the Matrix3D class.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return Matrix3D()
+
     @staticmethod
     def create():
         """
@@ -3402,38 +4378,46 @@ class Matrix3D(Base):
         Returns the new matrix.
         """
         return Matrix3D()
+
     def _get_determinant(self):
         return float()
+
     def _set_translation(self, translation):
         pass
+
     def _get_translation(self):
         return Vector3D()
-    def setToIdentity():
+
+    def setToIdentity(self):
         """
         Resets this matrix to an identify matrix.
         Returns true if successful.
         """
         return bool()
-    def invert():
+
+    def invert(self):
         """
         Inverts this matrix.
         Returns true if successful.
         """
         return bool()
-    def copy():
+
+    def copy(self):
         """
         Creates an independent copy of this matrix.
         Returns the new matrix copy.
         """
         return Matrix3D()
-    def transformBy(matrix):
+
+    def transformBy(self, matrix):
         """
         Transforms this matrix using the input matrix.
         matrix : The transformation matrix.
         Returns true if successful.
         """
         return bool()
-    def getAsCoordinateSystem():
+
+    def getAsCoordinateSystem(self):
         """
         Gets the matrix data as the components that define a coordinate system.
         origin : The output origin point of the coordinate system.
@@ -3441,8 +4425,9 @@ class Matrix3D(Base):
         yAxis : The output y axis direction of the coordinate system.
         zAxis : The output z axis direction of the coordinate system.
         """
-        return (Void(), Point3D(), Vector3D(), Vector3D(), Vector3D())
-    def setWithCoordinateSystem(origin, xAxis, yAxis, zAxis):
+        return Point3D(), Vector3D(), Vector3D(), Vector3D()
+
+    def setWithCoordinateSystem(self, origin, xAxis, yAxis, zAxis):
         """
         Sets the matrix based on the components of a coordinate system.
         origin : The origin point of the coordinate system.
@@ -3452,7 +4437,8 @@ class Matrix3D(Base):
         Returns true if successful.
         """
         return bool()
-    def getCell(row, column):
+
+    def getCell(self, row, column):
         """
         Gets the value of the specified cell in the 4x4 matrix.
         row : The index of the row. The first row has in index of 0
@@ -3460,7 +4446,8 @@ class Matrix3D(Base):
         The cell value at [row][column].
         """
         return float()
-    def setCell(row, column, value):
+
+    def setCell(self, row, column, value):
         """
         Sets the specified cell in the 4x4 matrix to the specified value.
         row : The index of the row. The first row has in index of 0
@@ -3469,27 +4456,32 @@ class Matrix3D(Base):
         Returns true if successful.
         """
         return bool()
-    def asArray():
+
+    def asArray(self):
         """
         Returns the contents of the matrix as a 16 element array.
         Returns the array of cell values.
         """
         return float()
-    def setWithArray(cells):
+
+    def setWithArray(self, cells):
         """
         Sets the contents of the array using a 16 element array.
         cells : The array of cell values.
         Returns true if successful.
         """
         return bool()
-    def isEqualTo(matrix):
+
+    def isEqualTo(self, matrix):
         """
         Compares this matrix with another matrix and returns True if they're identical.
         matrix : The matrix to compare this matrix to.
         Returns true if the matrices are equal.
         """
         return bool()
-    def setToAlignCoordinateSystems(fromOrigin, fromXAxis, fromYAxis, fromZAxis, toOrigin, toXAxis, toYAxis, toZAxis):
+
+    def setToAlignCoordinateSystems(self, fromOrigin, fromXAxis, fromYAxis, fromZAxis, toOrigin, toXAxis, toYAxis,
+                                    toZAxis):
         """
         Sets this matrix to be the matrix that maps from the 'from' coordinate system to the 'to' coordinate system.
         fromOrigin : The origin point of the from coordinate system.
@@ -3503,7 +4495,8 @@ class Matrix3D(Base):
         Returns true if successful.
         """
         return bool()
-    def setToRotateTo(_from, to, axis):
+
+    def setToRotateTo(self, _from, to, axis):
         """
         Sets to the matrix of rotation that would align the 'from' vector with the 'to' vector. The optional axis argument may be used when the two vectors are perpendicular and in opposite directions to specify a specific solution, but is otherwise ignored
         from : The vector to rotate from.
@@ -3512,7 +4505,8 @@ class Matrix3D(Base):
         Returns true if successful.
         """
         return bool()
-    def setToRotation(angle, axis, origin):
+
+    def setToRotation(self, angle, axis, origin):
         """
         Sets this matrix to the matrix of rotation by the specified angle, through the specified origin, around the specified axis
         angle : The rotation angle in radians.
@@ -3521,19 +4515,25 @@ class Matrix3D(Base):
         Returns true if successful.
         """
         return bool()
+
     determinant = property(_get_determinant, None, doc="Returns the determinant of the matrix.")
-    translation = property(_get_translation, _set_translation, doc="Gets and sets the translation component of the matrix.")
+    translation = property(_get_translation, _set_translation,
+                           doc="Gets and sets the translation component of the matrix.")
+
 
 class MeasureManager(Base):
     """
     The MeasurementManager class provides some generic measurement utilities that can be used for most entity types.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return MeasureManager()
-    def getOrientedBoundingBox(geometry, lengthVector, widthVector):
+
+    def getOrientedBoundingBox(self, geometry, lengthVector, widthVector):
         """
         Calculates an oriented bounding box for the input geometry. The bounding box is tight fitting to the input geometry and is particularly useful when you want to calculate a bounding box that is not oriented to be parallel to the model x-y-z plane. The height direction is automatically determined using the length and width directions.
         geometry : The geometry to calculate the bounding box for. This can be any of the B-Rep related entities.
@@ -3542,7 +4542,8 @@ class MeasureManager(Base):
         Returns an OrientedBoundingBox3D object which provides the information that defines an oriented bounding box.
         """
         return OrientedBoundingBox3D()
-    def measureMinimumDistance(geometryOne, geometryTwo):
+
+    def measureMinimumDistance(self, geometryOne, geometryTwo):
         """
         Measures the minimum distance between the two input geometries.
         geometryOne : The first geometry to measure from. This can be an Occurrence, any B-Rep entity (BRepBody, BRepFace, BRepEdge, BRepVertex, etc.), any construction geometry, any sketch entities, and any temporary 3D geometry (Cylinder, Plane, Line3D, etc.).
@@ -3550,7 +4551,8 @@ class MeasureManager(Base):
         A MeasureResults object that contains the distance and the two points on the geometry that the distance that was measured between them in centimeters.
         """
         return MeasureResults()
-    def measureAngle(geometryOne, geometryTwo, geometryThree):
+
+    def measureAngle(self, geometryOne, geometryTwo, geometryThree):
         """
         Measures the angle between the input geometry.
         geometryOne : The first geometry to measure the angle to. This can be any 3D point geometry (Construction Point, Vertex, SketchPoint, or Point3D), any 3D linear geometry (Construction Axis, linear BRepEdge, SketchLine, Line3D, or InfiniteLine3D), or any planar geometry (Construction Plane, planar BRepFace, or Plane).
@@ -3560,78 +4562,104 @@ class MeasureManager(Base):
         """
         return MeasureResults()
 
+
 class MeasureResults(Base):
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return MeasureResults()
+
     def _get_value(self):
         return float()
+
     def _get_positionOne(self):
         return Point3D()
+
     def _get_positionTwo(self):
         return Point3D()
+
     def _get_positionThree(self):
         return Point3D()
-    value = property(_get_value, None, doc="The measurement value. If the measurement is a distance this value will be in centimeters. If it's an angle then it will be in radians.")
-    positionOne = property(_get_positionOne, None, doc="For a distance measurement, this is the point on the first entity where the measurement was made from. For an angle measurement this is one of the three points defining the angle.")
-    positionTwo = property(_get_positionTwo, None, doc="For a distance measurement, this is the point on the second entity where the measurement was made to. For an angle measurement this is one of the three points defining the angle.")
-    positionThree = property(_get_positionThree, None, doc="This point is only used for angle measurements and is one of the three points defining the angle.")
 
-class MessageBoxButtonTypes():
+    value = property(_get_value, None,
+                     doc="The measurement value. If the measurement is a distance this value will be in centimeters. If it's an angle then it will be in radians.")
+    positionOne = property(_get_positionOne, None,
+                           doc="For a distance measurement, this is the point on the first entity where the measurement was made from. For an angle measurement this is one of the three points defining the angle.")
+    positionTwo = property(_get_positionTwo, None,
+                           doc="For a distance measurement, this is the point on the second entity where the measurement was made to. For an angle measurement this is one of the three points defining the angle.")
+    positionThree = property(_get_positionThree, None,
+                             doc="This point is only used for angle measurements and is one of the three points defining the angle.")
+
+
+class MessageBoxButtonTypes:
     """
     Defines the valid return types from a message box.
     """
+
     def __init__(self):
         pass
+
     OKButtonType = 0
     OKCancelButtonType = 1
     RetryCancelButtonType = 2
     YesNoButtonType = 3
     YesNoCancelButtonType = 4
 
-class MessageBoxIconTypes():
+
+class MessageBoxIconTypes:
     """
     Defines the different icons that can be used in a message box.
     """
+
     def __init__(self):
         pass
+
     NoIconIconType = 0
     QuestionIconType = 1
     InformationIconType = 2
     WarningIconType = 3
     CriticalIconType = 4
 
-class MouseButtons():
+
+class MouseButtons:
     """
     Mouse button values.
     """
+
     def __init__(self):
         pass
+
     NoMouseButton = 0
     LeftMouseButton = 1
     RightMouseButton = 2
     MiddleMouseButton = 3
 
+
 class NamedValues(Base):
     """
     Wraps a list of named values.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return NamedValues()
+
     @staticmethod
     def create():
         """
         Creates a transient NamedValues object.
         """
         return NamedValues()
+
     def _get_count(self):
         return int()
-    def add(name, value):
+
+    def add(self, name, value):
         """
         Adds a name value pair to the NamedValues object
         name : A name for the name value pair
@@ -3639,7 +4667,8 @@ class NamedValues(Base):
         Returns true if the name value pair is added successfully.
         """
         return bool()
-    def getByIndex(index):
+
+    def getByIndex(self, index):
         """
         Function that returns the name and ValueInput object of a name value pair by specifying an index number
         index : The index of the name value pair to return. The first pair in the collection has an index of 0.
@@ -3647,73 +4676,96 @@ class NamedValues(Base):
         value : The ValueInput object
         Returns true if successful
         """
-        return (bool(), str(), ValueInput())
-    def getValueByName(name):
+        return bool(), str(), ValueInput()
+
+    def getValueByName(self, name):
         """
         Function that returns the ValueInput object of a name value pair by specifying its name
         name : The name of the name value pair to return the ValueInput object from
         value : The ValueInput object
         Returns true if successful
         """
-        return (bool(), ValueInput())
+        return bool(), ValueInput()
+
     count = property(_get_count, None, doc="Returns the number of name value pairs in this object.")
+
 
 class NetworkPreferences(Base):
     """
     The NetworkPreferences object provides access to network related preferences.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return NetworkPreferences()
+
     def _set_networkProxySetting(self, networkProxySetting):
         pass
+
     def _get_networkProxySetting(self):
         return NetworkProxySettings()
+
     def _set_proxyHost(self, proxyHost):
         pass
+
     def _get_proxyHost(self):
         return str()
+
     def _set_proxyPort(self, proxyPort):
         pass
+
     def _get_proxyPort(self):
         return int()
-    networkProxySetting = property(_get_networkProxySetting, _set_networkProxySetting, doc="Gets and sets the network proxy setting.")
+
+    networkProxySetting = property(_get_networkProxySetting, _set_networkProxySetting,
+                                   doc="Gets and sets the network proxy setting.")
     proxyHost = property(_get_proxyHost, _set_proxyHost, doc="Gets and sets the proxy host.")
     proxyPort = property(_get_proxyPort, _set_proxyPort, doc="Gets and sets the proxy host.")
 
-class NetworkProxySettings():
+
+class NetworkProxySettings:
     """
     A list of the valid network proxy settings.
     """
+
     def __init__(self):
         pass
+
     AutomaticProxySettings = 0
     NoProxyProxySettings = 1
     WindowsDefaultProxySettings = 2
     OverrideProxySettings = 3
 
-class NurbsSurfaceProperties():
+
+class NurbsSurfaceProperties:
     """
     The different surface property types.
     """
+
     def __init__(self):
         pass
+
     OpenNurbsSurface = 0
     ClosedNurbsSurface = 1
     PeriodicNurbsSurface = 2
     RationalNurbsSurface = 3
 
+
 class ObjectCollection(Base):
     """
     Generic collection used to handle lists of any object type.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return ObjectCollection()
+
     @staticmethod
     def create():
         """
@@ -3721,37 +4773,43 @@ class ObjectCollection(Base):
         Returns the newly created ObjectCollection.
         """
         return ObjectCollection()
+
     def _get_count(self):
         return int()
-    def item(index):
+
+    def item(self, index):
         """
         Function that returns the specified object using an index into the collection.
         index : The index of the item within the collection to return. The first item in the collection has an index of 0.
         Returns the specified item or null if an invalid index was specified.
         """
         return Base()
-    def add(item):
+
+    def add(self, item):
         """
         Adds an object to the end of the collection. Duplicates can be added to the collection.
         item : The item to add to the list.
         Returns false if the item was not added.
         """
         return bool()
-    def removeByItem(item):
+
+    def removeByItem(self, item):
         """
         Function that removes an item from the collection.
         item : The object to remove from the collection.
         Returns true if the removal was successful.
         """
         return bool()
-    def removeByIndex(index):
+
+    def removeByIndex(self, index):
         """
         Function that removes an item from the list. Will fail if the list is read only.
         index : The index of the item to remove from the collection. The first item has an index of 0.
         Returns true if the removal was successful.
         """
         return bool()
-    def find(item, startIndex):
+
+    def find(self, item, startIndex):
         """
         Finds the specified component in the collection.
         item : The item to search for within the collection.
@@ -3759,38 +4817,48 @@ class ObjectCollection(Base):
         Returns the index of the found item. If not found, -1 is returned.
         """
         return int()
-    def contains(item):
+
+    def contains(self, item):
         """
         Returns whether the specified object exists within the collection.
         item : The item to look for in the collection.
         Returns true if the specified item is found in the collection.
         """
         return bool()
-    def clear():
+
+    def clear(self):
         """
         Clears the entire contents of the collection.
         Returns true if successful.
         """
         return bool()
+
     count = property(_get_count, None, doc="Returns the number of occurrences in the collection.")
 
-class OpenDocumentError():
+
+class OpenDocumentError:
     """
     The possible errors when a document is opened.
     """
+
     def __init__(self):
         pass
+
     DocumentNotFoundError = 0
+
 
 class OrientedBoundingBox3D(Base):
     """
     Transient object that represents an oriented 3D bounding box. An oriented 3D bounding box is a rectangular box that can be in any orientation in model space. They are created statically using the create method of the OrientedBoundingBox3D class and are used by some functions to return oriented box information.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return OrientedBoundingBox3D()
+
     @staticmethod
     def create(centerPoint, lengthDirection, widthDirection, length, width, height):
         """
@@ -3804,110 +4872,157 @@ class OrientedBoundingBox3D(Base):
         Returns the new oriented bounding box.
         """
         return OrientedBoundingBox3D()
+
     def _set_centerPoint(self, centerPoint):
         pass
+
     def _get_centerPoint(self):
         return Point3D()
+
     def _get_lengthDirection(self):
         return Vector3D()
+
     def _set_length(self, length):
         pass
+
     def _get_length(self):
         return float()
+
     def _get_widthDirection(self):
         return Vector3D()
+
     def _set_width(self, width):
         pass
+
     def _get_width(self):
         return float()
+
     def _get_heightDirection(self):
         return Vector3D()
+
     def _set_height(self, height):
         pass
+
     def _get_height(self):
         return float()
-    def setOrientation(lengthDirection, widthDirection):
+
+    def setOrientation(self, lengthDirection, widthDirection):
         """
         Sets the orientation of the oriented bouding box.
         lengthDirection : A Vector3D object that defines the direction of the length of the oriented bounding box. The magnitude of the vector is ignored and just the direction is used.
         widthDirection : A Vector3D object that defines the direction of the width of the oriented bounding box. The magnitude of the vector is ignored and just the direction is used. The width direction must be perpendicular to the length direction.
         """
         return bool()
-    def contains(point):
+
+    def contains(self, point):
         """
         Determines if the specified point lies within the oriented bounding box.
         point : The point to test containment with.
         Returns true if the point lies within the bounding box.
         """
         return bool()
-    def copy():
+
+    def copy(self):
         """
         Create a copy of this oriented bounding box.
         Returns the new oriented bounding box copy.
         """
         return OrientedBoundingBox3D()
-    centerPoint = property(_get_centerPoint, _set_centerPoint, doc="Gets and sets the centerPoint point of the oriented box.")
-    lengthDirection = property(_get_lengthDirection, None, doc="Gets the direction of the length of the oriented bounding box. A unit vector is always returned.")
-    length = property(_get_length, _set_length, doc="Gets and sets the length of the oriented bounding box in centimeters.")
-    widthDirection = property(_get_widthDirection, None, doc="Gets the direction of the width of the oriented bounding box. A unit vector is always returned.")
+
+    centerPoint = property(_get_centerPoint, _set_centerPoint,
+                           doc="Gets and sets the centerPoint point of the oriented box.")
+    lengthDirection = property(_get_lengthDirection, None,
+                               doc="Gets the direction of the length of the oriented bounding box. A unit vector is always returned.")
+    length = property(_get_length, _set_length,
+                      doc="Gets and sets the length of the oriented bounding box in centimeters.")
+    widthDirection = property(_get_widthDirection, None,
+                              doc="Gets the direction of the width of the oriented bounding box. A unit vector is always returned.")
     width = property(_get_width, _set_width, doc="Gets and sets the width of the oriented bounding box in centimeters.")
-    heightDirection = property(_get_heightDirection, None, doc="Gets the direction of the height of the oriented bounding box. A unit vector is always returned.")
-    height = property(_get_height, _set_height, doc="Gets and sets the height of the oriented bounding box in centimeters.")
+    heightDirection = property(_get_heightDirection, None,
+                               doc="Gets the direction of the height of the oriented bounding box. A unit vector is always returned.")
+    height = property(_get_height, _set_height,
+                      doc="Gets and sets the height of the oriented bounding box in centimeters.")
+
 
 class Palette(Base):
     """
     A Palette is a floating or docked dialog in Fusion 360. The browser is an example of a built-in palette. The contents of a custom palette are created by displaying an html file.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return Palette()
+
     def _get_id(self):
         return str()
+
     def _set_isVisible(self, isVisible):
         pass
+
     def _get_isVisible(self):
         return bool()
+
     def _set_htmlFileURL(self, htmlFileURL):
         pass
+
     def _get_htmlFileURL(self):
         return str()
+
     def _get_incomingFromHTML(self):
         return HTMLEvent()
+
     def _get_closed(self):
         return UserInterfaceGeneralEvent()
+
     def _set_name(self, name):
         pass
+
     def _get_name(self):
         return str()
+
     def _get_isNative(self):
         return bool()
+
     def _set_dockingOption(self, dockingOption):
         pass
+
     def _get_dockingOption(self):
         return PaletteDockingOptions()
+
     def _set_dockingState(self, dockingState):
         pass
+
     def _get_dockingState(self):
         return PaletteDockingStates()
+
     def _set_width(self, width):
         pass
+
     def _get_width(self):
         return int()
+
     def _set_height(self, height):
         pass
+
     def _get_height(self):
         return int()
+
     def _set_left(self, left):
         pass
+
     def _get_left(self):
         return int()
+
     def _set_top(self, top):
         pass
+
     def _get_top(self):
         return int()
-    def sendInfoToHTML(action, data):
+
+    def sendInfoToHTML(self, action, data):
         """
         <p>Sends the string to the JavaScript associated with the loaded HTML. A variation of the event handler below should be implemented in the JavaScript associated with the HTML to receive the data. The event will be triggered by Fusion 360 whenever the sendInfoToHTML method is called.</p> <pre class='api-code'>window.fusionJavaScriptHandler = { handle: function(actionString, dataString){ confirm('Action from Fusion: ' + actionString); confirm('Data from Fusion: ' + dataString); // Build up JSON return string. var result = {}; result.status = 'OK'; var response = JSON.stringify(result); return response; } };</pre> <p>Your JavaScript code should always return something in response because an empty string response is assumed to be a failure.</p>
         action : The 'action' string to pass to the JavaScript associated with the HTML. This string can be anything but will typically be JSON formatted information.
@@ -3915,13 +5030,15 @@ class Palette(Base):
         Returns a string that can be anything that your JavaScript code generates. The JavaScript should always return some content because an empty string is used to indicate a failure. If useNewWebBrowser flag is set to true while creating palette control then this API call would be asynchronous and empty string is returned. Response would come in data field of HTMLEvent with action equal to 'response'
         """
         return str()
-    def deleteMe():
+
+    def deleteMe(self):
         """
         Deletes this palette. Fusion 360 native palettes cannot be deleted. Use the isNative property to determine if this is a native or API created palette.
         Returns true if the delete was successful.
         """
         return bool()
-    def setPosition(left, top):
+
+    def setPosition(self, left, top):
         """
         Sets the position of the palette. If the palette is docked or snapped, this will result in changing it to be floating.
         left : The position of the left side of the palette relative to screen space and in pixels. Because palettes can be positioned outside of the Fusion 360 window, a value of zero indicates the left side of the screen and not the Fusion 360 window.
@@ -3929,7 +5046,8 @@ class Palette(Base):
         Returns true if setting the position was successful.
         """
         return bool()
-    def setSize(width, height):
+
+    def setSize(self, width, height):
         """
         Sets the size of the palette. This is best used for a floating palette because either the width or height can be locked when a palette is docked.
         width : Specifies the width of the palette. Depending on how the palette is docked or snapped, the width may not be editable.
@@ -3937,7 +5055,8 @@ class Palette(Base):
         Returns true if the sizing was succesful. It is still considered a success even if the width or height could not be changed because of how the palette is docked or snapped.
         """
         return bool()
-    def snapTo(palette, snapOption):
+
+    def snapTo(self, palette, snapOption):
         """
         Snaps this palette to another palette.
         palette : Specifies the palette to snap to.
@@ -3945,7 +5064,8 @@ class Palette(Base):
         Returns true if the palette was successfully snapped to the other palette.
         """
         return bool()
-    def setMinimumSize(width, height):
+
+    def setMinimumSize(self, width, height):
         """
         Sets the minimum size of the palette. The user cannot resize it to be smaller than this size. This does not change the current size of the palette unless the palette is already smaller than this size. Calling this method and setting the width and height to zero, removes the minimum size restriction.
         width : Specifies the minimum width of the palette.
@@ -3953,7 +5073,8 @@ class Palette(Base):
         Returns true if setting the minimum size was succesful.
         """
         return bool()
-    def setMaximumSize(width, height):
+
+    def setMaximumSize(self, width, height):
         """
         Sets the maximum size of the palette. The user cannot resize it to be larger than this size. This does not change the current size of the palette unless the palette is already larger than this size. Calling this method and setting the width and height to zero, removes the maximum size restriction.
         width : Specifies the maximum width of the palette.
@@ -3961,55 +5082,79 @@ class Palette(Base):
         Returns true if setting the maximum size was succesful.
         """
         return bool()
-    id = property(_get_id, None, doc="Gets The unique, language independent, ID of this palette.")
-    isVisible = property(_get_isVisible, _set_isVisible, doc="Gets and sets whether this palette is currently being displayed in the user interface.")
-    htmlFileURL = property(_get_htmlFileURL, _set_htmlFileURL, doc="Gets and sets the URL to the html file currently being displayed. This can be local or on the web.")
-    incomingFromHTML = property(_get_incomingFromHTML, None, doc="This event is fired when the JavaScript associated with the HTML calls the adsk.fusionSendData function. This allows the HTML to communicate with the add-in by passing information to the add-in.")
-    closed = property(_get_closed, None, doc="This event is fired when the user clicks the 'Close' button on the palette. You can choose if the 'Close' button is available or not when you initially create the palette. When a palette is closed, it still exists but is change to invisible so you can still interact with it and retrieve any needed information and can make it visible again. Use the deleteMe method to delete the palette.")
-    name = property(_get_name, _set_name, doc="Gets and set the name of the palette as seen in the user interface. The name of native palletes cannot be set.")
-    isNative = property(_get_isNative, None, doc="Indicates if this is one of the standard Fusion 360 palettes or a custom palette created through the API. If true, it is a standard Fusion 360 palette and will have some restrictions on changing its properties and cannot be deleted.")
-    dockingOption = property(_get_dockingOption, _set_dockingOption, doc="Defines the docking behavior for this palette. This controls how the user is allowed to dock the palette.")
-    dockingState = property(_get_dockingState, _set_dockingState, doc="Gets and sets how the palette is currented docked.")
-    width = property(_get_width, _set_width, doc="Gets and sets the width of the palette. Setting this property may not always set the width. Depending on how the palette is docked or snapped, the width may not be editable.")
-    height = property(_get_height, _set_height, doc="Gets and sets the height of the palette. Setting this property may not always set the height. Depending on how the palette is docked or snapped, the height may not be editable.")
-    left = property(_get_left, _set_left, doc="Gets and sets the left side of the palette relative to screen space and in pixels. Because palettes can be positioned outside of the Fusion 360 window, a value of zero indicates the left side of the screen and not the Fusion 360 window.")
-    top = property(_get_top, _set_top, doc="Gets and sets the top of the palette relative to screen space and in pixels. Because palettes can be positioned outside of the Fusion 360 window, a value of zero indicates the top of the screen and not the Fusion 360 window.")
 
-class PaletteDockingOptions():
+    id = property(_get_id, None, doc="Gets The unique, language independent, ID of this palette.")
+    isVisible = property(_get_isVisible, _set_isVisible,
+                         doc="Gets and sets whether this palette is currently being displayed in the user interface.")
+    htmlFileURL = property(_get_htmlFileURL, _set_htmlFileURL,
+                           doc="Gets and sets the URL to the html file currently being displayed. This can be local or on the web.")
+    incomingFromHTML = property(_get_incomingFromHTML, None,
+                                doc="This event is fired when the JavaScript associated with the HTML calls the adsk.fusionSendData function. This allows the HTML to communicate with the add-in by passing information to the add-in.")
+    closed = property(_get_closed, None,
+                      doc="This event is fired when the user clicks the 'Close' button on the palette. You can choose if the 'Close' button is available or not when you initially create the palette. When a palette is closed, it still exists but is change to invisible so you can still interact with it and retrieve any needed information and can make it visible again. Use the deleteMe method to delete the palette.")
+    name = property(_get_name, _set_name,
+                    doc="Gets and set the name of the palette as seen in the user interface. The name of native palletes cannot be set.")
+    isNative = property(_get_isNative, None,
+                        doc="Indicates if this is one of the standard Fusion 360 palettes or a custom palette created through the API. If true, it is a standard Fusion 360 palette and will have some restrictions on changing its properties and cannot be deleted.")
+    dockingOption = property(_get_dockingOption, _set_dockingOption,
+                             doc="Defines the docking behavior for this palette. This controls how the user is allowed to dock the palette.")
+    dockingState = property(_get_dockingState, _set_dockingState,
+                            doc="Gets and sets how the palette is currented docked.")
+    width = property(_get_width, _set_width,
+                     doc="Gets and sets the width of the palette. Setting this property may not always set the width. Depending on how the palette is docked or snapped, the width may not be editable.")
+    height = property(_get_height, _set_height,
+                      doc="Gets and sets the height of the palette. Setting this property may not always set the height. Depending on how the palette is docked or snapped, the height may not be editable.")
+    left = property(_get_left, _set_left,
+                    doc="Gets and sets the left side of the palette relative to screen space and in pixels. Because palettes can be positioned outside of the Fusion 360 window, a value of zero indicates the left side of the screen and not the Fusion 360 window.")
+    top = property(_get_top, _set_top,
+                   doc="Gets and sets the top of the palette relative to screen space and in pixels. Because palettes can be positioned outside of the Fusion 360 window, a value of zero indicates the top of the screen and not the Fusion 360 window.")
+
+
+class PaletteDockingOptions:
     """
     Defines the different options available when docking a palette to the Fusion 360 main window area.
     """
+
     def __init__(self):
         pass
+
     PaletteDockOptionsNone = 0
     PaletteDockOptionsToVerticalOnly = 1
     PaletteDockOptionsToHorizontalOnly = 2
     PaletteDockOptionsToVerticalAndHorizontal = 3
 
-class PaletteDockingStates():
+
+class PaletteDockingStates:
     """
     Defines the various docking states that a palette can be in.
     """
+
     def __init__(self):
         pass
+
     PaletteDockStateFloating = 0
     PaletteDockStateTop = 1
     PaletteDockStateBottom = 2
     PaletteDockStateLeft = 3
     PaletteDockStateRight = 4
 
+
 class Palettes(Base):
     """
     Provides access to a set of palettes, which are docked or floating windows that display html.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return Palettes()
+
     def _get_count(self):
         return int()
-    def add(id, name, htmlFileURL, isVisible, showCloseButton, isResizable, width, height, useNewWebBrowser):
+
+    def add(self, id, name, htmlFileURL, isVisible, showCloseButton, isResizable, width, height, useNewWebBrowser):
         """
         Creates a new Palette.
         id : The unique id for this palette. The id must be unique with respect to all of the palettes.
@@ -4024,42 +5169,52 @@ class Palettes(Base):
         Returns the newly created palette or null in the case the creation failed.
         """
         return Palette()
-    def item(index):
+
+    def item(self, index):
         """
         Returns the specified palette using an index into the collection.
         index : The index of the item within the collection to return. The first item in the collection has an index of 0.
         Returns the specified item or null if an invalid index was specified.
         """
         return Palette()
-    def itemById(id):
+
+    def itemById(self, id):
         """
         Returns the palette at the specified ID.
         id : The Id of the palette within the collection to return.
         Returns the palette of the specified id or null if no palette has the specified id.
         """
         return Palette()
+
     count = property(_get_count, None, doc="Gets the number of Palettes.")
 
-class PaletteSnapOptions():
+
+class PaletteSnapOptions:
     """
     Defines the various positions that a palette can be snapped to another palette.
     """
+
     def __init__(self):
         pass
+
     PaletteSnapOptionsTop = 0
     PaletteSnapOptionsLeft = 1
     PaletteSnapOptionsRight = 2
     PaletteSnapOptionsBottom = 3
 
+
 class Point2D(Base):
     """
     Transient 2D point. A transient point is not displayed or saved in a document. Transient 2D points are used as a wrapper to work with raw 2D point information. They are created statically using the create methods of the Point2D class.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return Point2D()
+
     @staticmethod
     def create(x, y):
         """
@@ -4069,56 +5224,67 @@ class Point2D(Base):
         Returns the new Point2D object or null if the creation failed.
         """
         return Point2D()
+
     def _set_x(self, x):
         pass
+
     def _get_x(self):
         return float()
+
     def _set_y(self, y):
         pass
+
     def _get_y(self):
         return float()
-    def copy():
+
+    def copy(self):
         """
         Creates and returns a copy of this point object.
         Returns an independent copy of this point object.
         """
         return Point2D()
-    def getData():
+
+    def getData(self):
         """
         Gets the data defining the point.
         x : The output x coordinate of the point.
         y : The output y coordinate of the point.
         Returns true if successful.
         """
-        return (bool(), float(), float())
-    def distanceTo(point):
+        return bool(), float(), float()
+
+    def distanceTo(self, point):
         """
         Returns the distance from this point to another point.
         point : The point to measure the distance to
         Returns the distance to the point.
         """
         return float()
-    def asArray():
+
+    def asArray(self):
         """
         Get coordinate data of the point
         Returns the coordinate data of the point as an array
         """
         return float()
-    def isEqualTo(point):
+
+    def isEqualTo(self, point):
         """
         Checks to see if this point and another point are equal (have identical coordinates). The comparison is done within the modeling tolerance which can be found with the Application.pointTolerance property. If you want to compare two points with any other tolerance you can use the isEqualToByTolerance method.
         point : The point to compare for equality
         Returns true if the points are equal. (have identical coordinates)
         """
         return bool()
-    def setWithArray(coordinates):
+
+    def setWithArray(self, coordinates):
         """
         Sets the coordinates of the point using an array as input.
         coordinates : An array that defines the coordinates of the point
         Returns true if successful
         """
         return bool()
-    def set(x, y):
+
+    def set(self, x, y):
         """
         Sets the coordinates of the point by specifying the x, y coordinates.
         x : The x coordinate of the point.
@@ -4126,34 +5292,39 @@ class Point2D(Base):
         Returns true if successful
         """
         return bool()
-    def transformBy(matrix):
+
+    def transformBy(self, matrix):
         """
         Transforms the point using the provided matrix.
         matrix : The Matrix2D object that defines the transformation
         Returns true if successful
         """
         return bool()
-    def asVector():
+
+    def asVector(self):
         """
         Defines a vector using the coordinates of the point.
         Returns a Vector2D object
         """
         return Vector2D()
-    def translateBy(vector):
+
+    def translateBy(self, vector):
         """
         Translates the point using the provided vector.
         vector : The vector to use to translate the point
         Returns true if successful
         """
         return bool()
-    def vectorTo(point):
+
+    def vectorTo(self, point):
         """
         Returns a vector from this point to another point.
         point : The other point to use to create the vector
         Returns a Vector2D object
         """
         return Vector2D()
-    def isEqualToByTolerance(point, tolerance):
+
+    def isEqualToByTolerance(self, point, tolerance):
         """
         Checks to see if this point and another point are equal within the specified tolerance.
         point : The point to compare for equality.
@@ -4161,18 +5332,23 @@ class Point2D(Base):
         Returns true if the points are equal (have identical coordinates).
         """
         return bool()
+
     x = property(_get_x, _set_x, doc="Gets and sets the X coordinate of the point.")
     y = property(_get_y, _set_y, doc="Gets and sets the Y coordinate of the point.")
+
 
 class Point3D(Base):
     """
     Transient 3D point. A transient point is not displayed or saved in a document. Transient 3D points are used as a wrapper to work with raw 3D point information. They are created statically using the create method of the Point3D class.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return Point3D()
+
     @staticmethod
     def create(x, y, z):
         """
@@ -4183,72 +5359,87 @@ class Point3D(Base):
         Returns the new Point3D object or null if the creation failed.
         """
         return Point3D()
+
     def _set_x(self, x):
         pass
+
     def _get_x(self):
         return float()
+
     def _set_y(self, y):
         pass
+
     def _get_y(self):
         return float()
+
     def _set_z(self, z):
         pass
+
     def _get_z(self):
         return float()
-    def distanceTo(point):
+
+    def distanceTo(self, point):
         """
         Returns the distance from this point to another point.
         point : The point to measure the distance to.
         Returns the distance to the point.
         """
         return float()
-    def copy():
+
+    def copy(self):
         """
         Creates and returns a copy of this point object.
         Returns an independent copy of this point object.
         """
         return Point3D()
-    def asArray():
+
+    def asArray(self):
         """
         Get coordinate data of the point.
         Returns the coordinate data of the point as an array [x, y, z].
         """
         return float()
-    def isEqualTo(point):
+
+    def isEqualTo(self, point):
         """
         Checks to see if this point and another point are equal (have identical coordinates). The comparison is done within the modeling tolerance which can be found with the Application.pointTolerance property. If you want to compare two points with any other tolerance you can use the isEqualToByTolerance method.
         point : The point to compare for equality.
         Returns true if the points are equal (have identical coordinates).
         """
         return bool()
-    def setWithArray(coordinates):
+
+    def setWithArray(self, coordinates):
         """
         Sets the coordinates of the point using an array as input.
         coordinates : An array that defines the coordinates of the point [x, y, z].
         Returns true if successful.
         """
         return bool()
-    def transformBy(matrix):
+
+    def transformBy(self, matrix):
         """
         Transforms the point using the provided matrix.
         matrix : The Matrix3D object that defines the transformation.
         Returns true if successful.
         """
         return bool()
-    def asVector():
+
+    def asVector(self):
         """
         Defines a vector using the coordinates of the point.
         Returns a Vector2D object.
         """
         return Vector3D()
-    def translateBy(vector):
+
+    def translateBy(self, vector):
         """
         Translates the point using the provided vector.
         vector : The vector to use to translate the point.
         Returns true if successful.
         """
         return bool()
-    def getData():
+
+    def getData(self):
         """
         Gets the data defining the point.
         x : The output x coordinate of the point.
@@ -4256,8 +5447,9 @@ class Point3D(Base):
         z : The output z coordinate of the point.
         Returns true if successful.
         """
-        return (bool(), float(), float(), float())
-    def set(x, y, z):
+        return bool(), float(), float(), float()
+
+    def set(self, x, y, z):
         """
         Sets the data defining the point.
         x : The x coordinate of the point.
@@ -4266,14 +5458,16 @@ class Point3D(Base):
         Returns true if successful.
         """
         return bool()
-    def vectorTo(point):
+
+    def vectorTo(self, point):
         """
         Returns a vector from this point to another point.
         point : The other point to use to create the vector.
         Returns a Vector3D object.
         """
         return Vector3D()
-    def isEqualToByTolerance(point, tolerance):
+
+    def isEqualToByTolerance(self, point, tolerance):
         """
         Checks to see if this point and another point are equal within the specified tolerance.
         point : The point to compare for equality.
@@ -4281,67 +5475,92 @@ class Point3D(Base):
         Returns true if the points are equal (have identical coordinates).
         """
         return bool()
+
     x = property(_get_x, _set_x, doc="Gets and sets the X coordinate of the point.")
     y = property(_get_y, _set_y, doc="Gets and sets the Y coordinate of the point.")
     z = property(_get_z, _set_z, doc="Gets and sets the Z coordinate of the point.")
+
 
 class Preferences(Base):
     """
     The Preferences object provides access to the various preference related objects for getting and setting the various preference values.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return Preferences()
+
     def _get_generalPreferences(self):
         return GeneralPreferences()
+
     def _get_materialPreferences(self):
         return MaterialPreferences()
+
     def _get_graphicsPreferences(self):
         return GraphicsPreferences()
+
     def _get_networkPreferences(self):
         return NetworkPreferences()
+
     def _get_unitAndValuePreferences(self):
         return UnitAndValuePreferences()
+
     def _get_defaultUnitsPreferences(self):
         return DefaultUnitsPreferencesCollection()
+
     def _get_productPreferences(self):
         return ProductPreferencesCollection()
+
     def _get_gridPreferences(self):
         return GridPreferences()
+
     def _get_productUsageData(self):
         return ProductUsageData()
+
     generalPreferences = property(_get_generalPreferences, None, doc="Gets the GeneralPreferences object.")
     materialPreferences = property(_get_materialPreferences, None, doc="Gets the MaterialPreferences object.")
     graphicsPreferences = property(_get_graphicsPreferences, None, doc="Gets the GraphicsPreferences object.")
     networkPreferences = property(_get_networkPreferences, None, doc="Gets the NetworkPreferences object.")
-    unitAndValuePreferences = property(_get_unitAndValuePreferences, None, doc="Gets the UnitAndValuePreferences object.")
-    defaultUnitsPreferences = property(_get_defaultUnitsPreferences, None, doc="Gets the DefaultUnitsPreferences object.")
+    unitAndValuePreferences = property(_get_unitAndValuePreferences, None,
+                                       doc="Gets the UnitAndValuePreferences object.")
+    defaultUnitsPreferences = property(_get_defaultUnitsPreferences, None,
+                                       doc="Gets the DefaultUnitsPreferences object.")
     productPreferences = property(_get_productPreferences, None, doc="Gets the ProductPreferences object.")
     gridPreferences = property(_get_gridPreferences, None, doc="Gets the GridPreferences object.")
     productUsageData = property(_get_productUsageData, None, doc="Gets the ProductUsageData object.")
+
 
 class Product(Base):
     """
     The base class for the various product specific containers. For Fusion 360 this is the Design object. For manufacturing this is a CAM object.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return Product()
+
     def _get_parentDocument(self):
         return Document()
+
     def _get_unitsManager(self):
         return UnitsManager()
+
     def _get_workspaces(self):
         return WorkspaceList()
+
     def _get_productType(self):
         return str()
+
     def _get_attributes(self):
         return Attributes()
-    def findAttributes(groupName, attributeName):
+
+    def findAttributes(self, groupName, attributeName):
         """
         Find attributes attached to objects in this product that match the group and or attribute name. This does not find attributes attached directly to the Product or Document objects but finds the attributes attached to entities within the product. The search string for both the groupName and attributeName arguments can be either an absolute name value, or a regular expression. With an absolute name, the search string must match the entire groupName or attributeName, including case. An empty string will match everything. For example if you have an attribute group named 'MyStuff' that contains the attribute 'Length1', using the search string 'MyStuff' as the group name and 'Length1' as the attribute name will find the attributes with those names. Searching for 'MyStuff' as the group name and '' as the attribute name will find all attributes that have 'MyStuff' as the group name. Regular expressions provide a more flexibile way of searching. To use a regular expression, prefix the input string for the groupName or attributeName arguments with 're:'. The regular expression much match the entire group or attribute name. For example if you have a group that contains attributes named 'Length1', 'Length2', 'Width1', and 'Width2' and want to find any of the length attributes you can use a regular expression using the string 're:Length.*'. For more information on attributes see the Attributes topic in the user manual.
         groupName : The search string for the group name. See above for more details.
@@ -4349,152 +5568,210 @@ class Product(Base):
         An array of Attribute objects that were found. An empty array is returned if no attributes were found.
         """
         return Attribute()
-    def deleteEntities(entities):
+
+    def deleteEntities(self, entities):
         """
         Deletes the specified set of entities that are associated with this product.
         entities : An ObjectCollection containing the list of entities to delete.
         Returns True if any of the entities provided in the list were deleted. If entities were specified that can't be deleted or aren't owned by this product, they are ignored.
         """
         return bool()
+
     parentDocument = property(_get_parentDocument, None, doc="Returns the parent Document object.")
-    unitsManager = property(_get_unitsManager, None, doc="Returns the UnitsManager object associated with this product.")
+    unitsManager = property(_get_unitsManager, None,
+                            doc="Returns the UnitsManager object associated with this product.")
     workspaces = property(_get_workspaces, None, doc="Returns the workspaces associated with this product.")
-    productType = property(_get_productType, None, doc="Returns the product type name of this product. A list of all of the possible product types can be obtained by using the Application.supportedProductTypes property.")
-    attributes = property(_get_attributes, None, doc="Returns the collection of attributes associated with this product.")
+    productType = property(_get_productType, None,
+                           doc="Returns the product type name of this product. A list of all of the possible product types can be obtained by using the Application.supportedProductTypes property.")
+    attributes = property(_get_attributes, None,
+                          doc="Returns the collection of attributes associated with this product.")
+
 
 class ProductPreferences(Base):
     """
     The base class for the general product preferences. There is a derived class for each product where the specific preference values are exposed.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return ProductPreferences()
+
     def _get_name(self):
         return str()
+
     name = property(_get_name, None, doc="Returns the name of this ProductPreferences object.")
+
 
 class ProductPreferencesCollection(Base):
     """
     A collection that provides access to product specific preference objects.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return ProductPreferencesCollection()
+
     def _get_count(self):
         return int()
-    def item(index):
+
+    def item(self, index):
         """
         Function that returns the specified ProfductPreferences object using an index into the collection.
         index : The index of the item within the collection to return. The first item in the collection has an index of 0.
         Returns the specified item or null if an invalid index was specified.
         """
         return ProductPreferences()
-    def itemByName(name):
+
+    def itemByName(self, name):
         """
         Returns the ProductPreference object with the specified name.
         name : The name of the ProductPreferences to return.
         Returns the ProductPreferences object or null if if an invalid name was specified.
         """
         return ProductPreferences()
+
     count = property(_get_count, None, doc="Returns the number of ProductPreference objects.")
+
 
 class Products(Base):
     """
     The Products object provides access to all of the products that exist in the document.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return Products()
+
     def _get_count(self):
         return int()
-    def item(index):
+
+    def item(self, index):
         """
         Function that returns the specified product using an index into the collection.
         index : The index of the item within the collection to return. The first item in the collection has an index of 0.
         Returns the specified item or null if an invalid index was specified.
         """
         return Product()
-    def itemByProductType(productType):
+
+    def itemByProductType(self, productType):
         """
         Returns the specified product, if it exists within this document.
         productType : The product type string. For example, to get the product that represents the design data you use 'DesignProductType' or to get the product that represent the CAM data you use 'CAMProductType'. A complete list of available products can be obtained by using the Application.supportedProductTypes property.
         Returns the specified item or null if the specified productType does not exist within this document.
         """
         return Product()
+
     count = property(_get_count, None, doc="Returns the number of products within the collection.")
+
 
 class ProductUsageData(Base):
     """
     Provides access to the product usage data settings.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return ProductUsageData()
+
     def _set_isTrackingToImproveSoftwareEnabled(self, isTrackingToImproveSoftwareEnabled):
         pass
+
     def _get_isTrackingToImproveSoftwareEnabled(self):
         return bool()
+
     def _set_isTrackingToImproveCommunicationEnabled(self, isTrackingToImproveCommunicationEnabled):
         pass
+
     def _get_isTrackingToImproveCommunicationEnabled(self):
         return bool()
-    isTrackingToImproveSoftwareEnabled = property(_get_isTrackingToImproveSoftwareEnabled, _set_isTrackingToImproveSoftwareEnabled, doc="Gets and sets if tracking to improve the software is enabled.")
-    isTrackingToImproveCommunicationEnabled = property(_get_isTrackingToImproveCommunicationEnabled, _set_isTrackingToImproveCommunicationEnabled, doc="Gets and sets if tracking to improve communication is enabled.")
+
+    isTrackingToImproveSoftwareEnabled = property(_get_isTrackingToImproveSoftwareEnabled,
+                                                  _set_isTrackingToImproveSoftwareEnabled,
+                                                  doc="Gets and sets if tracking to improve the software is enabled.")
+    isTrackingToImproveCommunicationEnabled = property(_get_isTrackingToImproveCommunicationEnabled,
+                                                       _set_isTrackingToImproveCommunicationEnabled,
+                                                       doc="Gets and sets if tracking to improve communication is enabled.")
+
 
 class ProgressDialog(Base):
     """
     Provides access to the progress dialog.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return ProgressDialog()
+
     def _set_title(self, title):
         pass
+
     def _get_title(self):
         return str()
+
     def _set_message(self, message):
         pass
+
     def _get_message(self):
         return str()
+
     def _set_minimumValue(self, minimumValue):
         pass
+
     def _get_minimumValue(self):
         return int()
+
     def _set_maximumValue(self, maximumValue):
         pass
+
     def _get_maximumValue(self):
         return int()
+
     def _set_progressValue(self, progressValue):
         pass
+
     def _get_progressValue(self):
         return int()
+
     def _set_isCancelButtonShown(self, isCancelButtonShown):
         pass
+
     def _get_isCancelButtonShown(self):
         return bool()
+
     def _get_wasCancelled(self):
         return bool()
+
     def _set_cancelButtonText(self, cancelButtonText):
         pass
+
     def _get_cancelButtonText(self):
         return str()
+
     def _set_isBackgroundTranslucent(self, isBackgroundTranslucent):
         pass
+
     def _get_isBackgroundTranslucent(self):
         return bool()
+
     def _get_isShowing(self):
         return bool()
-    def show(title, message, minimumValue, maximumValue, delay):
+
+    def show(self, title, message, minimumValue, maximumValue, delay):
         """
         Displays the progress dialog that includes a progress bar that can be used to display a continually updated message indicating the progress of a process that will take more than a few seconds. The progress is determined by comparing the current progress value with the minimum and maximum values.
         title : Sets the title for the progress dialog
@@ -4505,299 +5782,402 @@ class ProgressDialog(Base):
         Returns true if successful.
         """
         return bool()
-    def hide():
+
+    def hide(self):
         """
         Hides the progress dialog. This should be used when the process has completed.
         Returns true if successful.
         """
         return bool()
-    def reset():
+
+    def reset(self):
         """
         Method that resets the progress bar. The progress bar 'rewinds' and shows no progress. This is the same as setting the progress value to the minimum value.
         Returns true if successful
         """
         return bool()
+
     title = property(_get_title, _set_title, doc="Gets and sets the title of the progress dialog")
-    message = property(_get_message, _set_message, doc="Gets and sets the message to display along with the progress bar. The following symbols can be used to display values. '%p' is replaced by the percentage completed. '%v' is replaced by the current value. %m is replaced by the total number of steps. For example, the message 'Processing section %v of %m.' will result in the message 'Processing section 1 of 10.' to be displayed if the maximum value is 10 and the current value is 1. Specify an empty string ('') for no message to appear along with the progress panel.")
-    minimumValue = property(_get_minimumValue, _set_minimumValue, doc="The minimum value of the progress bar. This is used along with the maximum value and the progress value to compute the current percentage complete. This is also the initial progress value when the progress bar is first displayed.")
-    maximumValue = property(_get_maximumValue, _set_maximumValue, doc="The maximum value of the progress bar. This is used along with the minimum value and the progress value to compute the current percentage complete.")
-    progressValue = property(_get_progressValue, _set_progressValue, doc="Gets and sets the current progress bar value. Progress is determined based on this value relative to the minimum and maximum values. This will update the values displayed in the message string.")
-    isCancelButtonShown = property(_get_isCancelButtonShown, _set_isCancelButtonShown, doc="Gets and sets if the cancel button is included in the dialog. This is false by default.")
-    wasCancelled = property(_get_wasCancelled, None, doc="Indicates if the cancel button was selected the last time the Progress Dialog was shown.")
-    cancelButtonText = property(_get_cancelButtonText, _set_cancelButtonText, doc="Sets the text label on the Cancel button. The default text label is 'Cancel'.")
-    isBackgroundTranslucent = property(_get_isBackgroundTranslucent, _set_isBackgroundTranslucent, doc="Gets and sets if the dialog background is translucent. This is false by default")
+    message = property(_get_message, _set_message,
+                       doc="Gets and sets the message to display along with the progress bar. The following symbols can be used to display values. '%p' is replaced by the percentage completed. '%v' is replaced by the current value. %m is replaced by the total number of steps. For example, the message 'Processing section %v of %m.' will result in the message 'Processing section 1 of 10.' to be displayed if the maximum value is 10 and the current value is 1. Specify an empty string ('') for no message to appear along with the progress panel.")
+    minimumValue = property(_get_minimumValue, _set_minimumValue,
+                            doc="The minimum value of the progress bar. This is used along with the maximum value and the progress value to compute the current percentage complete. This is also the initial progress value when the progress bar is first displayed.")
+    maximumValue = property(_get_maximumValue, _set_maximumValue,
+                            doc="The maximum value of the progress bar. This is used along with the minimum value and the progress value to compute the current percentage complete.")
+    progressValue = property(_get_progressValue, _set_progressValue,
+                             doc="Gets and sets the current progress bar value. Progress is determined based on this value relative to the minimum and maximum values. This will update the values displayed in the message string.")
+    isCancelButtonShown = property(_get_isCancelButtonShown, _set_isCancelButtonShown,
+                                   doc="Gets and sets if the cancel button is included in the dialog. This is false by default.")
+    wasCancelled = property(_get_wasCancelled, None,
+                            doc="Indicates if the cancel button was selected the last time the Progress Dialog was shown.")
+    cancelButtonText = property(_get_cancelButtonText, _set_cancelButtonText,
+                                doc="Sets the text label on the Cancel button. The default text label is 'Cancel'.")
+    isBackgroundTranslucent = property(_get_isBackgroundTranslucent, _set_isBackgroundTranslucent,
+                                       doc="Gets and sets if the dialog background is translucent. This is false by default")
     isShowing = property(_get_isShowing, None, doc="Gets if the Progress Dialog is currently being displayed")
+
 
 class Properties(Base):
     """
     A collection of properties that are associated with a material or appearance.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return Properties()
+
     def _get_count(self):
         return int()
-    def item(index):
+
+    def item(self, index):
         """
         Returns the specified property from the collection using an index into the collection.
         index : The index of the property within the collection where the first item is 0.
         Returns the specified item or null if an invalid index was specified.
         """
         return Property()
-    def itemById(id):
+
+    def itemById(self, id):
         """
         Returns the specified property from the collection using the unique ID of the property.
         id : The unique ID of the property.
         Returns the specified property or null if the ID doesn't match a property within the collection.
         """
         return Property()
-    def itemByName(name):
+
+    def itemByName(self, name):
         """
         Returns the specified Property using the name of the property.
         name : The name of the property to return. This is the name as seen in the user interface.
         Returns the specified property or null if the name doesn't match a property within the collection.
         """
         return Property()
+
     count = property(_get_count, None, doc="Returns the number of properties within the collection.")
+
 
 class Property(Base):
     """
     The base class for the specific property types used by materials and appearances.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return Property()
+
     def _get_name(self):
         return str()
+
     def _get_isReadOnly(self):
         return bool()
+
     def _get_id(self):
         return str()
+
     def _get_parent(self):
         return Base()
-    name = property(_get_name, None, doc="Returns the name of this property as seen in the user interface. This name is localized and can change based on the current language")
-    isReadOnly = property(_get_isReadOnly, None, doc="Indicates if this property is read-only. If True any attempted edits will fail.")
+
+    name = property(_get_name, None,
+                    doc="Returns the name of this property as seen in the user interface. This name is localized and can change based on the current language")
+    isReadOnly = property(_get_isReadOnly, None,
+                          doc="Indicates if this property is read-only. If True any attempted edits will fail.")
     id = property(_get_id, None, doc="Returns the unique ID of this property.")
     parent = property(_get_parent, None, doc="Returns the parent of this property.")
+
 
 class RadialMarkingMenu(Base):
     """
     Represents the marking menu which is the round menu that's displayed when the user right-clicks within Fusion 360. This supports customizing the contents of the marking menu.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return RadialMarkingMenu()
+
     def _set_text(self, text):
         pass
+
     def _get_text(self):
         return str()
+
     def _set_eastCommand(self, eastCommand):
         pass
+
     def _get_eastCommand(self):
         return Base()
+
     def _set_northCommand(self, northCommand):
         pass
+
     def _get_northCommand(self):
         return Base()
+
     def _set_northeastCommand(self, northeastCommand):
         pass
+
     def _get_northeastCommand(self):
         return Base()
+
     def _set_westCommand(self, westCommand):
         pass
+
     def _get_westCommand(self):
         return Base()
+
     def _set_northwestCommand(self, northwestCommand):
         pass
+
     def _get_northwestCommand(self):
         return Base()
+
     def _set_southwestCommand(self, southwestCommand):
         pass
+
     def _get_southwestCommand(self):
         return Base()
+
     def _set_southCommand(self, southCommand):
         pass
+
     def _get_southCommand(self):
         return Base()
+
     def _set_southeastCommand(self, southeastCommand):
         pass
+
     def _get_southeastCommand(self):
         return Base()
-    def create(text):
+
+    def create(self, text):
         """
         This is used to create a sub-menu in a marking menu. This method creates a new, empty marking menu which can then be assigned to a position in the displayed marking menu to define the sub-menu.
         text : The text that will be displayed in the parent menu to access this menu.
         Returns the newly created marking menu or null in the case of a failure.
         """
         return RadialMarkingMenu()
-    def clear():
+
+    def clear(self):
         """
         Completely clears the contents of the marking menu. If left in this state, the marking menu will not be displayed.
         Returns true if the clear was successful.
         """
         return bool()
-    text = property(_get_text, _set_text, doc="Gets and sets the text that is displayed in the parent marking menu to access a sub marking menu. This property is not used for the main marking menu and will return an empty string and setting it will have no effect.")
-    eastCommand = property(_get_eastCommand, _set_eastCommand, doc="Gets and sets the command definition that's displayed in the East position (right) of the marking menu. Setting this to null indicates that the East position should be empty. This can also return or be set with a MarkingMenu object which is used to have a sub-menu. New marking menus can be created using the create method and then assigned to the desired position in the marking menu.")
-    northCommand = property(_get_northCommand, _set_northCommand, doc="Gets and sets the command definition that's displayed in the North position (top) of the marking menu. Setting this to null indicates that the North position should be empty. This can also return or be set with a MarkingMenu object which is used to have a sub-menu. New marking menus can be created using the create method and then assigned to the desired position in the marking menu.")
-    northeastCommand = property(_get_northeastCommand, _set_northeastCommand, doc="Gets and sets the command definition that's displayed in the Northeast position (top-right) of the marking menu. Setting this to null indicates that the Northeast position should be empty. This can also return or be set with a MarkingMenu object which is used to have a sub-menu. New marking menus can be created using the create method and then assigned to the desired position in the marking menu.")
-    westCommand = property(_get_westCommand, _set_westCommand, doc="Gets and sets the command definition that's displayed in the West position (left) of the marking menu. Setting this to null indicates that the West position should be empty. This can also return or be set with a MarkingMenu object which is used to have a sub-menu. New marking menus can be created using the create method and then assigned to the desired position in the marking menu.")
-    northwestCommand = property(_get_northwestCommand, _set_northwestCommand, doc="Gets and sets the command definition that's displayed in the Northwest position (upper-left) of the marking menu. Setting this to null indicates that the Northwest position should be empty. This can also return or be set with a MarkingMenu object which is used to have a sub-menu. New marking menus can be created using the create method and then assigned to the desired position in the marking menu.")
-    southwestCommand = property(_get_southwestCommand, _set_southwestCommand, doc="Gets and sets the command definition that's displayed in the Southwest position (bottom-left) of the marking menu. Setting this to null indicates that the Southwest position should be empty. This can also return or be set with a MarkingMenu object which is used to have a sub-menu. New marking menus can be created using the create method and then assigned to the desired position in the marking menu.")
-    southCommand = property(_get_southCommand, _set_southCommand, doc="Gets and sets the command definition that's displayed in the South position (bottom) of the marking menu. Setting this to null indicates that the South position should be empty. This can also return or be set with a MarkingMenu object which is used to have a sub-menu. New marking menus can be created using the create method and then assigned to the desired position in the marking menu.")
-    southeastCommand = property(_get_southeastCommand, _set_southeastCommand, doc="Gets and sets the command definition that's displayed in the Southeast position (bottom-right) of the marking menu. Setting this to null indicates that the Southeast position should be empty. This can also return or be set with a MarkingMenu object which is used to have a sub-menu. New marking menus can be created using the create method and then assigned to the desired position in the marking menu.")
 
-class SaveLocalErrors():
+    text = property(_get_text, _set_text,
+                    doc="Gets and sets the text that is displayed in the parent marking menu to access a sub marking menu. This property is not used for the main marking menu and will return an empty string and setting it will have no effect.")
+    eastCommand = property(_get_eastCommand, _set_eastCommand,
+                           doc="Gets and sets the command definition that's displayed in the East position (right) of the marking menu. Setting this to null indicates that the East position should be empty. This can also return or be set with a MarkingMenu object which is used to have a sub-menu. New marking menus can be created using the create method and then assigned to the desired position in the marking menu.")
+    northCommand = property(_get_northCommand, _set_northCommand,
+                            doc="Gets and sets the command definition that's displayed in the North position (top) of the marking menu. Setting this to null indicates that the North position should be empty. This can also return or be set with a MarkingMenu object which is used to have a sub-menu. New marking menus can be created using the create method and then assigned to the desired position in the marking menu.")
+    northeastCommand = property(_get_northeastCommand, _set_northeastCommand,
+                                doc="Gets and sets the command definition that's displayed in the Northeast position (top-right) of the marking menu. Setting this to null indicates that the Northeast position should be empty. This can also return or be set with a MarkingMenu object which is used to have a sub-menu. New marking menus can be created using the create method and then assigned to the desired position in the marking menu.")
+    westCommand = property(_get_westCommand, _set_westCommand,
+                           doc="Gets and sets the command definition that's displayed in the West position (left) of the marking menu. Setting this to null indicates that the West position should be empty. This can also return or be set with a MarkingMenu object which is used to have a sub-menu. New marking menus can be created using the create method and then assigned to the desired position in the marking menu.")
+    northwestCommand = property(_get_northwestCommand, _set_northwestCommand,
+                                doc="Gets and sets the command definition that's displayed in the Northwest position (upper-left) of the marking menu. Setting this to null indicates that the Northwest position should be empty. This can also return or be set with a MarkingMenu object which is used to have a sub-menu. New marking menus can be created using the create method and then assigned to the desired position in the marking menu.")
+    southwestCommand = property(_get_southwestCommand, _set_southwestCommand,
+                                doc="Gets and sets the command definition that's displayed in the Southwest position (bottom-left) of the marking menu. Setting this to null indicates that the Southwest position should be empty. This can also return or be set with a MarkingMenu object which is used to have a sub-menu. New marking menus can be created using the create method and then assigned to the desired position in the marking menu.")
+    southCommand = property(_get_southCommand, _set_southCommand,
+                            doc="Gets and sets the command definition that's displayed in the South position (bottom) of the marking menu. Setting this to null indicates that the South position should be empty. This can also return or be set with a MarkingMenu object which is used to have a sub-menu. New marking menus can be created using the create method and then assigned to the desired position in the marking menu.")
+    southeastCommand = property(_get_southeastCommand, _set_southeastCommand,
+                                doc="Gets and sets the command definition that's displayed in the Southeast position (bottom-right) of the marking menu. Setting this to null indicates that the Southeast position should be empty. This can also return or be set with a MarkingMenu object which is used to have a sub-menu. New marking menus can be created using the create method and then assigned to the desired position in the marking menu.")
+
+
+class SaveLocalErrors:
     """
     List of possible errors when saving a document locally.
     """
+
     def __init__(self):
         pass
+
     SaveCancelledSaveLocalError = 0
     DiskFullSaveLocalError = 1
     FileReadOnlySaveLocalError = 2
+
 
 class Selection(Base):
     """
     Provides access to a selection of an entity in the user interface.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return Selection()
+
     def _get_entity(self):
         return Base()
+
     def _get_point(self):
         return Point3D()
+
     entity = property(_get_entity, None, doc="Gets the selected entity.")
     point = property(_get_point, None, doc="Gets the selection point on the object.")
 
-class SelectionDisplayStyles():
+
+class SelectionDisplayStyles:
     """
     A list of the valid selection display styles.
     """
+
     def __init__(self):
         pass
+
     NormalDisplayStyle = 0
     SimpleDisplayStyle = 1
+
 
 class Selections(Base):
     """
     Provides access to and control over the set of selected entities in the user interface.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return Selections()
+
     def _get_count(self):
         return int()
+
     def _set_all(self, all):
         pass
+
     def _get_all(self):
         return ObjectCollection()
-    def item(index):
+
+    def item(self, index):
         """
         Returns the specified selection using an index into the collection.
         index : The index of the item within the collection to return. The first item in the collection has an index of 0.
         Returns the specified item or null if an invalid index was specified.
         """
         return Selection()
-    def add(entity):
+
+    def add(self, entity):
         """
         Adds the entity to the set of currently selected entities. The user will see the entity become selected in the user interface.
         entity : The entity to select and add to this selection set.
         Returns true if successful.
         """
         return bool()
-    def clear():
+
+    def clear(self):
         """
         Clears the selection set so no entities are currently selected.
         Returns true if successful.
         """
         return bool()
-    def removeBySelection(selection):
+
+    def removeBySelection(self, selection):
         """
         Removes the specified selection from the set of selected entities.
         selection : The selection to remove.
         Returns true if the item was removed or not currently selected.
         """
         return bool()
-    def removeByEntity(entity):
+
+    def removeByEntity(self, entity):
         """
         Removes the selections that are associated with the specified entity from the set of selected entities.
         entity : The entity to remove selections of.
         Returns true if the item was removed or not currently selected.
         """
         return bool()
-    def removeByIndex(index):
+
+    def removeByIndex(self, index):
         """
         Removes an item from the set of selected entities.
         index : The index of the selection to remove.
         Returns true if the item was removed successfully.
         """
         return bool()
-    def asArray():
+
+    def asArray(self):
         """
         Returns an array containing all of the current selections. This is useful in cases where you need to iterate over the set of selected entities but need to create or edit data as you process each one. Selections are fragile and creation and edit operations will clear the selections so you won't have access to the complete list after processing the first one.
         Returns an array of all of the current selections. Selection objects are returned so you'll need to call their entity properties to get the actual selected entity.
         """
         return Selection()
+
     count = property(_get_count, None, doc="Gets the number of entities currently selected.")
     all = property(_get_all, _set_all, doc="Gets or sets all entities currently selected.")
+
 
 class Surface(Base):
     """
     Describes a two-dimensional topological, manifold in three-dimensional space. It is used as the underlying geometry for a BRepFace.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return Surface()
+
     def _get_surfaceType(self):
         return SurfaceTypes()
+
     def _get_evaluator(self):
         return SurfaceEvaluator()
-    def transformBy(matrix):
+
+    def transformBy(self, matrix):
         """
         Updates this surface by transforming it with a given input matrix.
         matrix : A 3D matrix that defines the transform to apply to the surface.
         Returns true if the transform was successful.
         """
         return bool()
+
     surfaceType = property(_get_surfaceType, None, doc="Returns the surface type.")
     evaluator = property(_get_evaluator, None, doc="Returns the surface evaluator.")
+
 
 class SurfaceEvaluator(Base):
     """
     Surface evaluator that is obtained from a transient surface and allows you to perform various evaluations on the surface.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return SurfaceEvaluator()
+
     def _get_isClosedInU(self):
         return bool()
+
     def _get_isClosedInV(self):
         return bool()
+
     def _get_area(self):
         return float()
-    def getModelCurveFromParametricCurve(parametricCurve):
+
+    def getModelCurveFromParametricCurve(self, parametricCurve):
         """
         Creates the 3D equivalent curve in model space, of a 2D curve defined in the parametric space of the surface.
         parametricCurve : The parameter space curve to map into this surface's parameter space.
         Returns an ObjectCollection containing one or more curves. When the SufaceEvaluatior is obtained from a face, and the curve cuts across internal boundaries of the face, multiple curves are returned. The returned curves are trimmed to the boundaries of the face. If the SurfaceEvaluator is obtained from a geometry object, a single curve returned because there are no boundaries with which to trim the curve. The type of curve(s) returned depends on the shape of the input curve and surface.
         """
         return ObjectCollection()
-    def getIsoCurve(parameter, isUDirection):
+
+    def getIsoCurve(self, parameter, isUDirection):
         """
         Gets (by extraction) a curve that follows a constant u or v parameter along the surface. The curve will have the same properties as the surface in the direction of the extraction. For example, when a curve is extracted from the periodic direction of a surface, the extracted curve will also be periodic. The type of curve returned is dependent on the shape the surface.
         parameter : The parameter at which to extract the curve
@@ -4805,7 +6185,8 @@ class SurfaceEvaluator(Base):
         Returns an ObjectCollection that contains one or more curves. Multiple curves are returned when the SurfaceEvaluator is obtained from a Face and the curve cuts across internal boundaries. The resulting curves are trimmed to the boundaries of the Face. When the SurfaceEvaluator is obtained from a geometry object, a single curve is returned because there are no boundaries to trim the curve. The type of curve(s) returned is dependent on the shape of the surface.
         """
         return ObjectCollection()
-    def getCurvatures(parameters):
+
+    def getCurvatures(self, parameters):
         """
         Get the curvature values at a number of parameter positions on the surface.
         parameters : The array of parameter positions to return curvature information at. Each parameter position must be with the range of the parameter extents as verified by isParameterOnFace.
@@ -4814,8 +6195,9 @@ class SurfaceEvaluator(Base):
         minCurvatures : The output array of the magnitude of the minimum curvature at each position on the surface. The minimum curvature direction is perpendicular to the maximum curvature tangent directions. The length of this array will be the same as the length of the parameters array provided.
         Returns true if the curvatures were successfully returned.
         """
-        return (bool(), Vector3D(), float(), float())
-    def getCurvature(parameter):
+        return bool(), Vector3D(), float(), float()
+
+    def getCurvature(self, parameter):
         """
         Get the curvature values at a parameter positions on the surface.
         parameter : The parameter positions to return curvature information at.
@@ -4824,72 +6206,81 @@ class SurfaceEvaluator(Base):
         minCurvature : The output magnitude of the minimum curvature at the position on the surface. The minimum curvature direction is perpendicular to the maximum curvature tangent directions.
         Returns true if the curvature was successfully returned.
         """
-        return (bool(), Vector3D(), float(), float())
-    def getNormalsAtParameters(parameters):
+        return bool(), Vector3D(), float(), float()
+
+    def getNormalsAtParameters(self, parameters):
         """
         Gets the surface normal at a number of parameter positions on the surface.
         parameters : The array of parameter positions to return the normal at. Each parameter position must be with the range of the parameter extents as verified by isParameterOnFace.
         normals : The output array of normals for each parameter position on the surface. The length of this array will be the same as the length of the parameters array provided.
         Returns true if the normals were successfully returned.
         """
-        return (bool(), Vector3D())
-    def getNormalAtParameter(parameter):
+        return bool(), Vector3D()
+
+    def getNormalAtParameter(self, parameter):
         """
         Gets the surface normal at a parameter position on the surface.
         parameter : The parameter position to return the normal at. The parameter position must be with the range of the parameter extents as verified by isParameterOnFace.
         normal : The output normal for the parameter position on the surface.
         Returns true if the normal was successfully returned.
         """
-        return (bool(), Vector3D())
-    def getNormalsAtPoints(points):
+        return bool(), Vector3D()
+
+    def getNormalsAtPoints(self, points):
         """
         Gets the surface normal at a number of positions on the surface.
         points : The array of points to return the normal at. For reliable results each point should lie on the surface.
         normals : The output array of normals for each point on the surface. The length of this array will be the same as the length of the points array provided.
         Returns true if the normals were successfully returned.
         """
-        return (bool(), Vector3D())
-    def getNormalAtPoint(point):
+        return bool(), Vector3D()
+
+    def getNormalAtPoint(self, point):
         """
         Gets the surface normal at a point on the surface.
         point : The point to return the normal at. For reliable results the point should lie on the surface.
         normal : The output normal for the point on the surface.
         Returns true if the normal was successfully returned.
         """
-        return (bool(), Vector3D())
-    def getParametersAtPoints(points):
+        return bool(), Vector3D()
+
+    def getParametersAtPoints(self, points):
         """
         Get the parameter positions that correspond to a set of points on the surface. For reliable results, the points should lie on the surface within model tolerance. If the points do not lie on the surface, the parameter of the nearest point on the surface will generally be returned.
         points : An array of points to get the surface parameter values at.
         parameters : The output array of parameter positions corresponding to the set of points. The length of this array will be equal to the length of the points array specified.
         Returns true if the parameters were successfully returned.
         """
-        return (bool(), Point2D())
-    def getParameterAtPoint(point):
+        return bool(), Point2D()
+
+    def getParameterAtPoint(self, point):
         """
         Get the parameter position that correspond to a point on the surface. For reliable results, the point should lie on the surface within model tolerance. If the point does not lie on the surface, the parameter of the nearest point on the surface will generally be returned.
         point : The point to get the curve parameter value at.
         parameter : The output parameter position corresponding to the point.
         Returns true of the parameter was successfully returned.
         """
-        return (bool(), Point2D())
-    def getPointsAtParameters(parameters):
+        return bool(), Point2D()
+
+    def getPointsAtParameters(self, parameters):
         """
         Get the points on the surface that correspond to evaluating a set of parameter positions on the surface.
         parameters : The array of parameter positions to evaluate the surface position at. Each parameter position must be within the range of the parameter extents as verified by isParameterOnFace.
         points : The output array of points corresponding to evaluating the curve at that parameter position. The length of this array will be equal to the length of the parameters array specified.
         Returns true if the points were successfully returned.
         """
-        return (bool(), Point3D())
-    def getPointAtParameter(parameter):
+        return bool(), Point3D()
+
+    def getPointAtParameter(self, parameter):
         """
         Get the point on the surface that correspond to evaluating a parameter position on the surface.
         parameter : The parameter positions to evaluate the surface position at. The parameter position must be within the range of the parameter extents as verified by isParameterOnFace.
         point : The output point corresponding to evaluating the curve at that parameter position.
         Returns true if the point was successfully returned.
         """
-        return (bool(), Point3D())
-    def getParamAnomaly():
+        return bool(), Point3D()
+
+    def getParamAnomaly(self):
         """
         Gets details about anomalies in parameter space of the surface. This includes information about periodic intervals, singularities, or unbounded parameter ranges.
         periodicityU : The output array with information about the period of the surface in U. periodicityU[0] will contain the period of the surface in U. If periodicityU[0] is 0, the surface is not periodic in U. If the surface is periodic in U, peridocityU[1] will contain the parameter value at the start of the principle period.
@@ -4899,8 +6290,9 @@ class SurfaceEvaluator(Base):
         unboundedParameters : The output array that indicates if the parameter range is unbounded in U or V. unboundedParameters[0] will be true if U is unbounded. unboundedParameters[1] will be true if V is unbounded.
         Returns true if the parameter anomalies were successfully returned.
         """
-        return (bool(), float(), float(), float(), float(), bool())
-    def getFirstDerivatives(parameters):
+        return bool(), float(), float(), float(), float(), bool()
+
+    def getFirstDerivatives(self, parameters):
         """
         Get the first derivatives of the surface at the specified parameter positions.
         parameters : The array of parameter positions to get the surface first derivative at. Each parameter position must be within the range of the parameter extents as verified by isParameterOnFace.
@@ -4908,8 +6300,9 @@ class SurfaceEvaluator(Base):
         partialsV : The output array of first derivative V partial vectors at each parameter position specified. The length of this array is equal to the length of the parameters array specified.
         Returns true if the first derivatives were successfully returned.
         """
-        return (bool(), Vector3D(), Vector3D())
-    def getFirstDerivative(parameter):
+        return bool(), Vector3D(), Vector3D()
+
+    def getFirstDerivative(self, parameter):
         """
         Get the first derivative of the surface at the specified parameter position.
         parameter : The parameter positions to get the surface first derivative at. The parameter position must be within the range of the parameter extents as verified by isParameterOnFace.
@@ -4917,8 +6310,9 @@ class SurfaceEvaluator(Base):
         partialV : The output first derivative V partial vector at the parameter position specified.
         Returns true if the first derivative was successfully returned.
         """
-        return (bool(), Vector3D(), Vector3D())
-    def getSecondDerivatives(parameters):
+        return bool(), Vector3D(), Vector3D()
+
+    def getSecondDerivatives(self, parameters):
         """
         Get the second derivatives of the surface at the specified parameter positions.
         parameters : The array of parameter positions to get the surface second derivative at. Each parameter position must be within the range of the parameter extents as verified by isParameterOnFace.
@@ -4927,8 +6321,9 @@ class SurfaceEvaluator(Base):
         partialsVV : The output array of second derivative VV partial vectors at each parameter position specified. The length of this array is equal to the length of the parameters array specified.
         Returns true if the second derivatives were successfully returned.
         """
-        return (bool(), Vector3D(), Vector3D(), Vector3D())
-    def getSecondDerivative(parameter):
+        return bool(), Vector3D(), Vector3D(), Vector3D()
+
+    def getSecondDerivative(self, parameter):
         """
         Get the second derivative of the surface at the specified parameter position.
         parameter : The parameter position to get the surface second derivative at. The parameter position must be within the range of the parameter extents as verified by isParameterOnFace.
@@ -4937,8 +6332,9 @@ class SurfaceEvaluator(Base):
         partialVV : The output second derivative VV partial vector at each parameter position specified.
         Returns true if the second derivative was successfully returned.
         """
-        return (bool(), Vector3D(), Vector3D(), Vector3D())
-    def getThirdDerivatives(parameters):
+        return bool(), Vector3D(), Vector3D(), Vector3D()
+
+    def getThirdDerivatives(self, parameters):
         """
         Get the third derivatives of the surface at the specified parameter positions.
         parameters : The array of parameter positions to get the surface third derivative at. Each parameter position must be within the range of the parameter extents as verified by isParameterOnFace.
@@ -4946,8 +6342,9 @@ class SurfaceEvaluator(Base):
         partialsVVV : The output array of third derivative VVV partial vectors at each parameter position specified. The length of this array is equal to the length of the parameters array specified.
         Returns true if the third derivatives were successfully returned.
         """
-        return (bool(), Vector3D(), Vector3D())
-    def getThirdDerivative(parameter):
+        return bool(), Vector3D(), Vector3D()
+
+    def getThirdDerivative(self, parameter):
         """
         Get the third derivative of the surface at the specified parameter position.
         parameter : The parameter position to get the surface third derivative at. The parameter position must be within the range of the parameter extents as verified by isParameterOnFace.
@@ -4955,30 +6352,39 @@ class SurfaceEvaluator(Base):
         partialVVV : The output third derivative VVV partial vector at each parameter position specified.
         Returns true if the third derivative was successfully returned.
         """
-        return (bool(), Vector3D(), Vector3D())
-    def isParameterOnFace(parameter):
+        return bool(), Vector3D(), Vector3D()
+
+    def isParameterOnFace(self, parameter):
         """
         Determines if the specified parameter position lies with the parametric range of the surface.
         parameter : The parameter position to test.
         Returns true if the parameter position lies within the valid parametric range of the surface.
         """
         return bool()
-    def parametricRange():
+
+    def parametricRange(self):
         """
         Returns the parametric range of the surface. If the surface is periodic in a direction, the range is set to the principle period's range. If the surface is only upper bounded in a direction, the lower bound is set to -double-max. If the surface is only lower bounded in a direction, the upper bound is set to double-max. If the surface is unbounded in a direction, the lower bound and upper bound of the range will both be zero.
         Returns the bounding box with the parameter extents, with the X value being the U range, and the Y value being the V range.
         """
         return BoundingBox2D()
-    isClosedInU = property(_get_isClosedInU, None, doc="Indicates if the surface is closed (forms a loop) in the U direction")
-    isClosedInV = property(_get_isClosedInV, None, doc="Indicates if the surface is closed (forms a loop) in the V direction")
-    area = property(_get_area, None, doc="Returns the area of the surface. This is typically used when the SurfaceEvaluator is associated with a BRepFace object where it is always valid. This can fail in the case where the SurfaceEvaluator is associated with one of the geometry classes, (Plane, Cylinder, Cone, EllipticalCone, or EllipticalCylinder object), because these surfaces are unbounded. A BRepFace, even one of these shapes, is bounded by its edges and has a well-defined area.")
 
-class SurfaceTypes():
+    isClosedInU = property(_get_isClosedInU, None,
+                           doc="Indicates if the surface is closed (forms a loop) in the U direction")
+    isClosedInV = property(_get_isClosedInV, None,
+                           doc="Indicates if the surface is closed (forms a loop) in the V direction")
+    area = property(_get_area, None,
+                    doc="Returns the area of the surface. This is typically used when the SurfaceEvaluator is associated with a BRepFace object where it is always valid. This can fail in the case where the SurfaceEvaluator is associated with one of the geometry classes, (Plane, Cylinder, Cone, EllipticalCone, or EllipticalCylinder object), because these surfaces are unbounded. A BRepFace, even one of these shapes, is bounded by its edges and has a well-defined area.")
+
+
+class SurfaceTypes:
     """
     The different types of surfaces.
     """
+
     def __init__(self):
         pass
+
     PlaneSurfaceType = 0
     CylinderSurfaceType = 1
     ConeSurfaceType = 2
@@ -4988,22 +6394,28 @@ class SurfaceTypes():
     EllipticalConeSurfaceType = 6
     NurbsSurfaceType = 7
 
-class TablePresentationStyles():
+
+class TablePresentationStyles:
     """
     The different styles that a TableCommandInput can use for its display.
     """
+
     def __init__(self):
         pass
+
     nameValueTablePresentationStyle = 0
     itemBorderTablePresentationStyle = 1
     transparentBackgroundTablePresentationStyle = 2
 
-class TextureTypes():
+
+class TextureTypes:
     """
     The different types of textures.
     """
+
     def __init__(self):
         pass
+
     UnknownTexture = 0
     ImageTexture = 1
     CheckerTexture = 2
@@ -5015,108 +6427,143 @@ class TextureTypes():
     WaveTexture = 8
     WoodTexture = 9
 
+
 class Toolbar(Base):
     """
     Provides access to a toolbar in the user interface. A toolbar is a collection of toolbar controls.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return Toolbar()
+
     def _get_id(self):
         return str()
+
     def _get_parentUserInterface(self):
         return UserInterface()
+
     def _get_controls(self):
         return ToolbarControls()
-    id = property(_get_id, None, doc="Gets the unique ID of the toolbar that can be used programmatically to find a specific toolbar.")
+
+    id = property(_get_id, None,
+                  doc="Gets the unique ID of the toolbar that can be used programmatically to find a specific toolbar.")
     parentUserInterface = property(_get_parentUserInterface, None, doc="Gets the owning UserInterface object.")
     controls = property(_get_controls, None, doc="Gets the controls in this toolbar.")
+
 
 class ToolbarControl(Base):
     """
     The base class for all toolbar controls.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return ToolbarControl()
+
     def _get_id(self):
         return str()
+
     def _get_index(self):
         return int()
+
     def _set_isVisible(self, isVisible):
         pass
+
     def _get_isVisible(self):
         return bool()
+
     def _get_parent(self):
         return Base()
-    def deleteMe():
+
+    def deleteMe(self):
         """
         Deletes the ToolbarControl
         Returns a boolean indicating if the deletion was successful.
         """
         return bool()
-    id = property(_get_id, None, doc="Gets the unique ID of this control. The ID is unique with respect to the other controls within the same panel, toolbar, or drop-down control.")
-    index = property(_get_index, None, doc="Gets the position of this control within the list of controls within the panel, toolbar, or drop-down control.")
+
+    id = property(_get_id, None,
+                  doc="Gets the unique ID of this control. The ID is unique with respect to the other controls within the same panel, toolbar, or drop-down control.")
+    index = property(_get_index, None,
+                     doc="Gets the position of this control within the list of controls within the panel, toolbar, or drop-down control.")
     isVisible = property(_get_isVisible, _set_isVisible, doc="Gets or sets if this control is currently visible.")
-    parent = property(_get_parent, None, doc="Gets the Parent object. When associated with a toolbar (right or left QAT or the Nav Bar) this returns the parent Toolbar object. When associated with a panel it returns the parent ToolbarPanel object. When associated with a control (DropDownControl) it returns the parent control.")
+    parent = property(_get_parent, None,
+                      doc="Gets the Parent object. When associated with a toolbar (right or left QAT or the Nav Bar) this returns the parent Toolbar object. When associated with a panel it returns the parent ToolbarPanel object. When associated with a control (DropDownControl) it returns the parent control.")
+
 
 class ToolbarControlList(Base):
     """
     Provides access to a list of toolbar controls.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return ToolbarControlList()
+
     def _get_count(self):
         return int()
-    def item(index):
+
+    def item(self, index):
         """
         Returns the ToolbarControl at the specified index. When iterating by index, the controls are returned in the same order as they are shown in the user interface.
         index : The index of the control within the collection to return. The first item in the collection has in index of 0.
         Returns the ToolbarControl at the specified index or null if an invalid index was specified.
         """
         return ToolbarControl()
-    def itemById(id):
+
+    def itemById(self, id):
         """
         Returns the ToolbarControl at the specified ID.
         id : The ID of the control within the collection to return.
         Returns the ToolbarControl with the specified ID or null if no control has this ID.
         """
         return ToolbarControl()
+
     count = property(_get_count, None, doc="Gets the number of toolbar controls.")
+
 
 class ToolbarControls(Base):
     """
     ToolbarControls is a collection of ToolbarControl objects displayed in a toolbar or menu.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return ToolbarControls()
+
     def _get_count(self):
         return int()
-    def item(index):
+
+    def item(self, index):
         """
         Returns the ToolbarControl at the specified index. When iterating by index, the controls are returned in the same order as they are shown in the user interface.
         index : The index of the control within the collection to return. The first item in the collection has in index of 0.
         Returns the ToolbarControl at the specified index or null if an invalid index was specified.
         """
         return ToolbarControl()
-    def itemById(id):
+
+    def itemById(self, id):
         """
         Returns the ToolbarControl at the specified ID.
         id : The ID of the control within the collection to return.
         Returns the ToolbarControl with the specified ID or null if no control has this ID.
         """
         return ToolbarControl()
-    def addCommand(commandDefinition, positionID, isBefore):
+
+    def addCommand(self, commandDefinition, positionID, isBefore):
         """
         Adds a button to the controls in the toolbar, panel, or drop-down. The ID of the created command control is inherited from the associated command definition.
         commandDefinition : The associated CommandDefinition that defines the resources and receives events related to this control.
@@ -5125,7 +6572,8 @@ class ToolbarControls(Base):
         Returns the newly created CommandControl object or null if the creation fails.
         """
         return CommandControl()
-    def addDropDown(text, resourceFolder, id, positionID, isBefore):
+
+    def addDropDown(self, text, resourceFolder, id, positionID, isBefore):
         """
         Adds a drop-down to the controls in the toolbar, panel, or drop-down. When the drop-down is initially created it will be empty. you can get the associated ToolbarControls object from the DropDownControl to add additional controls to the drop-down.
         text : The text displayed for the drop-down in a menu. For a drop-down in a toolbar this argument is ignored because an icon is used.
@@ -5136,7 +6584,8 @@ class ToolbarControls(Base):
         Returns the newly created DropDownControl object or null if the creation fails.
         """
         return DropDownControl()
-    def addSeparator(id, positionID, isBefore):
+
+    def addSeparator(self, id, positionID, isBefore):
         """
         Adds a separator to the controls in the toolbar, panel, or drop-down.
         id : Optional unique ID for the control. It must be unique with respect to other controls in this collection. If the default empty string is provided, Fusion 360 will create a unique ID.
@@ -5145,7 +6594,8 @@ class ToolbarControls(Base):
         Returns the newly created separator controls or null if the creation fails.
         """
         return SeparatorControl()
-    def addSplitButton(defaultDefinition, additionalDefinitions, showLastUsed, id, positionID, isBefore):
+
+    def addSplitButton(self, defaultDefinition, additionalDefinitions, showLastUsed, id, positionID, isBefore):
         """
         Adds a split button to the controls in a toolbar. A split button has two active areas that the user can click; the main button portion and the drop-down arrow. Clicking the main button, executes the displayed command. Clicking the drop-down displays the drop-down with additional commands. The split button itself does not fire any events, but the buttons within it will fire events to their associated command definitions.
         defaultDefinition : A command definition that will be used to create the main button. A button will also be created in the drop-down for this definition.
@@ -5157,97 +6607,132 @@ class ToolbarControls(Base):
         Returns the newly created SplitButtonControl object or null if the creation fails.
         """
         return SplitButtonControl()
+
     count = property(_get_count, None, doc="Gets the number of controls in the collection.")
+
 
 class ToolbarPanel(Base):
     """
     Toolbar panels are the panels shown in the command toolbar.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return ToolbarPanel()
+
     def _get_id(self):
         return str()
+
     def _get_index(self):
         return int()
+
     def _get_isVisible(self):
         return bool()
+
     def _get_name(self):
         return str()
+
     def _get_controls(self):
         return ToolbarControls()
+
     def _get_parentUserInterface(self):
         return UserInterface()
+
     def _get_promotedControls(self):
         return ToolbarControlList()
+
     def _set_relatedWorkspaces(self, relatedWorkspaces):
         pass
+
     def _get_relatedWorkspaces(self):
         return ObjectCollection()
+
     def _get_productType(self):
         return str()
-    def deleteMe():
+
+    def deleteMe(self):
         """
         Deletes this toolbar panel.
         Returns true if the delete was successful.
         """
         return bool()
-    def indexWithinTab(tabId):
+
+    def indexWithinTab(self, tabId):
         """
         Gets the position this panel is in within the toolbar tab. The first panel in the tab is at position 0.
         """
         return int()
+
     id = property(_get_id, None, doc="Gets The unique, language independent, ID of this panel.")
-    index = property(_get_index, None, doc="Gets the position this panel is in within the toolbar. The first panel is at position 0. This value is with respect to the complete list of panels so this value could be outside of the expected range if you have a collection of panels associated with a workspace, which is a subset of the entire list of panels.")
-    isVisible = property(_get_isVisible, None, doc="Gets whether this panel is currently being displayed in the user interface. Visibility of a panel is controlled by it being associated with the currently active workspace.")
+    index = property(_get_index, None,
+                     doc="Gets the position this panel is in within the toolbar. The first panel is at position 0. This value is with respect to the complete list of panels so this value could be outside of the expected range if you have a collection of panels associated with a workspace, which is a subset of the entire list of panels.")
+    isVisible = property(_get_isVisible, None,
+                         doc="Gets whether this panel is currently being displayed in the user interface. Visibility of a panel is controlled by it being associated with the currently active workspace.")
     name = property(_get_name, None, doc="Gets the name of the panel as seen in the user interface.")
-    controls = property(_get_controls, None, doc="Gets the controls associated with this panel. These are all in the panel's drop-down (assuming their visible property is true) and are selectively shown within the panel.")
+    controls = property(_get_controls, None,
+                        doc="Gets the controls associated with this panel. These are all in the panel's drop-down (assuming their visible property is true) and are selectively shown within the panel.")
     parentUserInterface = property(_get_parentUserInterface, None, doc="Gets the parent UserInterface object.")
-    promotedControls = property(_get_promotedControls, None, doc="Gets the controls in the panel that have been promoted. Promoted controls are the controls that are displayed within the panel.")
-    relatedWorkspaces = property(_get_relatedWorkspaces, _set_relatedWorkspaces, doc="Gets or sets the set of workspaces that this panel is displayed for.")
-    productType = property(_get_productType, None, doc="Returns the name of the product this toolbar panel is associated with.")
+    promotedControls = property(_get_promotedControls, None,
+                                doc="Gets the controls in the panel that have been promoted. Promoted controls are the controls that are displayed within the panel.")
+    relatedWorkspaces = property(_get_relatedWorkspaces, _set_relatedWorkspaces,
+                                 doc="Gets or sets the set of workspaces that this panel is displayed for.")
+    productType = property(_get_productType, None,
+                           doc="Returns the name of the product this toolbar panel is associated with.")
+
 
 class ToolbarPanelList(Base):
     """
     A ToolbarPanelList is a list of ToolbarPanel objects.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return ToolbarPanelList()
+
     def _get_count(self):
         return int()
-    def item(index):
+
+    def item(self, index):
         """
         Returns the specified work space using an index into the collection.
         index : The index of the item within the collection to return. The first item in the collection has an index of 0.
         Returns the specified item or null if an invalid index was specified.
         """
         return ToolbarPanel()
-    def itemById(id):
+
+    def itemById(self, id):
         """
         Returns the ToolbarPanel of the specified ID.
         id : The ID of the ToolbarPanel to get.
         Returns the specified ToolbarPanel or null in the case where there isn't a ToolbarPanel with the specified ID.
         """
         return ToolbarPanel()
+
     count = property(_get_count, None, doc="Gets the number of toolbar panels in the collection.")
+
 
 class ToolbarPanels(Base):
     """
     Provides access to a set of toolbar panels. There exist many toolbar panels and their visibility is determined by the active workspace. A panel can be associated with one or more workspaces and when the associated workspace is active, the panel is made visible. This collection is associated with a workspace and possibly a tab in the toolbar for that workspace. If this collection is from a toolbar tab, the collection order is the left-to-right order of panels in the toolbar tab.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return ToolbarPanels()
+
     def _get_count(self):
         return int()
-    def add(id, name, positionID, isBefore):
+
+    def add(self, id, name, positionID, isBefore):
         """
         Creates a new ToolbarPanel. The panel is initially empty. Use the associated ToolbarControls collection to add buttons. If this collection is associated with a tab, the new panel will be added to that tab. If this collection is not associated with a tab, the new panel will be added to the end of the 'Tools' Tab. A 'Tools' tab will be created for you if it does not currently exist for this collection?s workspace.
         id : The unique id for this panel. The id must be unique with respect to all of the panels.
@@ -5257,151 +6742,194 @@ class ToolbarPanels(Base):
         Returns the newly created panel or null in the case the creation failed.
         """
         return ToolbarPanel()
-    def item(index):
+
+    def item(self, index):
         """
         Returns the specified toolbar panel using an index into the collection. When iterating by index, the panels are returned in the same order as they are shown in the user interface.
         index : The index of the item within the collection to return. The first item in the collection has an index of 0.
         Returns the specified item or null if an invalid index was specified.
         """
         return ToolbarPanel()
-    def itemById(id):
+
+    def itemById(self, id):
         """
         Returns the ToolbarPanel at the specified ID.
         id : The Id of the panel within the collection to return.
         Returns the ToolbarPanel of the specified id or null no panel has the specified id.
         """
         return ToolbarPanel()
+
     count = property(_get_count, None, doc="Gets the number of ToolbarPanels.")
+
 
 class Toolbars(Base):
     """
     Provides access to the toolbars. These are currently the right and left QAT's and the NavBar.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return Toolbars()
+
     def _get_count(self):
         return int()
-    def item(index):
+
+    def item(self, index):
         """
         Returns the specified toolbar using an index into the collection.
         index : The index of the item within the collection to return. The first item in the collection has an index of 0.
         Returns the specified item or null if an invalid index was specified.
         """
         return Toolbar()
-    def itemById(id):
+
+    def itemById(self, id):
         """
         Returns the Toolbar of the specified ID.
         id : The Id of the toolbar to return.
         Returns the toolbar with the specified ID or null if there's not a toolbar with the specified ID.
         """
         return Toolbar()
+
     count = property(_get_count, None, doc="Gets the number of Toolbar objects in the collection.")
+
 
 class ToolbarTab(Base):
     """
     Toolbar tabs are the tabs shown in the command toolbar.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return ToolbarTab()
+
     def _get_id(self):
         return str()
+
     def _get_index(self):
         return int()
+
     def _get_isVisible(self):
         return bool()
+
     def _get_name(self):
         return str()
+
     def _get_toolbarPanels(self):
         return ToolbarPanels()
+
     def _get_parentUserInterface(self):
         return UserInterface()
+
     def _get_productType(self):
         return str()
+
     def _get_isActive(self):
         return bool()
+
     def _get_isNative(self):
         return bool()
-    def activate():
+
+    def activate(self):
         """
         Activate this toolbar tab.
         Boolean return that indicates if the activation was successful or not.
         """
         return bool()
-    def deleteMe():
+
+    def deleteMe(self):
         """
         Deletes this tab. Fusion 360 native tabs cannot be deleted. Use the isNative property to determine if this is a native or API created tab.
         Returns true if the delete was successful.
         """
         return bool()
+
     id = property(_get_id, None, doc="Gets The unique, language independent, ID of this tab.")
-    index = property(_get_index, None, doc="Gets the position this tab is in within the toolbar. The first tab is at position 0. This value is with respect to the complete list of tabs so this value could be outside of the expected range if you have a collection of tabs associated with a workspace, which is a subset of the entire list of tabs.")
-    isVisible = property(_get_isVisible, None, doc="Gets whether this tab is currently being displayed in the user interface.")
+    index = property(_get_index, None,
+                     doc="Gets the position this tab is in within the toolbar. The first tab is at position 0. This value is with respect to the complete list of tabs so this value could be outside of the expected range if you have a collection of tabs associated with a workspace, which is a subset of the entire list of tabs.")
+    isVisible = property(_get_isVisible, None,
+                         doc="Gets whether this tab is currently being displayed in the user interface.")
     name = property(_get_name, None, doc="Gets the name of the tab as seen in the user interface.")
-    toolbarPanels = property(_get_toolbarPanels, None, doc="Gets the collection containing the panels associated with this tab. It's through this collection that you can add new toolbar panels.")
+    toolbarPanels = property(_get_toolbarPanels, None,
+                             doc="Gets the collection containing the panels associated with this tab. It's through this collection that you can add new toolbar panels.")
     parentUserInterface = property(_get_parentUserInterface, None, doc="Gets the parent UserInterface object.")
-    productType = property(_get_productType, None, doc="Returns the name of the product this toolbar tab is associated with.")
+    productType = property(_get_productType, None,
+                           doc="Returns the name of the product this toolbar tab is associated with.")
     isActive = property(_get_isActive, None, doc="Gets if this toolbar tab is currently active - i.e. displayed.")
     isNative = property(_get_isNative, None, doc="Gets if this tab is native to Fusion 360 or was created via the API.")
+
 
 class ToolbarTabList(Base):
     """
     A ToolbarTabList is a list of ToolbarTab objects.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return ToolbarTabList()
+
     def _get_count(self):
         return int()
-    def item(index):
+
+    def item(self, index):
         """
         Returns the specified tab using an index into the collection.
         index : The index of the item within the collection to return. The first item in the collection has an index of 0.
         Returns the specified item or null if an invalid index was specified.
         """
         return ToolbarTab()
-    def itemById(id):
+
+    def itemById(self, id):
         """
         Returns the ToolbarTab of the specified ID.
         id : The ID of the ToolbarTab to get.
         Returns the specified ToolbarTab or null in the case where there isn't a ToolbarTab with the specified ID.
         """
         return ToolbarTab()
+
     count = property(_get_count, None, doc="Gets the number of toolbar tabs in the collection.")
+
 
 class ToolbarTabs(Base):
     """
     Provides access to a set of toolbar tabs.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return ToolbarTabs()
+
     def _get_count(self):
         return int()
-    def item(index):
+
+    def item(self, index):
         """
         Returns the specified toolbar tab using an index into the collection. When iterating by index, the tabs are returned in the same order as they are shown in the user interface.
         index : The index of the item within the collection to return. The first item in the collection has an index of 0.
         Returns the specified item or null if an invalid index was specified.
         """
         return ToolbarTab()
-    def itemById(id):
+
+    def itemById(self, id):
         """
         Returns the ToolbarTab at the specified ID.
         id : The Id of the tab within the collection to return.
         Returns the ToolbarTab of the specified id or null if no tab has the specified id.
         """
         return ToolbarTab()
-    def add(id, name):
+
+    def add(self, id, name):
         """
         Creates a new ToolbarTab. The tab is initially empty. This method appends the tab to the end of the collection.
         id : The unique id for this tab. The id must be unique with respect to all of the tabs.
@@ -5409,113 +6937,172 @@ class ToolbarTabs(Base):
         Returns the newly created tab or null in the case the creation failed.
         """
         return ToolbarTab()
+
     count = property(_get_count, None, doc="Gets the number of ToolbarTabs.")
 
-class TransparencyDisplayEffects():
+
+class TransparencyDisplayEffects:
     """
     A list of the valid transparency display effects.
     """
+
     def __init__(self):
         pass
+
     BetterPerformanceTransparencyEffect = 0
     BetterDisplayTransparencyEffect = 1
+
 
 class UnitAndValuePreferences(Base):
     """
     The UnitAndValuePreferences object provides access to unit and value precision related preferences.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return UnitAndValuePreferences()
+
     def _set_generalPrecision(self, generalPrecision):
         pass
+
     def _get_generalPrecision(self):
         return int()
+
     def _set_angularPrecision(self, angularPrecision):
         pass
+
     def _get_angularPrecision(self):
         return int()
+
     def _set_scientificNotationPrecision(self, scientificNotationPrecision):
         pass
+
     def _get_scientificNotationPrecision(self):
         return int()
+
     def _set_footAndInchDisplayFormat(self, footAndInchDisplayFormat):
         pass
+
     def _get_footAndInchDisplayFormat(self):
         return FootAndInchDisplayFormats()
+
     def _set_degreeDisplayFormat(self, degreeDisplayFormat):
         pass
+
     def _get_degreeDisplayFormat(self):
         return DegreeDisplayFormats()
+
     def _set_isPeriodDecimalPoint(self, isPeriodDecimalPoint):
         pass
+
     def _get_isPeriodDecimalPoint(self):
         return bool()
+
     def _set_areAbbreviationsForUnitDisplayed(self, areAbbreviationsForUnitDisplayed):
         pass
+
     def _get_areAbbreviationsForUnitDisplayed(self):
         return bool()
+
     def _set_areSymbolsForUnitDisplayed(self, areSymbolsForUnitDisplayed):
         pass
+
     def _get_areSymbolsForUnitDisplayed(self):
         return bool()
+
     def _set_isScientificNotationUsed(self, isScientificNotationUsed):
         pass
+
     def _get_isScientificNotationUsed(self):
         return bool()
+
     def _set_useScientficNotationAbove(self, useScientficNotationAbove):
         pass
+
     def _get_useScientficNotationAbove(self):
         return int()
+
     def _set_useScientficNotationBelow(self, useScientficNotationBelow):
         pass
+
     def _get_useScientficNotationBelow(self):
         return int()
+
     def _set_areTrailingZerosHidden(self, areTrailingZerosHidden):
         pass
+
     def _get_areTrailingZerosHidden(self):
         return bool()
+
     def _set_minimumPrecisionWhenHidingZeros(self, minimumPrecisionWhenHidingZeros):
         pass
+
     def _get_minimumPrecisionWhenHidingZeros(self):
         return int()
+
     def _set_materialDisplayUnit(self, materialDisplayUnit):
         pass
+
     def _get_materialDisplayUnit(self):
         return MaterialDisplayUnits()
-    generalPrecision = property(_get_generalPrecision, _set_generalPrecision, doc="Gets and sets the general precision for distance values. This value specifies the number of decimals to display.")
-    angularPrecision = property(_get_angularPrecision, _set_angularPrecision, doc="Gets and sets the angular precision. This value specifies the number of decimals to display.")
-    scientificNotationPrecision = property(_get_scientificNotationPrecision, _set_scientificNotationPrecision, doc="Gets and sets the number scientific notation precision. This value specifies the number of decimals to display.")
-    footAndInchDisplayFormat = property(_get_footAndInchDisplayFormat, _set_footAndInchDisplayFormat, doc="Gets and sets the foot and inch display format.")
-    degreeDisplayFormat = property(_get_degreeDisplayFormat, _set_degreeDisplayFormat, doc="Gets and sets the degree display format.")
-    isPeriodDecimalPoint = property(_get_isPeriodDecimalPoint, _set_isPeriodDecimalPoint, doc="Gets and sets if the decimal is a period or comma.")
-    areAbbreviationsForUnitDisplayed = property(_get_areAbbreviationsForUnitDisplayed, _set_areAbbreviationsForUnitDisplayed, doc="Gets and sets if abbreviations are used for units display.")
-    areSymbolsForUnitDisplayed = property(_get_areSymbolsForUnitDisplayed, _set_areSymbolsForUnitDisplayed, doc="Gets and sets if symbols are used for units display.")
-    isScientificNotationUsed = property(_get_isScientificNotationUsed, _set_isScientificNotationUsed, doc="Gets and sets if scientific notation is used when displaying numbers.")
-    useScientficNotationAbove = property(_get_useScientficNotationAbove, _set_useScientficNotationAbove, doc="Gets and sets the number of whole digits that will be displayed before switching to scientific notation.")
-    useScientficNotationBelow = property(_get_useScientficNotationBelow, _set_useScientficNotationBelow, doc="Gets and sets the number of non zero decimal places that will be displayed before switching to scientific notation.")
-    areTrailingZerosHidden = property(_get_areTrailingZerosHidden, _set_areTrailingZerosHidden, doc="Gets and sets if trailing zeros are hidden when displaying numbers.")
-    minimumPrecisionWhenHidingZeros = property(_get_minimumPrecisionWhenHidingZeros, _set_minimumPrecisionWhenHidingZeros, doc="Gets and sets the minimum number of digits to the right of the decimal to display before hiding trailing zeros.")
-    materialDisplayUnit = property(_get_materialDisplayUnit, _set_materialDisplayUnit, doc="Gets and sets the units types to use when displaying values.")
+
+    generalPrecision = property(_get_generalPrecision, _set_generalPrecision,
+                                doc="Gets and sets the general precision for distance values. This value specifies the number of decimals to display.")
+    angularPrecision = property(_get_angularPrecision, _set_angularPrecision,
+                                doc="Gets and sets the angular precision. This value specifies the number of decimals to display.")
+    scientificNotationPrecision = property(_get_scientificNotationPrecision, _set_scientificNotationPrecision,
+                                           doc="Gets and sets the number scientific notation precision. This value specifies the number of decimals to display.")
+    footAndInchDisplayFormat = property(_get_footAndInchDisplayFormat, _set_footAndInchDisplayFormat,
+                                        doc="Gets and sets the foot and inch display format.")
+    degreeDisplayFormat = property(_get_degreeDisplayFormat, _set_degreeDisplayFormat,
+                                   doc="Gets and sets the degree display format.")
+    isPeriodDecimalPoint = property(_get_isPeriodDecimalPoint, _set_isPeriodDecimalPoint,
+                                    doc="Gets and sets if the decimal is a period or comma.")
+    areAbbreviationsForUnitDisplayed = property(_get_areAbbreviationsForUnitDisplayed,
+                                                _set_areAbbreviationsForUnitDisplayed,
+                                                doc="Gets and sets if abbreviations are used for units display.")
+    areSymbolsForUnitDisplayed = property(_get_areSymbolsForUnitDisplayed, _set_areSymbolsForUnitDisplayed,
+                                          doc="Gets and sets if symbols are used for units display.")
+    isScientificNotationUsed = property(_get_isScientificNotationUsed, _set_isScientificNotationUsed,
+                                        doc="Gets and sets if scientific notation is used when displaying numbers.")
+    useScientficNotationAbove = property(_get_useScientficNotationAbove, _set_useScientficNotationAbove,
+                                         doc="Gets and sets the number of whole digits that will be displayed before switching to scientific notation.")
+    useScientficNotationBelow = property(_get_useScientficNotationBelow, _set_useScientficNotationBelow,
+                                         doc="Gets and sets the number of non zero decimal places that will be displayed before switching to scientific notation.")
+    areTrailingZerosHidden = property(_get_areTrailingZerosHidden, _set_areTrailingZerosHidden,
+                                      doc="Gets and sets if trailing zeros are hidden when displaying numbers.")
+    minimumPrecisionWhenHidingZeros = property(_get_minimumPrecisionWhenHidingZeros,
+                                               _set_minimumPrecisionWhenHidingZeros,
+                                               doc="Gets and sets the minimum number of digits to the right of the decimal to display before hiding trailing zeros.")
+    materialDisplayUnit = property(_get_materialDisplayUnit, _set_materialDisplayUnit,
+                                   doc="Gets and sets the units types to use when displaying values.")
+
 
 class UnitsManager(Base):
     """
     Utility class used to work with Values and control default units. Internal values are held in SI units (e.g. seconds, radians, kg for time, angle, mass) with the exception that all lengths are in cm rather than meter and this affects derived units (e.g. velocity is cm/s, volume is cm^3). Units are specified flexibility via strings (e.g. 'cm', 'in', 'inch', 'cm^3', 'cm*cm*cm', 'mph', 'mps' 'm/s'). Units like length can be defaulted based on the design settings if the user does not explicitly specify units - so '3' can be 3 inches, mm or cm depending on what the design settings are.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return UnitsManager()
+
     def _get_product(self):
         return Product()
+
     def _get_internalUnits(self):
         return str()
+
     def _get_defaultLengthUnits(self):
         return str()
-    def isValidExpression(expression, units):
+
+    def isValidExpression(self, expression, units):
         """
         Checks to see if the given expression is valid.
         expression :
@@ -5523,7 +7110,8 @@ class UnitsManager(Base):
         Returns True if it is a valid expression.
         """
         return bool()
-    def evaluateExpression(expression, units):
+
+    def evaluateExpression(self, expression, units):
         """
         Gets the value (in internal units) of the expression.
         expression : EvaluateExpression('1cm + 1in') -> 3.54 EvaluateExpression('1') -> -> depends on the DistanceUnits, with 'mm' it gives 0.1
@@ -5531,7 +7119,8 @@ class UnitsManager(Base):
         Returns -1 AND GetLastError will return ExpressionError in the event of an error.
         """
         return float()
-    def convert(valueInInputUnits, inputUnits, outputUnits):
+
+    def convert(self, valueInInputUnits, inputUnits, outputUnits):
         """
         Converts a value from one unit to another. The input and output unit specifiers must be compatible. For example, 'in' (inches) and 'cm' (centimeters) will work because they both define length. So Convert(1.5, 'in', 'ft') -> 0.125 Convert(1.5, unitsManager.defaultLengthUnits, 'cm') -> depends on the current default distance units, with 'mm' it gives 0.15 So Convert(1.5, 'in', 'kg') -> -1 and GetLastError returns ExpressionError (to denote error) So Convert(1, 'in', 'internalUnits') -> 2.54 So Convert(1, 'internalUnits', 'in') -> 0.3937...
         valueInInputUnits : The value to convert
@@ -5540,7 +7129,8 @@ class UnitsManager(Base):
         Returns -1 AND GetLastError returns ExpressionError in the event of an error.
         """
         return float()
-    def formatInternalValue(internalValue, displayUnits, showUnits):
+
+    def formatInternalValue(self, internalValue, displayUnits, showUnits):
         """
         Formats the internal value as a string. The output string is formatted using the current unit settings in preferences. The preferences control the number of decimal places, whether units are abbreviated and several other things. FormatInternalValue(1.5, 'in') -> '0.591 in' FormatInternalValue(1.5, 'in', false) -> '0.591' FormatInternalValue(1.5, 'mm', true) -> '15.00 mm' FormatInternalValue(1.5) -> depends on DistanceUnits, might be '15.0 mm'
         internalValue : The internal value to format.
@@ -5549,14 +7139,16 @@ class UnitsManager(Base):
         Returns an empty string if the units are incorrectly specified.
         """
         return str()
-    def formatUnits(units):
+
+    def formatUnits(self, units):
         """
         Formats the unit according to the user preferences 'centimeter' -> 'cm' 'inch' -> 'in' 'cm* cm *cm / s' -> , 'cm^3 / s'
         units : The unit to use when converting the value into a string.
         Returns an empty string and GetLastError returns ExpressionError in the event of an error.
         """
         return str()
-    def standardizeExpression(expression, units):
+
+    def standardizeExpression(self, expression, units):
         """
         Standardizes the expression in terms of spacing and user preferences. StandardizeExpression('1.5') -> depends on distance units, but with mmight be '1.5 mm' StandardizeExpression('1.5', 'in') -> '1.5 in' StandardizeExpression('1.5 cm + 1.50001 centimeter') -> '1.5 cm + 1.50001 cm' StandardizeExpression('1.5', 'm * m * m / s') -> '1.5 m^3 /s'
         expression : The expression to standardize
@@ -5564,88 +7156,126 @@ class UnitsManager(Base):
         Returns an empty string AND GetLastError returns ExpressionError in the event of an error.
         """
         return str()
-    product = property(_get_product, None, doc="Returns the parent Product.")
-    internalUnits = property(_get_internalUnits, None, doc="Returns a string that represents internal units - i.e. 'internalUnits'. This can be used when performing conversions via Convert.")
-    defaultLengthUnits = property(_get_defaultLengthUnits, None, doc="Returns the unit strings for the current default length unit as specified in preferences. - e.g. 'cm' or 'in' This is the string that is being used by Fusion 360 to represent the current length unit and is affected by the preference settings that let the user choose whether abbrevations and symbols can be used. This means that inch length units can be returned as inch, in, or '. If you need a consistent way of determing the current length unit, the distanceDisplayUnits of the FusionUnitsManager object returns an enum value.")
 
-class UploadStates():
+    product = property(_get_product, None, doc="Returns the parent Product.")
+    internalUnits = property(_get_internalUnits, None,
+                             doc="Returns a string that represents internal units - i.e. 'internalUnits'. This can be used when performing conversions via Convert.")
+    defaultLengthUnits = property(_get_defaultLengthUnits, None,
+                                  doc="Returns the unit strings for the current default length unit as specified in preferences. - e.g. 'cm' or 'in' This is the string that is being used by Fusion 360 to represent the current length unit and is affected by the preference settings that let the user choose whether abbrevations and symbols can be used. This means that inch length units can be returned as inch, in, or '. If you need a consistent way of determing the current length unit, the distanceDisplayUnits of the FusionUnitsManager object returns an enum value.")
+
+
+class UploadStates:
     """
     The different states of a file upload process.
     """
+
     def __init__(self):
         pass
+
     UploadProcessing = 0
     UploadFinished = 1
     UploadFailed = 2
+
 
 class User(Base):
     """
     A class that represents a Fusion 360 User
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return User()
+
     def _get_userName(self):
         return str()
+
     def _get_displayName(self):
         return str()
+
     def _get_userId(self):
         return str()
+
     def _get_email(self):
         return str()
+
     userName = property(_get_userName, None, doc="Returns the Username associated with this user's Autodesk account")
-    displayName = property(_get_displayName, None, doc="Returns display name of the user. (i.e. the name that shows up in the Fusion 360 UI)")
-    userId = property(_get_userId, None, doc="Returns the user's internal Autodesk account name. This can be used by applications sold through the Autodesk Exchange Store to verify that the user has in fact purchased the product.")
+    displayName = property(_get_displayName, None,
+                           doc="Returns display name of the user. (i.e. the name that shows up in the Fusion 360 UI)")
+    userId = property(_get_userId, None,
+                      doc="Returns the user's internal Autodesk account name. This can be used by applications sold through the Autodesk Exchange Store to verify that the user has in fact purchased the product.")
     email = property(_get_email, None, doc="Get the email associated with this users Fusion 360 account")
+
 
 class UserInterface(Base):
     """
     Provides access to the user-interface related objects and functionality.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return UserInterface()
+
     def _get_activeSelections(self):
         return Selections()
+
     def _get_activeWorkspace(self):
         return Workspace()
+
     def _get_commandDefinitions(self):
         return CommandDefinitions()
+
     def _get_toolbars(self):
         return Toolbars()
+
     def _get_workspaces(self):
         return Workspaces()
+
     def _get_allToolbarPanels(self):
         return ToolbarPanelList()
+
     def _get_workspacePreActivate(self):
         return WorkspaceEvent()
+
     def _get_workspaceActivated(self):
         return WorkspaceEvent()
+
     def _get_workspacePreDeactivate(self):
         return WorkspaceEvent()
+
     def _get_workspaceDeactivated(self):
         return WorkspaceEvent()
+
     def _get_activeCommand(self):
         return str()
+
     def _get_commandStarting(self):
         return ApplicationCommandEvent()
+
     def _get_commandCreated(self):
         return ApplicationCommandEvent()
+
     def _get_commandTerminated(self):
         return ApplicationCommandEvent()
+
     def _get_markingMenuDisplaying(self):
         return MarkingMenuEvent()
+
     def _get_palettes(self):
         return Palettes()
+
     def _get_allToolbarTabs(self):
         return ToolbarTabList()
+
     def _get_isTabbedToolbarUI(self):
         return bool()
-    def messageBox(text, title, buttons, icon):
+
+    def messageBox(self, text, title, buttons, icon):
         """
         Display a modal message box with the provided text.
         text : The message text to display in the dialog.
@@ -5655,7 +7285,8 @@ class UserInterface(Base):
         The button pressed to dismiss the dialog is returned.
         """
         return DialogResults()
-    def inputBox(prompt, title, defaultValue):
+
+    def inputBox(self, prompt, title, defaultValue):
         """
         Displays a modal dialog to get string input from the user.
         prompt : The message text to display in the dialog.
@@ -5664,8 +7295,9 @@ class UserInterface(Base):
         defaultValue : The default string that's shown when the dialog is initially displayed, otherwise the input box is empty.
         Returns the string entered by the user but because the user can click Cancel, the cancelled argument should be tested before using the string.
         """
-        return (str(), bool())
-    def selectEntity(prompt, filter):
+        return str(), bool()
+
+    def selectEntity(self, prompt, filter):
         """
         Supports the selection of a single entity. This provides a simple way to prompt the user for a selection in a script. If you need more control over the selection a command should be created and a SelectionCommandInput used.
         prompt : The prompt displayed to the user during the selection.
@@ -5673,76 +7305,103 @@ class UserInterface(Base):
         Returns a Selection object that provides access the selected entity through it's 'entity' property along with the location in space where the entity was selected. Returns null if the selection was aborted.
         """
         return Selection()
-    def createFileDialog():
+
+    def createFileDialog(self):
         """
         Creates a new FileDialog object which provides the ability to show a standard file selection dialog to the user.
         Returns the created FileDialog object that you can use to define the contents of and display a standard file dialog.
         """
         return FileDialog()
-    def workspacesByProductType(productType):
+
+    def workspacesByProductType(self, productType):
         """
         Returns all of the workspaces associated with the specified product.
         productType : The name of the product that you want the associated workspaces for. The full list of available products can be obtained by using the Application.supportedProductTypes property.
         Returns a list of the associated work spaces.
         """
         return WorkspaceList()
-    def toolbarPanelsByProductType(productType):
+
+    def toolbarPanelsByProductType(self, productType):
         """
         Gets all of the toolbar panels associated with the specified product.
         productType : The name of the product that you want the associated workspaces for. The full list of available products can be obtained by using the Application.supportedProductTypes property.
         Returns a list of the toolbars associated with the specified product.
         """
         return ToolbarPanelList()
-    def terminateActiveCommand():
+
+    def terminateActiveCommand(self):
         """
         Method that causes the currently active (running) command to be terminated
         Returns true if terminating the active command was successful.
         """
         return bool()
-    def createProgressDialog():
+
+    def createProgressDialog(self):
         """
         Creates a new ProgressDialog object that you can use to display and control a progress dialog.
         Returns the created ProgressDialog object that you can use to define the contents of and display a progress dialog.
         """
         return ProgressDialog()
-    def createFolderDialog():
+
+    def createFolderDialog(self):
         """
         Creates a new FolderDialog object which provides the ability to show a standard folder selection dialog to the user.
         Returns the created FolderDialog object that you can use to define the contents of and display a standard folder dialog.
         """
         return FolderDialog()
-    def toolbarTabsByProductType(productType):
+
+    def toolbarTabsByProductType(self, productType):
         """
         Gets all of the toolbar tabs associated with the specified product.
         productType : The name of the product that you want the associated tabs for. The full list of available products can be obtained by using the Application.supportedProductTypes property.
         Returns a list of the tabs associated with the specified product.
         """
         return ToolbarTabList()
-    activeSelections = property(_get_activeSelections, None, doc="Gets the current set of selected objects.")
-    activeWorkspace = property(_get_activeWorkspace, None, doc="Gets the active workspace. The active workspace is the one currently active in the user interface. This can be null if there is no active product.")
-    commandDefinitions = property(_get_commandDefinitions, None, doc="Gets all of the command definitions currently defined. This is all command definitions both internal and those defined through the API.")
-    toolbars = property(_get_toolbars, None, doc="Gets a collection that provides access to the toolbars. This includes the left and right QAT, and the Navbar.")
-    workspaces = property(_get_workspaces, None, doc="Gets all of the workspaces currently available.")
-    allToolbarPanels = property(_get_allToolbarPanels, None, doc="Gets all of the toolbar panels. This returns all of the panels available, regardless of which workspace or product they're associated with.")
-    workspacePreActivate = property(_get_workspacePreActivate, None, doc="The workspacePreActivate event fires at the VERY start of a workspace being activated. The client can add or remove WorkspaceEventHandlers from the WorkspaceEvent.")
-    workspaceActivated = property(_get_workspaceActivated, None, doc="The workspaceActivated event fires at the VERY end of a workspace being activated. The client can add or remove WorkspaceEventHandlers from the WorkspaceEvent.")
-    workspacePreDeactivate = property(_get_workspacePreDeactivate, None, doc="The workspacePreDeactivate event fires at the VERY start of a workspace being deactivated. The client can add or remove WorkspaceEventHandlers from the WorkspaceEvent.")
-    workspaceDeactivated = property(_get_workspaceDeactivated, None, doc="The workspaceDeactivated event fires at the VERY end of a workspace being deactivated. The client can add or remove WorkspaceEventHandlers from the WorkspaceEvent.")
-    activeCommand = property(_get_activeCommand, None, doc="Gets the id of the command definition from the active command (the one that is currently running)")
-    commandStarting = property(_get_commandStarting, None, doc="The commandStarting event fires when a request for a command to be executed has been received but before the command is executed. Through this event, it's possible to cancel the command from being executed.")
-    commandCreated = property(_get_commandCreated, None, doc="The commandCreated event fires immediately after the command is created.")
-    commandTerminated = property(_get_commandTerminated, None, doc="Gets an event that is fired when a command is terminated.")
-    markingMenuDisplaying = property(_get_markingMenuDisplaying, None, doc="The markingMenuDisplaying event fires just before the marking menu and context menus are displayed. The marking menu is the round menu displayed when the user right-clicks the mouse within Fusion 360. The context menu is the vertical menu displayed. The event provides both the marking menu and the context menu so you can examine and edit the contents of either one or both of them before they are displayed. Fusion 360 will then display the marking and context menu that you've customized. If either one is empty it will not be displayed.")
-    palettes = property(_get_palettes, None, doc="Returns the collection object that provides access to all of the existing palettes and provides the functionality to create new custom palettes.")
-    allToolbarTabs = property(_get_allToolbarTabs, None, doc="Gets all of the toolbar tabs. This returns all of the tabs available, regardless of which workspace or product they're associated with.")
-    isTabbedToolbarUI = property(_get_isTabbedToolbarUI, None, doc="Returns true if Tabbed Toolbars are being used.\nReturns true if using Tabbed Toolbars.")
 
-class UserLanguages():
+    activeSelections = property(_get_activeSelections, None, doc="Gets the current set of selected objects.")
+    activeWorkspace = property(_get_activeWorkspace, None,
+                               doc="Gets the active workspace. The active workspace is the one currently active in the user interface. This can be null if there is no active product.")
+    commandDefinitions = property(_get_commandDefinitions, None,
+                                  doc="Gets all of the command definitions currently defined. This is all command definitions both internal and those defined through the API.")
+    toolbars = property(_get_toolbars, None,
+                        doc="Gets a collection that provides access to the toolbars. This includes the left and right QAT, and the Navbar.")
+    workspaces = property(_get_workspaces, None, doc="Gets all of the workspaces currently available.")
+    allToolbarPanels = property(_get_allToolbarPanels, None,
+                                doc="Gets all of the toolbar panels. This returns all of the panels available, regardless of which workspace or product they're associated with.")
+    workspacePreActivate = property(_get_workspacePreActivate, None,
+                                    doc="The workspacePreActivate event fires at the VERY start of a workspace being activated. The client can add or remove WorkspaceEventHandlers from the WorkspaceEvent.")
+    workspaceActivated = property(_get_workspaceActivated, None,
+                                  doc="The workspaceActivated event fires at the VERY end of a workspace being activated. The client can add or remove WorkspaceEventHandlers from the WorkspaceEvent.")
+    workspacePreDeactivate = property(_get_workspacePreDeactivate, None,
+                                      doc="The workspacePreDeactivate event fires at the VERY start of a workspace being deactivated. The client can add or remove WorkspaceEventHandlers from the WorkspaceEvent.")
+    workspaceDeactivated = property(_get_workspaceDeactivated, None,
+                                    doc="The workspaceDeactivated event fires at the VERY end of a workspace being deactivated. The client can add or remove WorkspaceEventHandlers from the WorkspaceEvent.")
+    activeCommand = property(_get_activeCommand, None,
+                             doc="Gets the id of the command definition from the active command (the one that is currently running)")
+    commandStarting = property(_get_commandStarting, None,
+                               doc="The commandStarting event fires when a request for a command to be executed has been received but before the command is executed. Through this event, it's possible to cancel the command from being executed.")
+    commandCreated = property(_get_commandCreated, None,
+                              doc="The commandCreated event fires immediately after the command is created.")
+    commandTerminated = property(_get_commandTerminated, None,
+                                 doc="Gets an event that is fired when a command is terminated.")
+    markingMenuDisplaying = property(_get_markingMenuDisplaying, None,
+                                     doc="The markingMenuDisplaying event fires just before the marking menu and context menus are displayed. The marking menu is the round menu displayed when the user right-clicks the mouse within Fusion 360. The context menu is the vertical menu displayed. The event provides both the marking menu and the context menu so you can examine and edit the contents of either one or both of them before they are displayed. Fusion 360 will then display the marking and context menu that you've customized. If either one is empty it will not be displayed.")
+    palettes = property(_get_palettes, None,
+                        doc="Returns the collection object that provides access to all of the existing palettes and provides the functionality to create new custom palettes.")
+    allToolbarTabs = property(_get_allToolbarTabs, None,
+                              doc="Gets all of the toolbar tabs. This returns all of the tabs available, regardless of which workspace or product they're associated with.")
+    isTabbedToolbarUI = property(_get_isTabbedToolbarUI, None,
+                                 doc="Returns true if Tabbed Toolbars are being used.\nReturns true if using Tabbed Toolbars.")
+
+
+class UserLanguages:
     """
     A list of the valid languages.
     """
+
     def __init__(self):
         pass
+
     ChinesePRCLanguage = 0
     ChineseTaiwanLanguage = 1
     CzechLanguage = 2
@@ -5758,15 +7417,19 @@ class UserLanguages():
     RussianLanguage = 12
     SpanishLanguage = 13
 
+
 class ValueInput(Base):
     """
     A ValueInput provides a flexible way of specifying a string or a double. No semantics are associated with a ValueInput (e.g. is the string valid, can the string be converted to a double) - it is merely a way of supplying information in either string OR double form as a function parameter. ValueInput objects are typically used to specify things like an extrude depth, or hole dia, etc.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return ValueInput()
+
     @staticmethod
     def createByReal(realValue):
         """
@@ -5775,6 +7438,7 @@ class ValueInput(Base):
         Returns the newly created ValueInput object or null if the creation failed.
         """
         return ValueInput()
+
     @staticmethod
     def createByString(stringValue):
         """
@@ -5783,6 +7447,7 @@ class ValueInput(Base):
         Returns the newly created ValueInput object or null if the creation failed.
         """
         return ValueInput()
+
     @staticmethod
     def createByObject(objectReference):
         """
@@ -5791,46 +7456,64 @@ class ValueInput(Base):
         Returns the newly created ValueInput object or null if the creation failed.
         """
         return ValueInput()
+
     def _get_realValue(self):
         return float()
+
     def _get_stringValue(self):
         return str()
+
     def _get_objectReference(self):
         return Base()
+
     def _get_valueType(self):
         return ValueTypes()
-    realValue = property(_get_realValue, None, doc="Gets the real value, if there is one. Returns -1 AND GetLastError returns ValueNotOfType if there is no real value. You can use the valueType property to determine which value type is currently used.")
-    stringValue = property(_get_stringValue, None, doc="Gets the string value, if there is one. Returns an empty string AND GetLastError returns ValueNotOfType if there is no string value. You can use the valueType property to determine which value type is currently used.")
-    objectReference = property(_get_objectReference, None, doc="Gets the object being referenced, if there is one. Returns null AND GetLastError returns ValueNotOfType if there is no object reference. You can use the valueType property to determine which value type is currently used.")
+
+    realValue = property(_get_realValue, None,
+                         doc="Gets the real value, if there is one. Returns -1 AND GetLastError returns ValueNotOfType if there is no real value. You can use the valueType property to determine which value type is currently used.")
+    stringValue = property(_get_stringValue, None,
+                           doc="Gets the string value, if there is one. Returns an empty string AND GetLastError returns ValueNotOfType if there is no string value. You can use the valueType property to determine which value type is currently used.")
+    objectReference = property(_get_objectReference, None,
+                               doc="Gets the object being referenced, if there is one. Returns null AND GetLastError returns ValueNotOfType if there is no object reference. You can use the valueType property to determine which value type is currently used.")
     valueType = property(_get_valueType, None, doc="Returns the type of value this ValueInput currently represents.")
 
-class ValueInputError():
+
+class ValueInputError:
     """
     Errors that can occur when using the ValueInput object.
     """
+
     def __init__(self):
         pass
+
     ValueNotOfTypeError = 0
 
-class ValueTypes():
+
+class ValueTypes:
     """
     The different types of values that a ValueInput can be.
     """
+
     def __init__(self):
         pass
+
     StringValueType = 0
     RealValueType = 1
     ObjectValueType = 2
+
 
 class Vector2D(Base):
     """
     Transient 2D vector. This object is a wrapper for 2D vector data and is used to pass vector data in and out of the API. They are created statically using the create method of the Vector2D class.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return Vector2D()
+
     @staticmethod
     def create(x, y):
         """
@@ -5840,123 +7523,147 @@ class Vector2D(Base):
         Returns the new Vector2D object or null if the creation failed.
         """
         return Vector2D()
+
     def _get_length(self):
         return float()
+
     def _set_x(self, x):
         pass
+
     def _get_x(self):
         return float()
+
     def _set_y(self, y):
         pass
+
     def _get_y(self):
         return float()
-    def add(vector):
+
+    def add(self, vector):
         """
         Add a vector to this vector.
         vector : The vector to add to this vector.
         Returns true if successful.
         """
         return bool()
-    def angleTo(vector):
+
+    def angleTo(self, vector):
         """
         Gets the angle between this vector and another vector.
         vector : The vector to measure the angle to.
         Returns the angle in radians.
         """
         return float()
-    def copy():
+
+    def copy(self):
         """
         Creates and returns an independent copy of this Vector2D object.
         Returns a new Vector2D object that is a copy of this Vector2D object.
         """
         return Vector2D()
-    def dotProduct(vector):
+
+    def dotProduct(self, vector):
         """
         Calculates the Dot Product of this vector and an input vector.
         vector : The vector to use in the dot product calculation.
         Returns the dot product of the two vectors.
         """
         return float()
-    def asArray():
+
+    def asArray(self):
         """
         Returns the vector values as an array [x, y].
         Returns an array of the vector's values [x, y].
         """
         return float()
-    def isEqualTo(vector):
+
+    def isEqualTo(self, vector):
         """
         Compare this vector with another to check for equality.
         vector : The vector to compare with for equality.
         Returns true if the vectors are equal.
         """
         return bool()
-    def isParallelTo(vector):
+
+    def isParallelTo(self, vector):
         """
         Compare this vector with another to check for parallelism.
         vector : The vector to compare with for parallelism.
         Returns true if the vectors are parallel.
         """
         return bool()
-    def isPerpendicularTo(vector):
+
+    def isPerpendicularTo(self, vector):
         """
         Compare this vector with another to check for perpendicularity.
         vector : The vector to compare with for perpendicularity.
         Returns true if the vectors are perpendicular.
         """
         return bool()
-    def normalize():
+
+    def normalize(self):
         """
         Normalizes the vector. Normalization makes the vector length equal to one. The vector should not be zero length.
         Returns true if successful.
         """
         return bool()
-    def setWithArray(coordinates):
+
+    def setWithArray(self, coordinates):
         """
         Sets the definition of the vector by specifying an array containing the x and y coordinates.
         coordinates : An array that specifies the values for the x and y coordinates of the vector.
         Returns true if successful
         """
         return bool()
-    def scaleBy(scale):
+
+    def scaleBy(self, scale):
         """
         Scales the vector by specifying a scaling factor.
         scale : The scale factor to multiple the vector by (i.e. 1.5).
         Returns true if successful.
         """
         return bool()
-    def subtract(vector):
+
+    def subtract(self, vector):
         """
         Subtract a vector from this vector.
         vector : The vector to subtract from this vector.
         Returns true if successful.
         """
         return bool()
-    def transformBy(matrix):
+
+    def transformBy(self, matrix):
         """
         Transforms the vector by specifying a 2D transformation matrix.
         matrix : The Matrix2D object that defines the transformation.
         Returns true if successful.
         """
         return bool()
-    def asPoint():
+
+    def asPoint(self):
         """
         Return a point with the same x and y values as this vector.
         Returns the new point.
         """
         return Point2D()
+
     length = property(_get_length, None, doc="Gets the length of the vector.")
     x = property(_get_x, _set_x, doc="Gets and sets the X coordinate of the vector.")
     y = property(_get_y, _set_y, doc="Gets and sets the Y coordinate of the vector.")
+
 
 class Vector3D(Base):
     """
     Transient 3D vector. This object is a wrapper over 3D vector data and is used as way to pass vector data in and out of the API and as a convenience when operating on vector data. They are created statically using the create method of the Vector3D class.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return Vector3D()
+
     @staticmethod
     def create(x, y, z):
         """
@@ -5967,140 +7674,169 @@ class Vector3D(Base):
         Returns the new vector.
         """
         return Vector3D()
+
     def _get_length(self):
         return float()
+
     def _set_x(self, x):
         pass
+
     def _get_x(self):
         return float()
+
     def _set_y(self, y):
         pass
+
     def _get_y(self):
         return float()
+
     def _set_z(self, z):
         pass
+
     def _get_z(self):
         return float()
-    def add(vector):
+
+    def add(self, vector):
         """
         Adds a vector to this vector.
         vector : The vector to add to this vector.
         Returns true if successful.
         """
         return bool()
-    def angleTo(vector):
+
+    def angleTo(self, vector):
         """
         Determines the angle between this vector and the specified vector.
         vector : The vector to measure the angle to.
         The angle in radians between this vector and the specified vector.
         """
         return float()
-    def asPoint():
+
+    def asPoint(self):
         """
         Returns a new point with the same coordinate values as this vector.
         Return the new point.
         """
         return Point3D()
-    def copy():
+
+    def copy(self):
         """
         Creates a copy of this vector.
         Returns the new vector copy.
         """
         return Vector3D()
-    def crossProduct(vector):
+
+    def crossProduct(self, vector):
         """
         Returns the cross product between this vector and the specified vector.
         vector : The vector to take the cross product to.
         Returns the vector cross product.
         """
         return Vector3D()
-    def dotProduct(vector):
+
+    def dotProduct(self, vector):
         """
         Returns the dot product between this vector and the specified vector.
         vector : The vector to take the dot product to.
         Returns the dot product value.
         """
         return float()
-    def asArray():
+
+    def asArray(self):
         """
         Returns the vector coordinates as an array [x, y, z].
         Returns the array of vector coordinates [x, y, z].
         """
         return float()
-    def isEqualTo(vector):
+
+    def isEqualTo(self, vector):
         """
         Determines if this vector is equal to the specified vector.
         vector : The vector to test equality to.
         Returns true if the vectors are equal.
         """
         return bool()
-    def isParallelTo(vector):
+
+    def isParallelTo(self, vector):
         """
         Determines if the input vector is parallel with this vector.
         vector : The vector to test parallelism to.
         Returns true if the vectors are parallel.
         """
         return bool()
-    def isPerpendicularTo(vector):
+
+    def isPerpendicularTo(self, vector):
         """
         Determines if the input vector is perpendicular to this vector.
         vector : The vector to test perpendicularity to.
         Returns true if the vectors are perpendicular.
         """
         return bool()
-    def normalize():
+
+    def normalize(self):
         """
         Makes this vector of unit length. This vector should not be zero length.
         Returns true if successful.
         """
         return bool()
-    def setWithArray(coordinates):
+
+    def setWithArray(self, coordinates):
         """
         Reset this vector with the coordinate values in an array [x, y, z].
         coordinates : The array of coordinate values.
         Returns true if successful.
         """
         return bool()
-    def scaleBy(scale):
+
+    def scaleBy(self, scale):
         """
         Scale this vector by the specified product.
         scale : The scale value.
         Returns true if successful.
         """
         return bool()
-    def subtract(vector):
+
+    def subtract(self, vector):
         """
         Subtract a vector from this vector.
         vector : The vector to subtract.
         Returns true if successful.
         """
         return bool()
-    def transformBy(matrix):
+
+    def transformBy(self, matrix):
         """
         Transform this vector by the specified matrix.
         matrix : The transformation matrix.
         Returns true if successful.
         """
         return bool()
+
     length = property(_get_length, None, doc="Get the length of this vector.")
     x = property(_get_x, _set_x, doc="The x value.")
     y = property(_get_y, _set_y, doc="The y value.")
     z = property(_get_z, _set_z, doc="The z value.")
 
-class VectorError():
+
+class VectorError:
     """
     Error values for various vector operations.
     """
+
     def __init__(self):
         pass
+
     ZeroLengthVectorError = 0
 
-class ViewOrientations():
+
+class ViewOrientations:
     """
     Common view orientations.
     """
+
     def __init__(self):
         pass
+
     ArbitraryViewOrientation = 0
     BackViewOrientation = 1
     BottomViewOrientation = 2
@@ -6113,38 +7849,51 @@ class ViewOrientations():
     RightViewOrientation = 9
     TopViewOrientation = 10
 
+
 class Viewport(Base):
     """
     A viewport within Fusion 360. A viewport is the window where the model is displayed.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return Viewport()
+
     def _set_camera(self, camera):
         pass
+
     def _get_camera(self):
         return Camera()
+
     def _get_height(self):
         return int()
+
     def _get_width(self):
         return int()
+
     def _set_isFullScreen(self, isFullScreen):
         pass
+
     def _get_isFullScreen(self):
         return bool()
+
     def _set_visualStyle(self, visualStyle):
         pass
+
     def _get_visualStyle(self):
         return VisualStyles()
-    def refresh():
+
+    def refresh(self):
         """
         Forces the view to refresh. It is sometimes useful to force a refresh to be able to see edits that have been made using the API.
         Returns true if the operation was successful.
         """
         return bool()
-    def saveAsImageFile(filename, width, height):
+
+    def saveAsImageFile(self, filename, width, height):
         """
         Saves the current view to the specified image file. The view is re-rendered to the specified size and not just scaled from the existing view. This allows you to generate higher resolution images than you could do with just a screen capture.
         filename : The full filename, including the path, of the image file. The type of image file to be created is inferred from the extension of the filename.
@@ -6153,52 +7902,63 @@ class Viewport(Base):
         Returns true if the operation was successful.
         """
         return bool()
-    def fit():
+
+    def fit(self):
         """
         Forces a camera change so that all of the graphics are visible in the viewport.
         Returns true if the fit was successful.
         """
         return bool()
-    def modelToViewSpace(modelCoordinate):
+
+    def modelToViewSpace(self, modelCoordinate):
         """
         A specified point in model space returns the equivalent point in view space.
         modelCoordinate : A coordinate in model space.
         Returns the equivalent point in view space.
         """
         return Point2D()
-    def viewToModelSpace(viewCoordinate):
+
+    def viewToModelSpace(self, viewCoordinate):
         """
         A specified point in view space returns the equivalent point in model space. Because view space is 2D and model space is 3D, the depth of the point is returned is somewhat arbitrary along the eye to target point direction.
         viewCoordinate : A coordinate in view space.
         Returns the equivalent point in model space.
         """
         return Point3D()
-    def screenToView(screenCoordinate):
+
+    def screenToView(self, screenCoordinate):
         """
         Converts a 2D screen point into the equivalent viewport coordinate.
         screenCoordinate : A 2D coordinate in screen space. (0,0) indicates the upper-left corner of the entire screen.
         Returns the equivalent point in the viewport. This can return null in the case where the input screen point does not lie within the viewport.
         """
         return Point2D()
-    def viewToScreen(viewCoordinate):
+
+    def viewToScreen(self, viewCoordinate):
         """
         Converts a 2D viewPort point into the equivalent screen coordinate.
         viewCoordinate : A 2D coordinate in the viewport. (0,0) indicates the upper-left corner of the viewport.
         Returns the equivalent point in the screen. This can return null in the case where the input point is outside the bounds of the screen, which also means it's outside any viewport.
         """
         return Point2D()
-    camera = property(_get_camera, _set_camera, doc="Gets and sets the camera associated with the view. The camera returned is a copy of the current camera settings of the view. Editing the properties of the camera will have no affect on the viewport until the camera is assigned back to the viewport.")
+
+    camera = property(_get_camera, _set_camera,
+                      doc="Gets and sets the camera associated with the view. The camera returned is a copy of the current camera settings of the view. Editing the properties of the camera will have no affect on the viewport until the camera is assigned back to the viewport.")
     height = property(_get_height, None, doc="Returns the height of the viewport in pixels.")
     width = property(_get_width, None, doc="Returns the width of the viewport in pixels.")
-    isFullScreen = property(_get_isFullScreen, _set_isFullScreen, doc="Gets and sets if the view is in full screen mode.")
+    isFullScreen = property(_get_isFullScreen, _set_isFullScreen,
+                            doc="Gets and sets if the view is in full screen mode.")
     visualStyle = property(_get_visualStyle, _set_visualStyle, doc="Gets and sets the current visual style being used.")
 
-class VisualStyles():
+
+class VisualStyles:
     """
     A list of the support visual styles that Fusion 360 uses when rendering the model.
     """
+
     def __init__(self):
         pass
+
     ShadedVisualStyle = 0
     ShadedWithHiddenEdgesVisualStyle = 1
     ShadedWithVisibleEdgesOnlyVisualStyle = 2
@@ -6206,122 +7966,166 @@ class VisualStyles():
     WireframeWithHiddenEdgesVisualStyle = 4
     WireframeWithVisibleEdgesOnlyVisualStyle = 5
 
+
 class Workspace(Base):
     """
     A Workspace provides access to a set of panels, which contain commands that are relevant for that particular workspace. The user can switch from one workspace to another in a product (e.g. switch from Model to Sculpt in Fusion 360).
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return Workspace()
+
     def _get_id(self):
         return str()
+
     def _get_isActive(self):
         return bool()
+
     def _get_isNative(self):
         return bool()
+
     def _get_name(self):
         return str()
+
     def _get_toolbarPanels(self):
         return ToolbarPanels()
+
     def _set_resourceFolder(self, resourceFolder):
         pass
+
     def _get_resourceFolder(self):
         return str()
+
     def _get_productType(self):
         return str()
+
     def _set_toolClipFilename(self, toolClipFilename):
         pass
+
     def _get_toolClipFilename(self):
         return str()
+
     def _set_tooltip(self, tooltip):
         pass
+
     def _get_tooltip(self):
         return str()
+
     def _set_tooltipDescription(self, tooltipDescription):
         pass
+
     def _get_tooltipDescription(self):
         return str()
+
     def _get_toolbarTabs(self):
         return ToolbarTabs()
-    def activate():
+
+    def activate(self):
         """
         Activate the workspace (assuming it is valid to do so - a SIM workspace can't be activated if Fusion 360 is the active product).
         Boolean return that indicates if the activation was successful or not.
         """
         return bool()
-    def deleteMe():
+
+    def deleteMe(self):
         """
         Deletes this workspace. Only a workspace added by the API can be deleted, (IsNative is false).
         Boolean return that indicates if the deletion was successful or not.
         """
         return bool()
-    id = property(_get_id, None, doc="Gets the unique Id of the workspace that can be used programmatically to find a specific workspace. It is not affected by the current language.")
+
+    id = property(_get_id, None,
+                  doc="Gets the unique Id of the workspace that can be used programmatically to find a specific workspace. It is not affected by the current language.")
     isActive = property(_get_isActive, None, doc="Gets if the workspace is currently active - i.e. displayed")
-    isNative = property(_get_isNative, None, doc="Gets if this workspace is native to Fusion 360 or was created via the API.")
-    name = property(_get_name, None, doc="Gets the visible name of the workspace as seen in the user interface. This is the localized name.")
-    toolbarPanels = property(_get_toolbarPanels, None, doc="Gets the collection containing the panels associated with this workspace. It's through this collection that you can add new toolbar panels.")
+    isNative = property(_get_isNative, None,
+                        doc="Gets if this workspace is native to Fusion 360 or was created via the API.")
+    name = property(_get_name, None,
+                    doc="Gets the visible name of the workspace as seen in the user interface. This is the localized name.")
+    toolbarPanels = property(_get_toolbarPanels, None,
+                             doc="Gets the collection containing the panels associated with this workspace. It's through this collection that you can add new toolbar panels.")
     resourceFolder = property(_get_resourceFolder, _set_resourceFolder, doc="Gets or sets the resource folder.")
-    productType = property(_get_productType, None, doc="Returns the name of the product this workspace is associated with.")
-    toolClipFilename = property(_get_toolClipFilename, _set_toolClipFilename, doc="Gets or sets the full filename of the image file (png) used for the tool clip. the tool clip is the image shown when the user hovers the mouse over the workspace name in the workspace drop-down.")
-    tooltip = property(_get_tooltip, _set_tooltip, doc="Gets or sets the tooltip text displayed for the workspace. This is the first line of text shown when the user hovers over the workspace name in the Fusion 360 toolbar drop-down. This is typically the name of the workspace. This is different from the name in the that the name is a short name shown in the drop-down. The tooltip is only shown when the user hovers over the name and box appears providing more information about the workspace. For example, the name of the model workspace is 'Model' and the tooltip is 'Model Workspace'.")
-    tooltipDescription = property(_get_tooltipDescription, _set_tooltipDescription, doc="Gets or sets the tooltip description displayed for the workspace. The tooltip description is a longer description of the workspace and is only displayed when the user hovers over the workspace name in the Fusion 360 toolbar drop-down. The pop-up dialog that appears contains the tooltip, the tooltip description, and the toolclip which is a picture.")
-    toolbarTabs = property(_get_toolbarTabs, None, doc="Gets the collection containing the tabs associated with this workspace.")
+    productType = property(_get_productType, None,
+                           doc="Returns the name of the product this workspace is associated with.")
+    toolClipFilename = property(_get_toolClipFilename, _set_toolClipFilename,
+                                doc="Gets or sets the full filename of the image file (png) used for the tool clip. the tool clip is the image shown when the user hovers the mouse over the workspace name in the workspace drop-down.")
+    tooltip = property(_get_tooltip, _set_tooltip,
+                       doc="Gets or sets the tooltip text displayed for the workspace. This is the first line of text shown when the user hovers over the workspace name in the Fusion 360 toolbar drop-down. This is typically the name of the workspace. This is different from the name in the that the name is a short name shown in the drop-down. The tooltip is only shown when the user hovers over the name and box appears providing more information about the workspace. For example, the name of the model workspace is 'Model' and the tooltip is 'Model Workspace'.")
+    tooltipDescription = property(_get_tooltipDescription, _set_tooltipDescription,
+                                  doc="Gets or sets the tooltip description displayed for the workspace. The tooltip description is a longer description of the workspace and is only displayed when the user hovers over the workspace name in the Fusion 360 toolbar drop-down. The pop-up dialog that appears contains the tooltip, the tooltip description, and the toolclip which is a picture.")
+    toolbarTabs = property(_get_toolbarTabs, None,
+                           doc="Gets the collection containing the tabs associated with this workspace.")
+
 
 class WorkspaceList(Base):
     """
     A WorkspaceList is a list of Workspaces - e.g. the Workspaces for a given product.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return WorkspaceList()
+
     def _get_count(self):
         return int()
-    def item(index):
+
+    def item(self, index):
         """
         Returns the specified work space using an index into the collection.
         index : The index of the item within the collection to return. The first item in the collection has an index of 0.
         Returns the specified item or null if an invalid index was specified.
         """
         return Workspace()
-    def itemById(id):
+
+    def itemById(self, id):
         """
         Returns the Workspace of the specified ID.
         id : The ID of the workspace to get.
         Returns the specified workspace or null in the case where there isn't a workspace with the specified ID.
         """
         return Workspace()
+
     count = property(_get_count, None, doc="Gets the number of workspaces in the collection.")
+
 
 class Workspaces(Base):
     """
     Provides access to all of the existing workspaces.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return Workspaces()
+
     def _get_count(self):
         return int()
-    def item(index):
+
+    def item(self, index):
         """
         Returns the specified work space using an index into the collection.
         index : The index of the item within the collection to return. The first item in the collection has an index of 0.
         Returns the specified item or null if an invalid index was specified.
         """
         return Workspace()
-    def itemById(id):
+
+    def itemById(self, id):
         """
         Returns the Workspace of the specified ID.
         id : The ID of the workspace to get.
         Returns the specified workspace or null in the case where there isn't a workspace with the specified ID.
         """
         return Workspace()
-    def add(productType, id, name, resourceFolder):
+
+    def add(self, productType, id, name, resourceFolder):
         """
         Creates a new workspace for a specific product.
         productType : The name of the product this workspace will be displayed with. You can obtain a list of the available products by using the supportedProductTypes property of the Application object.
@@ -6331,58 +8135,83 @@ class Workspaces(Base):
         Returns the created workspace or null if the creation failed.
         """
         return Workspace()
+
     count = property(_get_count, None, doc="Gets the number of workspaces in the collection.")
+
 
 class AngleValueCommandInput(CommandInput):
     """
     Represents a command input that gets an angle from the user. This displays an entry in the command dialog where the user can enter a value and also displays a manipulator in the graphics window to allow them to graphically set the value. The input box is displayed in the dialog when the isVisible property of the command input is true. The manipulator is displayed in the graphics when both the isVisible and isEnabled properties are true.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return AngleValueCommandInput()
+
     def _set_value(self, value):
         pass
+
     def _get_value(self):
         return float()
+
     def _set_expression(self, expression):
         pass
+
     def _get_expression(self):
         return str()
+
     def _set_minimumValue(self, minimumValue):
         pass
+
     def _get_minimumValue(self):
         return float()
+
     def _set_hasMinimumValue(self, hasMinimumValue):
         pass
+
     def _get_hasMinimumValue(self):
         return bool()
+
     def _set_isMinimumValueInclusive(self, isMinimumValueInclusive):
         pass
+
     def _get_isMinimumValueInclusive(self):
         return bool()
+
     def _set_maximumValue(self, maximumValue):
         pass
+
     def _get_maximumValue(self):
         return float()
+
     def _set_hasMaximumValue(self, hasMaximumValue):
         pass
+
     def _get_hasMaximumValue(self):
         return bool()
+
     def _set_isMaximumValueInclusive(self, isMaximumValueInclusive):
         pass
+
     def _get_isMaximumValueInclusive(self):
         return bool()
+
     def _get_manipulatorOrigin(self):
         return Point3D()
+
     def _get_manipulatorXDirection(self):
         return Vector3D()
+
     def _get_manipulatorYDirection(self):
         return Vector3D()
+
     def _get_isValidExpression(self):
         return bool()
-    def setManipulator(origin, xDirection, yDirection):
+
+    def setManipulator(self, origin, xDirection, yDirection):
         """
         Defines the position and orientation of the manipulator. The manipulator is only visible when both the isVisible and isEnabled properties are true. If those properties are true and the setManipulator has not been called, the manipulator will be displayed in a default location (0,0,0) using default directions; x direction (1,0,0) and y direction (0,1,0). Because of that the input is typically set to be invisible and/or disabled and then enabled once enough input has been specified that you can display the manipulator in the desired location.
         origin : Defines the center position of the manipulator in root component space.
@@ -6391,54 +8220,80 @@ class AngleValueCommandInput(CommandInput):
         Returns true if successful.
         """
         return bool()
-    value = property(_get_value, _set_value, doc="Gets and sets the current value of the command input. The value is in radians but will be displayed to the user in degrees. Setting this value can fail if the input value is not within the minimum and maximum value range. The isValidExpression property should be checked before using the value within the command because if the expression can't be evaluated there isn't a valid value. Fusion 360 won't allow the execution of a command that contains ValueCommandInput object with invalid expressions so you can dependably use the value in the execute event of the command.")
-    expression = property(_get_expression, _set_expression, doc="Gets or sets the expression displayed in the input field. This can contain equations and references to parameters but must result in a valid angle expression. If units are not specified as part of the expression, the default user units of degrees are used.")
-    minimumValue = property(_get_minimumValue, _set_minimumValue, doc="Gets and sets minimum value, if any, that the value can be. The value is in radians. When getting this property you should first check the hasMinimumValue property to see if this property applies. Also, the isMinimumValueInclusive indicates if the minimum includes this value or will be up to this value. Setting this value will change the isMinimumValueInclusive to True and the hasMinimumValue property to True if hasMinimumValue is currently False, otherwise it will just update the value.")
-    hasMinimumValue = property(_get_hasMinimumValue, _set_hasMinimumValue, doc="Gets and sets if there is a minimum value for this command input. When setting this property, it is only valid to set it to False to remove the minimum value. Setting the minimumValue property will result in this property being set to True.")
-    isMinimumValueInclusive = property(_get_isMinimumValueInclusive, _set_isMinimumValueInclusive, doc="Gets and sets if the value of the input includes the minimum value or is up to the minimum value. For example, if the minimum value is zero and this property is True, the minimum value can be zero. If this is False, the minimum value must be greater than zero. When the minimum value is first defined using the minimumValue property, this property is set to True. The value returned by this property is only meaningful when the hasMinimumValue property returns True.")
-    maximumValue = property(_get_maximumValue, _set_maximumValue, doc="Gets and sets maximum value, if any, that the value can be. The value is in radians. When getting this property you should first check the hasMaximumValue property to see if this property applies. Also, the isMaximumValueInclusive indicates if the minimum includes this value or will be up to this value. Setting this value will change the isMaximumValueInclusive to True and the hasMaximumValue property to True if hasMaximumValue is currently False, otherwise it will just update the value.")
-    hasMaximumValue = property(_get_hasMaximumValue, _set_hasMaximumValue, doc="Gets and sets if there is a maximum value for this command input. When setting this property, it is only valid to set it to False to remove the maximum value. Setting the maximumValue property will result in this property being set to True.")
-    isMaximumValueInclusive = property(_get_isMaximumValueInclusive, _set_isMaximumValueInclusive, doc="Gets and sets if the value of the input includes the maximum value or is up to the maximum value. For example, if the maximum value is the value of pi (180 degrees) and this property is True, the maximum value can be pi. If this is False, the minimum value must be less than pi. When the maximum value is first defined using the maximumValue property, this property is set to True. The value returned by this property is only meaninful when the hasMaximumValue property returns True.")
-    manipulatorOrigin = property(_get_manipulatorOrigin, None, doc="Gets the origin point of the manipulator in the model space of the root component. To set the origin use the setManipulator method.")
-    manipulatorXDirection = property(_get_manipulatorXDirection, None, doc="Gets the X direction of the manipulator in the model space of the root component. The X direction is the 0 angle direction. This direction, along with the Y direction vector define the plane that the manipulator is displayed on. To set the direction use the setManipulator method.")
-    manipulatorYDirection = property(_get_manipulatorYDirection, None, doc="Gets the Y direction of the manipulator in the model space of the root component. The X and Y direction vectors define the plane that the manipulator is displayed on. To set the direction use the setManipulator method.")
-    isValidExpression = property(_get_isValidExpression, None, doc="Returns true if the current expression is valid and can be evaluated. If this is false, the value returned should be ignored because there currently is not a valid value.")
+
+    value = property(_get_value, _set_value,
+                     doc="Gets and sets the current value of the command input. The value is in radians but will be displayed to the user in degrees. Setting this value can fail if the input value is not within the minimum and maximum value range. The isValidExpression property should be checked before using the value within the command because if the expression can't be evaluated there isn't a valid value. Fusion 360 won't allow the execution of a command that contains ValueCommandInput object with invalid expressions so you can dependably use the value in the execute event of the command.")
+    expression = property(_get_expression, _set_expression,
+                          doc="Gets or sets the expression displayed in the input field. This can contain equations and references to parameters but must result in a valid angle expression. If units are not specified as part of the expression, the default user units of degrees are used.")
+    minimumValue = property(_get_minimumValue, _set_minimumValue,
+                            doc="Gets and sets minimum value, if any, that the value can be. The value is in radians. When getting this property you should first check the hasMinimumValue property to see if this property applies. Also, the isMinimumValueInclusive indicates if the minimum includes this value or will be up to this value. Setting this value will change the isMinimumValueInclusive to True and the hasMinimumValue property to True if hasMinimumValue is currently False, otherwise it will just update the value.")
+    hasMinimumValue = property(_get_hasMinimumValue, _set_hasMinimumValue,
+                               doc="Gets and sets if there is a minimum value for this command input. When setting this property, it is only valid to set it to False to remove the minimum value. Setting the minimumValue property will result in this property being set to True.")
+    isMinimumValueInclusive = property(_get_isMinimumValueInclusive, _set_isMinimumValueInclusive,
+                                       doc="Gets and sets if the value of the input includes the minimum value or is up to the minimum value. For example, if the minimum value is zero and this property is True, the minimum value can be zero. If this is False, the minimum value must be greater than zero. When the minimum value is first defined using the minimumValue property, this property is set to True. The value returned by this property is only meaningful when the hasMinimumValue property returns True.")
+    maximumValue = property(_get_maximumValue, _set_maximumValue,
+                            doc="Gets and sets maximum value, if any, that the value can be. The value is in radians. When getting this property you should first check the hasMaximumValue property to see if this property applies. Also, the isMaximumValueInclusive indicates if the minimum includes this value or will be up to this value. Setting this value will change the isMaximumValueInclusive to True and the hasMaximumValue property to True if hasMaximumValue is currently False, otherwise it will just update the value.")
+    hasMaximumValue = property(_get_hasMaximumValue, _set_hasMaximumValue,
+                               doc="Gets and sets if there is a maximum value for this command input. When setting this property, it is only valid to set it to False to remove the maximum value. Setting the maximumValue property will result in this property being set to True.")
+    isMaximumValueInclusive = property(_get_isMaximumValueInclusive, _set_isMaximumValueInclusive,
+                                       doc="Gets and sets if the value of the input includes the maximum value or is up to the maximum value. For example, if the maximum value is the value of pi (180 degrees) and this property is True, the maximum value can be pi. If this is False, the minimum value must be less than pi. When the maximum value is first defined using the maximumValue property, this property is set to True. The value returned by this property is only meaninful when the hasMaximumValue property returns True.")
+    manipulatorOrigin = property(_get_manipulatorOrigin, None,
+                                 doc="Gets the origin point of the manipulator in the model space of the root component. To set the origin use the setManipulator method.")
+    manipulatorXDirection = property(_get_manipulatorXDirection, None,
+                                     doc="Gets the X direction of the manipulator in the model space of the root component. The X direction is the 0 angle direction. This direction, along with the Y direction vector define the plane that the manipulator is displayed on. To set the direction use the setManipulator method.")
+    manipulatorYDirection = property(_get_manipulatorYDirection, None,
+                                     doc="Gets the Y direction of the manipulator in the model space of the root component. The X and Y direction vectors define the plane that the manipulator is displayed on. To set the direction use the setManipulator method.")
+    isValidExpression = property(_get_isValidExpression, None,
+                                 doc="Returns true if the current expression is valid and can be evaluated. If this is false, the value returned should be ignored because there currently is not a valid value.")
+
 
 class AppearanceTextureProperty(Property):
     """
     A texture value property associated with a material or appearance.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return AppearanceTextureProperty()
+
     def _set_value(self, value):
         pass
+
     def _get_value(self):
         return AppearanceTexture()
+
     def _get_isUsed(self):
         return bool()
+
     value = property(_get_value, _set_value, doc="Gets and sets this property value.")
-    isUsed = property(_get_isUsed, None, doc="Specifies if this AppearanceTexture is being used. This is the equivalent of the check box in the Appearance dialog to enable the use of a text for an appearance or not. if this is False, then the value property should not be used because there isn't an associated. AppearanceTexture.")
+    isUsed = property(_get_isUsed, None,
+                      doc="Specifies if this AppearanceTexture is being used. This is the equivalent of the check box in the Appearance dialog to enable the use of a text for an appearance or not. if this is False, then the value property should not be used because there isn't an associated. AppearanceTexture.")
+
 
 class ApplicationCommandEvent(Event):
     """
     An event endpoint that supports the connection to ApplicationCommandEventHandlers.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return ApplicationCommandEvent()
-    def add(handler):
+
+    def add(self, handler):
         """
         Adds an event handler object to this event endpoint.
         handler : The ApplicationCommandEventHandler to be called when this event is triggered.
         Returns true if the handler was successfully added to the set of event handlers.
         """
         return bool()
-    def remove(handler):
+
+    def remove(self, handler):
         """
         Removes a handler from this event endpoint.
         handler : An ApplicationCommandEventHandler that was previously added to this event with the add method.
@@ -6446,47 +8301,64 @@ class ApplicationCommandEvent(Event):
         """
         return bool()
 
+
 class ApplicationCommandEventArgs(EventArgs):
     """
     Provides a set of arguments from a firing ApplicationCommandEvent to an ApplicationCommandEventHandler's notify callback method.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return ApplicationCommandEventArgs()
+
     def _get_commandDefinition(self):
         return CommandDefinition()
+
     def _get_commandId(self):
         return str()
+
     def _set_isCanceled(self, isCanceled):
         pass
+
     def _get_isCanceled(self):
         return bool()
+
     def _get_terminationReason(self):
         return CommandTerminationReason()
-    commandDefinition = property(_get_commandDefinition, None, doc="Returns the CommandDefinition object for the command the event is being fired for.")
+
+    commandDefinition = property(_get_commandDefinition, None,
+                                 doc="Returns the CommandDefinition object for the command the event is being fired for.")
     commandId = property(_get_commandId, None, doc="Returns the unique id of the command the event if being fired for.")
-    isCanceled = property(_get_isCanceled, _set_isCanceled, doc="Used during the commandStarting event to get or set if the command should be allowed to continue executing or be canceled. This defaults to false, which will allow the command to execute. Setting this to true will cancel the command and not begin the execution. This property should be ignored for all events besides the commandStarting event.")
-    terminationReason = property(_get_terminationReason, None, doc="Returns the reason the command is being terminated. This property should be ignored for all events besides the commandTerminated event.")
+    isCanceled = property(_get_isCanceled, _set_isCanceled,
+                          doc="Used during the commandStarting event to get or set if the command should be allowed to continue executing or be canceled. This defaults to false, which will allow the command to execute. Setting this to true will cancel the command and not begin the execution. This property should be ignored for all events besides the commandStarting event.")
+    terminationReason = property(_get_terminationReason, None,
+                                 doc="Returns the reason the command is being terminated. This property should be ignored for all events besides the commandTerminated event.")
+
 
 class ApplicationEvent(Event):
     """
     An ApplicationEvent represents a Fusion 360 application related event. For example, startupCompleted or OnlineStatusChanged
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return ApplicationEvent()
-    def add(handler):
+
+    def add(self, handler):
         """
         Add a handler to be notified when the event occurs.
         handler : The handler object to be called when this event is fired.
         Returns true if the addition of the handler was successful.
         """
         return bool()
-    def remove(handler):
+
+    def remove(self, handler):
         """
         Removes a handler from the event.
         handler : The handler object to be removed from the event.
@@ -6494,33 +8366,45 @@ class ApplicationEvent(Event):
         """
         return bool()
 
+
 class ApplicationEventArgs(EventArgs):
     """
     The ApplicationEventArgs provides information associated with an application event. Note that some properties are not available on every event
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return ApplicationEventArgs()
+
     def _set_isOffLine(self, isOffLine):
         pass
+
     def _get_isOffLine(self):
         return bool()
+
     def _get_hasInternetAccess(self):
         return bool()
+
     isOffLine = property(_get_isOffLine, _set_isOffLine, doc="Gets and sets if Fusion 360 is offline or not.")
-    hasInternetAccess = property(_get_hasInternetAccess, None, doc="Gets if the client computer has access to the internet.")
+    hasInternetAccess = property(_get_hasInternetAccess, None,
+                                 doc="Gets if the client computer has access to the internet.")
+
 
 class Arc2D(Curve2D):
     """
     Transient 2D arc. A transient arc is not displayed or saved in a document. Transient arcs are used as a wrapper to work with raw 2D arc information. They are created statically using one of the create methods supported by the Arc2D class.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return Arc2D()
+
     @staticmethod
     def createByCenter(center, radius, startAngle, endAngle, isClockwise):
         """
@@ -6533,6 +8417,7 @@ class Arc2D(Curve2D):
         Returns the newly created arc or null if the creation failed.
         """
         return Arc2D()
+
     @staticmethod
     def createByThreePoints(startPoint, point, endPoint):
         """
@@ -6543,37 +8428,51 @@ class Arc2D(Curve2D):
         Returns the newly created arc or null if the creation failed.
         """
         return Arc2D()
+
     def _set_center(self, center):
         pass
+
     def _get_center(self):
         return Point2D()
+
     def _set_radius(self, radius):
         pass
+
     def _get_radius(self):
         return float()
+
     def _set_startAngle(self, startAngle):
         pass
+
     def _get_startAngle(self):
         return float()
+
     def _set_endAngle(self, endAngle):
         pass
+
     def _get_endAngle(self):
         return float()
+
     def _get_isClockwise(self):
         return bool()
+
     def _get_startPoint(self):
         return Point2D()
+
     def _get_endPoint(self):
         return Point2D()
+
     def _get_asNurbsCurve(self):
         return NurbsCurve2D()
-    def copy():
+
+    def copy(self):
         """
         Creates and returns an independent copy of this Arc2D object.
         Returns a new Arc2D object that is a copy of this Arc2D object.
         """
         return Arc2D()
-    def getData():
+
+    def getData(self):
         """
         Gets all of the data defining the arc.
         center : The output center point of the arc.
@@ -6583,8 +8482,9 @@ class Arc2D(Curve2D):
         isClockwise : The output value that indicates if the sweep direction is clockwise or counterclockwise.
         Returns true if successful
         """
-        return (bool(), Point2D(), float(), float(), float(), bool())
-    def set(center, radius, startAngle, endAngle, isClockwise):
+        return bool(), Point2D(), float(), float(), float(), bool()
+
+    def set(self, center, radius, startAngle, endAngle, isClockwise):
         """
         Sets all of the data defining the arc.
         center : A Point2D object defining the center position of the arc.
@@ -6595,24 +8495,33 @@ class Arc2D(Curve2D):
         Returns true if redefining the arc is successful
         """
         return bool()
+
     center = property(_get_center, _set_center, doc="Gets and sets the center position of the arc.")
     radius = property(_get_radius, _set_radius, doc="Gets and sets the radius of the arc.")
-    startAngle = property(_get_startAngle, _set_startAngle, doc="Gets and sets the start angle of the arc in radians, where 0 is along the x axis.")
-    endAngle = property(_get_endAngle, _set_endAngle, doc="Gets and sets the end angle of the arc in radians, where 0 is along the x axis.")
-    isClockwise = property(_get_isClockwise, None, doc="Specifies if the sweep direction of the arc is clockwise or counterclockwise.")
+    startAngle = property(_get_startAngle, _set_startAngle,
+                          doc="Gets and sets the start angle of the arc in radians, where 0 is along the x axis.")
+    endAngle = property(_get_endAngle, _set_endAngle,
+                        doc="Gets and sets the end angle of the arc in radians, where 0 is along the x axis.")
+    isClockwise = property(_get_isClockwise, None,
+                           doc="Specifies if the sweep direction of the arc is clockwise or counterclockwise.")
     startPoint = property(_get_startPoint, None, doc="Gets the position of the start point of the arc.")
     endPoint = property(_get_endPoint, None, doc="Gets the position of the end point of the arc.")
-    asNurbsCurve = property(_get_asNurbsCurve, None, doc="Returns a NURBS curve that is geometrically identical to the arc.")
+    asNurbsCurve = property(_get_asNurbsCurve, None,
+                            doc="Returns a NURBS curve that is geometrically identical to the arc.")
+
 
 class Arc3D(Curve3D):
     """
     Transient 3D arc. A transient arc is not displayed or saved in a document. Transient 3D arcs are used as a wrapper to work with raw 3D arc information. They are created statically using one of the create methods of the Arc3D class.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return Arc3D()
+
     @staticmethod
     def createByCenter(center, normal, referenceVector, radius, startAngle, endAngle):
         """
@@ -6626,6 +8535,7 @@ class Arc3D(Curve3D):
         Returns the newly created arc or null if the creation failed.
         """
         return Arc3D()
+
     @staticmethod
     def createByThreePoints(pointOne, pointTwo, pointThree):
         """
@@ -6636,33 +8546,47 @@ class Arc3D(Curve3D):
         Returns the newly created arc or null if the creation failed.
         """
         return Arc3D()
+
     def _set_center(self, center):
         pass
+
     def _get_center(self):
         return Point3D()
+
     def _get_normal(self):
         return Vector3D()
+
     def _get_referenceVector(self):
         return Vector3D()
+
     def _set_radius(self, radius):
         pass
+
     def _get_radius(self):
         return float()
+
     def _set_startAngle(self, startAngle):
         pass
+
     def _get_startAngle(self):
         return float()
+
     def _set_endAngle(self, endAngle):
         pass
+
     def _get_endAngle(self):
         return float()
+
     def _get_startPoint(self):
         return Point3D()
+
     def _get_endPoint(self):
         return Point3D()
+
     def _get_asNurbsCurve(self):
         return NurbsCurve3D()
-    def setAxes(normal, referenceVector):
+
+    def setAxes(self, normal, referenceVector):
         """
         Sets the normal and reference vectors of the arc.
         normal : The new normal vector.
@@ -6670,13 +8594,15 @@ class Arc3D(Curve3D):
         Returns true if successful
         """
         return bool()
-    def copy():
+
+    def copy(self):
         """
         Creates and returns an independent copy of this Arc3D object.
         Returns a new Arc3D object that is a copy of this Arc3D object.
         """
         return Arc3D()
-    def getData():
+
+    def getData(self):
         """
         Gets all of the data defining the arc.
         center : The output center point of the arc.
@@ -6687,8 +8613,9 @@ class Arc3D(Curve3D):
         endAngle : The output end angle in radians. This angle is measured from the reference vector using the right hand rule around the normal vector.
         Returns true if successful
         """
-        return (bool(), Point3D(), Vector3D(), Vector3D(), float(), float(), float())
-    def set(center, normal, referenceVector, radius, startAngle, endAngle):
+        return bool(), Point3D(), Vector3D(), Vector3D(), float(), float(), float()
+
+    def set(self, center, normal, referenceVector, radius, startAngle, endAngle):
         """
         Sets all of the data defining the arc.
         center : The center point of the arc.
@@ -6700,105 +8627,147 @@ class Arc3D(Curve3D):
         Returns true if successful
         """
         return bool()
+
     center = property(_get_center, _set_center, doc="Gets and sets the center position of the arc.")
     normal = property(_get_normal, None, doc="Gets and sets the normal of the arc.")
     referenceVector = property(_get_referenceVector, None, doc="Gets and sets the reference vector of the arc.")
     radius = property(_get_radius, _set_radius, doc="Gets and sets the radius of the arc.")
-    startAngle = property(_get_startAngle, _set_startAngle, doc="Gets and sets the start angle of the arc in radians. This angle is measured from the reference vector using the right hand rule around the normal vector.")
-    endAngle = property(_get_endAngle, _set_endAngle, doc="Gets and sets the end angle of the arc in radians. This angle is measured from the reference vector using the right hand rule around the normal vector.")
+    startAngle = property(_get_startAngle, _set_startAngle,
+                          doc="Gets and sets the start angle of the arc in radians. This angle is measured from the reference vector using the right hand rule around the normal vector.")
+    endAngle = property(_get_endAngle, _set_endAngle,
+                        doc="Gets and sets the end angle of the arc in radians. This angle is measured from the reference vector using the right hand rule around the normal vector.")
     startPoint = property(_get_startPoint, None, doc="Gets the start point of the arc.")
     endPoint = property(_get_endPoint, None, doc="Gets the end point of the arc.")
-    asNurbsCurve = property(_get_asNurbsCurve, None, doc="Returns a NURBS curve that is geometrically identical to the arc.")
+    asNurbsCurve = property(_get_asNurbsCurve, None,
+                            doc="Returns a NURBS curve that is geometrically identical to the arc.")
+
 
 class BooleanProperty(Property):
     """
     A material or appearance property that is a Boolean value.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return BooleanProperty()
+
     def _set_value(self, value):
         pass
+
     def _get_value(self):
         return bool()
+
     value = property(_get_value, _set_value, doc="Gets and sets the value of this property.")
+
 
 class BoolValueCommandInput(CommandInput):
     """
     Provides a command input to get a boolean value from the user. This is represented in the user inteface as either a button or a check box.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return BoolValueCommandInput()
+
     def _set_value(self, value):
         pass
+
     def _get_value(self):
         return bool()
+
     def _set_resourceFolder(self, resourceFolder):
         pass
+
     def _get_resourceFolder(self):
         return str()
+
     def _get_isCheckBox(self):
         return bool()
+
     def _set_text(self, text):
         pass
+
     def _get_text(self):
         return str()
-    value = property(_get_value, _set_value, doc="Gets or sets the state of this input. If it's being displayed as a checkbox a value of true indicates the input is checked. If it's being displayed as a button, a value of true indicates the button is currently depressed.")
-    resourceFolder = property(_get_resourceFolder, _set_resourceFolder, doc="Gets the folder that contains the image to display on the button. Text can also be displayed, which is specified using the text property.")
+
+    value = property(_get_value, _set_value,
+                     doc="Gets or sets the state of this input. If it's being displayed as a checkbox a value of true indicates the input is checked. If it's being displayed as a button, a value of true indicates the button is currently depressed.")
+    resourceFolder = property(_get_resourceFolder, _set_resourceFolder,
+                              doc="Gets the folder that contains the image to display on the button. Text can also be displayed, which is specified using the text property.")
     isCheckBox = property(_get_isCheckBox, None, doc="Indicates if this is being shown as a button or check box.")
-    text = property(_get_text, _set_text, doc="Gets and sets text to be displayed on the button. If the resourceFolder is not specified then the button will be displayed with only text. If text and the resource folder are specified then both the icon and text will be displayed.")
+    text = property(_get_text, _set_text,
+                    doc="Gets and sets text to be displayed on the button. If the resourceFolder is not specified then the button will be displayed with only text. If text and the resource folder are specified then both the icon and text will be displayed.")
+
 
 class ButtonControlDefinition(ControlDefinition):
     """
     Represents the information used to define a button. This isn't the visible button control but is the information needed to create a button control and fully defines a button except for it's position within the user interface.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return ButtonControlDefinition()
+
 
 class ButtonRowCommandInput(CommandInput):
     """
     Provides a command input to get a selection of a single button from a row of buttons.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return ButtonRowCommandInput()
+
     def _get_isMultiSelectEnabled(self):
         return bool()
+
     def _get_listItems(self):
         return ListItems()
+
     def _get_selectedItem(self):
         return ListItem()
-    isMultiSelectEnabled = property(_get_isMultiSelectEnabled, None, doc="Returns if this button row can have multiple items selected at once or not. If True, multiple buttons can be selected at once. If False only one button can be selected and selecting another button unselects the one currently selected.")
-    listItems = property(_get_listItems, None, doc="Returns the ListItems object associated with this button row. You use this object to populate and interact with the buttons in the row.")
-    selectedItem = property(_get_selectedItem, None, doc="Gets the button in the row that is currently selected. This can return null in the case where no button in the row has been selected.")
+
+    isMultiSelectEnabled = property(_get_isMultiSelectEnabled, None,
+                                    doc="Returns if this button row can have multiple items selected at once or not. If True, multiple buttons can be selected at once. If False only one button can be selected and selecting another button unselects the one currently selected.")
+    listItems = property(_get_listItems, None,
+                         doc="Returns the ListItems object associated with this button row. You use this object to populate and interact with the buttons in the row.")
+    selectedItem = property(_get_selectedItem, None,
+                            doc="Gets the button in the row that is currently selected. This can return null in the case where no button in the row has been selected.")
+
 
 class CameraEvent(Event):
     """
     A CameraEvent represents an event that occurs in reaction to the user manipulating the view. Camera changes happen when user changes the view by rotating, zooming in or out, panning, changing from parallel to perspective, or when the extents of the viewport changes.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return CameraEvent()
-    def add(handler):
+
+    def add(self, handler):
         """
         Add a handler to be notified when the event occurs.
         handler : The handler object to be called when this event is fired.
         Returns true if the addition of the handler was successful.
         """
         return bool()
-    def remove(handler):
+
+    def remove(self, handler):
         """
         Removes a handler from the event.
         handler : The handler object to be removed from the event.
@@ -6806,66 +8775,90 @@ class CameraEvent(Event):
         """
         return bool()
 
+
 class CameraEventArgs(EventArgs):
     """
     The CameraEventArgs provides information associated with a camera change. Camera changes happen when user changes the view by rotating, zooming in or out, panning, changing from parallel to perspective, or when the extents of the viewport changes.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return CameraEventArgs()
+
     def _get_viewport(self):
         return Viewport()
+
     viewport = property(_get_viewport, None, doc="Returns the viewport that the modified camera is associated with.")
+
 
 class CheckBoxControlDefinition(ControlDefinition):
     """
     Represents the information used to define a check box. This isn't the visible check box control but is the information needed to create a check box control and fully defines a check box except for it's position within the user interface.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return CheckBoxControlDefinition()
+
     def _set_isChecked(self, isChecked):
         pass
+
     def _get_isChecked(self):
         return bool()
-    isChecked = property(_get_isChecked, _set_isChecked, doc="Gets or sets whether the check box is checked. Changing this will result in changing any associated controls and will execute the associated command.")
+
+    isChecked = property(_get_isChecked, _set_isChecked,
+                         doc="Gets or sets whether the check box is checked. Changing this will result in changing any associated controls and will execute the associated command.")
+
 
 class ChoiceProperty(Property):
     """
     A material or appearance property that is a pre-defined list of choices.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return ChoiceProperty()
+
     def _set_value(self, value):
         pass
+
     def _get_value(self):
         return str()
-    def getChoices():
+
+    def getChoices(self):
         """
         Method that returns the list of available choices.
         names : An array of the names of the choices. These coincide with the array of choices returned by the choices argument.
         choices : An array of the choices. These coincide with the array of names returned by the names argument.
         Returns true if the call was successful.
         """
-        return (bool(), str(), str())
-    value = property(_get_value, _set_value, doc="Gets and sets the which choice is selected from the set of choices. The value is a string that matches one of the pre-defined choices. The names of the available choices can be obtained using GetChoices method.")
+        return bool(), str(), str()
+
+    value = property(_get_value, _set_value,
+                     doc="Gets and sets the which choice is selected from the set of choices. The value is a string that matches one of the pre-defined choices. The names of the available choices can be obtained using GetChoices method.")
+
 
 class Circle2D(Curve2D):
     """
     Transient 2D circle. A transient circle is not displayed or saved in a document. Transient circles are used as a wrapper to work with raw 2D arc information. They are created statically using one of the create methods of the Circle2D class.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return Circle2D()
+
     @staticmethod
     def createByCenter(center, radius):
         """
@@ -6875,6 +8868,7 @@ class Circle2D(Curve2D):
         Returns the new Circle2D object or null if the creation failed.
         """
         return Circle2D()
+
     @staticmethod
     def createByThreePoints(pointOne, pointTwo, pointThree):
         """
@@ -6885,31 +8879,39 @@ class Circle2D(Curve2D):
         Returns the new Circle2D object or null if the creation failed.
         """
         return Circle2D()
+
     def _set_center(self, center):
         pass
+
     def _get_center(self):
         return Point2D()
+
     def _set_radius(self, radius):
         pass
+
     def _get_radius(self):
         return float()
+
     def _get_asNurbsCurve(self):
         return NurbsCurve2D()
-    def copy():
+
+    def copy(self):
         """
         Creates and returns an independent copy of this Circle2D object.
         Returns an independent copy of this Circle2D object.
         """
         return Circle2D()
-    def getData():
+
+    def getData(self):
         """
         Gets all of the data defining the circle.
         center : The output point defining the center position of the circle.
         radius : The output radius of the circle.
         Returns true if successful.
         """
-        return (bool(), Point2D(), float())
-    def set(center, radius):
+        return bool(), Point2D(), float()
+
+    def set(self, center, radius):
         """
         Sets all of the data defining the circle.
         center : A point that defines the center position of the circle.
@@ -6917,19 +8919,25 @@ class Circle2D(Curve2D):
         Returns true if redefining the circle is successful
         """
         return bool()
+
     center = property(_get_center, _set_center, doc="Gets and sets the center position of the circle.")
     radius = property(_get_radius, _set_radius, doc="Gets and sets the radius of the circle.")
-    asNurbsCurve = property(_get_asNurbsCurve, None, doc="Returns a NURBS curve that is geometrically identical to the circle.")
+    asNurbsCurve = property(_get_asNurbsCurve, None,
+                            doc="Returns a NURBS curve that is geometrically identical to the circle.")
+
 
 class Circle3D(Curve3D):
     """
     Transient 3D circle. A transient circle is not displayed or saved in a document. Transient 3D circles are used as a wrapper to work with raw 3D circle information. They are created statically using one of the create methods of the Circle3D class.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return Circle3D()
+
     @staticmethod
     def createByCenter(center, normal, radius):
         """
@@ -6940,6 +8948,7 @@ class Circle3D(Curve3D):
         Returns the new Circle3D object or null if the creation failed.
         """
         return Circle3D()
+
     @staticmethod
     def createByThreePoints(pointOne, pointTwo, pointThree):
         """
@@ -6950,27 +8959,36 @@ class Circle3D(Curve3D):
         Returns the new Circle3D object or null if the creation failed.
         """
         return Circle3D()
+
     def _set_center(self, center):
         pass
+
     def _get_center(self):
         return Point3D()
+
     def _set_normal(self, normal):
         pass
+
     def _get_normal(self):
         return Vector3D()
+
     def _set_radius(self, radius):
         pass
+
     def _get_radius(self):
         return float()
+
     def _get_asNurbsCurve(self):
         return NurbsCurve3D()
-    def copy():
+
+    def copy(self):
         """
         Creates and returns an independent copy of this Circle3D object.
         Returns an independent copy of this Circle3D object.
         """
         return Circle3D()
-    def getData():
+
+    def getData(self):
         """
         Gets all of the data defining the circle.
         center : The output center point of the circle.
@@ -6978,8 +8996,9 @@ class Circle3D(Curve3D):
         radius : The output radius of the circle.
         Returns true if successful
         """
-        return (bool(), Point3D(), Vector3D(), float())
-    def set(center, normal, radius):
+        return bool(), Point3D(), Vector3D(), float()
+
+    def set(self, center, normal, radius):
         """
         Sets all of the data defining the circle.
         center : The center point of the circle.
@@ -6988,82 +9007,118 @@ class Circle3D(Curve3D):
         Returns true if successful
         """
         return bool()
+
     center = property(_get_center, _set_center, doc="Gets and sets the center position of the circle.")
     normal = property(_get_normal, _set_normal, doc="Gets and sets the normal of the circle.")
     radius = property(_get_radius, _set_radius, doc="Gets and sets the radius of the circle.")
-    asNurbsCurve = property(_get_asNurbsCurve, None, doc="Returns a NURBS curve that is geometrically identical to the circle.")
+    asNurbsCurve = property(_get_asNurbsCurve, None,
+                            doc="Returns a NURBS curve that is geometrically identical to the circle.")
+
 
 class ColorProperty(Property):
     """
     A color property associated with an appearance.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return ColorProperty()
+
     def _get_connectedTexture(self):
         return AppearanceTexture()
+
     def _set_hasConnectedTexture(self, hasConnectedTexture):
         pass
+
     def _get_hasConnectedTexture(self):
         return bool()
+
     def _get_hasMultipleValues(self):
         return bool()
+
     def _set_value(self, value):
         pass
+
     def _get_value(self):
         return Color()
+
     def _set_values(self, values):
         pass
+
     def _get_values(self):
         return Color()
-    connectedTexture = property(_get_connectedTexture, None, doc="Gets the associated texture, if one exists. The HasConnectedTexture property controls if there is an associated texture or not. If the parent is writable you can edit the texture. If no texture exists, this property will return null.")
-    hasConnectedTexture = property(_get_hasConnectedTexture, _set_hasConnectedTexture, doc="Specifies if this color is specified using a simple color or a texture. If this returns true the color is defined using a texture. If the parent is writable, this property can be set to true to change the definition from a simple color to a texture. You can then use the ConnectedTexture property to get the associated texture and modify it.")
-    hasMultipleValues = property(_get_hasMultipleValues, None, doc="Indicates if this property has multiple values or not.")
-    value = property(_get_value, _set_value, doc="Gets and sets this property value if there is a color and not a texture defining this color . If a texture is used, this property returns null. Setting this property when a texture is used removes the texture and changes the color definition to a simple color.")
-    values = property(_get_values, _set_values, doc="Gets and sets the values associated with this property. The HasMultipleValues property indicates if this property will be returning more than one value.")
+
+    connectedTexture = property(_get_connectedTexture, None,
+                                doc="Gets the associated texture, if one exists. The HasConnectedTexture property controls if there is an associated texture or not. If the parent is writable you can edit the texture. If no texture exists, this property will return null.")
+    hasConnectedTexture = property(_get_hasConnectedTexture, _set_hasConnectedTexture,
+                                   doc="Specifies if this color is specified using a simple color or a texture. If this returns true the color is defined using a texture. If the parent is writable, this property can be set to true to change the definition from a simple color to a texture. You can then use the ConnectedTexture property to get the associated texture and modify it.")
+    hasMultipleValues = property(_get_hasMultipleValues, None,
+                                 doc="Indicates if this property has multiple values or not.")
+    value = property(_get_value, _set_value,
+                     doc="Gets and sets this property value if there is a color and not a texture defining this color . If a texture is used, this property returns null. Setting this property when a texture is used removes the texture and changes the color definition to a simple color.")
+    values = property(_get_values, _set_values,
+                      doc="Gets and sets the values associated with this property. The HasMultipleValues property indicates if this property will be returning more than one value.")
+
 
 class CommandControl(ToolbarControl):
     """
     Represents a button, check box, or radio control list in a panel, toolbar, or drop-down.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return CommandControl()
+
     def _get_commandDefinition(self):
         return CommandDefinition()
+
     def _set_isPromoted(self, isPromoted):
         pass
+
     def _get_isPromoted(self):
         return bool()
+
     def _set_isPromotedByDefault(self, isPromotedByDefault):
         pass
+
     def _get_isPromotedByDefault(self):
         return bool()
-    commandDefinition = property(_get_commandDefinition, None, doc="Gets the command definition associated with this button. The command definition defines all of the resource information used to display this button and receives the event when the button is clicked.")
-    isPromoted = property(_get_isPromoted, _set_isPromoted, doc="Gets or sets if this command has been promoted to the parent panel. This property is ignored in the case where this control isn't in a panel.")
-    isPromotedByDefault = property(_get_isPromotedByDefault, _set_isPromotedByDefault, doc="Gets or sets if this command is a default command in the panel. This defines the default state of the panel if the UI is reset. This property is ignored in the case where this control isn't in a panel.")
+
+    commandDefinition = property(_get_commandDefinition, None,
+                                 doc="Gets the command definition associated with this button. The command definition defines all of the resource information used to display this button and receives the event when the button is clicked.")
+    isPromoted = property(_get_isPromoted, _set_isPromoted,
+                          doc="Gets or sets if this command has been promoted to the parent panel. This property is ignored in the case where this control isn't in a panel.")
+    isPromotedByDefault = property(_get_isPromotedByDefault, _set_isPromotedByDefault,
+                                   doc="Gets or sets if this command is a default command in the panel. This defines the default state of the panel if the UI is reset. This property is ignored in the case where this control isn't in a panel.")
+
 
 class CommandCreatedEvent(Event):
     """
     Class that needs to be implemented in order to respond to the CommandCreatedEvent event.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return CommandCreatedEvent()
-    def add(handler):
+
+    def add(self, handler):
         """
         Adds an event handler object to this event endpoint.
         handler : The client implemented CommandCreatedEventHandler to be called when this event is triggered.
         Returns true if the handler was successfully added to the set of event handlers.
         """
         return bool()
-    def remove(handler):
+
+    def remove(self, handler):
         """
         Removes a handler from this event endpoint.
         handler : A CommandCreatedEventHandler that was previously added to this event with the add method.
@@ -7071,36 +9126,47 @@ class CommandCreatedEvent(Event):
         """
         return bool()
 
+
 class CommandCreatedEventArgs(EventArgs):
     """
     Provides data for the CommandCreated event.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return CommandCreatedEventArgs()
+
     def _get_command(self):
         return Command()
-    command = property(_get_command, None, doc="Gets the newly created Command object that allows you to perform an action in response to the control being clicked.")
+
+    command = property(_get_command, None,
+                       doc="Gets the newly created Command object that allows you to perform an action in response to the control being clicked.")
+
 
 class CommandEvent(Event):
     """
     An event endpoint that supports the connection to client implemented CommandEventHandlers.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return CommandEvent()
-    def add(handler):
+
+    def add(self, handler):
         """
         Adds an event handler object to this event endpoint.
         handler : The client implemented CommandEventHandler to be called when this event is triggered.
         Returns true if the handler was successfully added to the set of event handlers.
         """
         return bool()
-    def remove(handler):
+
+    def remove(self, handler):
         """
         Removes a handler from this event endpoint.
         handler : A CommandEventHandler that was previously added to this event with the add method.
@@ -7108,46 +9174,66 @@ class CommandEvent(Event):
         """
         return bool()
 
+
 class CommandEventArgs(EventArgs):
     """
     Provides a set of arguments from a firing CommandEvent to a CommandEventHandler's notify callback method.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return CommandEventArgs()
+
     def _get_command(self):
         return Command()
+
     def _set_executeFailed(self, executeFailed):
         pass
+
     def _get_executeFailed(self):
         return bool()
+
     def _set_executeFailedMessage(self, executeFailedMessage):
         pass
+
     def _get_executeFailedMessage(self):
         return str()
+
     def _set_isValidResult(self, isValidResult):
         pass
+
     def _get_isValidResult(self):
         return bool()
+
     def _get_terminationReason(self):
         return CommandTerminationReason()
+
     command = property(_get_command, None, doc="Gets the Command object.")
-    executeFailed = property(_get_executeFailed, _set_executeFailed, doc="Used during the execute event to get or set that the execute operations failed and the commands transaction should be aborted. This property should be ignored for all events besides the Execute event.")
-    executeFailedMessage = property(_get_executeFailedMessage, _set_executeFailedMessage, doc="Used during the execute event to get or set a description of an execute failure. This property should be ignored for all events besides the Execute event.")
-    isValidResult = property(_get_isValidResult, _set_isValidResult, doc="Used during the commandStarting event to get or set that the result of preview is valid and the command can reuse the result when Ok is hit. This property should be ignored for all events besides the executePreview event.")
-    terminationReason = property(_get_terminationReason, None, doc="Gets the termination reason of the command. It's only valid on the destroy event.")
+    executeFailed = property(_get_executeFailed, _set_executeFailed,
+                             doc="Used during the execute event to get or set that the execute operations failed and the commands transaction should be aborted. This property should be ignored for all events besides the Execute event.")
+    executeFailedMessage = property(_get_executeFailedMessage, _set_executeFailedMessage,
+                                    doc="Used during the execute event to get or set a description of an execute failure. This property should be ignored for all events besides the Execute event.")
+    isValidResult = property(_get_isValidResult, _set_isValidResult,
+                             doc="Used during the commandStarting event to get or set that the result of preview is valid and the command can reuse the result when Ok is hit. This property should be ignored for all events besides the executePreview event.")
+    terminationReason = property(_get_terminationReason, None,
+                                 doc="Gets the termination reason of the command. It's only valid on the destroy event.")
+
 
 class Cone(Surface):
     """
     Transient cone. A transient cone is not displayed or saved in a document. A transient cone is used as a wrapper to work with raw cone information. A transient cone has no boundaries. The cone always goes to a point in its narrowing direction, and is infinite in its widening direction. They are created statically using the create method of the Cone class.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return Cone()
+
     @staticmethod
     def create(origin, axis, radius, halfAngle):
         """
@@ -7159,23 +9245,32 @@ class Cone(Surface):
         Returns the new Cone object or null if the creation failed.
         """
         return Cone()
+
     def _set_origin(self, origin):
         pass
+
     def _get_origin(self):
         return Point3D()
+
     def _set_axis(self, axis):
         pass
+
     def _get_axis(self):
         return Vector3D()
+
     def _set_radius(self, radius):
         pass
+
     def _get_radius(self):
         return float()
+
     def _set_halfAngle(self, halfAngle):
         pass
+
     def _get_halfAngle(self):
         return float()
-    def getData():
+
+    def getData(self):
         """
         Gets the data that defines the cone.
         origin : The output origin point (center) of the base of the cone.
@@ -7184,8 +9279,9 @@ class Cone(Surface):
         halfAngle : The output taper half-angle of the cone.
         Returns true if successful.
         """
-        return (bool(), Point3D(), Vector3D(), float(), float())
-    def set(origin, axis, radius, halfAngle):
+        return bool(), Point3D(), Vector3D(), float(), float()
+
+    def set(self, origin, axis, radius, halfAngle):
         """
         Sets the data that defines the cone.
         origin : The origin point (center) of the base of the cone.
@@ -7195,66 +9291,88 @@ class Cone(Surface):
         Returns true if successful.
         """
         return bool()
-    def copy():
+
+    def copy(self):
         """
         Creates and returns an independent copy of this Cone object.
         Returns a new Cone object that is a copy of this Cone object.
         """
         return Cone()
+
     origin = property(_get_origin, _set_origin, doc="Gets and sets the origin point (center) of the base of the cone.")
-    axis = property(_get_axis, _set_axis, doc="Gets and sets the center axis (along the length) of the cone that defines its normal direction.")
+    axis = property(_get_axis, _set_axis,
+                    doc="Gets and sets the center axis (along the length) of the cone that defines its normal direction.")
     radius = property(_get_radius, _set_radius, doc="Gets and sets the radius of the cone.")
-    halfAngle = property(_get_halfAngle, _set_halfAngle, doc="Gets and sets the taper half-angle of the cone in radians. A negative value indicates that the cone is narrowing in the direction of the axis vector, whereas a positive value indicates that it is expanding in the direction of the axis vector.")
+    halfAngle = property(_get_halfAngle, _set_halfAngle,
+                         doc="Gets and sets the taper half-angle of the cone in radians. A negative value indicates that the cone is narrowing in the direction of the axis vector, whereas a positive value indicates that it is expanding in the direction of the axis vector.")
+
 
 class CustomEvent(Event):
     """
     A CustomEvent is primarily used to send an event from a worker thread you've created back to your add-in, which is running in the primary thread. It's also possible for add-ins to cooperate and another add-in can trigger this event in your add-in by knowing the custom event id.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return CustomEvent()
+
     def _get_eventId(self):
         return str()
-    def add(handler):
+
+    def add(self, handler):
         """
         Add a handler to be notified when the event occurs.
         handler : The handler object to be called when this event is fired.
         Returns true if the addition of the handler was successful.
         """
         return bool()
-    def remove(handler):
+
+    def remove(self, handler):
         """
         Removes a handler from the event.
         handler : The handler object to be removed from the event.
         Returns true if removal of the handler was successful.
         """
         return bool()
-    eventId = property(_get_eventId, None, doc="Returns the id that was assigned to this event when it was registered. Each custom event has it's own unique id.")
+
+    eventId = property(_get_eventId, None,
+                       doc="Returns the id that was assigned to this event when it was registered. Each custom event has it's own unique id.")
+
 
 class CustomEventArgs(EventArgs):
     """
     The ApplicationEventArgs provides information associated with an application event. Note that some properties are not available on every event
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return CustomEventArgs()
+
     def _get_additionalInfo(self):
         return str()
-    additionalInfo = property(_get_additionalInfo, None, doc="Information being passed to the add-in in the primary thread from the worker thread or other add-in.")
+
+    additionalInfo = property(_get_additionalInfo, None,
+                              doc="Information being passed to the add-in in the primary thread from the worker thread or other add-in.")
+
 
 class Cylinder(Surface):
     """
     Transient cylinder. A transient cylinder is not displayed or saved in a document. A transient cylinder is but is used as a wrapper to work with raw cylinder information. A transient cylinder has no boundaries and is infinite in length. They are created statically using the create method of the Cylinder class.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return Cylinder()
+
     @staticmethod
     def create(origin, axis, radius):
         """
@@ -7265,19 +9383,26 @@ class Cylinder(Surface):
         Returns the new Cylinder object or null if the creation failed.
         """
         return Cylinder()
+
     def _set_origin(self, origin):
         pass
+
     def _get_origin(self):
         return Point3D()
+
     def _set_axis(self, axis):
         pass
+
     def _get_axis(self):
         return Vector3D()
+
     def _set_radius(self, radius):
         pass
+
     def _get_radius(self):
         return float()
-    def getData():
+
+    def getData(self):
         """
         Gets the data that defines the cylinder.
         origin : The output origin point (center) of the base of the cylinder.
@@ -7285,8 +9410,9 @@ class Cylinder(Surface):
         radius : The output radius of the cylinder.
         Returns true if successful.
         """
-        return (bool(), Point3D(), Vector3D(), float())
-    def set(origin, axis, radius):
+        return bool(), Point3D(), Vector3D(), float()
+
+    def set(self, origin, axis, radius):
         """
         Sets the data that defines the cylinder.
         origin : The origin point (center) of the base of the cylinder.
@@ -7295,38 +9421,51 @@ class Cylinder(Surface):
         Returns true if successful.
         """
         return bool()
-    def copy():
+
+    def copy(self):
         """
         Creates and returns an independent copy of this Cylinder object.
         Returns a new Cylinder object that is a copy of this Cylinder object.
         """
         return Cylinder()
+
     origin = property(_get_origin, _set_origin, doc="The origin point (center) of the base of the cylinder.")
-    axis = property(_get_axis, _set_axis, doc="The center axis (along the length) of the cylinder that defines its normal direction.")
+    axis = property(_get_axis, _set_axis,
+                    doc="The center axis (along the length) of the cylinder that defines its normal direction.")
     radius = property(_get_radius, _set_radius, doc="The radius of the cylinder.")
+
 
 class DirectionCommandInput(CommandInput):
     """
     Represents a command input that gets a direction from the user. This displays a button or a checkbox in the command dialog where the user can flip the direction if desired and also displays a manipulator in the graphics window to allow flipping the direction by clicking and dragging on the manipulator.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return DirectionCommandInput()
+
     def _get_manipulatorOrigin(self):
         return Point3D()
+
     def _get_manipulatorDirection(self):
         return Vector3D()
+
     def _set_isDirectionFlipped(self, isDirectionFlipped):
         pass
+
     def _get_isDirectionFlipped(self):
         return bool()
+
     def _set_resourceFolder(self, resourceFolder):
         pass
+
     def _get_resourceFolder(self):
         return str()
-    def setManipulator(origin, direction):
+
+    def setManipulator(self, origin, direction):
         """
         Defines a direction manipulator arrow in the graphics viewport whose direction can be flipped by the toggling the checkbox, clicking the button or by the user clicking and dragging on the manipulator arrow.
         origin : The origin point of the direction manipulator (arrow) in the model space of the root component.
@@ -7334,59 +9473,87 @@ class DirectionCommandInput(CommandInput):
         Returns true if successful
         """
         return bool()
-    manipulatorOrigin = property(_get_manipulatorOrigin, None, doc="Gets the origin point of the direction manipulator (arrow) in the model space of the root component. To set the origin use the setManipulator method.")
-    manipulatorDirection = property(_get_manipulatorDirection, None, doc="Gets the direction of the manipulator (arrow) in the model space of the root component. To set the direction use the setManipulator method.")
-    isDirectionFlipped = property(_get_isDirectionFlipped, _set_isDirectionFlipped, doc="Gets and sets if the direction manipulator displayed is flipped (reversed 180 degrees as compared to the direction defined by the manipulatorDirection property). This is false for a newly created DirectionCommandInput.")
-    resourceFolder = property(_get_resourceFolder, _set_resourceFolder, doc="Gets and sets the folder that contains the image to display on the button. The input is shown as a check box if set resource folder to empty.")
+
+    manipulatorOrigin = property(_get_manipulatorOrigin, None,
+                                 doc="Gets the origin point of the direction manipulator (arrow) in the model space of the root component. To set the origin use the setManipulator method.")
+    manipulatorDirection = property(_get_manipulatorDirection, None,
+                                    doc="Gets the direction of the manipulator (arrow) in the model space of the root component. To set the direction use the setManipulator method.")
+    isDirectionFlipped = property(_get_isDirectionFlipped, _set_isDirectionFlipped,
+                                  doc="Gets and sets if the direction manipulator displayed is flipped (reversed 180 degrees as compared to the direction defined by the manipulatorDirection property). This is false for a newly created DirectionCommandInput.")
+    resourceFolder = property(_get_resourceFolder, _set_resourceFolder,
+                              doc="Gets and sets the folder that contains the image to display on the button. The input is shown as a check box if set resource folder to empty.")
+
 
 class DistanceValueCommandInput(CommandInput):
     """
     Represents a command input that gets a distance from the user. This displays an entry in the command dialog where the user can enter a value and also displays a manipulator in the graphics window to allow them to graphically set the value. The input box is displayed in the dialog when the isVisible property of the command input is true. The manipulator is displayed in the graphics when both the isVisible and isEnabled properties are true.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return DistanceValueCommandInput()
+
     def _set_value(self, value):
         pass
+
     def _get_value(self):
         return float()
+
     def _set_expression(self, expression):
         pass
+
     def _get_expression(self):
         return str()
+
     def _set_minimumValue(self, minimumValue):
         pass
+
     def _get_minimumValue(self):
         return float()
+
     def _set_hasMinimumValue(self, hasMinimumValue):
         pass
+
     def _get_hasMinimumValue(self):
         return bool()
+
     def _set_isMinimumValueInclusive(self, isMinimumValueInclusive):
         pass
+
     def _get_isMinimumValueInclusive(self):
         return bool()
+
     def _set_maximumValue(self, maximumValue):
         pass
+
     def _get_maximumValue(self):
         return float()
+
     def _set_hasMaximumValue(self, hasMaximumValue):
         pass
+
     def _get_hasMaximumValue(self):
         return bool()
+
     def _set_isMaximumValueInclusive(self, isMaximumValueInclusive):
         pass
+
     def _get_isMaximumValueInclusive(self):
         return bool()
+
     def _get_manipulatorOrigin(self):
         return Point3D()
+
     def _get_manipulatorDirection(self):
         return Vector3D()
+
     def _get_isValidExpression(self):
         return bool()
-    def setManipulator(origin, direction):
+
+    def setManipulator(self, origin, direction):
         """
         Defines the position and orientation of the manipulator. The manipulator is only visible when both the isVisible and isEnabled properties are true. If those properties are true and the setManipulator has not been called, the manipulator will be displayed in a default location (0,0,0) and direction (1,0,0). Because of that the input is typically set to be invisible and/or disabled and then enabled once enough input has been specified that you can display the manipulator in the desired location.
         origin : Defines the position of the manipulator in root component space.
@@ -7394,35 +9561,52 @@ class DistanceValueCommandInput(CommandInput):
         Returns true if successful.
         """
         return bool()
-    value = property(_get_value, _set_value, doc="Gets and sets the current value of the command input. The value is in centimeters but will be displayed to the user in the current default document units. Setting this value can fail if the input value is not within the minimum and maximum value range. The isValidExpression property should be checked before using this value within the command because if the expression can't be evaluated there isn't a valid value. Fusion 360 won't allow the execution of a command that contains ValueCommandInput object with invalid expressions so you can dependably use the value in the execute event of the command.")
-    expression = property(_get_expression, _set_expression, doc="Gets or sets the expression displayed in the input field. This can contain equations and references to parameters but must result in a valid length expression. If units are not specified as part of the expression, the default units for the design are used.")
-    minimumValue = property(_get_minimumValue, _set_minimumValue, doc="Gets and sets minimum value, if any, that the value can be. When getting this property you should first check the hasMinimumValue property to see if this property applies. Also, the isMinimumValueInclusive indicates if the minimum includes this value or will be up to this value. Setting this value will change the isMinimumValueInclusive to True and the hasMinimumValue property to True if hasMinimumValue is currently False, otherwise it will just update the value.")
-    hasMinimumValue = property(_get_hasMinimumValue, _set_hasMinimumValue, doc="Gets and sets if there is a minimum value for this command input. When setting this property, it is only valid to set it to False to remove the minimum value. Setting the minimumValue property will result in this property being set to True.")
-    isMinimumValueInclusive = property(_get_isMinimumValueInclusive, _set_isMinimumValueInclusive, doc="Gets and sets if the value of the input includes the minimum value or is up to the minimum value. For example, if the minimum value is zero and this property is True, the minimum value can be zero. If this is False, the minimum value must be greater than zero. When the minimum value is first defined using the minimumValue property, this property is set to True. The value returned by this property is only meaningful when the hasMinimumValue property returns True.")
-    maximumValue = property(_get_maximumValue, _set_maximumValue, doc="Gets and sets maximum value, if any, that the value can be. When getting this property you should first check the hasMaximumValue property to see if this property applies. Also, the isMaximumValueInclusive indicates if the maximum includes this value or will be up to this value.")
-    hasMaximumValue = property(_get_hasMaximumValue, _set_hasMaximumValue, doc="Gets and sets if there is a maximum value for this command input. When setting this property, it is only valid to set it to False to remove the maximum value. Setting the maximumValue property will result in this property being set to True.")
-    isMaximumValueInclusive = property(_get_isMaximumValueInclusive, _set_isMaximumValueInclusive, doc="Gets and sets if the value of the input includes the maximum value or is up to the maximum value. For example, if the maximum value is 100 and this property is True, the maximum value can be 100. If this is False, the minimum value must be less than 100. When the maximum value is first defined using the maximumValue property, this property is set to True. The value returned by this property is only meaninful when the hasMaximumValue property returns True.")
-    manipulatorOrigin = property(_get_manipulatorOrigin, None, doc="Gets the origin point of the manipulator in the model space of the root component. To set the origin use the setManipulator method.")
-    manipulatorDirection = property(_get_manipulatorDirection, None, doc="Gets the positive direction of the manipulator in the model space or the root component. To set the direction use the setManipulator method.")
-    isValidExpression = property(_get_isValidExpression, None, doc="Returns true if the current expression is valid and can be evaluated. If this is false, the value returned should be ignored because there currently is not a valid value.")
+
+    value = property(_get_value, _set_value,
+                     doc="Gets and sets the current value of the command input. The value is in centimeters but will be displayed to the user in the current default document units. Setting this value can fail if the input value is not within the minimum and maximum value range. The isValidExpression property should be checked before using this value within the command because if the expression can't be evaluated there isn't a valid value. Fusion 360 won't allow the execution of a command that contains ValueCommandInput object with invalid expressions so you can dependably use the value in the execute event of the command.")
+    expression = property(_get_expression, _set_expression,
+                          doc="Gets or sets the expression displayed in the input field. This can contain equations and references to parameters but must result in a valid length expression. If units are not specified as part of the expression, the default units for the design are used.")
+    minimumValue = property(_get_minimumValue, _set_minimumValue,
+                            doc="Gets and sets minimum value, if any, that the value can be. When getting this property you should first check the hasMinimumValue property to see if this property applies. Also, the isMinimumValueInclusive indicates if the minimum includes this value or will be up to this value. Setting this value will change the isMinimumValueInclusive to True and the hasMinimumValue property to True if hasMinimumValue is currently False, otherwise it will just update the value.")
+    hasMinimumValue = property(_get_hasMinimumValue, _set_hasMinimumValue,
+                               doc="Gets and sets if there is a minimum value for this command input. When setting this property, it is only valid to set it to False to remove the minimum value. Setting the minimumValue property will result in this property being set to True.")
+    isMinimumValueInclusive = property(_get_isMinimumValueInclusive, _set_isMinimumValueInclusive,
+                                       doc="Gets and sets if the value of the input includes the minimum value or is up to the minimum value. For example, if the minimum value is zero and this property is True, the minimum value can be zero. If this is False, the minimum value must be greater than zero. When the minimum value is first defined using the minimumValue property, this property is set to True. The value returned by this property is only meaningful when the hasMinimumValue property returns True.")
+    maximumValue = property(_get_maximumValue, _set_maximumValue,
+                            doc="Gets and sets maximum value, if any, that the value can be. When getting this property you should first check the hasMaximumValue property to see if this property applies. Also, the isMaximumValueInclusive indicates if the maximum includes this value or will be up to this value.")
+    hasMaximumValue = property(_get_hasMaximumValue, _set_hasMaximumValue,
+                               doc="Gets and sets if there is a maximum value for this command input. When setting this property, it is only valid to set it to False to remove the maximum value. Setting the maximumValue property will result in this property being set to True.")
+    isMaximumValueInclusive = property(_get_isMaximumValueInclusive, _set_isMaximumValueInclusive,
+                                       doc="Gets and sets if the value of the input includes the maximum value or is up to the maximum value. For example, if the maximum value is 100 and this property is True, the maximum value can be 100. If this is False, the minimum value must be less than 100. When the maximum value is first defined using the maximumValue property, this property is set to True. The value returned by this property is only meaninful when the hasMaximumValue property returns True.")
+    manipulatorOrigin = property(_get_manipulatorOrigin, None,
+                                 doc="Gets the origin point of the manipulator in the model space of the root component. To set the origin use the setManipulator method.")
+    manipulatorDirection = property(_get_manipulatorDirection, None,
+                                    doc="Gets the positive direction of the manipulator in the model space or the root component. To set the direction use the setManipulator method.")
+    isValidExpression = property(_get_isValidExpression, None,
+                                 doc="Returns true if the current expression is valid and can be evaluated. If this is false, the value returned should be ignored because there currently is not a valid value.")
+
 
 class DocumentEvent(Event):
     """
     A DocumentEvent represents a document related event. For example, DocumentOpening or DocumentOpened.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return DocumentEvent()
-    def add(handler):
+
+    def add(self, handler):
         """
         Add a handler to be notified when the file event occurs.
         handler : The handler object to be called when this event is fired.
         Returns true if the addition of the handler was successful.
         """
         return bool()
-    def remove(handler):
+
+    def remove(self, handler):
         """
         Removes a handler from the event.
         handler : The handler object to be removed from the event.
@@ -7430,101 +9614,148 @@ class DocumentEvent(Event):
         """
         return bool()
 
+
 class DocumentEventArgs(EventArgs):
     """
     The DocumentEventArgs provides information associated with a document event. Note that some properties are not available on every event - for example, the Document is not available on the DocumentOpening event because the Document is not yet available.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return DocumentEventArgs()
+
     def _get_document(self):
         return Document()
+
     def _get_fullPath(self):
         return str()
-    document = property(_get_document, None, doc="Provides access to the document that is open. Can be null in the case where the event is fired before the document has been opened or after it has been closed.")
+
+    document = property(_get_document, None,
+                        doc="Provides access to the document that is open. Can be null in the case where the event is fired before the document has been opened or after it has been closed.")
     fullPath = property(_get_fullPath, None, doc="The full path to the file.")
+
 
 class DropDownCommandInput(CommandInput):
     """
     Provides a command input to get the choice in a dropdown list from the user.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return DropDownCommandInput()
+
     def _get_dropDownStyle(self):
         return DropDownStyles()
+
     def _get_listItems(self):
         return ListItems()
+
     def _get_selectedItem(self):
         return ListItem()
+
     def _set_maxVisibleItems(self, maxVisibleItems):
         pass
+
     def _get_maxVisibleItems(self):
         return int()
+
     dropDownStyle = property(_get_dropDownStyle, None, doc="Returns the style of drop down this was created as.")
-    listItems = property(_get_listItems, None, doc="Returns the ListItems object associated with this drop-down. You use this object to populate and interact with the items in the drop-down.")
-    selectedItem = property(_get_selectedItem, None, doc="Gets the item in the list that is currently selected. This can return null in the case where no item in the list has been selected. This should be ignored for CheckBoxDropDownStyle style drop-downs because multiple items can be selected and each LiteItem should be checked individually.")
-    maxVisibleItems = property(_get_maxVisibleItems, _set_maxVisibleItems, doc="Gets or sets the maximum allowed size on screen of the drop down list, measured in items.")
+    listItems = property(_get_listItems, None,
+                         doc="Returns the ListItems object associated with this drop-down. You use this object to populate and interact with the items in the drop-down.")
+    selectedItem = property(_get_selectedItem, None,
+                            doc="Gets the item in the list that is currently selected. This can return null in the case where no item in the list has been selected. This should be ignored for CheckBoxDropDownStyle style drop-downs because multiple items can be selected and each LiteItem should be checked individually.")
+    maxVisibleItems = property(_get_maxVisibleItems, _set_maxVisibleItems,
+                               doc="Gets or sets the maximum allowed size on screen of the drop down list, measured in items.")
+
 
 class DropDownControl(ToolbarControl):
     """
     Represents a drop-down control.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return DropDownControl()
+
     def _get_controls(self):
         return ToolbarControls()
+
     def _set_resourceFolder(self, resourceFolder):
         pass
+
     def _get_resourceFolder(self):
         return str()
+
     def _set_name(self, name):
         pass
+
     def _get_name(self):
         return str()
-    controls = property(_get_controls, None, doc="Gets the associated ToolbarControls collection. Through this you can add additional controls to the drop-down.")
-    resourceFolder = property(_get_resourceFolder, _set_resourceFolder, doc="Gets or sets the resource folder containing the image used for the icon when the drop-down is in a toolbar.")
-    name = property(_get_name, _set_name, doc="Gets or sets the Name displayed for this drop down. This isn't used when the drop-down is in a toolbar because an icon is used in that case.")
+
+    controls = property(_get_controls, None,
+                        doc="Gets the associated ToolbarControls collection. Through this you can add additional controls to the drop-down.")
+    resourceFolder = property(_get_resourceFolder, _set_resourceFolder,
+                              doc="Gets or sets the resource folder containing the image used for the icon when the drop-down is in a toolbar.")
+    name = property(_get_name, _set_name,
+                    doc="Gets or sets the Name displayed for this drop down. This isn't used when the drop-down is in a toolbar because an icon is used in that case.")
+
 
 class DXF2DImportOptions(ImportOptions):
     """
     Defines that a 2D DXF Import to create sketches (based on layers in the DXF file) is to be performed and specifies the various options.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return DXF2DImportOptions()
+
     def _set_planarEntity(self, planarEntity):
         pass
+
     def _get_planarEntity(self):
         return Base()
+
     def _set_position(self, position):
         pass
+
     def _get_position(self):
         return Point2D()
+
     def _get_results(self):
         return ObjectCollection()
-    planarEntity = property(_get_planarEntity, _set_planarEntity, doc="Gets and sets the construction plane or planar face that defines the plane that the resulting sketches will be created on.")
-    position = property(_get_position, _set_position, doc="Gets and sets the X,Y offset position for the origin of the imported DXF data relative to the sketch origin. This defaults to (0,0) in a newly created DXF2DImportOptions object.")
-    results = property(_get_results, None, doc="Returns a collection of Sketch objects. A sketch is created for each layer in the dxf file that contains 2D geometry. Any 3D geometry contained in the DXF file is ignored. The names of the resulting sketches correspond to the layer names in the DXF file. Currently, the only way to get a single sketch as a result is to supply a DXF file that only has 2D geometry on a single layer.")
+
+    planarEntity = property(_get_planarEntity, _set_planarEntity,
+                            doc="Gets and sets the construction plane or planar face that defines the plane that the resulting sketches will be created on.")
+    position = property(_get_position, _set_position,
+                        doc="Gets and sets the X,Y offset position for the origin of the imported DXF data relative to the sketch origin. This defaults to (0,0) in a newly created DXF2DImportOptions object.")
+    results = property(_get_results, None,
+                       doc="Returns a collection of Sketch objects. A sketch is created for each layer in the dxf file that contains 2D geometry. Any 3D geometry contained in the DXF file is ignored. The names of the resulting sketches correspond to the layer names in the DXF file. Currently, the only way to get a single sketch as a result is to supply a DXF file that only has 2D geometry on a single layer.")
+
 
 class Ellipse2D(Curve2D):
     """
     Transient 2D ellipse. A transient ellipse is not displayed or saved in a document. Transient 2D ellipses are used as a wrapper to work with raw 2D ellipse information. They are created statically using the create method of the Ellipse2D class.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return Ellipse2D()
+
     @staticmethod
     def create(center, majorAxis, majorRadius, minorRadius):
         """
@@ -7536,31 +9767,42 @@ class Ellipse2D(Curve2D):
         Returns the new Ellipse 2D object or null if the creation failed.
         """
         return Ellipse2D()
+
     def _set_center(self, center):
         pass
+
     def _get_center(self):
         return Point2D()
+
     def _set_majorAxis(self, majorAxis):
         pass
+
     def _get_majorAxis(self):
         return Vector2D()
+
     def _set_majorRadius(self, majorRadius):
         pass
+
     def _get_majorRadius(self):
         return float()
+
     def _set_minorRadius(self, minorRadius):
         pass
+
     def _get_minorRadius(self):
         return float()
+
     def _get_asNurbsCurve(self):
         return NurbsCurve2D()
-    def copy():
+
+    def copy(self):
         """
         Creates and returns a copy of this Ellipse2D object.
         Returns a new Ellipse2D object that is a copy of this Ellipse2D object.
         """
         return Ellipse2D()
-    def getData():
+
+    def getData(self):
         """
         Gets all of the data defining the ellipse.
         center : The output center point of the ellipse.
@@ -7569,8 +9811,9 @@ class Ellipse2D(Curve2D):
         minorRadius : The output minor radius of the of the ellipse.
         Returns true if successful.
         """
-        return (bool(), Point2D(), Vector2D(), float(), float())
-    def set(center, majorAxis, majorRadius, minorRadius):
+        return bool(), Point2D(), Vector2D(), float(), float()
+
+    def set(self, center, majorAxis, majorRadius, minorRadius):
         """
         Sets all of the data defining the ellipse.
         center : A Point2D object that defines the center of the ellipse.
@@ -7580,21 +9823,27 @@ class Ellipse2D(Curve2D):
         Returns true if redefining the ellipse is successful.
         """
         return bool()
+
     center = property(_get_center, _set_center, doc="Gets and sets the center position of the ellipse.")
     majorAxis = property(_get_majorAxis, _set_majorAxis, doc="Gets and sets the major axis of the ellipse.")
     majorRadius = property(_get_majorRadius, _set_majorRadius, doc="Gets and sets the major radius of the ellipse.")
     minorRadius = property(_get_minorRadius, _set_minorRadius, doc="Gets and sets the minor radius of the ellipse.")
-    asNurbsCurve = property(_get_asNurbsCurve, None, doc="Returns a NURBS curve that is geometrically identical to the ellipse.")
+    asNurbsCurve = property(_get_asNurbsCurve, None,
+                            doc="Returns a NURBS curve that is geometrically identical to the ellipse.")
+
 
 class Ellipse3D(Curve3D):
     """
     Transient 3D ellipse. A transient ellipse is n0t displayed or saved in a document. Transient 3D ellipses are used as a wrapper to work with raw 3D ellipse information. They are created statically using the create method of the Ellipse3D class.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return Ellipse3D()
+
     @staticmethod
     def create(center, normal, majorAxis, majorRadius, minorRadius):
         """
@@ -7607,33 +9856,45 @@ class Ellipse3D(Curve3D):
         Returns the new Ellipse 3D object or null if the creation failed.
         """
         return Ellipse3D()
+
     def _set_center(self, center):
         pass
+
     def _get_center(self):
         return Point3D()
+
     def _get_normal(self):
         return Vector3D()
+
     def _set_majorAxis(self, majorAxis):
         pass
+
     def _get_majorAxis(self):
         return Vector3D()
+
     def _set_majorRadius(self, majorRadius):
         pass
+
     def _get_majorRadius(self):
         return float()
+
     def _set_minorRadius(self, minorRadius):
         pass
+
     def _get_minorRadius(self):
         return float()
+
     def _get_asNurbsCurve(self):
         return NurbsCurve3D()
-    def copy():
+
+    def copy(self):
         """
         Creates a copy of this Ellipse3D object.
         Returns the independent copy of the ellipse.
         """
         return Ellipse3D()
-    def getData():
+
+    def getData(self):
         """
         Gets all of the data defining the ellipse.
         center : The output center point of the ellipse.
@@ -7643,8 +9904,9 @@ class Ellipse3D(Curve3D):
         minorRadius : The output minor radius of the of the ellipse.
         Returns true if successful.
         """
-        return (bool(), Point3D(), Vector3D(), Vector3D(), float(), float())
-    def set(center, normal, majorAxis, majorRadius, minorRadius):
+        return bool(), Point3D(), Vector3D(), Vector3D(), float(), float()
+
+    def set(self, center, normal, majorAxis, majorRadius, minorRadius):
         """
         Sets all of the data defining the ellipse.
         center : The center point of the ellipse.
@@ -7655,22 +9917,28 @@ class Ellipse3D(Curve3D):
         Returns true if successful.
         """
         return bool()
+
     center = property(_get_center, _set_center, doc="Gets and sets the center position of the ellipse.")
     normal = property(_get_normal, None, doc="Gets and sets the normal of the ellipse.")
     majorAxis = property(_get_majorAxis, _set_majorAxis, doc="Gets and sets the major axis of the ellipse.")
     majorRadius = property(_get_majorRadius, _set_majorRadius, doc="Gets and sets the major radius of the ellipse.")
     minorRadius = property(_get_minorRadius, _set_minorRadius, doc="Gets and sets the minor radius of the ellipse.")
-    asNurbsCurve = property(_get_asNurbsCurve, None, doc="Returns a NURBS curve that is geometrically identical to the ellipse.")
+    asNurbsCurve = property(_get_asNurbsCurve, None,
+                            doc="Returns a NURBS curve that is geometrically identical to the ellipse.")
+
 
 class EllipticalArc2D(Curve2D):
     """
     Transient 2D elliptical arc. A transient elliptical arc is not displayed or saved in a document. Transient 2D elliptical arcs are used as a wrapper to work with raw 2D elliptical arc information. They are created statically using the create method of the EllipticalArc2D class.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return EllipticalArc2D()
+
     @staticmethod
     def create(center, majorAxis, majorRadius, minorRadius, startAngle, endAngle):
         """
@@ -7684,47 +9952,66 @@ class EllipticalArc2D(Curve2D):
         Returns the newly created elliptical arc or null if the creation failed.
         """
         return EllipticalArc2D()
+
     def _set_center(self, center):
         pass
+
     def _get_center(self):
         return Point2D()
+
     def _set_majorAxis(self, majorAxis):
         pass
+
     def _get_majorAxis(self):
         return Vector2D()
+
     def _set_majorRadius(self, majorRadius):
         pass
+
     def _get_majorRadius(self):
         return float()
+
     def _set_minorRadius(self, minorRadius):
         pass
+
     def _get_minorRadius(self):
         return float()
+
     def _set_startAngle(self, startAngle):
         pass
+
     def _get_startAngle(self):
         return float()
+
     def _set_endAngle(self, endAngle):
         pass
+
     def _get_endAngle(self):
         return float()
+
     def _get_isClockwise(self):
         return bool()
+
     def _get_isCircular(self):
         return bool()
+
     def _get_startPoint(self):
         return Point2D()
+
     def _get_endPoint(self):
         return Point2D()
+
     def _get_asNurbsCurve(self):
         return NurbsCurve2D()
-    def copy():
+
+    def copy(self):
         """
         Creates and returns a copy of this EllipticalArc2D object.
         Returns a new EllipticalArc2D object that is a copy of this Arc2D object.
         """
         return EllipticalArc2D()
-    def getData():
+
+    def getData(self):
         """
         Gets all of the data defining the elliptical arc.
         center : The output center point of the elliptical arc.
@@ -7735,8 +10022,9 @@ class EllipticalArc2D(Curve2D):
         endAngle : The output end angle of the elliptical arc in radians, where 0 is along the major axis.
         Returns true if successful
         """
-        return (bool(), Point2D(), Vector2D(), float(), float(), float(), float())
-    def set(center, majorAxis, majorRadius, minorRadius, startAngle, endAngle):
+        return bool(), Point2D(), Vector2D(), float(), float(), float(), float()
+
+    def set(self, center, majorAxis, majorRadius, minorRadius, startAngle, endAngle):
         """
         center : A Point2D object that defines the center of the elliptical arc.
         majorAxis : The major axis of the elliptical arc.
@@ -7747,27 +10035,39 @@ class EllipticalArc2D(Curve2D):
         Returns true if redefining the elliptical arc is successful
         """
         return bool()
+
     center = property(_get_center, _set_center, doc="Gets and sets the center position of the elliptical arc.")
     majorAxis = property(_get_majorAxis, _set_majorAxis, doc="Gets and sets the major axis of the elliptical arc.")
-    majorRadius = property(_get_majorRadius, _set_majorRadius, doc="Gets and sets the major radius of the elliptical arc.")
-    minorRadius = property(_get_minorRadius, _set_minorRadius, doc="Gets and sets the minor radius of the elliptical arc.")
-    startAngle = property(_get_startAngle, _set_startAngle, doc="Gets and sets the start angle of the elliptical arc in radians, where 0 is along the major axis.")
-    endAngle = property(_get_endAngle, _set_endAngle, doc="Gets and sets the end angle of the elliptical arc in radians, where 0 is along the major axis.")
-    isClockwise = property(_get_isClockwise, None, doc="Indicates if the sweep direction of the elliptical arc is clockwise or counterclockwise.")
-    isCircular = property(_get_isCircular, None, doc="Indicates if the elliptical arc is the geometric equivalent of a circular arc")
+    majorRadius = property(_get_majorRadius, _set_majorRadius,
+                           doc="Gets and sets the major radius of the elliptical arc.")
+    minorRadius = property(_get_minorRadius, _set_minorRadius,
+                           doc="Gets and sets the minor radius of the elliptical arc.")
+    startAngle = property(_get_startAngle, _set_startAngle,
+                          doc="Gets and sets the start angle of the elliptical arc in radians, where 0 is along the major axis.")
+    endAngle = property(_get_endAngle, _set_endAngle,
+                        doc="Gets and sets the end angle of the elliptical arc in radians, where 0 is along the major axis.")
+    isClockwise = property(_get_isClockwise, None,
+                           doc="Indicates if the sweep direction of the elliptical arc is clockwise or counterclockwise.")
+    isCircular = property(_get_isCircular, None,
+                          doc="Indicates if the elliptical arc is the geometric equivalent of a circular arc")
     startPoint = property(_get_startPoint, None, doc="Gets the position of the start point of the elliptical arc.")
     endPoint = property(_get_endPoint, None, doc="Gets the position of the end point of the elliptical arc.")
-    asNurbsCurve = property(_get_asNurbsCurve, None, doc="Returns a NURBS curve that is geometrically identical to the elliptical arc.")
+    asNurbsCurve = property(_get_asNurbsCurve, None,
+                            doc="Returns a NURBS curve that is geometrically identical to the elliptical arc.")
+
 
 class EllipticalArc3D(Curve3D):
     """
     Transient 3D elliptical arc. A transient elliptical arc is not displayed or saved in a document. Transient 3D elliptical arcs are used as a wrapper to work with raw 3D elliptical arc information. They are created statically using the create method of the EllipticalArc3D class.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return EllipticalArc3D()
+
     @staticmethod
     def create(center, normal, majorAxis, majorRadius, minorRadius, startAngle, endAngle):
         """
@@ -7782,41 +10082,57 @@ class EllipticalArc3D(Curve3D):
         Returns the newly created elliptical arc or null if the creation failed.
         """
         return EllipticalArc3D()
+
     def _set_center(self, center):
         pass
+
     def _get_center(self):
         return Point3D()
+
     def _get_normal(self):
         return Vector3D()
+
     def _set_majorAxis(self, majorAxis):
         pass
+
     def _get_majorAxis(self):
         return Vector3D()
+
     def _set_majorRadius(self, majorRadius):
         pass
+
     def _get_majorRadius(self):
         return float()
+
     def _set_minorRadius(self, minorRadius):
         pass
+
     def _get_minorRadius(self):
         return float()
+
     def _set_startAngle(self, startAngle):
         pass
+
     def _get_startAngle(self):
         return float()
+
     def _set_endAngle(self, endAngle):
         pass
+
     def _get_endAngle(self):
         return float()
+
     def _get_asNurbsCurve(self):
         return NurbsCurve3D()
-    def copy():
+
+    def copy(self):
         """
         Creates and returns a copy of this EllipticalArc3D object.
         Returns a new EllipticalArc3D object that is a copy of this Arc3D object.
         """
         return EllipticalArc3D()
-    def getData():
+
+    def getData(self):
         """
         Gets all of the data defining the elliptical arc.
         center : The output center point of the elliptical arc.
@@ -7828,8 +10144,9 @@ class EllipticalArc3D(Curve3D):
         endAngle : The output end angle of the elliptical arc in radians, where 0 is along the major axis.
         Returns true if successful.
         """
-        return (bool(), Point3D(), Vector3D(), Vector3D(), float(), float(), float(), float())
-    def set(center, normal, majorAxis, majorRadius, minorRadius, startAngle, endAngle):
+        return bool(), Point3D(), Vector3D(), Vector3D(), float(), float(), float(), float()
+
+    def set(self, center, normal, majorAxis, majorRadius, minorRadius, startAngle, endAngle):
         """
         Sets all of the data defining the elliptical arc.
         center : The center point of the elliptical arc.
@@ -7842,24 +10159,32 @@ class EllipticalArc3D(Curve3D):
         Returns true if successful.
         """
         return bool()
+
     center = property(_get_center, _set_center, doc="Gets and sets the center point of the elliptical arc.")
     normal = property(_get_normal, None, doc="Gets and sets the normal of the elliptical arc.")
     majorAxis = property(_get_majorAxis, _set_majorAxis, doc="Gets and sets the major axis of the elliptical arc.")
-    majorRadius = property(_get_majorRadius, _set_majorRadius, doc="Gets and sets the major radius of the elliptical arc.")
-    minorRadius = property(_get_minorRadius, _set_minorRadius, doc="Gets and sets the minor radius of the elliptical arc.")
+    majorRadius = property(_get_majorRadius, _set_majorRadius,
+                           doc="Gets and sets the major radius of the elliptical arc.")
+    minorRadius = property(_get_minorRadius, _set_minorRadius,
+                           doc="Gets and sets the minor radius of the elliptical arc.")
     startAngle = property(_get_startAngle, _set_startAngle, doc="Gets and sets the start angle of the elliptical arc.")
     endAngle = property(_get_endAngle, _set_endAngle, doc="Gets and sets the end angle of the elliptical arc.")
-    asNurbsCurve = property(_get_asNurbsCurve, None, doc="Returns a NURBS curve that is geometrically identical to the elliptical arc.")
+    asNurbsCurve = property(_get_asNurbsCurve, None,
+                            doc="Returns a NURBS curve that is geometrically identical to the elliptical arc.")
+
 
 class EllipticalCone(Surface):
     """
     Transient elliptical cone. A transient elliptical cone is not displayed or saved in a document. A transient elliptical cone is used as a wrapper to work with raw elliptical cone information. A transient elliptical cone has no boundaries. The cone always goes to a point in its narrowing direction, and is infinite in its widening direction. They are created statically using the create method of the EllipticalCone class.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return EllipticalCone()
+
     @staticmethod
     def create(origin, axis, majorAxisDirection, majorRadius, minorRadius, halfAngle):
         """
@@ -7873,30 +10198,40 @@ class EllipticalCone(Surface):
         Returns the new EllipticalCone object or null if the creation failed.
         """
         return EllipticalCone()
+
     def _set_origin(self, origin):
         pass
+
     def _get_origin(self):
         return Point3D()
+
     def _set_majorRadius(self, majorRadius):
         pass
+
     def _get_majorRadius(self):
         return float()
+
     def _set_minorRadius(self, minorRadius):
         pass
+
     def _get_minorRadius(self):
         return float()
+
     def _set_halfAngle(self, halfAngle):
         pass
+
     def _get_halfAngle(self):
         return float()
-    def getAxes():
+
+    def getAxes(self):
         """
         Gets the center axis of the cone that defines its normal direction and the major axis direction of the ellipse that defines it.
         axis : The output center axis (along the length) of the cone that defines its normal direction.
         majorAxisDirection : The output direction of the major axis of the ellipse that defines the cone.
         """
-        return (Void(), Vector3D(), Vector3D())
-    def setAxes(axis, majorAxisDirection):
+        return Vector3D(), Vector3D()
+
+    def setAxes(self, axis, majorAxisDirection):
         """
         Sets the center axis of the cone and the major axis direction of the ellipse that defines it.
         axis : The center axis (along the length) of the cone that defines its normal direction.
@@ -7904,7 +10239,8 @@ class EllipticalCone(Surface):
         Returns true if successful.
         """
         return bool()
-    def getData():
+
+    def getData(self):
         """
         Gets the data that defines the Elliptical Cone.
         origin : The output origin point (center) of the base of the cone.
@@ -7915,8 +10251,9 @@ class EllipticalCone(Surface):
         halfAngle : The output taper half-angle of the cone.
         Returns true if successful.
         """
-        return (bool(), Point3D(), Vector3D(), Vector3D(), float(), float(), float())
-    def set(origin, axis, majorAxisDirection, majorRadius, minorRadius, halfAngle):
+        return bool(), Point3D(), Vector3D(), Vector3D(), float(), float(), float()
+
+    def set(self, origin, axis, majorAxisDirection, majorRadius, minorRadius, halfAngle):
         """
         Sets the data that defines the Elliptical Cone.
         origin : The origin point (center) of the base of the cone.
@@ -7928,26 +10265,35 @@ class EllipticalCone(Surface):
         Returns true if successful.
         """
         return bool()
-    def copy():
+
+    def copy(self):
         """
         Creates and returns an independent copy of this EllipticalCone object.
         Returns a new EllipticalCone object that is a copy of this EllipticalCone object.
         """
         return EllipticalCone()
+
     origin = property(_get_origin, _set_origin, doc="Gets and sets the origin point (center) of the base of the cone.")
-    majorRadius = property(_get_majorRadius, _set_majorRadius, doc="Gets and sets the major radius of the ellipse that defines the cone.")
-    minorRadius = property(_get_minorRadius, _set_minorRadius, doc="Gets and sets the minor radius of the ellipse that defines the cone.")
-    halfAngle = property(_get_halfAngle, _set_halfAngle, doc="Gets and sets the taper half-angle of the elliptical cone. A negative value indicates that the cone is narrowing in the direction of the axis vector, whereas a positive values indicates that it is expanding in the direction of the axis vector.")
+    majorRadius = property(_get_majorRadius, _set_majorRadius,
+                           doc="Gets and sets the major radius of the ellipse that defines the cone.")
+    minorRadius = property(_get_minorRadius, _set_minorRadius,
+                           doc="Gets and sets the minor radius of the ellipse that defines the cone.")
+    halfAngle = property(_get_halfAngle, _set_halfAngle,
+                         doc="Gets and sets the taper half-angle of the elliptical cone. A negative value indicates that the cone is narrowing in the direction of the axis vector, whereas a positive values indicates that it is expanding in the direction of the axis vector.")
+
 
 class EllipticalCylinder(Surface):
     """
     Transient elliptical cylinder. A transient elliptical cylinder is not displayed or saved in a document. A transient elliptical cylinder is used as a wrapper to work with raw elliptical cylinder information. A transient elliptical cylinder has no boundaries and is infinite in length. They are created statically using the create method of the EllipticalCylinder class.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return EllipticalCylinder()
+
     @staticmethod
     def create(origin, axis, majorAxis, majorRadius, minorRadius):
         """
@@ -7960,27 +10306,38 @@ class EllipticalCylinder(Surface):
         Returns the new EllipticalCylinder object or null if the creation failed.
         """
         return EllipticalCylinder()
+
     def _set_origin(self, origin):
         pass
+
     def _get_origin(self):
         return Point3D()
+
     def _set_axis(self, axis):
         pass
+
     def _get_axis(self):
         return Vector3D()
+
     def _set_majorAxis(self, majorAxis):
         pass
+
     def _get_majorAxis(self):
         return Vector3D()
+
     def _set_majorRadius(self, majorRadius):
         pass
+
     def _get_majorRadius(self):
         return float()
+
     def _set_minorRadius(self, minorRadius):
         pass
+
     def _get_minorRadius(self):
         return float()
-    def getData():
+
+    def getData(self):
         """
         Gets the data defining the elliptical cylinder.
         origin : The output origin point (center) of the base of the cylinder.
@@ -7990,8 +10347,9 @@ class EllipticalCylinder(Surface):
         minorRadius : The output minor radius of the ellipse that defines the cylinder.
         Returns true if successful.
         """
-        return (bool(), Point3D(), Vector3D(), Vector3D(), float(), float())
-    def set(origin, axis, majorAxis, majorRadius, minorRadius):
+        return bool(), Point3D(), Vector3D(), Vector3D(), float(), float()
+
+    def set(self, origin, axis, majorAxis, majorRadius, minorRadius):
         """
         Sets the data defining the elliptical cylinder.
         origin : The origin point (center) of the base of the cylinder.
@@ -8002,73 +10360,106 @@ class EllipticalCylinder(Surface):
         Returns true if successful.
         """
         return bool()
-    def copy():
+
+    def copy(self):
         """
         Creates and returns an independent copy of this EllipticalCylinder object.
         Returns a new EllipticalCylinder object that is a copy of this EllipticalCylinder object.
         """
         return EllipticalCylinder()
-    origin = property(_get_origin, _set_origin, doc="Gets and sets the origin point (center) of the base of the cylinder.")
-    axis = property(_get_axis, _set_axis, doc="Gets and set the center axis (along the length) of the cylinder that defines its normal direction.")
-    majorAxis = property(_get_majorAxis, _set_majorAxis, doc="Gets and sets the direction of the major axis of the ellipse that defines the cylinder.")
-    majorRadius = property(_get_majorRadius, _set_majorRadius, doc="Gets and sets the major radius of the ellipse that defines the cylinder.")
-    minorRadius = property(_get_minorRadius, _set_minorRadius, doc="Gets and sets the minor radius of the ellipse that defines the cylinder.")
+
+    origin = property(_get_origin, _set_origin,
+                      doc="Gets and sets the origin point (center) of the base of the cylinder.")
+    axis = property(_get_axis, _set_axis,
+                    doc="Gets and set the center axis (along the length) of the cylinder that defines its normal direction.")
+    majorAxis = property(_get_majorAxis, _set_majorAxis,
+                         doc="Gets and sets the direction of the major axis of the ellipse that defines the cylinder.")
+    majorRadius = property(_get_majorRadius, _set_majorRadius,
+                           doc="Gets and sets the major radius of the ellipse that defines the cylinder.")
+    minorRadius = property(_get_minorRadius, _set_minorRadius,
+                           doc="Gets and sets the minor radius of the ellipse that defines the cylinder.")
+
 
 class FilenameProperty(Property):
     """
     A file name property associated with an appearance.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return FilenameProperty()
+
     def _get_hasMultipleValues(self):
         return bool()
+
     def _set_value(self, value):
         pass
+
     def _get_value(self):
         return str()
+
     def _set_values(self, values):
         pass
+
     def _get_values(self):
         return str()
-    hasMultipleValues = property(_get_hasMultipleValues, None, doc="Gets the boolean flag that indicates if this property has multiple values or not.")
+
+    hasMultipleValues = property(_get_hasMultipleValues, None,
+                                 doc="Gets the boolean flag that indicates if this property has multiple values or not.")
     value = property(_get_value, _set_value, doc="Gets and sets the value of this property.")
-    values = property(_get_values, _set_values, doc="Gets and sets the values associated with this property. HasMultipleValues property indicates if this property will be returning more than one value.")
+    values = property(_get_values, _set_values,
+                      doc="Gets and sets the values associated with this property. HasMultipleValues property indicates if this property will be returning more than one value.")
+
 
 class FloatProperty(Property):
     """
     A float or real value property associated with a material or appearance.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return FloatProperty()
+
     def _set_hasConnectedTexture(self, hasConnectedTexture):
         pass
+
     def _get_hasConnectedTexture(self):
         return bool()
+
     def _get_connectedTexture(self):
         return AppearanceTexture()
+
     def _get_hasLimits(self):
         return bool()
+
     def _get_hasMultipleValues(self):
         return bool()
+
     def _get_isPercentage(self):
         return bool()
+
     def _get_units(self):
         return str()
+
     def _set_value(self, value):
         pass
+
     def _get_value(self):
         return float()
+
     def _set_values(self, values):
         pass
+
     def _get_values(self):
         return float()
-    def getLimits():
+
+    def getLimits(self):
         """
         Method that returns any limits for the value of this property. The HasLimits property can be used to see if there are any limits or not.
         hasLowLimit : Output Boolean that indicates if there is a low limit or not.
@@ -8077,106 +10468,157 @@ class FloatProperty(Property):
         highLimit : If the hasHighLimit argument is true, this argument returns the high limit.
         Returns true if the method call was successful.
         """
-        return (bool(), bool(), float(), bool(), float())
-    hasConnectedTexture = property(_get_hasConnectedTexture, _set_hasConnectedTexture, doc="Gets and sets the boolean flag that indicates if the float value has been overridden using a texture. Setting this property to False will remove the texture so that a float value is used. Setting this property to True will connect a texture to this float value.")
-    connectedTexture = property(_get_connectedTexture, None, doc="Gets the associated texture, if one exists. The HasConnectedTexture property controls if there is an associated texture or not. If it's parent writable you can edit the texture. If no texture exists, this property will return Nothing.")
-    hasLimits = property(_get_hasLimits, None, doc="Gets the boolean flag that indicates if the value of this property has any limits it must be within to be valid. If True, use the GetLimits method to get the limit values.")
-    hasMultipleValues = property(_get_hasMultipleValues, None, doc="Gets the boolean flag that indicates if this property has multiple values or not.")
-    isPercentage = property(_get_isPercentage, None, doc="Gets the boolean flag that indicates that this property represents a percentage value so the valid values must be in the range of 0.0 to 1.0 unless they’re further limited by additional limits which can be determined with the HasLimits property.")
-    units = property(_get_units, None, doc="Gets the units that the value of this property is returned in. The String returned is a valid Fusion 360 unit string.")
-    value = property(_get_value, _set_value, doc="Gets and sets this property value. The value of this property should be ignored if the HasConnectedTexture property is true. Setting this will remove any associated texture, if there is one.")
-    values = property(_get_values, _set_values, doc="Gets and sets the values associated with this property. HasMultipleValues property indicates if this property will be returning more than one value.")
+        return bool(), bool(), float(), bool(), float()
+
+    hasConnectedTexture = property(_get_hasConnectedTexture, _set_hasConnectedTexture,
+                                   doc="Gets and sets the boolean flag that indicates if the float value has been overridden using a texture. Setting this property to False will remove the texture so that a float value is used. Setting this property to True will connect a texture to this float value.")
+    connectedTexture = property(_get_connectedTexture, None,
+                                doc="Gets the associated texture, if one exists. The HasConnectedTexture property controls if there is an associated texture or not. If it's parent writable you can edit the texture. If no texture exists, this property will return Nothing.")
+    hasLimits = property(_get_hasLimits, None,
+                         doc="Gets the boolean flag that indicates if the value of this property has any limits it must be within to be valid. If True, use the GetLimits method to get the limit values.")
+    hasMultipleValues = property(_get_hasMultipleValues, None,
+                                 doc="Gets the boolean flag that indicates if this property has multiple values or not.")
+    isPercentage = property(_get_isPercentage, None,
+                            doc="Gets the boolean flag that indicates that this property represents a percentage value so the valid values must be in the range of 0.0 to 1.0 unless they’re further limited by additional limits which can be determined with the HasLimits property.")
+    units = property(_get_units, None,
+                     doc="Gets the units that the value of this property is returned in. The String returned is a valid Fusion 360 unit string.")
+    value = property(_get_value, _set_value,
+                     doc="Gets and sets this property value. The value of this property should be ignored if the HasConnectedTexture property is true. Setting this will remove any associated texture, if there is one.")
+    values = property(_get_values, _set_values,
+                      doc="Gets and sets the values associated with this property. HasMultipleValues property indicates if this property will be returning more than one value.")
+
 
 class FloatSpinnerCommandInput(CommandInput):
     """
     Provides a command input to get the value of a spinner from the user, the value type is float.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return FloatSpinnerCommandInput()
+
     def _set_value(self, value):
         pass
+
     def _get_value(self):
         return float()
+
     def _get_unitType(self):
         return str()
+
     def _get_minimumValue(self):
         return float()
+
     def _get_maximumValue(self):
         return float()
+
     def _get_spinStep(self):
         return float()
+
     def _set_expression(self, expression):
         pass
+
     def _get_expression(self):
         return str()
+
     def _get_isValidExpression(self):
         return bool()
-    value = property(_get_value, _set_value, doc="Gets and sets the value associated with this input. The value is always in the database units of the unit type specified. For example, if the unit type is 'inch' this value is in centimeters since centimeters are the database length unit. When setting the value it is converted into a string using the unit type and displayed in the input box. The isValidExpression property should be checked before using this value within the command because if the expression can't be evaluated there isn't a valid value. Fusion 360 won't allow the execution of a command that contains ValueCommandInput object with invalid expressions so you can dependably use the value in the execute event of the command.")
+
+    value = property(_get_value, _set_value,
+                     doc="Gets and sets the value associated with this input. The value is always in the database units of the unit type specified. For example, if the unit type is 'inch' this value is in centimeters since centimeters are the database length unit. When setting the value it is converted into a string using the unit type and displayed in the input box. The isValidExpression property should be checked before using this value within the command because if the expression can't be evaluated there isn't a valid value. Fusion 360 won't allow the execution of a command that contains ValueCommandInput object with invalid expressions so you can dependably use the value in the execute event of the command.")
     unitType = property(_get_unitType, None, doc="Gets the unit type that is used when evaluating the user's input.")
-    minimumValue = property(_get_minimumValue, None, doc="Gets the minimum allowed value of the spinner in database units.")
-    maximumValue = property(_get_maximumValue, None, doc="Gets the maximum allowed value of the spinner in database units.")
-    spinStep = property(_get_spinStep, None, doc="Gets the spin step value in the unit type set by the unitType argument. The value should be more than zero. This is the amount the spinner will advance when the user clicks the spin button beside the value.")
-    expression = property(_get_expression, _set_expression, doc="Gets or sets the expression displayed in the input field. This can contain equations and references to parameters. It is evaluated using the specified unit type.")
-    isValidExpression = property(_get_isValidExpression, None, doc="Returns true if the current expression is valid and can be evaluated. If this is false, the value returned should be ignored because there currently is not a valid value.")
+    minimumValue = property(_get_minimumValue, None,
+                            doc="Gets the minimum allowed value of the spinner in database units.")
+    maximumValue = property(_get_maximumValue, None,
+                            doc="Gets the maximum allowed value of the spinner in database units.")
+    spinStep = property(_get_spinStep, None,
+                        doc="Gets the spin step value in the unit type set by the unitType argument. The value should be more than zero. This is the amount the spinner will advance when the user clicks the spin button beside the value.")
+    expression = property(_get_expression, _set_expression,
+                          doc="Gets or sets the expression displayed in the input field. This can contain equations and references to parameters. It is evaluated using the specified unit type.")
+    isValidExpression = property(_get_isValidExpression, None,
+                                 doc="Returns true if the current expression is valid and can be evaluated. If this is false, the value returned should be ignored because there currently is not a valid value.")
+
 
 class FusionArchiveImportOptions(ImportOptions):
     """
     Defines that a Fusion 360 Archive import is to be done and specifies the various options.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return FusionArchiveImportOptions()
+
 
 class GroupCommandInput(CommandInput):
     """
     Group Command inputs organize a set of command inputs into a collapsible list within a command dialog
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return GroupCommandInput()
+
     def _get_children(self):
         return CommandInputs()
+
     def _set_isExpanded(self, isExpanded):
         pass
+
     def _get_isExpanded(self):
         return bool()
+
     def _set_isEnabledCheckBoxDisplayed(self, isEnabledCheckBoxDisplayed):
         pass
+
     def _get_isEnabledCheckBoxDisplayed(self):
         return bool()
+
     def _set_isEnabledCheckBoxChecked(self, isEnabledCheckBoxChecked):
         pass
+
     def _get_isEnabledCheckBoxChecked(self):
         return bool()
-    children = property(_get_children, None, doc="Gets the CommandInputs collection for this GroupCommandInput. Use the add methods on this collection to add child CommandInputs to this Group in the desired order.")
-    isExpanded = property(_get_isExpanded, _set_isExpanded, doc="Gets or sets if this group is expanded. If this is a sub-group of another group and the isEnabledCheckBoxDisplayed property is set to false then the isExpanded property must be set to true.")
-    isEnabledCheckBoxDisplayed = property(_get_isEnabledCheckBoxDisplayed, _set_isEnabledCheckBoxDisplayed, doc="Gets or sets if this group has a checkbox for enabling/disabling the group. If this is a sub-group of another group and the isEnabledCheckBoxDisplayed property is set to false then the isExpanded property must be set to true.")
-    isEnabledCheckBoxChecked = property(_get_isEnabledCheckBoxChecked, _set_isEnabledCheckBoxChecked, doc="Gets or sets if the enabled check box is checked or not. This is only valid when the isEnabledCheckBoxDisplayed property is true.")
+
+    children = property(_get_children, None,
+                        doc="Gets the CommandInputs collection for this GroupCommandInput. Use the add methods on this collection to add child CommandInputs to this Group in the desired order.")
+    isExpanded = property(_get_isExpanded, _set_isExpanded,
+                          doc="Gets or sets if this group is expanded. If this is a sub-group of another group and the isEnabledCheckBoxDisplayed property is set to false then the isExpanded property must be set to true.")
+    isEnabledCheckBoxDisplayed = property(_get_isEnabledCheckBoxDisplayed, _set_isEnabledCheckBoxDisplayed,
+                                          doc="Gets or sets if this group has a checkbox for enabling/disabling the group. If this is a sub-group of another group and the isEnabledCheckBoxDisplayed property is set to false then the isExpanded property must be set to true.")
+    isEnabledCheckBoxChecked = property(_get_isEnabledCheckBoxChecked, _set_isEnabledCheckBoxChecked,
+                                        doc="Gets or sets if the enabled check box is checked or not. This is only valid when the isEnabledCheckBoxDisplayed property is true.")
+
 
 class HTMLEvent(Event):
     """
     A HTMLEvent is fired when triggered from JavaScript code associated with HTML used in a palette.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return HTMLEvent()
-    def add(handler):
+
+    def add(self, handler):
         """
         Add a handler to be notified when the event occurs.
         handler : The handler object to be called when this event is fired.
         Returns true if the addition of the handler was successful.
         """
         return bool()
-    def remove(handler):
+
+    def remove(self, handler):
         """
         Removes a handler from the event.
         handler : The handler object to be removed from the event.
@@ -8184,61 +10626,86 @@ class HTMLEvent(Event):
         """
         return bool()
 
+
 class HTMLEventArgs(EventArgs):
     """
     The HTMLEventArgs provides access to the information sent from the JavaScript that's associated with HTML being displayed within a palette.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return HTMLEventArgs()
+
     def _get_action(self):
         return str()
+
     def _get_data(self):
         return str()
+
     def _set_returnData(self, returnData):
         pass
+
     def _get_returnData(self):
         return str()
-    action = property(_get_action, None, doc="The action string sent from the JavaScript associated with HTML displayed in the palette. The string can represent any type of data in any format but JSON is commonly used to pass more complex data.")
-    data = property(_get_data, None, doc="The data string sent from the JavaScript associated with HTML displayed in the palette. The string can represent any type of data in any format but JSON is commonly used to pass more complex data.")
-    returnData = property(_get_returnData, _set_returnData, doc="Set this property to return data back to the JavaScript that's associated with the HTML.")
+
+    action = property(_get_action, None,
+                      doc="The action string sent from the JavaScript associated with HTML displayed in the palette. The string can represent any type of data in any format but JSON is commonly used to pass more complex data.")
+    data = property(_get_data, None,
+                    doc="The data string sent from the JavaScript associated with HTML displayed in the palette. The string can represent any type of data in any format but JSON is commonly used to pass more complex data.")
+    returnData = property(_get_returnData, _set_returnData,
+                          doc="Set this property to return data back to the JavaScript that's associated with the HTML.")
+
 
 class IGESImportOptions(ImportOptions):
     """
     Defines that an IGES import is to be done and specifies the various options.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return IGESImportOptions()
+
 
 class ImageCommandInput(CommandInput):
     """
     Provides an image command input for including an image in a command dialog.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return ImageCommandInput()
+
     def _set_imageFile(self, imageFile):
         pass
+
     def _get_imageFile(self):
         return str()
-    imageFile = property(_get_imageFile, _set_imageFile, doc="Gets and sets the full path and file name of the image file. Supported image format is .png Images are displayed in the command dialog using their actual size.")
+
+    imageFile = property(_get_imageFile, _set_imageFile,
+                         doc="Gets and sets the full path and file name of the image file. Supported image format is .png Images are displayed in the command dialog using their actual size.")
+
 
 class InfiniteLine3D(Curve3D):
     """
     Transient 3D infinite line. An infinite line is defined by a position and direction in space and has no start or end points. They are created statically using the create method of the InfiniteLine3D class.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return InfiniteLine3D()
+
     @staticmethod
     def create(origin, direction):
         """
@@ -8248,50 +10715,60 @@ class InfiniteLine3D(Curve3D):
         Returns the new InfiniteLine3D object or null if the creation failed.
         """
         return InfiniteLine3D()
+
     def _set_origin(self, origin):
         pass
+
     def _get_origin(self):
         return Point3D()
+
     def _set_direction(self, direction):
         pass
+
     def _get_direction(self):
         return Vector3D()
-    def isColinearTo(line):
+
+    def isColinearTo(self, line):
         """
         Compare this line with another to check for collinearity.
         line : The line to compare with for collinearity.
         Returns true if the two lines are collinear.
         """
         return bool()
-    def copy():
+
+    def copy(self):
         """
         Creates and returns a copy of this line object.
         Returns an independent copy of this line object.
         """
         return InfiniteLine3D()
-    def intersectWithCurve(curve):
+
+    def intersectWithCurve(self, curve):
         """
         Intersect this line with a curve to get the intersection point(s).
         curve : The intersecting curve. The curve can be a Line3D, InfininteLine3D, Circle3D, Arc3D, EllipticalArc3D, Ellipse3D, or NurbsCurve3D.
         Returns a collection of the intersection points.
         """
         return ObjectCollection()
-    def intersectWithSurface(surface):
+
+    def intersectWithSurface(self, surface):
         """
         Intersect this line with a surface to get the intersection point(s).
         surface : The intersecting surface. The surface can be a Plane, Cone, Cylinder, EllipticalCone, EllipticalCylinder, Sphere, Torus, or a NurbsSurface.
         Returns a collection of the intersection points.
         """
         return ObjectCollection()
-    def getData():
+
+    def getData(self):
         """
         Gets all of the data defining the infinite line.
         origin : The output origin point of the line.
         direction : The output direction of the line.
         Returns true if successful.
         """
-        return (bool(), Point3D(), Vector3D())
-    def set(origin, direction):
+        return bool(), Point3D(), Vector3D()
+
+    def set(self, origin, direction):
         """
         Sets all of the data defining the infinite line.
         origin : The origin point of the line.
@@ -8299,26 +10776,32 @@ class InfiniteLine3D(Curve3D):
         Returns true if successful.
         """
         return bool()
+
     origin = property(_get_origin, _set_origin, doc="Gets and sets the origin point of the line.")
     direction = property(_get_direction, _set_direction, doc="Gets and sets the direction of the line.")
+
 
 class InputChangedEvent(Event):
     """
     An event endpoint that supports the connection to client implemented InputChangedEventHandlers.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return InputChangedEvent()
-    def add(handler):
+
+    def add(self, handler):
         """
         Adds an event handler to this event endpoint.
         handler : The client implemented InputChangedEventHandler to be called when this event is triggered.
         Returns true if the handler was successfully added to the set of event handlers.
         """
         return bool()
-    def remove(handler):
+
+    def remove(self, handler):
         """
         Removes a handler from this event endpoint.
         handler : A InputChangedEventHandler that was previously added to this event with the add method.
@@ -8326,44 +10809,61 @@ class InputChangedEvent(Event):
         """
         return bool()
 
+
 class InputChangedEventArgs(EventArgs):
     """
     Provides a set of arguments from a firing InputChangedEvent to a InputEventChangedEventHandler's notify callback method.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return InputChangedEventArgs()
+
     def _get_input(self):
         return CommandInput()
+
     def _get_inputs(self):
         return CommandInputs()
+
     input = property(_get_input, None, doc="Returns the command input that has just changed.")
-    inputs = property(_get_inputs, None, doc="Returns the collection of command inputs that are associated with the command this event is being fired for.")
+    inputs = property(_get_inputs, None,
+                      doc="Returns the collection of command inputs that are associated with the command this event is being fired for.")
+
 
 class IntegerProperty(Property):
     """
     An integer value property associated with a material or appearance.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return IntegerProperty()
+
     def _get_hasLimits(self):
         return bool()
+
     def _get_hasMultipleValues(self):
         return bool()
+
     def _set_value(self, value):
         pass
+
     def _get_value(self):
         return int()
+
     def _set_values(self, values):
         pass
+
     def _get_values(self):
         return int()
-    def getLimits():
+
+    def getLimits(self):
         """
         Method that returns any limits for the value of this property. The HasLimits property can be used to see if there are any limits or not.
         hasLowLimit : Output Boolean that indicates if there is a low limit or not.
@@ -8372,53 +10872,73 @@ class IntegerProperty(Property):
         highLimit : If the hasHighLimit argument is true, this argument returns the high limit.
         Returns true if the method call was successful.
         """
-        return (bool(), bool(), int(), bool(), int())
-    hasLimits = property(_get_hasLimits, None, doc="Gets the boolean flag that indicates if the value of this property has any limits it must be within to be valid. If True, use the GetLimits method to get the limit values.")
-    hasMultipleValues = property(_get_hasMultipleValues, None, doc="Gets the boolean flag that indicates if this property has multiple values or not.")
-    value = property(_get_value, _set_value, doc="Gets and sets this property value. The value of this property should be ignored if the HasConnectedTexture property is true. Setting this will remove any associated texture, if there is one.")
-    values = property(_get_values, _set_values, doc="Gets and sets the values associated with this property. HasMultipleValues property indicates if this property will be returning more than one value.")
+        return bool(), bool(), int(), bool(), int()
+
+    hasLimits = property(_get_hasLimits, None,
+                         doc="Gets the boolean flag that indicates if the value of this property has any limits it must be within to be valid. If True, use the GetLimits method to get the limit values.")
+    hasMultipleValues = property(_get_hasMultipleValues, None,
+                                 doc="Gets the boolean flag that indicates if this property has multiple values or not.")
+    value = property(_get_value, _set_value,
+                     doc="Gets and sets this property value. The value of this property should be ignored if the HasConnectedTexture property is true. Setting this will remove any associated texture, if there is one.")
+    values = property(_get_values, _set_values,
+                      doc="Gets and sets the values associated with this property. HasMultipleValues property indicates if this property will be returning more than one value.")
+
 
 class IntegerSpinnerCommandInput(CommandInput):
     """
     Provides a command input to get the value of a spinner from the user, the value type is integer.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return IntegerSpinnerCommandInput()
+
     def _set_value(self, value):
         pass
+
     def _get_value(self):
         return int()
+
     def _get_minimumValue(self):
         return int()
+
     def _get_maximumValue(self):
         return int()
+
     def _get_spinStep(self):
         return int()
+
     value = property(_get_value, _set_value, doc="Gets and sets the value associated with this input.")
     minimumValue = property(_get_minimumValue, None, doc="Gets the minimum allowed value of the spinner.")
     maximumValue = property(_get_maximumValue, None, doc="Gets the maximum allowed value of the spinner.")
-    spinStep = property(_get_spinStep, None, doc="Gets the spin step. The value should be more than zero. This is the amount the spinner will advance when the user clicks the spin button beside the value.")
+    spinStep = property(_get_spinStep, None,
+                        doc="Gets the spin step. The value should be more than zero. This is the amount the spinner will advance when the user clicks the spin button beside the value.")
+
 
 class KeyboardEvent(Event):
     """
     An event endpoint that supports the connection to client implemented KeyboardEventHandlers.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return KeyboardEvent()
-    def add(handler):
+
+    def add(self, handler):
         """
         Adds an event handler to this event endpoint.
         handler : The client implemented KeyboardEventHandler to be called when this event is triggered.
         Returns true if the handler was successfully added to the set of event handlers.
         """
         return bool()
-    def remove(handler):
+
+    def remove(self, handler):
         """
         Removes a handler from this event endpoint.
         handler : A KeyboardEventHandler that was previously added to this event with the add method.
@@ -8426,31 +10946,42 @@ class KeyboardEvent(Event):
         """
         return bool()
 
+
 class KeyboardEventArgs(EventArgs):
     """
     Provides a set of arguments from a firing KeyboardEvent to a KeyboardEventHandler's notify callback method.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return KeyboardEventArgs()
+
     def _get_modifierMask(self):
         return int()
+
     def _get_keyCode(self):
         return KeyCodes()
-    modifierMask = property(_get_modifierMask, None, doc="Gets the set of keyboard modifiers that were active. The value is the Boolean combination of KeyboardModifiers values.")
+
+    modifierMask = property(_get_modifierMask, None,
+                            doc="Gets the set of keyboard modifiers that were active. The value is the Boolean combination of KeyboardModifiers values.")
     keyCode = property(_get_keyCode, None, doc="Gets the keyboard key.")
+
 
 class Line2D(Curve2D):
     """
     Transient 2D line. A transient line is not displayed or saved in a document. Transient 2D lines are used as a wrapper to work with raw 2D line information. They are created statically using the create method of the Line2D class.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return Line2D()
+
     @staticmethod
     def create(startPoint, endPoint):
         """
@@ -8460,31 +10991,39 @@ class Line2D(Curve2D):
         Returns the new Line2D object or null if the creation failed.
         """
         return Line2D()
+
     def _set_startPoint(self, startPoint):
         pass
+
     def _get_startPoint(self):
         return Point2D()
+
     def _set_endPoint(self, endPoint):
         pass
+
     def _get_endPoint(self):
         return Point2D()
+
     def _get_asNurbsCurve(self):
         return NurbsCurve2D()
-    def copy():
+
+    def copy(self):
         """
         Creates and returns a copy of this line object.
         Returns an independent copy of this line object.
         """
         return Line2D()
-    def getData():
+
+    def getData(self):
         """
         Gets all of the data defining the line segment.
         startPoint : The output start point of the line.
         endPoint : The output end point of the line.
         Returns true if successful.
         """
-        return (bool(), Point2D(), Point2D())
-    def set(startPoint, endPoint):
+        return bool(), Point2D(), Point2D()
+
+    def set(self, startPoint, endPoint):
         """
         Sets all of the data defining the line segment.
         startPoint : The start point of the line
@@ -8492,19 +11031,25 @@ class Line2D(Curve2D):
         Returns true if redefining the line is successful
         """
         return bool()
+
     startPoint = property(_get_startPoint, _set_startPoint, doc="Gets and sets the start point of the line.")
     endPoint = property(_get_endPoint, _set_endPoint, doc="Gets and sets the end point of the line.")
-    asNurbsCurve = property(_get_asNurbsCurve, None, doc="Returns a NURBS curve that is geometrically identical to the line.")
+    asNurbsCurve = property(_get_asNurbsCurve, None,
+                            doc="Returns a NURBS curve that is geometrically identical to the line.")
+
 
 class Line3D(Curve3D):
     """
     Transient 3D line. A transient line is not displayed or saved in a document. Transient 3D lines are used as a wrapper to work with raw 3D line information. They are created statically using the create method of the Line3D class.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return Line3D()
+
     @staticmethod
     def create(startPoint, endPoint):
         """
@@ -8514,58 +11059,70 @@ class Line3D(Curve3D):
         Returns the new Line3D object or null if the creation failed.
         """
         return Line3D()
+
     def _set_startPoint(self, startPoint):
         pass
+
     def _get_startPoint(self):
         return Point3D()
+
     def _set_endPoint(self, endPoint):
         pass
+
     def _get_endPoint(self):
         return Point3D()
+
     def _get_asNurbsCurve(self):
         return NurbsCurve3D()
-    def copy():
+
+    def copy(self):
         """
         Creates and returns a copy of this line object.
         Returns an independent copy of this line object.
         """
         return Line3D()
-    def asInfiniteLine():
+
+    def asInfiniteLine(self):
         """
         Creates an equivalent InfiniteLine3D.
         Returns an equivalent InfiniteLine3D
         """
         return InfiniteLine3D()
-    def isColinearTo(line):
+
+    def isColinearTo(self, line):
         """
         Compare this line with another to check for collinearity
         line : The line to compare with for collinearity
         Returns true if the two lines are collinear
         """
         return bool()
-    def intersectWithCurve(curve):
+
+    def intersectWithCurve(self, curve):
         """
         Intersect this line with a curve to get the intersection point(s).
         curve : The intersecting curve. The curve can be a Line3D, InfininteLine3D, Circle3D, Arc3D, EllipticalArc3D, Ellipse3D, or NurbsCurve3D.
         Returns a collection of the intersection points
         """
         return ObjectCollection()
-    def intersectWithSurface(surface):
+
+    def intersectWithSurface(self, surface):
         """
         Intersect this line with a surface to get the intersection point(s).
         surface : The intersecting surface. The surface can be a Plane, Cone, Cylinder, EllipticalCone, EllipticalCylinder, Sphere, Torus or a NurbsSurface.
         Returns a collection of the intersection points.
         """
         return ObjectCollection()
-    def getData():
+
+    def getData(self):
         """
         Gets all of the data defining the line segment.
         startPoint : The output start point of the line.
         endPoint : The output end point of the line.
         Returns true if successful.
         """
-        return (bool(), Point3D(), Point3D())
-    def set(startPoint, endPoint):
+        return bool(), Point3D(), Point3D()
+
+    def set(self, startPoint, endPoint):
         """
         Sets all of the data defining the line segment.
         startPoint : The start point of the line.
@@ -8573,46 +11130,63 @@ class Line3D(Curve3D):
         Returns true if successful.
         """
         return bool()
+
     startPoint = property(_get_startPoint, _set_startPoint, doc="Gets and sets the start point of the line.")
     endPoint = property(_get_endPoint, _set_endPoint, doc="Gets and sets the end point of the line.")
-    asNurbsCurve = property(_get_asNurbsCurve, None, doc="Returns a NURBS curve that is geometrically identical to the line.")
+    asNurbsCurve = property(_get_asNurbsCurve, None,
+                            doc="Returns a NURBS curve that is geometrically identical to the line.")
+
 
 class ListControlDefinition(ControlDefinition):
     """
     Represents the information used to define a list of check boxes, radio buttons, or text with icons. This class isn't the visible list control but is the information needed to create a list control and fully defines a list except for it's position within the user interface.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return ListControlDefinition()
+
     def _get_listItems(self):
         return ListItems()
+
     def _get_listControlDisplayType(self):
         return ListControlDisplayTypes()
+
     def _get_lastSelected(self):
         return ListItem()
-    listItems = property(_get_listItems, None, doc="Gets the associated ListControlItems collection through which you can add and modify items in the list.")
-    listControlDisplayType = property(_get_listControlDisplayType, None, doc="Gets how this list control will be displayed; as a standard list, a list of check boxes, or a list of radio buttons.")
-    lastSelected = property(_get_lastSelected, None, doc="Gets the item in the list that was last selected. This can return null in the case where this control is displayed as a list of check boxes and there hasn't been any interaction by the end-user. In the case of a list of check boxes, this returns the item that was last clicked by the user, whether it was to check or uncheck the item. In the case of a list of radio buttons, this always returns the item that is currently selected.")
+
+    listItems = property(_get_listItems, None,
+                         doc="Gets the associated ListControlItems collection through which you can add and modify items in the list.")
+    listControlDisplayType = property(_get_listControlDisplayType, None,
+                                      doc="Gets how this list control will be displayed; as a standard list, a list of check boxes, or a list of radio buttons.")
+    lastSelected = property(_get_lastSelected, None,
+                            doc="Gets the item in the list that was last selected. This can return null in the case where this control is displayed as a list of check boxes and there hasn't been any interaction by the end-user. In the case of a list of check boxes, this returns the item that was last clicked by the user, whether it was to check or uncheck the item. In the case of a list of radio buttons, this always returns the item that is currently selected.")
+
 
 class MarkingMenuEvent(Event):
     """
     A MarkingMenuEvent is fired when the marking menu and context menu are displayed. For example, in response to the markingMenuDisplaying event.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return MarkingMenuEvent()
-    def add(handler):
+
+    def add(self, handler):
         """
         Add a handler to be notified when the event occurs.
         handler : The handler object to be called when this event is fired.
         Returns true if the addition of the handler was successful.
         """
         return bool()
-    def remove(handler):
+
+    def remove(self, handler):
         """
         Removes a handler from the event.
         handler : The handler object to be removed from the event.
@@ -8620,42 +11194,55 @@ class MarkingMenuEvent(Event):
         """
         return bool()
 
+
 class MarkingMenuEventArgs(EventArgs):
     """
     The MarkingMenuEventArgs provides information associated with the marking and context menu being displayed.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return MarkingMenuEventArgs()
+
     def _get_radialMarkingMenu(self):
         return RadialMarkingMenu()
+
     def _get_linearMarkingMenu(self):
         return LinearMarkingMenu()
+
     def _get_selectedEntities(self):
         return Base()
+
     radialMarkingMenu = property(_get_radialMarkingMenu, None, doc="Provides access to the radial marking menu.")
     linearMarkingMenu = property(_get_linearMarkingMenu, None, doc="Provides access to the linear marking menu.")
-    selectedEntities = property(_get_selectedEntities, None, doc="Returns the currently selected entities that the user left-clicked over. These provide the 'context' of what should be displayed in the menu. This can be an empty array in the case where they clicked in a open area within the graphics window.")
+    selectedEntities = property(_get_selectedEntities, None,
+                                doc="Returns the currently selected entities that the user left-clicked over. These provide the 'context' of what should be displayed in the menu. This can be an empty array in the case where they clicked in a open area within the graphics window.")
+
 
 class MouseEvent(Event):
     """
     An event endpoint that supports the connection to client implemented MouseEventHandlers.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return MouseEvent()
-    def add(handler):
+
+    def add(self, handler):
         """
         Adds an event handler to this event endpoint.
         handler : The client implemented MouseEventHandler to be called when this event is triggered.
         Returns true if the handler was successfully added to the set of event handlers.
         """
         return bool()
-    def remove(handler):
+
+    def remove(self, handler):
         """
         Removes a handler from this event endpoint.
         handler : A MouseEventhandler that was previously added to this event with the add method.
@@ -8663,46 +11250,66 @@ class MouseEvent(Event):
         """
         return bool()
 
+
 class MouseEventArgs(EventArgs):
     """
     Provides a set of arguments from a firing MouseEvent to a MouseEventHandler's notify callback method.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return MouseEventArgs()
+
     def _get_button(self):
         return MouseButtons()
+
     def _get_clicks(self):
         return int()
+
     def _get_wheelDelta(self):
         return int()
+
     def _get_keyboardModifiers(self):
         return KeyboardModifiers()
+
     def _get_position(self):
         return Point2D()
+
     def _get_viewportPosition(self):
         return Point2D()
+
     def _get_viewport(self):
         return Viewport()
-    button = property(_get_button, None, doc="Gets which mouse button(s) are pressed. The returned value is bitwise and can indicate that more than one button is pressed.")
+
+    button = property(_get_button, None,
+                      doc="Gets which mouse button(s) are pressed. The returned value is bitwise and can indicate that more than one button is pressed.")
     clicks = property(_get_clicks, None, doc="Gets the number of times the button was pressed and released.")
-    wheelDelta = property(_get_wheelDelta, None, doc="Gets a signed count of the number of detents the mouse wheel has rotated.")
-    keyboardModifiers = property(_get_keyboardModifiers, None, doc="Gets which modifier keys are currently pressed. The returned value is bitwise and can indicate that more than one button is pressed.")
+    wheelDelta = property(_get_wheelDelta, None,
+                          doc="Gets a signed count of the number of detents the mouse wheel has rotated.")
+    keyboardModifiers = property(_get_keyboardModifiers, None,
+                                 doc="Gets which modifier keys are currently pressed. The returned value is bitwise and can indicate that more than one button is pressed.")
     position = property(_get_position, None, doc="Gets the coordinate of the mouse in screen space.")
-    viewportPosition = property(_get_viewportPosition, None, doc="Gets the coordinate of the mouse in viewport space, if the mouse is within a viewport. If the mouse is not over a viewport this property will return null.")
-    viewport = property(_get_viewport, None, doc="Returns the viewport where the mouse event occurred, if it was within a viewport. If the mouse is not over a viewport this property will return null.")
+    viewportPosition = property(_get_viewportPosition, None,
+                                doc="Gets the coordinate of the mouse in viewport space, if the mouse is within a viewport. If the mouse is not over a viewport this property will return null.")
+    viewport = property(_get_viewport, None,
+                        doc="Returns the viewport where the mouse event occurred, if it was within a viewport. If the mouse is not over a viewport this property will return null.")
+
 
 class NurbsCurve2D(Curve2D):
     """
     Transient 2D NURBS curve. A transient NURBS curve is not displayed or saved in a document. Transient 2D NURBS curves are used as a wrapper to work with raw 2D NURBS curve information. They are created statically using one of the create methods of the NurbsCurve2D class.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return NurbsCurve2D()
+
     @staticmethod
     def createNonRational(controlPoints, degree, knots, isPeriodic):
         """
@@ -8714,6 +11321,7 @@ class NurbsCurve2D(Curve2D):
         Returns the new NurbsCurve2D object or null if the creation failed.
         """
         return NurbsCurve2D()
+
     @staticmethod
     def createRational(controlPoints, degree, knots, weights, isPeriodic):
         """
@@ -8726,29 +11334,39 @@ class NurbsCurve2D(Curve2D):
         Returns the new NurbsCurve2D object or null if the creation failed.
         """
         return NurbsCurve2D()
+
     def _get_controlPointCount(self):
         return int()
+
     def _get_degree(self):
         return int()
+
     def _get_knotCount(self):
         return int()
+
     def _get_isRational(self):
         return bool()
+
     def _get_isClosed(self):
         return bool()
+
     def _get_isPeriodic(self):
         return bool()
+
     def _get_controlPoints(self):
         return Point2D()
+
     def _get_knots(self):
         return float()
-    def copy():
+
+    def copy(self):
         """
         Creates and returns an independent copy of this NurbsCurve2D object.
         Returns an independent copy of this NurbsCurve2D.
         """
         return NurbsCurve2D()
-    def getData():
+
+    def getData(self):
         """
         Gets the data that defines a transient 2D NURBS rational b-spline object.
         controlPoints : The output array of control point that define the path of the spline.
@@ -8759,8 +11377,9 @@ class NurbsCurve2D(Curve2D):
         isPeriodic : The output value indicating if the spline is Periodic. A periodic curve has a start point and end point that meet (with curvature continuity) forming a closed loop.
         Returns true if successful.
         """
-        return (bool(), Point2D(), int(), float(), bool(), float(), bool())
-    def set(controlPoints, degree, knots, isRational, weights, isPeriodic):
+        return bool(), Point2D(), int(), float(), bool(), float(), bool()
+
+    def set(self, controlPoints, degree, knots, isRational, weights, isPeriodic):
         """
         Sets the data that defines a transient 2D NURBS rational b-spline object.
         controlPoints : The array of control point that define the path of the spline
@@ -8772,7 +11391,8 @@ class NurbsCurve2D(Curve2D):
         Returns true if successful
         """
         return bool()
-    def extract(startParam, endParam):
+
+    def extract(self, startParam, endParam):
         """
         Defines a new nurbs curve that is the subset of this nurbs curve in the parameter range of [startParam, endParam]
         startParam : The parameter position of the start of the subset.
@@ -8780,31 +11400,39 @@ class NurbsCurve2D(Curve2D):
         Returns a new NurbsCurve2D object.
         """
         return NurbsCurve2D()
-    def merge(nurbsCurve):
+
+    def merge(self, nurbsCurve):
         """
         Define a new nurbs curve that is the result of combining this nurbs curve with another nurbs curve.
         nurbsCurve : The nurbs curve to combine with
         Returns a new NurbsCurve2D object.
         """
         return NurbsCurve2D()
-    controlPointCount = property(_get_controlPointCount, None, doc="Gets the number of control points that define the curve")
+
+    controlPointCount = property(_get_controlPointCount, None,
+                                 doc="Gets the number of control points that define the curve")
     degree = property(_get_degree, None, doc="Returns the degree of the curve")
     knotCount = property(_get_knotCount, None, doc="Returns the knot count of the curve")
     isRational = property(_get_isRational, None, doc="Indicates if the curve is rational or non-rational type")
     isClosed = property(_get_isClosed, None, doc="Indicates if the curve is closed")
     isPeriodic = property(_get_isPeriodic, None, doc="Indicates if the curve is periodic.")
-    controlPoints = property(_get_controlPoints, None, doc="Returns an array of Point2D objects that define the control points of the curve.")
+    controlPoints = property(_get_controlPoints, None,
+                             doc="Returns an array of Point2D objects that define the control points of the curve.")
     knots = property(_get_knots, None, doc="Returns an array of numbers that define the Knots of the curve.")
+
 
 class NurbsCurve3D(Curve3D):
     """
     Transient 3D NURBS curve. A transient NURBS curve is not displayed or saved in a document. Transient 3D NURBS curves are used as a wrapper to work with raw 3D NURBS curve information. They are created statically using one of the create methods of the NurbsCurve3D class.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return NurbsCurve3D()
+
     @staticmethod
     def createNonRational(controlPoints, degree, knots, isPeriodic):
         """
@@ -8816,6 +11444,7 @@ class NurbsCurve3D(Curve3D):
         Returns the new NurbsCurve3D object or null if the creation failed.
         """
         return NurbsCurve3D()
+
     @staticmethod
     def createRational(controlPoints, degree, knots, weights, isPeriodic):
         """
@@ -8828,23 +11457,32 @@ class NurbsCurve3D(Curve3D):
         Returns the new NurbsCurve3D object or null if the creation failed.
         """
         return NurbsCurve3D()
+
     def _get_controlPointCount(self):
         return int()
+
     def _get_degree(self):
         return int()
+
     def _get_knotCount(self):
         return int()
+
     def _get_isRational(self):
         return bool()
+
     def _get_isClosed(self):
         return bool()
+
     def _get_isPeriodic(self):
         return bool()
+
     def _get_controlPoints(self):
         return Point3D()
+
     def _get_knots(self):
         return float()
-    def getData():
+
+    def getData(self):
         """
         Gets the data that defines a transient 3D NURBS rational b-spline object.
         controlPoints : The output array of control point that define the path of the spline.
@@ -8855,8 +11493,9 @@ class NurbsCurve3D(Curve3D):
         isPeriodic : The output value indicating if the spline is Periodic. A periodic curve has a start point and end point that meet (with curvature continuity) forming a closed loop.
         Returns true if successful.
         """
-        return (bool(), Point3D(), int(), float(), bool(), float(), bool())
-    def set(controlPoints, degree, knots, isRational, weights, isPeriodic):
+        return bool(), Point3D(), int(), float(), bool(), float(), bool()
+
+    def set(self, controlPoints, degree, knots, isRational, weights, isPeriodic):
         """
         Sets the data that defines a transient 3D NURBS rational b-spline object.
         controlPoints : The array of control point that define the path of the spline.
@@ -8868,7 +11507,8 @@ class NurbsCurve3D(Curve3D):
         Returns true if successful.
         """
         return bool()
-    def extract(startParam, endParam):
+
+    def extract(self, startParam, endParam):
         """
         Defines a new nurbs curve that is the subset of this nurbs curve in the parameter range of [startParam, endParam]
         startParam : The parameter position that defines the start of the subset.
@@ -8876,39 +11516,49 @@ class NurbsCurve3D(Curve3D):
         Returns a new NurbsCurve3D object.
         """
         return NurbsCurve3D()
-    def merge(nurbsCurve):
+
+    def merge(self, nurbsCurve):
         """
         Define a new nurbs curve that is the result of combining this nurbs curve with another nurbs curve.
         nurbsCurve : The nurbs curve to combine with.
         Returns a new NurbsCurve3D object.
         """
         return NurbsCurve3D()
-    def copy():
+
+    def copy(self):
         """
         Creates and returns an independent copy of this NurbsCurve3D object.
         Returns an independent copy of this NurbsCurve3D.
         """
         return NurbsCurve3D()
-    controlPointCount = property(_get_controlPointCount, None, doc="Gets the number of control points that define the curve.")
+
+    controlPointCount = property(_get_controlPointCount, None,
+                                 doc="Gets the number of control points that define the curve.")
     degree = property(_get_degree, None, doc="Returns the degree of the curve.")
     knotCount = property(_get_knotCount, None, doc="Returns the knot count of the curve.")
     isRational = property(_get_isRational, None, doc="Indicates if the curve is rational or non-rational type.")
     isClosed = property(_get_isClosed, None, doc="Indicates if the curve is closed.")
     isPeriodic = property(_get_isPeriodic, None, doc="Indicates if the curve is periodic.")
-    controlPoints = property(_get_controlPoints, None, doc="Returns an array of Point3D objects that define the control points of the curve.")
+    controlPoints = property(_get_controlPoints, None,
+                             doc="Returns an array of Point3D objects that define the control points of the curve.")
     knots = property(_get_knots, None, doc="Returns an array of numbers that define the knot vector of the curve.")
+
 
 class NurbsSurface(Surface):
     """
     Transient NURBS surface. A transient NURBS surface is not displayed or saved in a document. A transient NURBS surface is used as a wrapper to work with raw NURBS surface information. A transient NURBS surface is bounded by it's natural boundaries and does not support the definition of arbitrary boundaries. A NURBS surface is typically obtained from a BREPFace object, which does have boundary information. They are created statically using the create method of the NurbsSurface class.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return NurbsSurface()
+
     @staticmethod
-    def create(degreeU, degreeV, controlPointCountU, controlPointCountV, controlPoints, knotsU, knotsV, weights, propertiesU, propertiesV):
+    def create(degreeU, degreeV, controlPointCountU, controlPointCountV, controlPoints, knotsU, knotsV, weights,
+               propertiesU, propertiesV):
         """
         Creates a transient NURBS surface object.
         degreeU : The degree in the U direction.
@@ -8924,29 +11574,41 @@ class NurbsSurface(Surface):
         Returns the new NurbsSurface object or null if the creation failed.
         """
         return NurbsSurface()
+
     def _get_controlPointCountU(self):
         return int()
+
     def _get_controlPointCountV(self):
         return int()
+
     def _get_degreeU(self):
         return int()
+
     def _get_degreeV(self):
         return int()
+
     def _get_knotCountU(self):
         return int()
+
     def _get_knotCountV(self):
         return int()
+
     def _get_propertiesU(self):
         return NurbsSurfaceProperties()
+
     def _get_propertiesV(self):
         return NurbsSurfaceProperties()
+
     def _get_controlPoints(self):
         return Point3D()
+
     def _get_knotsU(self):
         return float()
+
     def _get_knotsV(self):
         return float()
-    def getData():
+
+    def getData(self):
         """
         Gets the data that defines the NURBS surface.
         degreeU : The output degree in the U direction.
@@ -8961,8 +11623,11 @@ class NurbsSurface(Surface):
         propertiesV : The output properties (NurbsSurfaceProperties) of the surface in the V direction.
         Returns true if successful.
         """
-        return (bool(), int(), int(), int(), int(), Point3D(), float(), float(), float(), NurbsSurfaceProperties(), NurbsSurfaceProperties())
-    def set(degreeU, degreeV, controlPointCountU, controlPointCountV, controlPoints, knotsU, knotsV, weights, propertiesU, propertiesV):
+        return (bool(), int(), int(), int(), int(), Point3D(), float(), float(), float(), NurbsSurfaceProperties(),
+                NurbsSurfaceProperties())
+
+    def set(self, degreeU, degreeV, controlPointCountU, controlPointCountV, controlPoints, knotsU, knotsV, weights,
+            propertiesU, propertiesV):
         """
         Sets the data that defines the NURBS surface.
         degreeU : The degree in the U direction.
@@ -8978,33 +11643,43 @@ class NurbsSurface(Surface):
         Returns true if successful
         """
         return bool()
-    def copy():
+
+    def copy(self):
         """
         Creates and returns an independent copy of this NurbsSurface object.
         Returns a new NurbsSurface object that is a copy of this NurbsSurface object.
         """
         return NurbsSurface()
-    controlPointCountU = property(_get_controlPointCountU, None, doc="Gets the number of control points in the U direction.")
-    controlPointCountV = property(_get_controlPointCountV, None, doc="Gets the number of control points in the V direction.")
+
+    controlPointCountU = property(_get_controlPointCountU, None,
+                                  doc="Gets the number of control points in the U direction.")
+    controlPointCountV = property(_get_controlPointCountV, None,
+                                  doc="Gets the number of control points in the V direction.")
     degreeU = property(_get_degreeU, None, doc="Gets the degree in the U direction.")
     degreeV = property(_get_degreeV, None, doc="Gets the degree in the V direction.")
     knotCountU = property(_get_knotCountU, None, doc="Gets the knot count in the U direction.")
     knotCountV = property(_get_knotCountV, None, doc="Gets thekKnot count in the V direction.")
-    propertiesU = property(_get_propertiesU, None, doc="Gets the properties (NurbsSurfaceProperties) of the surface in the U direction.")
-    propertiesV = property(_get_propertiesV, None, doc="Gets the properties (NurbsSurfaceProperties) of the surface in the V direction.")
+    propertiesU = property(_get_propertiesU, None,
+                           doc="Gets the properties (NurbsSurfaceProperties) of the surface in the U direction.")
+    propertiesV = property(_get_propertiesV, None,
+                           doc="Gets the properties (NurbsSurfaceProperties) of the surface in the V direction.")
     controlPoints = property(_get_controlPoints, None, doc="Gets an array of control points from the surface.")
     knotsU = property(_get_knotsU, None, doc="Get the knot vector from the U direction.")
     knotsV = property(_get_knotsV, None, doc="Get the knot vector from the V direction")
+
 
 class Plane(Surface):
     """
     Transient plane. A transient plane is not displayed or saved in a document. Transient planes are used as a wrapper to work with raw plane information. A transient plane has no boundaries or size, but is infinite and is represented by a position, a normal, and an orientation in space. They are created statically using the create method of the Plane class.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return Plane()
+
     @staticmethod
     def create(origin, normal):
         """
@@ -9014,6 +11689,7 @@ class Plane(Surface):
         Returns the new plane object or null if the creation failed.
         """
         return Plane()
+
     @staticmethod
     def createUsingDirections(origin, uDirection, vDirection):
         """
@@ -9024,19 +11700,26 @@ class Plane(Surface):
         Returns the new plane object or null if the creation failed.
         """
         return Plane()
+
     def _set_origin(self, origin):
         pass
+
     def _get_origin(self):
         return Point3D()
+
     def _set_normal(self, normal):
         pass
+
     def _get_normal(self):
         return Vector3D()
+
     def _get_uDirection(self):
         return Vector3D()
+
     def _get_vDirection(self):
         return Vector3D()
-    def setUVDirections(uDirection, vDirection):
+
+    def setUVDirections(self, uDirection, vDirection):
         """
         Sets the U and V directions of the plane.
         uDirection : The U direction for the plane.
@@ -9044,165 +11727,203 @@ class Plane(Surface):
         Returns true if successful.
         """
         return bool()
-    def isParallelToPlane(plane):
+
+    def isParallelToPlane(self, plane):
         """
         Checks if this plane is parallel to another plane.
         plane : The plane to compare with for parallelism.
         Returns true if the planes are parallel.
         """
         return bool()
-    def isParallelToLine(line):
+
+    def isParallelToLine(self, line):
         """
         Checks if this plane is parallel to a line.
         line : The line to compare with for parallelism.
         Returns true if the plane and line are parallel.
         """
         return bool()
-    def isPerpendicularToPlane(plane):
+
+    def isPerpendicularToPlane(self, plane):
         """
         Checks if this plane is perpendicular to another plane.
         plane : The plane to compare with for perpendicularity.
         Returns true if the planes are perpendicular.
         """
         return bool()
-    def isPerpendicularToLine(line):
+
+    def isPerpendicularToLine(self, line):
         """
         Checks if this plane is perpendicular to a line.
         line : The line to compare with for perpendicularity.
         Returns true if the plane and line are perpendicular.
         """
         return bool()
-    def isCoPlanarTo(plane):
+
+    def isCoPlanarTo(self, plane):
         """
         Checks if this plane is coplanar with another plane.
         plane : The plane to compare with for coplanarity.
         Returns true if the planes are coplanar.
         """
         return bool()
-    def intersectWithPlane(plane):
+
+    def intersectWithPlane(self, plane):
         """
         Creates an infinite line at the intersection of this plane with another plane.
         plane : The plane to intersect with.
         Returns an InfiniteLine3D object or null if the planes do not intersect (are parallel).
         """
         return InfiniteLine3D()
-    def intersectWithLine(line):
+
+    def intersectWithLine(self, line):
         """
         Creates a 3D point at the intersection of this plane and a line.
         line : The line to intersect with.
         Returns a Point3D object or null if the plane and line do not intersect (are parallel).
         """
         return Point3D()
-    def intersectWithCurve(curve):
+
+    def intersectWithCurve(self, curve):
         """
         Intersect this plane with a curve to get the intersection point(s).
         curve : The intersecting curve. The curve can be a Line3D, InfininteLine3D, Circle3D, Arc3D, EllipticalArc3D, Ellipse3D, or NurbsCurve3D.
         Returns a collection of the intersection points.
         """
         return ObjectCollection()
-    def intersectWithSurface(surface):
+
+    def intersectWithSurface(self, surface):
         """
         Intersect this plane with a surface to get the intersection point(s).
         surface : The intersecting surface. The surface can be a Plane, Cone, Cylinder, EllipticalCone, EllipticalCylinder, Sphere, Torus, or a NurbsSurface.
         Returns a collection of the intersection points.
         """
         return ObjectCollection()
-    def copy():
+
+    def copy(self):
         """
         Creates and returns an independent copy of this Plane object.
         Returns a new Plane object that is a copy of this Plane object.
         """
         return Plane()
+
     origin = property(_get_origin, _set_origin, doc="Gets and sets the origin point of the plane.")
     normal = property(_get_normal, _set_normal, doc="Gets and sets the normal of the plane.")
     uDirection = property(_get_uDirection, None, doc="Gets the U Direction of the plane.")
     vDirection = property(_get_vDirection, None, doc="Gets the V Direction of the plane.")
 
+
 class RadioButtonGroupCommandInput(CommandInput):
     """
     Provides a command input to get the choice from a radio button group from the user.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return RadioButtonGroupCommandInput()
+
     def _get_listItems(self):
         return ListItems()
+
     def _get_selectedItem(self):
         return ListItem()
-    listItems = property(_get_listItems, None, doc="Returns the ListItems object associated with this radio button group. You use this object to populate and interact with the items in the radio button group.")
-    selectedItem = property(_get_selectedItem, None, doc="Gets and sets the item in the radio button list that is currently selected.")
+
+    listItems = property(_get_listItems, None,
+                         doc="Returns the ListItems object associated with this radio button group. You use this object to populate and interact with the items in the radio button group.")
+    selectedItem = property(_get_selectedItem, None,
+                            doc="Gets and sets the item in the radio button list that is currently selected.")
+
 
 class SATImportOptions(ImportOptions):
     """
     Defines that a SAT import is to be done and specifies the various options.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return SATImportOptions()
+
 
 class SelectionCommandInput(CommandInput):
     """
     Provides a command input to get a selection from the user.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return SelectionCommandInput()
+
     def _set_commandPrompt(self, commandPrompt):
         pass
+
     def _get_commandPrompt(self):
         return str()
+
     def _set_selectionFilters(self, selectionFilters):
         pass
+
     def _get_selectionFilters(self):
         return str()
+
     def _get_selectionCount(self):
         return int()
+
     def _set_hasFocus(self, hasFocus):
         pass
+
     def _get_hasFocus(self):
         return bool()
-    def addSelectionFilter(filter):
+
+    def addSelectionFilter(self, filter):
         """
         Adds an additional filter to the existing filter list.
         filter : The name of a selection filter to add. The valid list of selection filters can be found here: <a href='SelectionFilters_UM.htm'>Selection Filters</a>.
         Returns true if the filter was added successfully.
         """
         return bool()
-    def clearSelectionFilter():
+
+    def clearSelectionFilter(self):
         """
         Clears the list of selection filters.
         Returns true if successful.
         """
         return bool()
-    def selection(index):
+
+    def selection(self, index):
         """
         Returns the selection at the specified index.
         index : The index of the selection to return.
         Returns the Selection at the specified index, or null on error.
         """
         return Selection()
-    def addSelection(selection):
+
+    def addSelection(self, selection):
         """
         Adds the selection to the list of selections associated with this input. This method is not valid within the commandCreated event but must be used later in the command lifetime. If you want to pre-populate the selection when the command is starting, you can use this method in the activate method of the Command. It's also valid to use in other events once the command is running, such as the validateInputs event.
         selection : The entity to add a selection of to this input. The addition may fail if the entity does not match the selection filter, or adding it would exceed the limits.
         Returns true if a selection to the entity was added to this input.
         """
         return bool()
-    def getSelectionLimits():
+
+    def getSelectionLimits(self):
         """
         Get the limits currently defined for this input.
         minimum : The minimum number of selections required. A value of zero means that there is no minimum limit.
         maximum : The maximum number of selections required. A value of zero means that there is no maximum limit.
         Returns true if the selection limits were successfully returned.
         """
-        return (bool(), int(), int())
-    def setSelectionLimits(minimum, maximum):
+        return bool(), int(), int()
+
+    def setSelectionLimits(self, minimum, maximum):
         """
         Defines the limits for the number of selections associated with this input. A maximum value of 0 indicates that there is no maximum.
         minimum : The minimum number of selections required. A value of zero means that there is no minimum limit.
@@ -9210,104 +11931,145 @@ class SelectionCommandInput(CommandInput):
         Returns true if the limits were successfully set.
         """
         return bool()
-    def clearSelection():
+
+    def clearSelection(self):
         """
         Clears the current selection so no entities are in the selection.
         Returns true if successful.
         """
         return bool()
-    commandPrompt = property(_get_commandPrompt, _set_commandPrompt, doc="Gets or sets the tooltip shown next to the cursor.")
-    selectionFilters = property(_get_selectionFilters, _set_selectionFilters, doc="Gets or sets the list of selection filters. The valid list of selection filters can be found here: <a href='SelectionFilters_UM.htm'>Selection Filters</a>.")
-    selectionCount = property(_get_selectionCount, None, doc="Gets the current number of selections the user has made for this input.")
-    hasFocus = property(_get_hasFocus, _set_hasFocus, doc="Gets and sets if this selection input has focus with respect to other selection inputs on the command dialog. Only one selection input on a dialog can have focus at a time so setting hasFocus to true will remove the focus from the selection input that previously had focus. When a selection input has focus, any user selections will be added to that selection input and the selection rules associated with that selection input will apply.")
+
+    commandPrompt = property(_get_commandPrompt, _set_commandPrompt,
+                             doc="Gets or sets the tooltip shown next to the cursor.")
+    selectionFilters = property(_get_selectionFilters, _set_selectionFilters,
+                                doc="Gets or sets the list of selection filters. The valid list of selection filters can be found here: <a href='SelectionFilters_UM.htm'>Selection Filters</a>.")
+    selectionCount = property(_get_selectionCount, None,
+                              doc="Gets the current number of selections the user has made for this input.")
+    hasFocus = property(_get_hasFocus, _set_hasFocus,
+                        doc="Gets and sets if this selection input has focus with respect to other selection inputs on the command dialog. Only one selection input on a dialog can have focus at a time so setting hasFocus to true will remove the focus from the selection input that previously had focus. When a selection input has focus, any user selections will be added to that selection input and the selection rules associated with that selection input will apply.")
+
 
 class SelectionEvent(Event):
     """
     An event endpoint that supports the connection to client implemented SelectionEventHandlers.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return SelectionEvent()
+
     def _get_activeInput(self):
         return SelectionCommandInput()
-    def add(handler):
+
+    def add(self, handler):
         """
         Adds an event handler to this event endpoint.
         handler : The client implemented SelectionEventHandler to be called when this event is triggered.
         Returns true if the handler was successfully added to the set of event handlers.
         """
         return bool()
-    def remove(handler):
+
+    def remove(self, handler):
         """
         Removes a handler from this event endpoint.
         handler : A SelectionEventHandler that was previously added to this event with the add method.
         Returns true if the handler was found and removed from the set of event handlers.
         """
         return bool()
-    activeInput = property(_get_activeInput, None, doc="Returns the SelectionCommandInput that is currently active in the command dialog and that the user is selecting entities for. This can be used to determine which set of rules you want to apply to determine if the current entity is selectable or not.")
+
+    activeInput = property(_get_activeInput, None,
+                           doc="Returns the SelectionCommandInput that is currently active in the command dialog and that the user is selecting entities for. This can be used to determine which set of rules you want to apply to determine if the current entity is selectable or not.")
+
 
 class SelectionEventArgs(EventArgs):
     """
     Provides a set of arguments from a firing SelectionEvent to a SelectionEventHandler's notify callback method.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return SelectionEventArgs()
+
     def _get_selection(self):
         return Selection()
+
     def _set_isSelectable(self, isSelectable):
         pass
+
     def _get_isSelectable(self):
         return bool()
+
     def _set_additionalEntities(self, additionalEntities):
         pass
+
     def _get_additionalEntities(self):
         return ObjectCollection()
+
     def _get_activeInput(self):
         return SelectionCommandInput()
+
     selection = property(_get_selection, None, doc="Gets the entity that is valid for selection.")
-    isSelectable = property(_get_isSelectable, _set_isSelectable, doc="Gets or sets whether this entity should be made available to be selected. The value is initialized to true, so doing nothing will result in the entity being selectable.")
-    additionalEntities = property(_get_additionalEntities, _set_additionalEntities, doc="Gets or sets any additional entities that should be pre-highlighted and selected if the entity the mouse is over is selected. If you add an entity that is already selected, it will be unselected. The result of adding additional entitities is the same as if they were selected one at a time by the user and the user can unselect each entity one at a time by picking it while it's selected. An example of how this might be used is that that the user can select a group of tangentially connected edges by picking a single edge. You can use the BrepEdge.tangentiallyConnectedEdges to easily find the tangent edges and add them to the set of additional entities to be selected. These edges are pre-highlighted and then selected. If you are using this property you need to make sure that the selection limits for the SelectionCommandInput have been set appropriately. For example, a newly created SeletionCommandInput is set to only allow the selection of a single entity. By adding additional entities you'll need more than one entity because the entire set of entities will be added to the selection. Use the setSelectionLimits method of the SelectionCommandInput to change the number of allowed selections. The additional entities should all be valid based on the current selection filter.")
-    activeInput = property(_get_activeInput, None, doc="Returns the SelectionCommandInput that is currently active in the command dialog and that the user is selecting entities for. This can be used to determine which set of rules you want to apply to determine if the current entity is selectable or not.")
+    isSelectable = property(_get_isSelectable, _set_isSelectable,
+                            doc="Gets or sets whether this entity should be made available to be selected. The value is initialized to true, so doing nothing will result in the entity being selectable.")
+    additionalEntities = property(_get_additionalEntities, _set_additionalEntities,
+                                  doc="Gets or sets any additional entities that should be pre-highlighted and selected if the entity the mouse is over is selected. If you add an entity that is already selected, it will be unselected. The result of adding additional entitities is the same as if they were selected one at a time by the user and the user can unselect each entity one at a time by picking it while it's selected. An example of how this might be used is that that the user can select a group of tangentially connected edges by picking a single edge. You can use the BrepEdge.tangentiallyConnectedEdges to easily find the tangent edges and add them to the set of additional entities to be selected. These edges are pre-highlighted and then selected. If you are using this property you need to make sure that the selection limits for the SelectionCommandInput have been set appropriately. For example, a newly created SeletionCommandInput is set to only allow the selection of a single entity. By adding additional entities you'll need more than one entity because the entire set of entities will be added to the selection. Use the setSelectionLimits method of the SelectionCommandInput to change the number of allowed selections. The additional entities should all be valid based on the current selection filter.")
+    activeInput = property(_get_activeInput, None,
+                           doc="Returns the SelectionCommandInput that is currently active in the command dialog and that the user is selecting entities for. This can be used to determine which set of rules you want to apply to determine if the current entity is selectable or not.")
+
 
 class SeparatorControl(ToolbarControl):
     """
     Represents a separator within a panel, toolbar, or drop-down control.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return SeparatorControl()
+
 
 class SliderCommandInput(CommandInput):
     """
     Provides a command input to get the value of a slider from the user.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return SliderCommandInput()
+
     def _set_expressionOne(self, expressionOne):
         pass
+
     def _get_expressionOne(self):
         return str()
+
     def _set_expressionTwo(self, expressionTwo):
         pass
+
     def _get_expressionTwo(self):
         return str()
+
     def _set_unitType(self, unitType):
         pass
+
     def _get_unitType(self):
         return str()
+
     def _get_hasTwoSliders(self):
         return bool()
-    def setText(left, right):
+
+    def setText(self, left, right):
         """
         Sets the text of the slider. Both the left and the right text should be set.
         left : Indicates the text on the left side of the slider.
@@ -9315,37 +12077,49 @@ class SliderCommandInput(CommandInput):
         Returns true if successful.
         """
         return bool()
-    def getText(isLeft):
+
+    def getText(self, isLeft):
         """
         Gets the texts of the slider if text has been defined.
         isLeft : Indicates to get the left or right text.
         Returns the left or right text of the slider.
         """
         return str()
-    expressionOne = property(_get_expressionOne, _set_expressionOne, doc="Uses an expression to set the value in the first input field. This can contain equations and is evaluated using the specified unit type.")
-    expressionTwo = property(_get_expressionTwo, _set_expressionTwo, doc="Uses an expression to set the value in the second input field. This can contain equations and is evaluated using the specified unit type. This property is only available when the hasTwoSliders property returns true.")
-    unitType = property(_get_unitType, _set_unitType, doc="Gets and sets the unit type that is used when evaluating the user's input.")
+
+    expressionOne = property(_get_expressionOne, _set_expressionOne,
+                             doc="Uses an expression to set the value in the first input field. This can contain equations and is evaluated using the specified unit type.")
+    expressionTwo = property(_get_expressionTwo, _set_expressionTwo,
+                             doc="Uses an expression to set the value in the second input field. This can contain equations and is evaluated using the specified unit type. This property is only available when the hasTwoSliders property returns true.")
+    unitType = property(_get_unitType, _set_unitType,
+                        doc="Gets and sets the unit type that is used when evaluating the user's input.")
     hasTwoSliders = property(_get_hasTwoSliders, None, doc="Gets if the command input has two sliders.")
+
 
 class SMTImportOptions(ImportOptions):
     """
     Defines that an SMT import is to be done and specifies the various options.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return SMTImportOptions()
+
 
 class Sphere(Surface):
     """
     Transient sphere. A transient sphere is not displayed or saved in a document. Transient spheres are used as a wrapper to work with raw sphere information. A transient sphere is a full sphere defined by a point and a radius. They are created statically using the create method of the Sphere class.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return Sphere()
+
     @staticmethod
     def create(origin, radius):
         """
@@ -9355,23 +12129,29 @@ class Sphere(Surface):
         Returns the new Sphere object or null if the creation failed.
         """
         return Sphere()
+
     def _set_origin(self, origin):
         pass
+
     def _get_origin(self):
         return Point3D()
+
     def _set_radius(self, radius):
         pass
+
     def _get_radius(self):
         return float()
-    def getData():
+
+    def getData(self):
         """
         Gets all of the data defining the sphere.
         origin : The output origin point (center) of the sphere.
         radius : The output radius of the sphere.
         Returns true if successful.
         """
-        return (bool(), Point3D(), float())
-    def set(origin, radius):
+        return bool(), Point3D(), float()
+
+    def set(self, origin, radius):
         """
         Sets all of the data defining the sphere.
         origin : The origin point (center) of the sphere.
@@ -9379,170 +12159,241 @@ class Sphere(Surface):
         Returns true if successful.
         """
         return bool()
-    def copy():
+
+    def copy(self):
         """
         Creates and returns an independent copy of this Sphere object.
         Returns a new Sphere object that is a copy of this Sphere object.
         """
         return Sphere()
+
     origin = property(_get_origin, _set_origin, doc="Gets and sets the origin point (center) of the sphere.")
     radius = property(_get_radius, _set_radius, doc="Gets and sets the radius of the sphere.")
+
 
 class SplitButtonControl(ToolbarControl):
     """
     A split button has two active areas that the user can click; the main button portion and the drop-down arrow. Clicking the main button, executes the displayed command. Clicking the drop-down displays the drop-down with additional commands.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return SplitButtonControl()
+
     def _get_defaultCommandDefinition(self):
         return CommandDefinition()
+
     def _get_isLastUsedShown(self):
         return bool()
+
     def _set_additionalDefinitions(self, additionalDefinitions):
         pass
+
     def _get_additionalDefinitions(self):
         return CommandDefinition()
-    defaultCommandDefinition = property(_get_defaultCommandDefinition, None, doc="Gets the command definition that is used as the default command on the main portion of the split button.")
-    isLastUsedShown = property(_get_isLastUsedShown, None, doc="Gets if this button behaves where the last executed command becomes the command on the main portion of the split button.")
-    additionalDefinitions = property(_get_additionalDefinitions, _set_additionalDefinitions, doc="Gets or sets the command definitions used to define the buttons associated with the split button.")
+
+    defaultCommandDefinition = property(_get_defaultCommandDefinition, None,
+                                        doc="Gets the command definition that is used as the default command on the main portion of the split button.")
+    isLastUsedShown = property(_get_isLastUsedShown, None,
+                               doc="Gets if this button behaves where the last executed command becomes the command on the main portion of the split button.")
+    additionalDefinitions = property(_get_additionalDefinitions, _set_additionalDefinitions,
+                                     doc="Gets or sets the command definitions used to define the buttons associated with the split button.")
+
 
 class STEPImportOptions(ImportOptions):
     """
     Defines that a STEP import is to be done and specifies the various options.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return STEPImportOptions()
+
 
 class StringProperty(Property):
     """
     A string value property associated with a material or appearance.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return StringProperty()
+
     def _set_value(self, value):
         pass
+
     def _get_value(self):
         return str()
+
     value = property(_get_value, _set_value, doc="Gets and sets the property value.")
+
 
 class StringValueCommandInput(CommandInput):
     """
     Provides a command input to get a string value from the user.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return StringValueCommandInput()
+
     def _set_value(self, value):
         pass
+
     def _get_value(self):
         return str()
+
     def _set_isPassword(self, isPassword):
         pass
+
     def _get_isPassword(self):
         return bool()
+
     def _set_isReadOnly(self, isReadOnly):
         pass
+
     def _get_isReadOnly(self):
         return bool()
+
     def _set_isValueError(self, isValueError):
         pass
+
     def _get_isValueError(self):
         return bool()
+
     value = property(_get_value, _set_value, doc="Gets or sets the value of this input.")
-    isPassword = property(_get_isPassword, _set_isPassword, doc="Gets or sets if this string input behaves as a password field. This defaults to false for a newly created StringValueCommandInput. If true, dots are displayed instead of the actual characters but the value property will get and set the actual string.")
-    isReadOnly = property(_get_isReadOnly, _set_isReadOnly, doc="Gets and sets if the string value is read-only or not. If it is read-only the user\ncannot edit the text. This property is initialized to False for a newly created\nStringValueCommandInput object.")
-    isValueError = property(_get_isValueError, _set_isValueError, doc="Specifies if the current value shown is valid or not. Any string is valid for a StringValueCommandInput, but you many have some criteria that the string needs to meet for it to be valid in your application. You you use the command's validateInputs event to verify that inputs are valid and control whether the 'OK' button is enabled or not, and you can also set this property on specific StringValueCommandInputs objects to indicate to the user that a specific value is not correct. When this property is true, Fusion 360 will change the color of the text to red to indicate to the user there is a problem.")
+    isPassword = property(_get_isPassword, _set_isPassword,
+                          doc="Gets or sets if this string input behaves as a password field. This defaults to false for a newly created StringValueCommandInput. If true, dots are displayed instead of the actual characters but the value property will get and set the actual string.")
+    isReadOnly = property(_get_isReadOnly, _set_isReadOnly,
+                          doc="Gets and sets if the string value is read-only or not. If it is read-only the user\ncannot edit the text. This property is initialized to False for a newly created\nStringValueCommandInput object.")
+    isValueError = property(_get_isValueError, _set_isValueError,
+                            doc="Specifies if the current value shown is valid or not. Any string is valid for a StringValueCommandInput, but you many have some criteria that the string needs to meet for it to be valid in your application. You you use the command's validateInputs event to verify that inputs are valid and control whether the 'OK' button is enabled or not, and you can also set this property on specific StringValueCommandInputs objects to indicate to the user that a specific value is not correct. When this property is true, Fusion 360 will change the color of the text to red to indicate to the user there is a problem.")
+
 
 class TabCommandInput(CommandInput):
     """
     Tab command inputs contain a set of command inputs and/or group command inputs/
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return TabCommandInput()
+
     def _get_children(self):
         return CommandInputs()
+
     def _get_resourceFolder(self):
         return str()
+
     def _get_isActive(self):
         return bool()
-    def activate():
+
+    def activate(self):
         """
         Sets this to be the currently activated (selected) tab.
         """
         return bool()
-    children = property(_get_children, None, doc="Gets the CommandInputs collection for this TabCommandInput. Use the add methods on this collection to add child CommandInputs to this Tab in the desired order.")
-    resourceFolder = property(_get_resourceFolder, None, doc="Gets the folder that contains the image for the tab. If no name is specified (no text on tab), a resourceFolder containing the image to appear on the tab needs to be provided.")
+
+    children = property(_get_children, None,
+                        doc="Gets the CommandInputs collection for this TabCommandInput. Use the add methods on this collection to add child CommandInputs to this Tab in the desired order.")
+    resourceFolder = property(_get_resourceFolder, None,
+                              doc="Gets the folder that contains the image for the tab. If no name is specified (no text on tab), a resourceFolder containing the image to appear on the tab needs to be provided.")
     isActive = property(_get_isActive, None, doc="Gets if this is the currently activated (selected) tab.")
+
 
 class TableCommandInput(CommandInput):
     """
     Represents a table within a command dialog. The table consists of rows and columns where each cell can contain another command input. The selection and button row command inputs cannot be used within a table. In addition to the rows and columns, each table can optionally have a toolbar of seperate command inputs that is shown at the bottom of the table. A table command input can conceptually be compared to an Excel table where you have an infinite number of rows and columns available but use a small portion. As you add inputs to the table, the table will adjust so all used columns are visible. The visible number of rows is controlled by you and if you create more rows than can be displayed a scroll bar becomes available. For an example of this command input, see the loft command which uses it to show the selected profiles and rails.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return TableCommandInput()
+
     def _set_numberOfColumns(self, numberOfColumns):
         pass
+
     def _get_numberOfColumns(self):
         return int()
+
     def _set_columnRatio(self, columnRatio):
         pass
+
     def _get_columnRatio(self):
         return str()
+
     def _set_hasGrid(self, hasGrid):
         pass
+
     def _get_hasGrid(self):
         return bool()
+
     def _set_rowSpacing(self, rowSpacing):
         pass
+
     def _get_rowSpacing(self):
         return int()
+
     def _set_columnSpacing(self, columnSpacing):
         pass
+
     def _get_columnSpacing(self):
         return int()
+
     def _set_minimumVisibleRows(self, minimumVisibleRows):
         pass
+
     def _get_minimumVisibleRows(self):
         return int()
+
     def _set_maximumVisibleRows(self, maximumVisibleRows):
         pass
+
     def _get_maximumVisibleRows(self):
         return int()
+
     def _set_tablePresentationStyle(self, tablePresentationStyle):
         pass
+
     def _get_tablePresentationStyle(self):
         return TablePresentationStyles()
+
     def _get_rowCount(self):
         return int()
+
     def _set_selectedRow(self, selectedRow):
         pass
+
     def _get_selectedRow(self):
         return int()
-    def deleteRow(row):
+
+    def deleteRow(self, row):
         """
         Deletes the specified row. The following rows will be shifted up. The row and the command inputs it contains are deleted. To temporarily hide a row you can set the visibility of all of the command inputs it contains to be invisible. If all inputs are invisible the row will automatically be hidden.
         row : The row to delete where valid values are 0 to the number of rows minus 1. A value of 0 will delete the first row. A value greater than the number of rows will delete the last row.
         Returns true if the delete was successful.
         """
         return bool()
-    def addCommandInput(input, row, column, rowSpan, columnSpan):
+
+    def addCommandInput(self, input, row, column, rowSpan, columnSpan):
         """
         Adds a command input to a particular cell in the table. Rows are automatically added to the table to able to contain the command input. The command input can span multiple columns within a row and spanning across multiple rows is not currently supported. The command input is created in the standard way but when it's added to the table using this method it will be displayed in the table instead of the main area of the dialog.
         input : The command input to associate to a cell. The command input is created in the standard way but when it's added to the table using this method it will be displayed in the table instead of the main area of the dialog.
@@ -9553,7 +12404,8 @@ class TableCommandInput(CommandInput):
         Returns true if the association of the command input to the cell was successful.
         """
         return bool()
-    def removeInput(row, column):
+
+    def removeInput(self, row, column):
         """
         Removes the command input that is at the specified row and column. This doesn't delete the command input from the collection of inputs associated with the command but just removes it from being displayed in the table.
         row : The row where the command input to be removed is located.
@@ -9561,7 +12413,8 @@ class TableCommandInput(CommandInput):
         Returns true if the removal was successful.
         """
         return bool()
-    def getPosition(input):
+
+    def getPosition(self, input):
         """
         Gets the position of the specified command input within the table.
         input : The existing command input you want to find the associated cell for.
@@ -9571,21 +12424,24 @@ class TableCommandInput(CommandInput):
         columnSpan : The returned number of additional columns used by the input. A value of 0 indicates that no additional columns are used.
         Returns true if the position was successfully returned.
         """
-        return (bool(), int(), int(), int(), int())
-    def clear():
+        return bool(), int(), int(), int(), int()
+
+    def clear(self):
         """
         Removes all rows in the table and the toolbar.
         Returns true if successful.
         """
         return bool()
-    def addToolbarCommandInput(input):
+
+    def addToolbarCommandInput(self, input):
         """
         Adds a new command input to the toolbar at the bottom of the table.
         input : Adds a command input to the toolbar at the bottom of the table. The inputs are displayed in the same order that they're added. The command input is created in the standard way but when it's added to the table using this method it will be displayed in the table instead of the main area of the dialog.
         Returns true if the command input was successfully added.
         """
         return bool()
-    def getInputAtPosition(row, column):
+
+    def getInputAtPosition(self, row, column):
         """
         Returns the command input that is in the specified row and column. In the case where a command input spans multiple columns, the same input can be returned from mulitple positions.
         row : The row index to return the command input from where the first row is 0.
@@ -9593,57 +12449,88 @@ class TableCommandInput(CommandInput):
         Returns the command input that is in the specified row and column. If there isn't a command input in the specified location, null is returned.
         """
         return CommandInput()
-    numberOfColumns = property(_get_numberOfColumns, _set_numberOfColumns, doc="Returns the current number of visible columns displayed. Setting this property has no effect because the number of columns is automatically inferred by the command inputs that have been added to the table. The table automatically adjusts the number of rows displayed so all inputs can be seen.")
-    columnRatio = property(_get_columnRatio, _set_columnRatio, doc="Gets and sets the width ratio of the columns. This is defined using a string such as '1:1:1' where this defines that the first three columns are all the same width. A value of '2:1' defines that the first column is twice the width of the second. If the table has more columns than are defined by this property, they will automatically default to a value of 1. If this property defines the width of more columns than are displayed, the extra definitions are ignored. You can also specify 0 as a column width and this will have the effect of hiding that column. Setting a column width to 0 does not delete the column or the command inputs but only hides them so they can be turned back on at a later time by resetting the column ratio.")
-    hasGrid = property(_get_hasGrid, _set_hasGrid, doc="Gets and sets whether a grid is displayed for the table. For a newly created table, this property defaults to false.")
-    rowSpacing = property(_get_rowSpacing, _set_rowSpacing, doc="Gets and sets the spacing between rows. This is defined in pixels. For a newly created table, this property defaults to 1.")
-    columnSpacing = property(_get_columnSpacing, _set_columnSpacing, doc="Gets and sets the spacing between columns. This is defined in pixels. For a newly created table, this property defaults to 1.")
-    minimumVisibleRows = property(_get_minimumVisibleRows, _set_minimumVisibleRows, doc="Gets and sets the minimum number of rows displayed. This is the minimum amount of space taken up on the command dialog, even if the table doesn't yet contain any rows. For a newly created table, this property defaults to 2.")
-    maximumVisibleRows = property(_get_maximumVisibleRows, _set_maximumVisibleRows, doc="Gets and sets the maximum number of rows that can be displayed. As rows are added the visible size of the table will grow to show all rows until this maximum number of rows is reached and then a scroll bar will be displayed to allow the user to access all rows. For a new created table, this property defaults to 4.")
-    tablePresentationStyle = property(_get_tablePresentationStyle, _set_tablePresentationStyle, doc="Gets and sets the presentation style the table is currently using for its display.")
-    rowCount = property(_get_rowCount, None, doc="Returns the number of rows in the table. The actual number of rows in the table is defined by the number of rows that contain command inputs.")
-    selectedRow = property(_get_selectedRow, _set_selectedRow, doc="Gets and sets which row is selected in the user-interface. A value of 0 indicates that the first row is selected. A value of -1 indicates that no row is selected.")
+
+    numberOfColumns = property(_get_numberOfColumns, _set_numberOfColumns,
+                               doc="Returns the current number of visible columns displayed. Setting this property has no effect because the number of columns is automatically inferred by the command inputs that have been added to the table. The table automatically adjusts the number of rows displayed so all inputs can be seen.")
+    columnRatio = property(_get_columnRatio, _set_columnRatio,
+                           doc="Gets and sets the width ratio of the columns. This is defined using a string such as '1:1:1' where this defines that the first three columns are all the same width. A value of '2:1' defines that the first column is twice the width of the second. If the table has more columns than are defined by this property, they will automatically default to a value of 1. If this property defines the width of more columns than are displayed, the extra definitions are ignored. You can also specify 0 as a column width and this will have the effect of hiding that column. Setting a column width to 0 does not delete the column or the command inputs but only hides them so they can be turned back on at a later time by resetting the column ratio.")
+    hasGrid = property(_get_hasGrid, _set_hasGrid,
+                       doc="Gets and sets whether a grid is displayed for the table. For a newly created table, this property defaults to false.")
+    rowSpacing = property(_get_rowSpacing, _set_rowSpacing,
+                          doc="Gets and sets the spacing between rows. This is defined in pixels. For a newly created table, this property defaults to 1.")
+    columnSpacing = property(_get_columnSpacing, _set_columnSpacing,
+                             doc="Gets and sets the spacing between columns. This is defined in pixels. For a newly created table, this property defaults to 1.")
+    minimumVisibleRows = property(_get_minimumVisibleRows, _set_minimumVisibleRows,
+                                  doc="Gets and sets the minimum number of rows displayed. This is the minimum amount of space taken up on the command dialog, even if the table doesn't yet contain any rows. For a newly created table, this property defaults to 2.")
+    maximumVisibleRows = property(_get_maximumVisibleRows, _set_maximumVisibleRows,
+                                  doc="Gets and sets the maximum number of rows that can be displayed. As rows are added the visible size of the table will grow to show all rows until this maximum number of rows is reached and then a scroll bar will be displayed to allow the user to access all rows. For a new created table, this property defaults to 4.")
+    tablePresentationStyle = property(_get_tablePresentationStyle, _set_tablePresentationStyle,
+                                      doc="Gets and sets the presentation style the table is currently using for its display.")
+    rowCount = property(_get_rowCount, None,
+                        doc="Returns the number of rows in the table. The actual number of rows in the table is defined by the number of rows that contain command inputs.")
+    selectedRow = property(_get_selectedRow, _set_selectedRow,
+                           doc="Gets and sets which row is selected in the user-interface. A value of 0 indicates that the first row is selected. A value of -1 indicates that no row is selected.")
+
 
 class TextBoxCommandInput(CommandInput):
     """
     Provides a command input to interact with a text box.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return TextBoxCommandInput()
+
     def _set_formattedText(self, formattedText):
         pass
+
     def _get_formattedText(self):
         return str()
+
     def _set_text(self, text):
         pass
+
     def _get_text(self):
         return str()
+
     def _set_numRows(self, numRows):
         pass
+
     def _get_numRows(self):
         return int()
+
     def _set_isReadOnly(self, isReadOnly):
         pass
+
     def _get_isReadOnly(self):
         return bool()
-    formattedText = property(_get_formattedText, _set_formattedText, doc="Gets and sets the formatted text displayed in the dialog. Formatted text includes any html formatting that has been defined. For example, you can use basic html formatting such as <b>Bold</b>, <i>Italic</i>, and <br /> for a line break.")
-    text = property(_get_text, _set_text, doc="Gets and sets the text in the text box. This returns the string as seen in the text box with any formatting stripped out.")
-    numRows = property(_get_numRows, _set_numRows, doc="Gets and sets the height of the text box as defined by the number of rows of text that can be displayed. If the text is larger than will fit in the box a scroll bar will automatically be displayed.")
-    isReadOnly = property(_get_isReadOnly, _set_isReadOnly, doc="Gets and sets if the text box is read-only or not. If it is read-only the user cannot edit the text.")
+
+    formattedText = property(_get_formattedText, _set_formattedText,
+                             doc="Gets and sets the formatted text displayed in the dialog. Formatted text includes any html formatting that has been defined. For example, you can use basic html formatting such as <b>Bold</b>, <i>Italic</i>, and <br /> for a line break.")
+    text = property(_get_text, _set_text,
+                    doc="Gets and sets the text in the text box. This returns the string as seen in the text box with any formatting stripped out.")
+    numRows = property(_get_numRows, _set_numRows,
+                       doc="Gets and sets the height of the text box as defined by the number of rows of text that can be displayed. If the text is larger than will fit in the box a scroll bar will automatically be displayed.")
+    isReadOnly = property(_get_isReadOnly, _set_isReadOnly,
+                          doc="Gets and sets if the text box is read-only or not. If it is read-only the user cannot edit the text.")
+
 
 class TextCommandPalette(Palette):
     """
     <p class='api'>Represents the palette that is the Text Command window in Fusion 360. You can obtain the Text Command palette by using the itemById method of the Palettes object and using 'TextCommands' as the ID. Below is some sample code that illustrates making sure the palette is visible and writing some text to it.</p> <pre class='api-code'><span style='color:blue'># Get the palette that represents the TEXT COMMANDS window.</span> textPalette = ui.palettes.itemById('TextCommands') <span style = 'color:blue' ># Make sure the palette is visible.</span> if not textPalette.isVisible: textPalette.isVisible = True < span style= 'color:blue' ># Write some text.</span> textPalette.writeText('This is a text message.')</ pre >
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return TextCommandPalette()
-    def writeText(text):
+
+    def writeText(self, text):
         """
         <p class='api'>Write the specified text to the TEXT COMMAND window. Below is some sample code that illustrates making sure the palette is visible and writing some text to it.</p> <pre class='api-code'><span style='color:blue'># Get the palette that represents the TEXT COMMANDS window.</span> textPalette = ui.palettes.itemById('TextCommands') <span style = 'color:blue' ># Make sure the palette is visible.</span> if not textPalette.isVisible: textPalette.isVisible = True < span style= 'color:blue' ># Write some text.</span> textPalette.writeText('This is a text message.')</ pre >
         text : The text to write to the Text Command window.
@@ -9651,15 +12538,19 @@ class TextCommandPalette(Palette):
         """
         return bool()
 
+
 class Torus(Surface):
     """
     Transient torus. A transient torus is not displayed or saved in a document. A transient torus is used as a wrapper to work with raw torus information. A transient torus is a full torus with no boundaries. They are created statically using the create method of the Torus class.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return Torus()
+
     @staticmethod
     def create(origin, axis, majorRadius, minorRadius):
         """
@@ -9671,23 +12562,32 @@ class Torus(Surface):
         Returns the new Torus object or null if the creation failed.
         """
         return Torus()
+
     def _set_origin(self, origin):
         pass
+
     def _get_origin(self):
         return Point3D()
+
     def _set_axis(self, axis):
         pass
+
     def _get_axis(self):
         return Vector3D()
+
     def _set_majorRadius(self, majorRadius):
         pass
+
     def _get_majorRadius(self):
         return float()
+
     def _set_minorRadius(self, minorRadius):
         pass
+
     def _get_minorRadius(self):
         return float()
-    def getData():
+
+    def getData(self):
         """
         Gets all of the data defining the torus.
         origin : The output origin point (center) of the torus.
@@ -9696,8 +12596,9 @@ class Torus(Surface):
         minorRadius : The output minor radius of the torus.
         Returns true if successful.
         """
-        return (bool(), Point3D(), Vector3D(), float(), float())
-    def set(origin, axis, majorRadius, minorRadius):
+        return bool(), Point3D(), Vector3D(), float(), float()
+
+    def set(self, origin, axis, majorRadius, minorRadius):
         """
         Sets all of the data defining the torus.
         origin : The origin point (center) of the torus.
@@ -9707,34 +12608,41 @@ class Torus(Surface):
         Returns true if successful.
         """
         return bool()
-    def copy():
+
+    def copy(self):
         """
         Creates and returns an independent copy of this Torus object.
         Returns a new Torus object that is a copy of this Torus object.
         """
         return Torus()
+
     origin = property(_get_origin, _set_origin, doc="Gets and sets the origin point (center) of the torus.")
     axis = property(_get_axis, _set_axis, doc="Gets and sets the center axis of the torus.")
     majorRadius = property(_get_majorRadius, _set_majorRadius, doc="Gets and sets the major radius of the torus.")
     minorRadius = property(_get_minorRadius, _set_minorRadius, doc="Gets and sets the minor radius of the torus.")
 
+
 class UserInterfaceGeneralEvent(Event):
     """
     A UserInterfaceGeneralEvent is used for user-interface related events that don't require any additional information beyond getting the event itself.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return UserInterfaceGeneralEvent()
-    def add(handler):
+
+    def add(self, handler):
         """
         Add a handler to be notified when the event occurs.
         handler : The handler object to be called when this event is fired.
         Returns true if the addition of the handler was successful.
         """
         return bool()
-    def remove(handler):
+
+    def remove(self, handler):
         """
         Removes a handler from the event.
         handler : The handler object to be removed from the event.
@@ -9742,33 +12650,41 @@ class UserInterfaceGeneralEvent(Event):
         """
         return bool()
 
+
 class UserInterfaceGeneralEventArgs(EventArgs):
     """
     The UserInterfaceGeneralEventArgs is passed when a UserInterfaceGeneralEvent is fired.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return UserInterfaceGeneralEventArgs()
+
 
 class ValidateInputsEvent(Event):
     """
     An event endpoint that supports the connection to client implemented ValidateInputsEventHandlers.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return ValidateInputsEvent()
-    def add(handler):
+
+    def add(self, handler):
         """
         Adds an event handler to this event endpoint.
         handler : The client implemented ValidateInputsEventHandler to be called when this event is triggered.
         Returns true if the handler was successfully added to the set of event handlers.
         """
         return bool()
-    def remove(handler):
+
+    def remove(self, handler):
         """
         Removes a handler from this event endpoint.
         handler : A ValidateInputsEventHandler that was previously added to this event with the add method.
@@ -9776,123 +12692,173 @@ class ValidateInputsEvent(Event):
         """
         return bool()
 
+
 class ValidateInputsEventArgs(EventArgs):
     """
     Provides a set of arguments from a firing ValidateInputsEvent to a ValidateInputsEventHandler's notify callback method.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return ValidateInputsEventArgs()
+
     def _set_areInputsValid(self, areInputsValid):
         pass
+
     def _get_areInputsValid(self):
         return bool()
+
     def _get_inputs(self):
         return CommandInputs()
-    areInputsValid = property(_get_areInputsValid, _set_areInputsValid, doc="Used during the AreInputsValid event to get or set if all inputs are valid and the OK button should be enabled.")
-    inputs = property(_get_inputs, None, doc="Returns the collection of command inputs that are associated with the command this event is being fired for.")
+
+    areInputsValid = property(_get_areInputsValid, _set_areInputsValid,
+                              doc="Used during the AreInputsValid event to get or set if all inputs are valid and the OK button should be enabled.")
+    inputs = property(_get_inputs, None,
+                      doc="Returns the collection of command inputs that are associated with the command this event is being fired for.")
+
 
 class ValueCommandInput(CommandInput):
     """
     Provides a command input to get a unit based value from the user.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return ValueCommandInput()
+
     def _set_value(self, value):
         pass
+
     def _get_value(self):
         return float()
+
     def _set_expression(self, expression):
         pass
+
     def _get_expression(self):
         return str()
+
     def _set_unitType(self, unitType):
         pass
+
     def _get_unitType(self):
         return str()
+
     def _get_isValidExpression(self):
         return bool()
-    value = property(_get_value, _set_value, doc="Gets or sets the value associated with this input. The value is always in the database units of the unit type specified. For example, if the unit type is 'inch' this value is in centimeters since centimeters are the database length unit. When setting the value it is converted into a string using the unit type and displayed in the input box. When getting the value, the current expression string is evaluated and the database value for the unit type is returned. The isValidExpression property should be checked before using this value within the command because if the expression can't be evaluated there isn't a valid value. Fusion 360 won't allow the execution of a command that contains ValueCommandInput object with invalid expressions so you can dependably use the value in the execute event of the command.")
-    expression = property(_get_expression, _set_expression, doc="Gets or sets the expression displayed in the input field. This can contain equations and references to parameters. It is evaluated using the specified unit type.")
-    unitType = property(_get_unitType, _set_unitType, doc="Gets and sets the unit type that is used when evaluating the user's input.")
-    isValidExpression = property(_get_isValidExpression, None, doc="Returns true if the current expression is valid and can be evaluated. If this is false, the value returned should be ignored because there currently is not a valid value.")
+
+    value = property(_get_value, _set_value,
+                     doc="Gets or sets the value associated with this input. The value is always in the database units of the unit type specified. For example, if the unit type is 'inch' this value is in centimeters since centimeters are the database length unit. When setting the value it is converted into a string using the unit type and displayed in the input box. When getting the value, the current expression string is evaluated and the database value for the unit type is returned. The isValidExpression property should be checked before using this value within the command because if the expression can't be evaluated there isn't a valid value. Fusion 360 won't allow the execution of a command that contains ValueCommandInput object with invalid expressions so you can dependably use the value in the execute event of the command.")
+    expression = property(_get_expression, _set_expression,
+                          doc="Gets or sets the expression displayed in the input field. This can contain equations and references to parameters. It is evaluated using the specified unit type.")
+    unitType = property(_get_unitType, _set_unitType,
+                        doc="Gets and sets the unit type that is used when evaluating the user's input.")
+    isValidExpression = property(_get_isValidExpression, None,
+                                 doc="Returns true if the current expression is valid and can be evaluated. If this is false, the value returned should be ignored because there currently is not a valid value.")
+
 
 class WebRequestEvent(Event):
     """
     A WebRequestEvent represents an event that occurs in reaction to a Fusion 360 protocol handler in a web page. For example, insertedFromURL and openedFromURL
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return WebRequestEvent()
-    def add(handler):
+
+    def add(self, handler):
         """
         Add a handler to be notified when the event occurs.
         handler : The handler object to be called when this event is fired.
         Returns true if the addition of the handler was successful.
         """
         return bool()
-    def remove(handler):
+
+    def remove(self, handler):
         """
         Removes a handler from the event.
         handler : The handler object to be removed from the event.
         Returns true if removal of the handler was successful.
         """
         return bool()
+
 
 class WebRequestEventArgs(EventArgs):
     """
     The WebRequestEventArgs provides information associated with a web request event. These are events fired as a result of a Fusion 360 protocol handler being invoked from a web page. Note that some properties are not available on every event.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return WebRequestEventArgs()
+
     def _set_isCanceled(self, isCanceled):
         pass
+
     def _get_isCanceled(self):
         return bool()
+
     def _get_file(self):
         return str()
+
     def _get_properties(self):
         return str()
+
     def _get_id(self):
         return str()
+
     def _get_privateInfo(self):
         return str()
+
     def _get_occurrenceOrDocument(self):
         return Base()
-    isCanceled = property(_get_isCanceled, _set_isCanceled, doc="Used during the insertingFromURL and openingFromURL events to get or set if the insert or open should be allowed to continue. This defaults to false, which will allow the operation to continue as normal. This property should be ignored for all events besides the insertingFromURL and openingFromURL events.")
+
+    isCanceled = property(_get_isCanceled, _set_isCanceled,
+                          doc="Used during the insertingFromURL and openingFromURL events to get or set if the insert or open should be allowed to continue. This defaults to false, which will allow the operation to continue as normal. This property should be ignored for all events besides the insertingFromURL and openingFromURL events.")
     file = property(_get_file, None, doc="Returns the value specified as the 'file' parameter in the URL.")
-    properties = property(_get_properties, None, doc="Returns the value specified as the 'properties' parameter in the URL. This will be decoded and should be in JSON format if it was properly provided by the web page. It can be an empty string if the 'properties' parameter was not specified in the URL.")
-    id = property(_get_id, None, doc="Returns the value specified as the 'id' parameter in the URL. This will be decoded. It can be an empty string if the 'id' parameter was not specified in the URL.")
-    privateInfo = property(_get_privateInfo, None, doc="Returns the value specified as the 'privateInfo' parameter in the URL. This will be decoded and can be an empty string if the 'privateInfo' parameter was not specified in the URL.")
-    occurrenceOrDocument = property(_get_occurrenceOrDocument, None, doc="Used during the insertedFromURL or openedFromURL events and returns the Document (openedFromURL) or Occurrence (insertedFromURL) that was just created.")
+    properties = property(_get_properties, None,
+                          doc="Returns the value specified as the 'properties' parameter in the URL. This will be decoded and should be in JSON format if it was properly provided by the web page. It can be an empty string if the 'properties' parameter was not specified in the URL.")
+    id = property(_get_id, None,
+                  doc="Returns the value specified as the 'id' parameter in the URL. This will be decoded. It can be an empty string if the 'id' parameter was not specified in the URL.")
+    privateInfo = property(_get_privateInfo, None,
+                           doc="Returns the value specified as the 'privateInfo' parameter in the URL. This will be decoded and can be an empty string if the 'privateInfo' parameter was not specified in the URL.")
+    occurrenceOrDocument = property(_get_occurrenceOrDocument, None,
+                                    doc="Used during the insertedFromURL or openedFromURL events and returns the Document (openedFromURL) or Occurrence (insertedFromURL) that was just created.")
+
 
 class WorkspaceEvent(Event):
     """
     A WorkspaceEvent represents a workspace related event. For example, workspaceActivate or workspaceDeactivate.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return WorkspaceEvent()
-    def add(handler):
+
+    def add(self, handler):
         """
         Add a handler to be notified when the event occurs.
         handler : The handler object to be called when this event is fired.
         Returns true if the addition of the handler was successful.
         """
         return bool()
-    def remove(handler):
+
+    def remove(self, handler):
         """
         Removes a handler from the event.
         handler : The handler object to be removed from the event.
@@ -9900,91 +12866,179 @@ class WorkspaceEvent(Event):
         """
         return bool()
 
+
 class WorkspaceEventArgs(EventArgs):
     """
     The WorkspaceEventArgs provides information associated with a workspace event.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return WorkspaceEventArgs()
+
     def _get_workspace(self):
         return Workspace()
+
     workspace = property(_get_workspace, None, doc="Provides access to the workspace.")
+
 
 class FloatSliderCommandInput(SliderCommandInput):
     """
     Provides a command input to get the value of a slider from the user, the value type is float.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return FloatSliderCommandInput()
+
     def _set_valueOne(self, valueOne):
         pass
+
     def _get_valueOne(self):
         return float()
+
     def _set_valueTwo(self, valueTwo):
         pass
+
     def _get_valueTwo(self):
         return float()
+
     def _set_minimumValue(self, minimumValue):
         pass
+
     def _get_minimumValue(self):
         return float()
+
     def _set_maximumValue(self, maximumValue):
         pass
+
     def _get_maximumValue(self):
         return float()
+
     def _get_valueList(self):
         return float()
+
     def _set_spinStep(self, spinStep):
         pass
+
     def _get_spinStep(self):
         return float()
-    valueOne = property(_get_valueOne, _set_valueOne, doc="Gets or sets the first value associated with this input. The value is always in the database units of the unit type specified. For example, if the unit type is 'inch' this value is in centimeters since centimeters are the database length unit. When setting the value it is converted into a string using the unit type and displayed in the input box.")
-    valueTwo = property(_get_valueTwo, _set_valueTwo, doc="Gets or sets the second value associated with this input. The value is always in the database units of the unit type specified. For example, if the unit type is 'inch' this value is in centimeters since centimeters are the database length unit. When setting the value it is converted into a string using the unit type and displayed in the input box. This property is only available when the hasTwoSliders property returns true.")
-    minimumValue = property(_get_minimumValue, _set_minimumValue, doc="Gets and sets minimum value of the slider in database units. Gets a failure when set if the value of this command input was added by value list.")
-    maximumValue = property(_get_maximumValue, _set_maximumValue, doc="Gets and sets maximum value of the slider in database units. Gets a failure when set if the value of this command input was added by value list.")
-    valueList = property(_get_valueList, None, doc="Gets the value list of the slider. This property is valid when this input represents a list type of slider command input. Otherwise an empty list will be returned.")
-    spinStep = property(_get_spinStep, _set_spinStep, doc="Gets and sets the spin step value in the unit type set by the unitType argument. The value should be more than zero. This is the amount the slider will advance when the user clicks the spin button beside the value.")
+
+    valueOne = property(_get_valueOne, _set_valueOne,
+                        doc="Gets or sets the first value associated with this input. The value is always in the database units of the unit type specified. For example, if the unit type is 'inch' this value is in centimeters since centimeters are the database length unit. When setting the value it is converted into a string using the unit type and displayed in the input box.")
+    valueTwo = property(_get_valueTwo, _set_valueTwo,
+                        doc="Gets or sets the second value associated with this input. The value is always in the database units of the unit type specified. For example, if the unit type is 'inch' this value is in centimeters since centimeters are the database length unit. When setting the value it is converted into a string using the unit type and displayed in the input box. This property is only available when the hasTwoSliders property returns true.")
+    minimumValue = property(_get_minimumValue, _set_minimumValue,
+                            doc="Gets and sets minimum value of the slider in database units. Gets a failure when set if the value of this command input was added by value list.")
+    maximumValue = property(_get_maximumValue, _set_maximumValue,
+                            doc="Gets and sets maximum value of the slider in database units. Gets a failure when set if the value of this command input was added by value list.")
+    valueList = property(_get_valueList, None,
+                         doc="Gets the value list of the slider. This property is valid when this input represents a list type of slider command input. Otherwise an empty list will be returned.")
+    spinStep = property(_get_spinStep, _set_spinStep,
+                        doc="Gets and sets the spin step value in the unit type set by the unitType argument. The value should be more than zero. This is the amount the slider will advance when the user clicks the spin button beside the value.")
+
 
 class IntegerSliderCommandInput(SliderCommandInput):
     """
     Provides a command input to get the value of a slider from the user, the value type is integer.
     """
+
     def __init__(self):
-        pass
+        super().__init__()
+
     @staticmethod
     def cast(arg):
         return IntegerSliderCommandInput()
+
     def _set_valueOne(self, valueOne):
         pass
+
     def _get_valueOne(self):
         return int()
+
     def _set_valueTwo(self, valueTwo):
         pass
+
     def _get_valueTwo(self):
         return int()
+
     def _set_minimumValue(self, minimumValue):
         pass
+
     def _get_minimumValue(self):
         return int()
+
     def _set_maximumValue(self, maximumValue):
         pass
+
     def _get_maximumValue(self):
         return int()
+
     def _get_valueList(self):
         return int()
+
     def _set_spinStep(self, spinStep):
         pass
+
     def _get_spinStep(self):
         return int()
+
     valueOne = property(_get_valueOne, _set_valueOne, doc="Gets or sets the value associated with the first slider.")
-    valueTwo = property(_get_valueTwo, _set_valueTwo, doc="If the hasTwoSliders property is true, this returns the value associated with the second slider.")
-    minimumValue = property(_get_minimumValue, _set_minimumValue, doc="Gets and sets minimum value of the slider. This will fail if there is a value list because the minimum and maximum values are defined by the value list.")
-    maximumValue = property(_get_maximumValue, _set_maximumValue, doc="Gets and sets maximum value of the slider. This will fail if there is a value list because the minimum and maximum values are defined by the value list.")
-    valueList = property(_get_valueList, None, doc="Gets the value list of the slider. The list is empty if this command input was not added by value list.")
-    spinStep = property(_get_spinStep, _set_spinStep, doc="Gets and sets the spin step. This defines the amount the slider moves when the user clicks the spin button beside the value. The spin step should be more than zero.")
+    valueTwo = property(_get_valueTwo, _set_valueTwo,
+                        doc="If the hasTwoSliders property is true, this returns the value associated with the second slider.")
+    minimumValue = property(_get_minimumValue, _set_minimumValue,
+                            doc="Gets and sets minimum value of the slider. This will fail if there is a value list because the minimum and maximum values are defined by the value list.")
+    maximumValue = property(_get_maximumValue, _set_maximumValue,
+                            doc="Gets and sets maximum value of the slider. This will fail if there is a value list because the minimum and maximum values are defined by the value list.")
+    valueList = property(_get_valueList, None,
+                         doc="Gets the value list of the slider. The list is empty if this command input was not added by value list.")
+    spinStep = property(_get_spinStep, _set_spinStep,
+                        doc="Gets and sets the spin step. This defines the amount the slider moves when the user clicks the spin button beside the value. The spin step should be more than zero.")
+
+
+class CustomEventHandler:
+    def __init__(self):
+        pass
+
+
+class DocumentEventHandler:
+    def __init__(self):
+        pass
+
+
+class WorkspaceEventHandler:
+    def __init__(self):
+        pass
+
+
+class CommandEventHandler:
+    def __init__(self):
+        pass
+
+
+class InputChangedEventHandler:
+    def __init__(self):
+        pass
+
+
+class CommandCreatedEventHandler:
+    def __init__(self):
+        pass
+
+
+class HTMLEventHandler:
+    def __init__(self):
+        pass
+
+
+class UserInterfaceGeneralEventHandler:
+    def __init__(self):
+        pass
+
+
