@@ -230,3 +230,74 @@ class WorkspaceHandler(adsk.core.WorkspaceEventHandler):
             ui.messageBox('Failed:\n{}'.format(traceback.format_exc()))
         # ui.messageBox('In MyWorkspaceActivatedHandler event handler.')
 
+
+# Event handler for the workspaceActivated event.
+class WebRequestHandler(adsk.core.WebRequestEventHandler):
+    """Web Request Handler
+
+    """
+    def __init__(self, web_request_event_received):
+        """
+        Args:
+            web_request_event_received:
+        """
+        super().__init__()
+        self.web_request_function = web_request_event_received
+
+    def notify(self, args):
+        """
+        Args:
+            args:
+        """
+        pass
+        app = adsk.core.Application.cast(adsk.core.Application.get())
+        ui = app.userInterface
+
+        try:
+            event_args = adsk.core.WebRequestEventArgs.cast(args)
+            file = event_args.file
+            fusion_id = event_args.id
+            occurrence_or_document = event_args.occurrenceOrDocument
+            private_info = json.loads(event_args.privateInfo)
+            properties = json.loads(event_args.properties)
+
+            self.web_request_function(event_args, file, fusion_id, occurrence_or_document, private_info, properties)
+
+        except:
+            ui.messageBox('Failed:\n{}'.format(traceback.format_exc()))
+        # ui.messageBox('In MyWorkspaceActivatedHandler event handler.')
+
+
+# The class for the new thread.
+class Fusion360WebRequestEvent:
+    """
+        Args:
+        event_id:
+        event_type:
+    """
+
+    def __init__(self, event_id: str, event_type):
+        self.event_id = event_id
+        self.fusion_app = None
+        self.event_type = event_type
+        self.web_request_handler = WebRequestHandler(self.web_request_event_received)
+        event_type.add(self.web_request_handler)
+        handlers.append(self.web_request_handler)
+
+    def web_request_event_received(self, event_args, file, fusion_id, occurrence_or_document, private_info, properties):
+        """
+            Args:
+                properties:
+                private_info:
+                fusion_id:
+                occurrence_or_document:
+                file:
+                event_args:
+            """
+        pass
+
+    def on_stop(self):
+        """stop listening to the event
+
+        """
+        self.event_type.remove(self.web_request_handler)

@@ -21,6 +21,9 @@ def _destroy_object(obj_to_be_deleted):
 
 
 class Fusion360CommandBase:
+    """The Fusion360CommandBase class wraps the common tasks used when creating a Fusion 360 Command.
+
+    """
     def __init__(self, name: str, options: dict):
 
         """The Fusion360CommandBase class wraps the common tasks used when creating a Fusion 360 Command.

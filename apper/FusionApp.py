@@ -16,7 +16,8 @@ from typing import Optional, List, Union, Any, Iterable
 
 from .Fusion360CommandBase import Fusion360CommandBase
 from .PaletteCommandBase import PaletteCommandBase
-from .Fusion360AppEvents import Fusion360DocumentEvent, Fusion360CustomThread, Fusion360WorkspaceEvent
+from .Fusion360AppEvents import Fusion360DocumentEvent, Fusion360CustomThread, Fusion360WorkspaceEvent, \
+    Fusion360WebRequestEvent
 
 
 class FusionApp:
@@ -36,6 +37,7 @@ class FusionApp:
         self.custom_events = []
         self.document_events = []
         self.workspace_events = []
+        self.web_request_events = []
         self.tabs = []
         self.default_dir = self._get_default_dir()
         self.preferences = self.get_all_preferences()
@@ -161,6 +163,17 @@ class FusionApp:
         workspace_event = event_class(event_id, workspace_name)
         workspace_event.fusion_app = self
         self.workspace_events.append(workspace_event)
+
+    def add_web_request_event(self, event_id: str, event_class: Fusion360WebRequestEvent):
+        """Register a workspace event that can respond to various workspace actions
+
+        Args:
+            event_id: A unique identifier for the event
+            event_class: Your subclass of Fusion360WorkspaceEvent
+        """
+        web_request_event = event_class(event_id)
+        web_request_event.fusion_app = self
+        self.web_request_events.append(web_request_event)
 
     def check_for_updates(self):
         """Not Implemented"""
