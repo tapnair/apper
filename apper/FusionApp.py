@@ -23,11 +23,6 @@ from pathlib import Path
 
 from typing import Optional, List, Union, Any, Iterable
 
-from .Fusion360CommandBase import Fusion360CommandBase
-from .PaletteCommandBase import PaletteCommandBase
-from .Fusion360AppEvents import Fusion360DocumentEvent, Fusion360CustomThread, Fusion360WorkspaceEvent, \
-    Fusion360WebRequestEvent
-
 
 class FusionApp:
     """Base class for creating a Fusion 360 Add-in
@@ -43,10 +38,7 @@ class FusionApp:
         self.company = company
         self.debug = debug
         self.commands = []
-        self.custom_events = []
-        self.document_events = []
-        self.workspace_events = []
-        self.web_request_events = []
+        self.events = []
         self.tabs = []
         self.default_dir = self._get_default_dir()
         self.preferences = self.get_all_preferences()
@@ -63,9 +55,8 @@ class FusionApp:
 
         Args:
             name: The name of the command
-            command_class: This should be your subclass of Fusion360CommandBase or PaletteCommandBase
+            command_class: This should be your subclass of apper.Fusion360CommandBase or apper.PaletteCommandBase
             options: Set of options for the command see the full set of `options <usage/options>`_
-            :type command_class: object
         """
         app = adsk.core.Application.cast(adsk.core.Application.get())
         ui = app.userInterface
@@ -136,59 +127,88 @@ class FusionApp:
             self,
             event_id: str,
             event_type: adsk.core.DocumentEvent,
-            event_class: Fusion360DocumentEvent
+            event_class: Any
     ):
         """Register a document event that can respond to various document actions
 
         Args:
             event_id: A unique identifier for the event
             event_type: Any document event in the current application
-            event_class: Your subclass of Fusion360DocumentEvent
+            event_class: Your subclass of apper.Fusion360DocumentEvent
         """
         doc_event = event_class(event_id, event_type)
         doc_event.fusion_app = self
-        self.document_events.append(doc_event)
+        self.events.append(doc_event)
 
-    def add_custom_event(self, event_id: str, event_class: Fusion360CustomThread):
+    def add_custom_event(self, event_id: str, event_class: Any):
         """Register a custom event to respond to a function running in a new thread
 
         Args:
             event_id: A unique identifier for the event
-            event_class: Your subclass of Fusion360CustomThread
+            event_class: Your subclass of apper.Fusion360CustomThread
         """
 
         custom_event = event_class(event_id)
         custom_event.fusion_app = self
-        self.custom_events.append(custom_event)
+        self.events.append(custom_event)
 
-    def add_workspace_event(self, event_id: str, workspace_name: str, event_class: Fusion360WorkspaceEvent):
+    def add_custom_event_no_thread(self, event_id: str, event_class: Any):
+        """Register a custom event to respond to a function running in a new thread
+
+        Args:
+            event_id: A unique identifier for the event
+            event_class: Your subclass of apper.Fusion360CustomThread
+        """
+
+        custom_event = event_class(event_id)
+        custom_event.fusion_app = self
+        self.events.append(custom_event)
+
+    def add_workspace_event(self, event_id: str, workspace_name: str, event_class: Any):
         """Register a workspace event that can respond to various workspace actions
 
         Args:
             event_id: A unique identifier for the event
             workspace_name: name of the workspace (i.e.
-            event_class: Your subclass of Fusion360WorkspaceEvent
+            event_class: Your subclass of apper.Fusion360WorkspaceEvent
         """
         workspace_event = event_class(event_id, workspace_name)
         workspace_event.fusion_app = self
-        self.workspace_events.append(workspace_event)
+        self.events.append(workspace_event)
 
-    def add_web_request_event(
+    def add_command_event(
             self,
             event_id: str,
-            event_type: adsk.core.WebRequestEvent,
-            event_class: Fusion360WebRequestEvent
+            event_type: Any,
+            event_class: Any
     ):
         """Register a workspace event that can respond to various workspace actions
 
         Args:
             event_id: A unique identifier for the event
-            event_class: Your subclass of Fusion360WorkspaceEvent
+            event_type: One of [UserInterface.commandCreated, UserInterface.commandStarting, UserInterface.commandTerminated]
+            event_class: Your subclass of apper.Fusion360CommandEvent class
+        """
+        command_event = event_class(event_id, event_type)
+        command_event.fusion_app = self
+        self.events.append(command_event)
+
+    def add_web_request_event(
+            self,
+            event_id: str,
+            event_type: adsk.core.WebRequestEvent,
+            event_class: Any
+    ):
+        """Register a workspace event that can respond to various workspace actions
+
+        Args:
+            event_id: A unique identifier for the event
+            event_class: Your subclass of apper.Fusion360WebRequestEvent
             event_type: Opened or Inserting from URL event type such as (app.openedFromURL)
         """
         web_request_event = event_class(event_id, event_type)
         web_request_event.fusion_app = self
-        self.web_request_events.append(web_request_event)
+        self.events.append(web_request_event)
 
     def check_for_updates(self):
         """Not Implemented"""
@@ -220,10 +240,7 @@ class FusionApp:
                 if toolbar_tab.isValid:
                     toolbar_tab.deleteMe()
 
-            for event in self.custom_events:
-                event.on_stop()
-
-            for event in self.document_events:
+            for event in self.events:
                 event.on_stop()
 
         except:

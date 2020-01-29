@@ -35,8 +35,8 @@ class PaletteCommandBase(Fusion360CommandBase):
 
         resource_path = os.path.join('./', self.path, rel_path)
 
-        # self.palette_html_file_url = resource_path
-        self.palette_html_file_url = rel_path
+        self.palette_html_file_url = resource_path
+        # self.palette_html_file_url = rel_path
 
         self.palette_is_visible = options.get('palette_is_visible', True)
         self.palette_show_close_button = options.get('palette_show_close_button', True)
