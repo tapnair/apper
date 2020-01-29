@@ -9,7 +9,7 @@ Python module for creating a Fusion 360 Addin
 #  :license: Apache2, see LICENSE for more details.                            ~
 #  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #  FusionApp.py                                                                ~
-#  This file is a component of apper.                                          ~
+#  This file is a component of ApperSample.                                    ~
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 import traceback
@@ -79,7 +79,7 @@ class FusionApp:
             if tab_id is None:
                 options['toolbar_tab_id'] = self.name
 
-            _workspace = options.get('workspace')
+            _workspace = options.get('workspace', 'FusionSolidEnvironment')
 
             if isinstance(_workspace, str):
                 _this_tab_id = options['toolbar_tab_id'] + '_' + _workspace
@@ -123,12 +123,7 @@ class FusionApp:
         cmd_id = self.command_dict.get(name)
         return cmd_id
 
-    def add_document_event(
-            self,
-            event_id: str,
-            event_type: adsk.core.DocumentEvent,
-            event_class: Any
-    ):
+    def add_document_event(self, event_id: str, event_type: adsk.core.DocumentEvent, event_class: Any):
         """Register a document event that can respond to various document actions
 
         Args:
@@ -153,7 +148,7 @@ class FusionApp:
         self.events.append(custom_event)
 
     def add_custom_event_no_thread(self, event_id: str, event_class: Any):
-        """Register a custom event to respond to a function running in a new thread
+        """Register a custom event
 
         Args:
             event_id: A unique identifier for the event
@@ -176,12 +171,7 @@ class FusionApp:
         workspace_event.fusion_app = self
         self.events.append(workspace_event)
 
-    def add_command_event(
-            self,
-            event_id: str,
-            event_type: Any,
-            event_class: Any
-    ):
+    def add_command_event(self, event_id: str, event_type: Any, event_class: Any):
         """Register a workspace event that can respond to various workspace actions
 
         Args:
@@ -193,12 +183,7 @@ class FusionApp:
         command_event.fusion_app = self
         self.events.append(command_event)
 
-    def add_web_request_event(
-            self,
-            event_id: str,
-            event_type: adsk.core.WebRequestEvent,
-            event_class: Any
-    ):
+    def add_web_request_event(self, event_id: str, event_type: adsk.core.WebRequestEvent, event_class: Any):
         """Register a workspace event that can respond to various workspace actions
 
         Args:

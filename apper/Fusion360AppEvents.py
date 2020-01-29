@@ -3,7 +3,7 @@
 #  :license: Apache2, see LICENSE for more details.                            ~
 #  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #  Fusion360AppEvents.py                                                       ~
-#  This file is a component of apper.                                          ~
+#  This file is a component of ApperSample.                                    ~
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 import adsk.core
@@ -20,13 +20,12 @@ handlers = []
 
 # The class for the new thread.
 class Fusion360CustomThread:
-    def __init__(self, event_id):
-        """Creates a new Custom Event handler and a new thread
+    """Creates a new Custom Event handler and a new thread
 
-        Args:
-            event_id: Unique id, can be used by other functions to trigger the event
-        """
-        pass
+    Args:
+        event_id: Unique id, can be used by other functions to trigger the event
+    """
+    def __init__(self, event_id):
         self.event_id = event_id
         self.thread = None
         self.fusion_app = None
@@ -44,16 +43,12 @@ class Fusion360CustomThread:
             handlers.append(on_thread_event)
 
             # create and start the new thread
-
             self.thread = _FusionThread(self.event_id, self.run_in_thread)
             self.thread.daemon = True
             self.thread.start()
 
         except Exception as e:
-            if ui:
-                ui.messageBox('Failed:\n{}'.format(traceback.format_exc()))
-            print(traceback.format_exc())
-            print(e)
+            ui.messageBox('Failed:\n{}'.format(traceback.format_exc()))
 
     def custom_event_received(self, event_dict):
         """Function that will run when event is triggered
@@ -63,29 +58,27 @@ class Fusion360CustomThread:
         """
         pass
 
-    def run_in_thread(self, thread, event_id):
+    def run_in_thread(self, thread, event_id, input_data=None):
         """Function to run in new thread
 
         Args:
             thread: Reference to thread that function is running in
             event_id: reference to an event id, not necessarily relevant in this case
+            input_data: Optional parameter to pass extra data to the thread
         """
         pass
 
     def on_stop(self):
+        """Function is run when the addin stops.
+
+        Clean up.  If overridden ensure to execute with super().on_stop()
+        """
         app = adsk.core.Application.get()
         app.unregisterCustomEvent(self.event_id)
 
 
 class _CustomThreadEventHandler(adsk.core.CustomEventHandler):
     def __init__(self, receiver_function):
-        """The event handler that responds to the custom event being fired.
-
-        Assumes message being received is a json string
-
-        Args:
-            receiver_function:
-        """
         self.receiver_function = receiver_function
         super().__init__()
 
@@ -108,11 +101,9 @@ class _CustomThreadEventHandler(adsk.core.CustomEventHandler):
             self.receiver_function(event_dict)
 
         except:
-            if ui:
-                ui.messageBox('Thread Handler Failed:\n{}'.format(traceback.format_exc()))
+            ui.messageBox('Thread Handler Failed:\n{}'.format(traceback.format_exc()))
 
 
-# The class for the new thread.
 class _FusionThread(threading.Thread):
     def __init__(self, event_id, run_in_thread, input_data=None):
         """Starts a new thread and runs the given function in it
@@ -132,24 +123,23 @@ class _FusionThread(threading.Thread):
         self.stopped = stop_event
 
     def run(self):
+        """Method overwritten on parent class that will be executed when the thread executes
+        """
         self.run_function(self, self.event_id, self.input_data)
 
 
 class Fusion360NewThread:
-    def __init__(self, event_id, input_data=None):
-        """Creates a new thread. Useful for firing custom events.
+    """Starts a new thread and runs the given function in it
 
-        Args:
-            event_id: Unique id, can be used by other functions to trigger the event
-        """
-        pass
+    Args:
+        event_id: Unique id, can be used by other functions to trigger the event
+        input_data: Optional parameter to pass extra data to the thread
+    """
+    def __init__(self, event_id, input_data=None):
         self.event_id = event_id
         self.thread = None
         self.fusion_app = None
         self.input_data = input_data
-
-        app = adsk.core.Application.get()
-        ui = app.userInterface
 
         try:
             # create and start the new thread
@@ -158,10 +148,9 @@ class Fusion360NewThread:
             self.thread.start()
 
         except Exception as e:
-            if ui:
-                ui.messageBox('Failed:\n{}'.format(traceback.format_exc()))
-            print(traceback.format_exc())
-            print(e)
+            app = adsk.core.Application.get()
+            ui = app.userInterface
+            ui.messageBox('Failed Crating New Thread:\n{}'.format(traceback.format_exc()))
 
     def run_in_thread(self, thread, event_id, input_data=None):
         """Function to run in new thread
@@ -175,15 +164,13 @@ class Fusion360NewThread:
 
 
 class Fusion360CustomEvent:
-    def __init__(self, event_id):
-        """Creates a new Custom Event handler
+    """Creates a new Custom Event handler
 
-        Args:
-            event_id: Unique id, can be used by other functions to trigger the event
-        """
-        pass
+    Args:
+        event_id: Unique id, can be used by other functions to trigger the event
+    """
+    def __init__(self, event_id):
         self.event_id = event_id
-        self.thread = None
         self.fusion_app = None
 
         app = adsk.core.Application.get()
@@ -199,10 +186,7 @@ class Fusion360CustomEvent:
             handlers.append(on_custom_event)
 
         except Exception as e:
-            if ui:
-                ui.messageBox('Failed creating custom event:\n{}'.format(traceback.format_exc()))
-            print(traceback.format_exc())
-            print(e)
+            ui.messageBox('Failed creating custom event:\n{}'.format(traceback.format_exc()))
 
     def custom_event_received(self, event_dict: dict):
         """Function that will run when event is triggered
@@ -213,18 +197,23 @@ class Fusion360CustomEvent:
         pass
 
     def on_stop(self):
+        """Function is run when the addin stops.
+
+        Clean up.  If overridden ensure to execute with super().on_stop()
+        """
         app = adsk.core.Application.get()
         app.unregisterCustomEvent(self.event_id)
 
 
 # The class for the new thread.
 class Fusion360DocumentEvent:
+    """Creates a new Document Event handler
+    Args:
+        event_id: Unique id, can be used by other functions to trigger the event
+        event_type: Any document event in the current application
+    """
     def __init__(self, event_id: str, event_type):
-        """
-        Args:
-            event_id:
-            event_type:
-        """
+
         self.event_id = event_id
         self.fusion_app = None
         self.event_type = event_type
@@ -241,13 +230,16 @@ class Fusion360DocumentEvent:
         pass
 
     def on_stop(self):
+        """Function is run when the addin stops.
+
+        Clean up.  If overridden ensure to execute with super().on_stop()
+        """
         self.event_type.remove(self.document_handler)
 
 
-# The class for the new thread.
 class Fusion360WorkspaceEvent:
     def __init__(self, event_id, event_type):
-        """
+        """Creates a new Workspace Event handler
         Args:
             event_id:
             event_type:
@@ -268,89 +260,70 @@ class Fusion360WorkspaceEvent:
         pass
 
     def on_stop(self):
+        """Function is run when the addin stops.
+
+        Clean up.  If overridden ensure to execute with super().on_stop()
+        """
         self.event_type.remove(self.workspace_handler)
 
 
 # Event handler for the documentActivated event.
 class _DocumentHandler(adsk.core.DocumentEventHandler):
     def __init__(self, document_event_received):
-        """
-        Args:
-            document_event_received:
-        """
         self.document_function = document_event_received
         super().__init__()
 
     def notify(self, args):
-        """
+        """Method overwritten on parent class that will be executed when the event fires
+
         Args:
-            args:
+            args: event arguments
         """
-        app = adsk.core.Application.cast(adsk.core.Application.get())
-        ui = app.userInterface
         try:
             event_args = adsk.core.DocumentEventArgs.cast(args)
-
             document = event_args.document
-
             self.document_function(event_args, document)
+
         except:
+            app = adsk.core.Application.cast(adsk.core.Application.get())
+            ui = app.userInterface
             ui.messageBox('Failed:\n{}'.format(traceback.format_exc()))
 
-        # # Code to react to the event.
-        # ui.messageBox('In MyDocumentActivatedHandler event handler.')
 
-
-# Event handler for the workspaceActivated event.
 class _WorkspaceHandler(adsk.core.WorkspaceEventHandler):
     def __init__(self, workspace_event_received):
-        """
-        Args:
-            workspace_event_received:
-        """
         super().__init__()
         self.workspace_function = workspace_event_received
 
     def notify(self, args):
-        """
-        Args:
-            args:
-        """
-        app = adsk.core.Application.cast(adsk.core.Application.get())
-        ui = app.userInterface
+        """Method overwritten on parent class that will be executed when the event fires
 
+        Args:
+            args: event arguments
+        """
         try:
             event_args = adsk.core.WorkspaceEventArgs.cast(args)
             workspace = event_args.workspace
             self.workspace_function(event_args, workspace)
 
         except:
+            app = adsk.core.Application.cast(adsk.core.Application.get())
+            ui = app.userInterface
             ui.messageBox('Failed:\n{}'.format(traceback.format_exc()))
-        # ui.messageBox('In MyWorkspaceActivatedHandler event handler.')
 
 
 # Event handler for the workspaceActivated event.
-class WebRequestHandler(adsk.core.WebRequestEventHandler):
-    """Web Request Handler
-
-    """
+class _WebRequestHandler(adsk.core.WebRequestEventHandler):
     def __init__(self, web_request_event_received):
-        """
-        Args:
-            web_request_event_received:
-        """
         super().__init__()
         self.web_request_function = web_request_event_received
 
     def notify(self, args):
-        """
-        Args:
-            args:
-        """
-        pass
-        app = adsk.core.Application.cast(adsk.core.Application.get())
-        ui = app.userInterface
+        """Method overwritten on parent class that will be executed when the event fires
 
+        Args:
+            args: event arguments
+        """
         try:
             event_args = adsk.core.WebRequestEventArgs.cast(args)
             file = event_args.file
@@ -374,11 +347,11 @@ class WebRequestHandler(adsk.core.WebRequestEventHandler):
             self.web_request_function(event_args, file, fusion_id, occurrence_or_document, private_info, properties)
 
         except:
+            app = adsk.core.Application.cast(adsk.core.Application.get())
+            ui = app.userInterface
             ui.messageBox('Failed to load data in event handler:\n{}'.format(traceback.format_exc()))
-        # ui.messageBox('In MyWorkspaceActivatedHandler event handler.')
 
 
-# The class for the new thread.
 class Fusion360WebRequestEvent:
     """Create a new Web Request Event action
 
@@ -391,7 +364,7 @@ class Fusion360WebRequestEvent:
         self.event_id = event_id
         self.fusion_app = None
         self.event_type = event_type
-        self.web_request_handler = WebRequestHandler(self.web_request_event_received)
+        self.web_request_handler = _WebRequestHandler(self.web_request_event_received)
         event_type.add(self.web_request_handler)
         handlers.append(self.web_request_handler)
 
@@ -409,7 +382,10 @@ class Fusion360WebRequestEvent:
         pass
 
     def on_stop(self):
-        """stop listening to the event"""
+        """Function is run when the addin stops.
+
+        Clean up.  If overridden ensure to execute with super().on_stop()
+        """
         self.event_type.remove(self.web_request_handler)
 
 
@@ -419,6 +395,11 @@ class _CommandEventHandler(adsk.core.ApplicationCommandEventHandler):
         self.command_function = command_function
 
     def notify(self, args):
+        """Method overwritten on parent class that will be executed when the event fires
+
+        Args:
+            args: event arguments
+        """
         try:
             event_args = adsk.core.ApplicationCommandEventArgs.cast(args)
             command_id = event_args.commandId
@@ -432,13 +413,13 @@ class _CommandEventHandler(adsk.core.ApplicationCommandEventHandler):
 
 
 class Fusion360CommandEvent:
-    def __init__(self, event_id, event_type):
-        """Create a new Command Event action
+    """Create a new Command Event action
 
-        Args:
-            event_id: A unique id for this event
-            event_type: One of: [UserInterface.commandCreated, UserInterface.commandStarting, UserInterface.commandTerminated]
-        """
+    Args:
+        event_id: A unique id for this event
+        event_type: One of: [UserInterface.commandCreated, UserInterface.commandStarting, UserInterface.commandTerminated]
+    """
+    def __init__(self, event_id, event_type):
         self.event_id = event_id
         self.fusion_app = None
         self.event_type = event_type
@@ -457,5 +438,8 @@ class Fusion360CommandEvent:
         pass
 
     def on_stop(self):
-        """stop listening to the event"""
+        """Function is run when the addin stops.
+
+        Clean up.  If overridden ensure to execute with super().on_stop()
+        """
         self.event_type.remove(self.command_handler)
