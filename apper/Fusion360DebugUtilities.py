@@ -1,5 +1,13 @@
 __author__ = 'rainsbp'
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  Copyright (c) 2020 by Patrick Rainsberry.                                   ~
+#  :license: Apache2, see LICENSE for more details.                            ~
+#  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  Fusion360DebugUtilities.py                                                  ~
+#  This file is a component of apper.                                          ~
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 import time
 import os
 from os.path import expanduser

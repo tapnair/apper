@@ -3,6 +3,15 @@ FusionApp.py
 =============================================
 Python module for creating a Fusion 360 Addin
 """
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  Copyright (c) 2020 by Patrick Rainsberry.                                   ~
+#  :license: Apache2, see LICENSE for more details.                            ~
+#  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  FusionApp.py                                                                ~
+#  This file is a component of apper.                                          ~
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 import traceback
 
 import adsk.core

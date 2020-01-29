@@ -1,3 +1,11 @@
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  Copyright (c) 2020 by Patrick Rainsberry.                                   ~
+#  :license: Apache2, see LICENSE for more details.                            ~
+#  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#  Fusion360Utilities.py                                                       ~
+#  This file is a component of apper.                                          ~
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 import adsk.core
 import adsk.fusion
 import adsk.cam
