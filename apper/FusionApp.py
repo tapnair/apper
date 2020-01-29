@@ -164,14 +164,20 @@ class FusionApp:
         workspace_event.fusion_app = self
         self.workspace_events.append(workspace_event)
 
-    def add_web_request_event(self, event_id: str, event_class: Fusion360WebRequestEvent):
+    def add_web_request_event(
+            self,
+            event_id: str,
+            event_type: adsk.core.WebRequestEvent,
+            event_class: Fusion360WebRequestEvent
+    ):
         """Register a workspace event that can respond to various workspace actions
 
         Args:
             event_id: A unique identifier for the event
             event_class: Your subclass of Fusion360WorkspaceEvent
+            event_type: Opened or Inserting from URL event type such as (app.openedFromURL)
         """
-        web_request_event = event_class(event_id)
+        web_request_event = event_class(event_id, event_type)
         web_request_event.fusion_app = self
         self.web_request_events.append(web_request_event)
 

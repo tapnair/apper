@@ -258,13 +258,25 @@ class WebRequestHandler(adsk.core.WebRequestEventHandler):
             file = event_args.file
             fusion_id = event_args.id
             occurrence_or_document = event_args.occurrenceOrDocument
-            private_info = json.loads(event_args.privateInfo)
-            properties = json.loads(event_args.properties)
+            private_info = event_args.privateInfo
+            properties = event_args.properties
+
+            # TODO implement error checking and type checks here.  Was getting weird errors.
+            # if len(event_args.privateInfo) > 1:
+            #     try:
+            #         private_info = json.loads(event_args.privateInfo)
+            #     except:
+            #         private_info = ""
+            # if len(event_args.properties) > 1:
+            #     try:
+            #         properties = json.loads(event_args.properties)
+            #     except:
+            #         properties = ""
 
             self.web_request_function(event_args, file, fusion_id, occurrence_or_document, private_info, properties)
 
         except:
-            ui.messageBox('Failed:\n{}'.format(traceback.format_exc()))
+            ui.messageBox('Failed to load data in event handler:\n{}'.format(traceback.format_exc()))
         # ui.messageBox('In MyWorkspaceActivatedHandler event handler.')
 
 
