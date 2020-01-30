@@ -3,7 +3,6 @@ Fusion360CommandBase.py
 =========================================================
 Python module for creating a Fusion 360 Command
 
-Full documentation is at <https://apper.readthedocs.io>.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 :copyright: (c) 2019 by Patrick Rainsberry.
 :license: Apache 2.0, see LICENSE for more details.

@@ -3,7 +3,6 @@ Fusion360Utilities.py
 =========================================================
 Tools to leverage when creating a Fusion 360 Add-in
 
-Full documentation is at <https://apper.readthedocs.io>.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 :copyright: (c) 2019 by Patrick Rainsberry.
 :license: Apache 2.0, see LICENSE for more details.

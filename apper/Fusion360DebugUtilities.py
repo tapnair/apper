@@ -3,7 +3,6 @@ Fusion360DebugUtilities.py
 =========================================================
 Utilities to aid in debugging a Fusion 360 Addin
 
-Full documentation is at <https://apper.readthedocs.io>.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 :copyright: (c) 2019 by Patrick Rainsberry.
 :license: Apache 2.0, see LICENSE for more details.
