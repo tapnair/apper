@@ -13060,3 +13060,13 @@ class UserInterfaceGeneralEventHandler:
         pass
 
 
+class WebRequestEventHandler:
+    def __init__(self):
+        pass
+
+
+class ApplicationCommandEventHandler:
+    def __init__(self):
+        pass
+
+

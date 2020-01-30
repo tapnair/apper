@@ -1,28 +1,30 @@
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#  Copyright (c) 2020 by Patrick Rainsberry.                                   ~
-#  :license: Apache2, see LICENSE for more details.                            ~
-#  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#  PaletteCommandBase.py                                                       ~
-#  This file is a component of ApperSample.                                    ~
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"""
+PaletteCommandBase.py
+=========================================================
+Python module for creating an HTML Palette based command
 
+Full documentation is at <https://apper.readthedocs.io>.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+:copyright: (c) 2019 by Patrick Rainsberry.
+:license: Apache 2.0, see LICENSE for more details.
+
+"""
 import traceback
 
 import adsk.core
-from .Fusion360CommandBase import Fusion360CommandBase
+import apper
 
 import os
 import sys
 
 
-class PaletteCommandBase(Fusion360CommandBase):
+class PaletteCommandBase(apper.Fusion360CommandBase):
     """Class for creating a Fusion 360 Command that will show a web palette
 
-        Args:
-            name: Name of the Command
-            options: Dictionary of options
-        """
-
+    Args:
+        name: Name of the Command
+        options: Dictionary of options
+    """
     def __init__(self, name: str, options: dict):
         super().__init__(name, options)
 

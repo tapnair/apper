@@ -1,11 +1,14 @@
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#  Copyright (c) 2020 by Patrick Rainsberry.                                   ~
-#  :license: Apache2, see LICENSE for more details.                            ~
-#  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#  Fusion360CommandBase.py                                                     ~
-#  This file is a component of ApperSample.                                    ~
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"""
+Fusion360CommandBase.py
+=========================================================
+Python module for creating a Fusion 360 Command
 
+Full documentation is at <https://apper.readthedocs.io>.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+:copyright: (c) 2019 by Patrick Rainsberry.
+:license: Apache 2.0, see LICENSE for more details.
+
+"""
 import traceback
 
 import adsk.core
@@ -31,11 +34,6 @@ def _destroy_object(obj_to_be_deleted):
 class Fusion360CommandBase:
     """The Fusion360CommandBase class wraps the common tasks used when creating a Fusion 360 Command.
 
-    """
-    def __init__(self, name: str, options: dict):
-
-        """The Fusion360CommandBase class wraps the common tasks used when creating a Fusion 360 Command.
-
         To create a new command create a new subclass of  Fusion360CommandBase
         Then override the methods and add functionality as required
 
@@ -43,6 +41,7 @@ class Fusion360CommandBase:
             name: The name of the command
             options: A dictionary of options for the command placement in the ui.  (TODO - Add docs for this)
         """
+    def __init__(self, name: str, options: dict):
         self.app_name = options.get('app_name')
         self.fusion_app: apper.FusionApp = options.get('fusion_app', None)
 

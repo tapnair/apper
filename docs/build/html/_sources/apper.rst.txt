@@ -21,34 +21,40 @@ Core Apper Modules
 apper.FusionApp module
 ----------------------
 
-.. autoclass:: FusionApp
+.. automodule:: FusionApp
    :members:
 
 apper.Fusion360CommandBase module
 ---------------------------------
 
 
-.. autoclass:: Fusion360CommandBase
+.. automodule:: Fusion360CommandBase
    :members:
 
 apper.PaletteCommandBase module
 -------------------------------
 
-.. autoclass:: PaletteCommandBase
+.. automodule:: PaletteCommandBase
    :members:
 
+
+apper.Fusion360AppEvents module
+-------------------------------
+
+.. automodule:: Fusion360AppEvents
+   :members:
 
 Other Modules
 ==============
-
-apper.Fusion360DebugUtilities module
-------------------------------------
-
-.. automodule:: Fusion360DebugUtilities
-   :members:
 
 apper.Fusion360Utilities module
 -------------------------------
 
 .. automodule:: Fusion360Utilities
+   :members:
+
+apper.Fusion360DebugUtilities module
+------------------------------------
+
+.. automodule:: Fusion360DebugUtilities
    :members:

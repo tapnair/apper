@@ -1,11 +1,14 @@
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#  Copyright (c) 2020 by Patrick Rainsberry.                                   ~
-#  :license: Apache2, see LICENSE for more details.                            ~
-#  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#  Fusion360AppEvents.py                                                       ~
-#  This file is a component of ApperSample.                                    ~
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"""
+Fusion360AppEvents.py
+=========================================================
+Python module for creating Fusion 360 event handlers
 
+Full documentation is at <https://apper.readthedocs.io>.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+:copyright: (c) 2019 by Patrick Rainsberry.
+:license: Apache 2.0, see LICENSE for more details.
+
+"""
 import adsk.core
 import adsk.fusion
 import adsk.cam

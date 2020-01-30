@@ -1,12 +1,15 @@
+"""
+Apper Fusion 360 API Wrapper
+=========================================================
+Apper a simple wrapper for the Fusion 360 API,
+written in Python, for human beings.
 
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#  Copyright (c) 2020 by Patrick Rainsberry.                                   ~
-#  :license: Apache2, see LICENSE for more details.                            ~
-#  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#  __init__.py                                                                 ~
-#  This file is a component of apper.                                          ~
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Full documentation is at <https://apper.readthedocs.io>.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+:copyright: (c) 2019 by Patrick Rainsberry.
+:license: Apache 2.0, see LICENSE for more details.
 
+"""
 from .FusionApp import FusionApp
 from .Fusion360AppEvents import Fusion360CustomEvent
 from .Fusion360AppEvents import Fusion360CustomThread

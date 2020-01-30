@@ -1,11 +1,14 @@
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#  Copyright (c) 2020 by Patrick Rainsberry.                                   ~
-#  :license: Apache2, see LICENSE for more details.                            ~
-#  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#  Fusion360Utilities.py                                                       ~
-#  This file is a component of apper.                                          ~
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"""
+Fusion360Utilities.py
+=========================================================
+Tools to leverage when creating a Fusion 360 Add-in
 
+Full documentation is at <https://apper.readthedocs.io>.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+:copyright: (c) 2019 by Patrick Rainsberry.
+:license: Apache 2.0, see LICENSE for more details.
+
+"""
 import adsk.core
 import adsk.fusion
 import adsk.cam
@@ -28,6 +31,7 @@ import logging
 # Class to quickly access Fusion Application Objects
 # TODO Doc string
 class AppObjects(object):
+    """The AppObjects class wraps many common application objects required when writing a Fusion 360 Addin."""
 
     def __init__(self):
 
@@ -46,6 +50,11 @@ class AppObjects(object):
 
     @property
     def design(self) -> Optional[adsk.fusion.Design]:
+        """adsk.fusion.Design from the active document
+
+        Returns: adsk.fusion.Design from the active document
+
+        """
         design_ = self.document.products.itemByProductType('DesignProductType')
         if design_ is not None:
             return design_
@@ -54,6 +63,13 @@ class AppObjects(object):
 
     @property
     def cam(self) -> Optional[adsk.cam.CAM]:
+        """adsk.cam.CAM from the active document
+
+        Note if the document has never been activated in the CAM environment this will return None
+
+        Returns: adsk.cam.CAM from the active document
+
+        """
         cam_ = self.document.products.itemByProductType('CAMProductType')
         if cam_ is not None:
             return cam_
@@ -62,6 +78,11 @@ class AppObjects(object):
 
     @property
     def units_manager(self) -> Optional[adsk.core.UnitsManager]:
+        """adsk.core.UnitsManager from the active document
+
+        Returns: adsk.core.UnitsManager from the active document
+
+        """
         if self.product.productType == 'DesignProductType':
             units_manager_ = self._design.fusionUnitsManager
         else:
@@ -74,6 +95,11 @@ class AppObjects(object):
 
     @property
     def export_manager(self) -> Optional[adsk.fusion.ExportManager]:
+        """adsk.fusion.ExportManager from the active document
+
+        Returns: adsk.fusion.ExportManager from the active document
+
+        """
         if self._design is not None:
             export_manager_ = self._design.exportManager
             return export_manager_
@@ -82,6 +108,13 @@ class AppObjects(object):
 
     @property
     def root_comp(self) -> Optional[adsk.fusion.Component]:
+        """Every adsk.fusion.Design has exactly one Root Component
+
+        It should also be noted that the Root Component in the Design does not have an associated Occurrence
+
+        Returns: The Root Component of the adsk.fusion.Design
+
+        """
         if self.product.productType == 'DesignProductType':
             root_comp_ = self.design.rootComponent
             return root_comp_
@@ -90,6 +123,11 @@ class AppObjects(object):
 
     @property
     def time_line(self) -> Optional[adsk.fusion.Timeline]:
+        """adsk.fusion.Timeline from the active adsk.fusion.Design
+
+        Returns: adsk.fusion.Timeline from the active adsk.fusion.Design
+
+        """
         if self.product.productType == 'DesignProductType':
             if self._design.designType == adsk.fusion.DesignTypes.ParametricDesignType:
                 time_line_ = self.product.timeline
@@ -103,7 +141,7 @@ def start_group() -> int:
     """Starts a time line group
 
     Returns:
-        The index of the time line
+        The index of the adsk.fusion.Timeline where the adsk.fusion.TimelineGroup will begin
     """
     ao = AppObjects()
 
@@ -114,9 +152,9 @@ def start_group() -> int:
 
 
 def end_group(start_index: int):
-    """Ends a time line group
+    """Ends a adsk.fusion.TimelineGroup
 
-    start_index: Time line index
+    start_index: adsk.fusion.TimelineG index that is returned from start_group
     """
 
     # Gets necessary application objects
@@ -127,8 +165,11 @@ def end_group(start_index: int):
     ao.time_line.timelineGroups.add(start_index, end_index)
 
 
-def import_dxf(dxf_file: str, component: adsk.fusion.Component,
-               plane: Union[adsk.fusion.ConstructionPlane, adsk.fusion.BRepFace]) -> adsk.core.ObjectCollection:
+def import_dxf(
+        dxf_file: str,
+        component: adsk.fusion.Component,
+        plane: Union[adsk.fusion.ConstructionPlane, adsk.fusion.BRepFace]
+) -> adsk.core.ObjectCollection:
     """Import dxf file with one sketch per layer.
 
     Args:
@@ -167,7 +208,7 @@ def sketch_by_name(sketches: adsk.fusion.Sketches, name: str) -> adsk.fusion.Ske
     return return_sketch
 
 
-def extrude_all_profiles(sketch: adsk.fusion.Sketch, distance: float, component:adsk.fusion.Component,
+def extrude_all_profiles(sketch: adsk.fusion.Sketch, distance: float, component: adsk.fusion.Component,
                          operation: adsk.fusion.FeatureOperations) -> adsk.fusion.ExtrudeFeature:
     """Create extrude features of all profiles in a sketch
 
@@ -494,6 +535,7 @@ def get_std_err_file(app_name: str):
     default_dir = get_default_dir(app_name)
     file_name = os.path.join(default_dir, "std_err.txt")
     return file_name
+
 
 #
 # def timed(func):
