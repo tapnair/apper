@@ -21,20 +21,20 @@ Core Apper Modules
 apper.FusionApp module
 ----------------------
 
-.. autoclass:: FusionApp
+.. autoclass:: FusionApp.FusionApp
    :members:
 
 apper.Fusion360CommandBase module
 ---------------------------------
 
 
-.. autoclass:: Fusion360CommandBase
+.. autoclass:: Fusion360CommandBase.Fusion360CommandBase
    :members:
 
 apper.PaletteCommandBase module
 -------------------------------
 
-.. autoclass:: PaletteCommandBase
+.. autoclass:: PaletteCommandBase.PaletteCommandBase
    :members:
 
 
