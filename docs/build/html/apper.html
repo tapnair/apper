@@ -91,35 +91,16 @@
 </ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Developer Interface</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#main-interface">Main Interface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#core-apper-modules">Core Apper Modules</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#module-FusionApp">apper.FusionApp module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#fusionapp-py">FusionApp.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fusionapp-py">FusionApp.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fusion360commandbase-py">Fusion360CommandBase.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#palettecommandbase-py">PaletteCommandBase.py</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#module-Fusion360CommandBase">apper.Fusion360CommandBase module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#fusion360commandbase-py">Fusion360CommandBase.py</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#module-PaletteCommandBase">apper.PaletteCommandBase module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#palettecommandbase-py">PaletteCommandBase.py</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#module-Fusion360AppEvents">apper.Fusion360AppEvents module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#fusion360appevents-py">Fusion360AppEvents.py</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#other-modules">Other Modules</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#module-Fusion360Utilities">apper.Fusion360Utilities module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#fusion360utilities-py">Fusion360Utilities.py</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#module-Fusion360DebugUtilities">apper.Fusion360DebugUtilities module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#fusion360debugutilities-py">Fusion360DebugUtilities.py</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-Fusion360AppEvents">Other Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#fusion360appevents-py">Fusion360AppEvents.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fusion360utilities-py">Fusion360Utilities.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fusion360debugutilities-py">Fusion360DebugUtilities.py</a></li>
 </ul>
 </li>
 </ul>
@@ -193,30 +174,17 @@
 <p>This part of the documentation covers all the interfaces of Requests. For
 parts where Requests depends on external libraries, we document the most
 important right here and provide links to the canonical documentation.</p>
-<span class="target" id="module-apper"></span><div class="section" id="main-interface">
-<h2>Main Interface<a class="headerlink" href="#main-interface" title="Permalink to this headline">¶</a></h2>
-<p>All of Requests’ functionality can be accessed by these 7 methods.
-They all return an instance of the <a class="reference internal" href="#module-FusionApp" title="FusionApp"><code class="xref py py-class docutils literal notranslate"><span class="pre">FusionApp</span></code></a> object.</p>
-</div>
-<div class="section" id="core-apper-modules">
+<span class="target" id="module-apper"></span><div class="section" id="core-apper-modules">
 <h2>Core Apper Modules<a class="headerlink" href="#core-apper-modules" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="module-FusionApp">
-<span id="apper-fusionapp-module"></span><h3>apper.FusionApp module<a class="headerlink" href="#module-FusionApp" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="fusionapp-py">
-<h4>FusionApp.py<a class="headerlink" href="#fusionapp-py" title="Permalink to this headline">¶</a></h4>
+<p>The core Apper functionality can be accessed by sub-classing these 3 classes.
+Step one is to create an instance of the <a class="reference internal" href="#module-FusionApp" title="FusionApp"><code class="xref py py-class docutils literal notranslate"><span class="pre">FusionApp</span></code></a> object.
+Step two is to add instances of
+<a class="reference internal" href="#module-Fusion360CommandBase" title="Fusion360CommandBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">Fusion360CommandBase</span></code></a> and
+<a class="reference internal" href="#module-PaletteCommandBase" title="PaletteCommandBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">PaletteCommandBase</span></code></a> classes.
+Each instance of these classes will be a new command in your add-in.</p>
+<span class="target" id="module-FusionApp"></span><div class="section" id="fusionapp-py">
+<h3>FusionApp.py<a class="headerlink" href="#fusionapp-py" title="Permalink to this headline">¶</a></h3>
 <p>Python module for creating a Fusion 360 Addin</p>
-<div class="section" id="full-documentation-is-at-https-apper-readthedocs-io">
-<h5>Full documentation is at &lt;<a class="reference external" href="https://apper.readthedocs.io">https://apper.readthedocs.io</a>&gt;.<a class="headerlink" href="#full-documentation-is-at-https-apper-readthedocs-io" title="Permalink to this headline">¶</a></h5>
-<dl class="field-list simple">
-<dt class="field-odd">copyright</dt>
-<dd class="field-odd"><ol class="loweralpha simple" start="3">
-<li><p>2019 by Patrick Rainsberry.</p></li>
-</ol>
-</dd>
-<dt class="field-even">license</dt>
-<dd class="field-even"><p>Apache 2.0, see LICENSE for more details.</p>
-</dd>
-</dl>
 <dl class="class">
 <dt id="FusionApp.FusionApp">
 <em class="property">class </em><code class="sig-prename descclassname">FusionApp.</code><code class="sig-name descname">FusionApp</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">company</em>, <em class="sig-param">debug</em><span class="sig-paren">)</span><a class="headerlink" href="#FusionApp.FusionApp" title="Permalink to this definition">¶</a></dt>
@@ -417,25 +385,9 @@ They all return an instance of the <a class="reference internal" href="#module-F
 </dd></dl>
 
 </div>
-</div>
-</div>
-<div class="section" id="module-Fusion360CommandBase">
-<span id="apper-fusion360commandbase-module"></span><h3>apper.Fusion360CommandBase module<a class="headerlink" href="#module-Fusion360CommandBase" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="fusion360commandbase-py">
-<h4>Fusion360CommandBase.py<a class="headerlink" href="#fusion360commandbase-py" title="Permalink to this headline">¶</a></h4>
+<span class="target" id="module-Fusion360CommandBase"></span><div class="section" id="fusion360commandbase-py">
+<h3>Fusion360CommandBase.py<a class="headerlink" href="#fusion360commandbase-py" title="Permalink to this headline">¶</a></h3>
 <p>Python module for creating a Fusion 360 Command</p>
-<div class="section" id="id1">
-<h5>Full documentation is at &lt;<a class="reference external" href="https://apper.readthedocs.io">https://apper.readthedocs.io</a>&gt;.<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h5>
-<dl class="field-list simple">
-<dt class="field-odd">copyright</dt>
-<dd class="field-odd"><ol class="loweralpha simple" start="3">
-<li><p>2019 by Patrick Rainsberry.</p></li>
-</ol>
-</dd>
-<dt class="field-even">license</dt>
-<dd class="field-even"><p>Apache 2.0, see LICENSE for more details.</p>
-</dd>
-</dl>
 <dl class="class">
 <dt id="Fusion360CommandBase.Fusion360CommandBase">
 <em class="property">class </em><code class="sig-prename descclassname">Fusion360CommandBase.</code><code class="sig-name descname">Fusion360CommandBase</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">options</em><span class="sig-paren">)</span><a class="headerlink" href="#Fusion360CommandBase.Fusion360CommandBase" title="Permalink to this definition">¶</a></dt>
@@ -560,25 +512,9 @@ Note if your addin is complex it may be useful to only preview a subset of the f
 </dd></dl>
 
 </div>
-</div>
-</div>
-<div class="section" id="module-PaletteCommandBase">
-<span id="apper-palettecommandbase-module"></span><h3>apper.PaletteCommandBase module<a class="headerlink" href="#module-PaletteCommandBase" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="palettecommandbase-py">
-<h4>PaletteCommandBase.py<a class="headerlink" href="#palettecommandbase-py" title="Permalink to this headline">¶</a></h4>
+<span class="target" id="module-PaletteCommandBase"></span><div class="section" id="palettecommandbase-py">
+<h3>PaletteCommandBase.py<a class="headerlink" href="#palettecommandbase-py" title="Permalink to this headline">¶</a></h3>
 <p>Python module for creating an HTML Palette based command</p>
-<div class="section" id="id2">
-<h5>Full documentation is at &lt;<a class="reference external" href="https://apper.readthedocs.io">https://apper.readthedocs.io</a>&gt;.<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h5>
-<dl class="field-list simple">
-<dt class="field-odd">copyright</dt>
-<dd class="field-odd"><ol class="loweralpha simple" start="3">
-<li><p>2019 by Patrick Rainsberry.</p></li>
-</ol>
-</dd>
-<dt class="field-even">license</dt>
-<dd class="field-even"><p>Apache 2.0, see LICENSE for more details.</p>
-</dd>
-</dl>
 <dl class="class">
 <dt id="PaletteCommandBase.PaletteCommandBase">
 <em class="property">class </em><code class="sig-prename descclassname">PaletteCommandBase.</code><code class="sig-name descname">PaletteCommandBase</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">options</em><span class="sig-paren">)</span><a class="headerlink" href="#PaletteCommandBase.PaletteCommandBase" title="Permalink to this definition">¶</a></dt>
@@ -629,24 +565,11 @@ Note if your addin is complex it may be useful to only preview a subset of the f
 
 </div>
 </div>
-</div>
 <div class="section" id="module-Fusion360AppEvents">
-<span id="apper-fusion360appevents-module"></span><h3>apper.Fusion360AppEvents module<a class="headerlink" href="#module-Fusion360AppEvents" title="Permalink to this headline">¶</a></h3>
+<span id="other-modules"></span><h2>Other Modules<a class="headerlink" href="#module-Fusion360AppEvents" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="fusion360appevents-py">
-<h4>Fusion360AppEvents.py<a class="headerlink" href="#fusion360appevents-py" title="Permalink to this headline">¶</a></h4>
+<h3>Fusion360AppEvents.py<a class="headerlink" href="#fusion360appevents-py" title="Permalink to this headline">¶</a></h3>
 <p>Python module for creating Fusion 360 event handlers</p>
-<div class="section" id="id3">
-<h5>Full documentation is at &lt;<a class="reference external" href="https://apper.readthedocs.io">https://apper.readthedocs.io</a>&gt;.<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h5>
-<dl class="field-list simple">
-<dt class="field-odd">copyright</dt>
-<dd class="field-odd"><ol class="loweralpha simple" start="3">
-<li><p>2019 by Patrick Rainsberry.</p></li>
-</ol>
-</dd>
-<dt class="field-even">license</dt>
-<dd class="field-even"><p>Apache 2.0, see LICENSE for more details.</p>
-</dd>
-</dl>
 <dl class="class">
 <dt id="Fusion360AppEvents.Fusion360CommandEvent">
 <em class="property">class </em><code class="sig-prename descclassname">Fusion360AppEvents.</code><code class="sig-name descname">Fusion360CommandEvent</code><span class="sig-paren">(</span><em class="sig-param">event_id</em>, <em class="sig-param">event_type</em><span class="sig-paren">)</span><a class="headerlink" href="#Fusion360AppEvents.Fusion360CommandEvent" title="Permalink to this definition">¶</a></dt>
@@ -854,28 +777,9 @@ Note if your addin is complex it may be useful to only preview a subset of the f
 </dd></dl>
 
 </div>
-</div>
-</div>
-</div>
-<div class="section" id="other-modules">
-<h2>Other Modules<a class="headerlink" href="#other-modules" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="module-Fusion360Utilities">
-<span id="apper-fusion360utilities-module"></span><h3>apper.Fusion360Utilities module<a class="headerlink" href="#module-Fusion360Utilities" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="fusion360utilities-py">
-<h4>Fusion360Utilities.py<a class="headerlink" href="#fusion360utilities-py" title="Permalink to this headline">¶</a></h4>
+<span class="target" id="module-Fusion360Utilities"></span><div class="section" id="fusion360utilities-py">
+<h3>Fusion360Utilities.py<a class="headerlink" href="#fusion360utilities-py" title="Permalink to this headline">¶</a></h3>
 <p>Tools to leverage when creating a Fusion 360 Add-in</p>
-<div class="section" id="id4">
-<h5>Full documentation is at &lt;<a class="reference external" href="https://apper.readthedocs.io">https://apper.readthedocs.io</a>&gt;.<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h5>
-<dl class="field-list simple">
-<dt class="field-odd">copyright</dt>
-<dd class="field-odd"><ol class="loweralpha simple" start="3">
-<li><p>2019 by Patrick Rainsberry.</p></li>
-</ol>
-</dd>
-<dt class="field-even">license</dt>
-<dd class="field-even"><p>Apache 2.0, see LICENSE for more details.</p>
-</dd>
-</dl>
 <dl class="class">
 <dt id="Fusion360Utilities.AppObjects">
 <em class="property">class </em><code class="sig-prename descclassname">Fusion360Utilities.</code><code class="sig-name descname">AppObjects</code><a class="headerlink" href="#Fusion360Utilities.AppObjects" title="Permalink to this definition">¶</a></dt>
@@ -1257,25 +1161,9 @@ Note if your addin is complex it may be useful to only preview a subset of the f
 </dd></dl>
 
 </div>
-</div>
-</div>
-<div class="section" id="module-Fusion360DebugUtilities">
-<span id="apper-fusion360debugutilities-module"></span><h3>apper.Fusion360DebugUtilities module<a class="headerlink" href="#module-Fusion360DebugUtilities" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="fusion360debugutilities-py">
-<h4>Fusion360DebugUtilities.py<a class="headerlink" href="#fusion360debugutilities-py" title="Permalink to this headline">¶</a></h4>
+<span class="target" id="module-Fusion360DebugUtilities"></span><div class="section" id="fusion360debugutilities-py">
+<h3>Fusion360DebugUtilities.py<a class="headerlink" href="#fusion360debugutilities-py" title="Permalink to this headline">¶</a></h3>
 <p>Utilities to aid in debugging a Fusion 360 Addin</p>
-<div class="section" id="id5">
-<h5>Full documentation is at &lt;<a class="reference external" href="https://apper.readthedocs.io">https://apper.readthedocs.io</a>&gt;.<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h5>
-<dl class="field-list simple">
-<dt class="field-odd">copyright</dt>
-<dd class="field-odd"><ol class="loweralpha simple" start="3">
-<li><p>2019 by Patrick Rainsberry.</p></li>
-</ol>
-</dd>
-<dt class="field-even">license</dt>
-<dd class="field-even"><p>Apache 2.0, see LICENSE for more details.</p>
-</dd>
-</dl>
 <dl class="function">
 <dt id="Fusion360DebugUtilities.get_log_file_name">
 <code class="sig-prename descclassname">Fusion360DebugUtilities.</code><code class="sig-name descname">get_log_file_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Fusion360DebugUtilities.get_log_file_name" title="Permalink to this definition">¶</a></dt>
@@ -1326,8 +1214,6 @@ Note if your addin is complex it may be useful to only preview a subset of the f
 </dl>
 </dd></dl>
 
-</div>
-</div>
 </div>
 </div>
 </div>
