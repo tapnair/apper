@@ -1,3 +1,13 @@
+"""
+Fusion360CommandBase.py
+=========================================================
+Python module for creating a Fusion 360 Command
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+:copyright: (c) 2019 by Patrick Rainsberry.
+:license: Apache 2.0, see LICENSE for more details.
+
+"""
 import traceback
 
 import adsk.core
@@ -21,9 +31,7 @@ def _destroy_object(obj_to_be_deleted):
 
 
 class Fusion360CommandBase:
-    def __init__(self, name: str, options: dict):
-
-        """The Fusion360CommandBase class wraps the common tasks used when creating a Fusion 360 Command.
+    """The Fusion360CommandBase class wraps the common tasks used when creating a Fusion 360 Command.
 
         To create a new command create a new subclass of  Fusion360CommandBase
         Then override the methods and add functionality as required
@@ -32,6 +40,7 @@ class Fusion360CommandBase:
             name: The name of the command
             options: A dictionary of options for the command placement in the ui.  (TODO - Add docs for this)
         """
+    def __init__(self, name: str, options: dict):
         self.app_name = options.get('app_name')
         self.fusion_app: apper.FusionApp = options.get('fusion_app', None)
 
@@ -161,10 +170,12 @@ class Fusion360CommandBase:
 
     def _get_create_event(self):
 
-        return CommandCreatedEventHandler(self)
+        return _CommandCreatedEventHandler(self)
 
-    # Returns a dictionary for all inputs. Very useful for creating quick Fusion 360 Add-ins
-    def _get_inputs(self):
+    def get_inputs(self):
+        """Returns a dictionary for all inputs. Very useful for creating quick Fusion 360 Add-ins
+
+        """
         value_types = [adsk.core.BoolValueCommandInput.classType(), adsk.core.DistanceValueCommandInput.classType(),
                        adsk.core.FloatSliderCommandInput.classType(), adsk.core.FloatSpinnerCommandInput.classType(),
                        adsk.core.IntegerSliderCommandInput.classType(),
@@ -223,7 +234,10 @@ class Fusion360CommandBase:
         return input_values
 
     def on_run(self):
+        """Function is run when the addin starts.
 
+        Important! If overridden ensure to execute with super().on_run()
+        """
         app = adsk.core.Application.cast(adsk.core.Application.get())
         ui = app.userInterface
 
@@ -307,6 +321,10 @@ class Fusion360CommandBase:
                 ))
 
     def on_stop(self):
+        """Function is run when the addin stops.
+
+        Important! If overridden ensure to execute with super().on_stop()
+        """
         app = adsk.core.Application.cast(adsk.core.Application.get())
         ui = app.userInterface
 
@@ -337,7 +355,7 @@ class Fusion360CommandBase:
                 ui.messageBox('AddIn Stop Failed: {}'.format(traceback.format_exc()))
 
 
-class PreviewHandler(adsk.core.CommandEventHandler):
+class _PreviewHandler(adsk.core.CommandEventHandler):
     def __init__(self, cmd_object):
         super().__init__()
         self.cmd_object_ = cmd_object
@@ -351,10 +369,7 @@ class PreviewHandler(adsk.core.CommandEventHandler):
             command_inputs = command_.commandInputs
             self.cmd_object_.command_inputs = command_inputs
 
-            if self.cmd_object_.debug:
-                ui.messageBox('***Debug *** Preview: {} execute preview event triggered'.
-                              format(self.cmd_object.command.parentCommandDefinition.id))
-            input_values = self.cmd_object_._get_inputs()
+            input_values = self.cmd_object_.get_inputs()
             self.cmd_object_.on_preview(command_, command_inputs, args, input_values)
 
         except:
@@ -362,131 +377,96 @@ class PreviewHandler(adsk.core.CommandEventHandler):
                 ui.messageBox('Input changed event failed: {}'.format(traceback.format_exc()))
 
 
-class DestroyHandler(adsk.core.CommandEventHandler):
+class _DestroyHandler(adsk.core.CommandEventHandler):
     def __init__(self, cmd_object):
         super().__init__()
         self.cmd_object_ = cmd_object
 
     def notify(self, args):
-        app = adsk.core.Application.cast(adsk.core.Application.get())
-        ui = app.userInterface
-
         try:
             command_ = args.firingEvent.sender
             command_inputs = command_.commandInputs
             reason_ = args.terminationReason
 
-            if self.cmd_object_.debug:
-                ui.messageBox(
-                    '***Debug ***Command: {} destroyed'.format(
-                        self.cmd_object.command.parentCommandDefinition.id
-                    )
-                )
-                ui.messageBox("***Debug ***Reason for termination= " + str(args.terminationReason))
-            input_values = self.cmd_object_._get_inputs()
+            input_values = self.cmd_object_.get_inputs()
             self.cmd_object_.on_destroy(command_, command_inputs, reason_, input_values)
 
         except:
-            if ui:
-                ui.messageBox('Input changed event failed: {}'.format(traceback.format_exc()))
+            app = adsk.core.Application.cast(adsk.core.Application.get())
+            ui = app.userInterface
+            ui.messageBox('Input changed event failed: {}'.format(traceback.format_exc()))
 
 
-class InputChangedHandler(adsk.core.InputChangedEventHandler):
+class _InputChangedHandler(adsk.core.InputChangedEventHandler):
     def __init__(self, cmd_object):
         super().__init__()
         self.cmd_object_ = cmd_object
 
     def notify(self, args):
-        app = adsk.core.Application.cast(adsk.core.Application.get())
-        ui = app.userInterface
-
         try:
             command_ = args.firingEvent.sender
             command_inputs = command_.commandInputs
             changed_input = args.input
 
-            if self.cmd_object_.debug:
-                ui.messageBox(
-                    '***Debug Input: {} changed event triggered'.format(
-                        self.cmd_object.command.parentCommandDefinition.id
-                    )
-                )
-                ui.messageBox(
-                    '***Debug The Input: {} was the command'.format(self.cmd_object.changed_input.id)
-                )
-
-            input_values = self.cmd_object_._get_inputs()
+            input_values = self.cmd_object_.get_inputs()
 
             self.cmd_object_.on_input_changed(command_, command_inputs, changed_input, input_values)
 
         except:
-            if ui:
-                ui.messageBox('Input changed event failed: {}'.format(traceback.format_exc()))
+            app = adsk.core.Application.cast(adsk.core.Application.get())
+            ui = app.userInterface
+            ui.messageBox('Input changed event failed: {}'.format(traceback.format_exc()))
 
 
-class CommandExecuteHandler(adsk.core.CommandEventHandler):
+class _CommandExecuteHandler(adsk.core.CommandEventHandler):
     def __init__(self, cmd_object):
         super().__init__()
         self.cmd_object_ = cmd_object
 
     def notify(self, args):
-        app = adsk.core.Application.cast(adsk.core.Application.get())
-        ui = app.userInterface
         try:
             command_ = args.firingEvent.sender
             command_inputs = command_.commandInputs
 
-            if self.cmd_object_.debug:
-                ui.messageBox(
-                    '***Debug command: {} executed successfully'.format(
-                        self.cmd_object.command.parentCommandDefinition.id
-                    )
-                )
-            input_values = self.cmd_object_._get_inputs()
-
+            input_values = self.cmd_object_.get_inputs()
             self.cmd_object_.on_execute(command_, command_inputs, args, input_values)
 
         except:
-            if ui:
-                ui.messageBox('command executed failed: {}'.format(traceback.format_exc()))
+            app = adsk.core.Application.cast(adsk.core.Application.get())
+            ui = app.userInterface
+            ui.messageBox('command executed failed: {}'.format(traceback.format_exc()))
 
 
-class CommandCreatedEventHandler(adsk.core.CommandCreatedEventHandler):
+class _CommandCreatedEventHandler(adsk.core.CommandCreatedEventHandler):
     def __init__(self, cmd_object):
         super().__init__()
         self.cmd_object_ = cmd_object
 
     def notify(self, args):
-        app = adsk.core.Application.cast(adsk.core.Application.get())
-        ui = app.userInterface
-
         try:
-
             command_ = args.command
             inputs_ = command_.commandInputs
             self.cmd_object_.command_inputs = inputs_
 
-            on_execute_handler = CommandExecuteHandler(self.cmd_object_)
+            on_execute_handler = _CommandExecuteHandler(self.cmd_object_)
             command_.execute.add(on_execute_handler)
             self.cmd_object_.handlers.append(on_execute_handler)
 
-            on_input_changed_handler = InputChangedHandler(self.cmd_object_)
+            on_input_changed_handler = _InputChangedHandler(self.cmd_object_)
             command_.inputChanged.add(on_input_changed_handler)
             self.cmd_object_.handlers.append(on_input_changed_handler)
 
-            on_destroy_handler = DestroyHandler(self.cmd_object_)
+            on_destroy_handler = _DestroyHandler(self.cmd_object_)
             command_.destroy.add(on_destroy_handler)
             self.cmd_object_.handlers.append(on_destroy_handler)
 
-            on_execute_preview_handler = PreviewHandler(self.cmd_object_)
+            on_execute_preview_handler = _PreviewHandler(self.cmd_object_)
             command_.executePreview.add(on_execute_preview_handler)
             self.cmd_object_.handlers.append(on_execute_preview_handler)
-
-            if self.cmd_object_.debug:
-                ui.messageBox('***Debug ***Panel command created successfully')
 
             self.cmd_object_.on_create(command_, inputs_)
 
         except:
-            if ui:
-                ui.messageBox('Command created failed: {}'.format(traceback.format_exc()))
+            app = adsk.core.Application.cast(adsk.core.Application.get())
+            ui = app.userInterface
+            ui.messageBox('Command created failed: {}'.format(traceback.format_exc()))

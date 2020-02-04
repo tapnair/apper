@@ -1,5 +1,13 @@
-__author__ = 'rainsbp'
+"""
+Fusion360DebugUtilities.py
+=========================================================
+Utilities to aid in debugging a Fusion 360 Addin
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+:copyright: (c) 2019 by Patrick Rainsberry.
+:license: Apache 2.0, see LICENSE for more details.
+
+"""
 import time
 import os
 from os.path import expanduser
@@ -9,13 +17,13 @@ import adsk.fusion
 import traceback
 
 
-# Print a list of list of variables
-# Format of variables should be [[Variable name 1, variable value 1], [Variable name 2, variable value 2], ...]
 def variables_message(variables: list):
+    """Print a list of list of variables
 
-    """
+    Format of variables should be [[Variable name 1, variable value 1], [Variable name 2, variable value 2], ...]
+
     Args:
-        variables (list):
+        variables: A list of lists of any string based variables from your add-in.
     """
     message_string = ''
     for variable in variables:
@@ -29,11 +37,11 @@ def variables_message(variables: list):
 
 
 def variable_message(variable, extra_info=''):
+    """Displays the value of any single variable as long as the value can be converted to text
 
-    """
     Args:
-        variable:
-        extra_info:
+        variable: variable to print
+        extra_info: Any other info to display in the message box
     """
     message_string = str(variable)
 
@@ -49,9 +57,8 @@ def variable_message(variable, extra_info=''):
         ui.messageBox(message_string)
 
 
-# Performance time logging function
 def perf_log(log, function_reference, command, identifier=''):
-    """
+    """Performance time logging function
     Args:
         log:
         function_reference:
@@ -62,10 +69,9 @@ def perf_log(log, function_reference, command, identifier=''):
 
 
 def perf_message(log):
-
-    """
+    """Performance time logging function
     Args:
-        log:
+        log: tbd
     """
     minimum_perf_time = .01
     message_string = ''
@@ -94,9 +100,11 @@ def perf_message(log):
         ui.messageBox(message_string)
 
 
-# Creates directory and returns file name for log file
 def get_log_file_name():
-
+    """Creates directory and returns file name for log file
+    Args:
+        log: tbd
+    """
     # Get Home directory
     home = expanduser("~")
     home += '/Fusion360DebugUtilities/'

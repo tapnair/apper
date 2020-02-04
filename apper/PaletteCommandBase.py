@@ -1,20 +1,30 @@
+"""
+PaletteCommandBase.py
+=========================================================
+Python module for creating an HTML Palette based command
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+:copyright: (c) 2019 by Patrick Rainsberry.
+:license: Apache 2.0, see LICENSE for more details.
+
+"""
 import traceback
 
 import adsk.core
-from .Fusion360CommandBase import Fusion360CommandBase
+import apper
 
-# handlers = []
 import os
 import sys
 
 
-class PaletteCommandBase(Fusion360CommandBase):
+class PaletteCommandBase(apper.Fusion360CommandBase):
+    """Class for creating a Fusion 360 Command that will show a web palette
+
+    Args:
+        name: Name of the Command
+        options: Dictionary of options
+    """
     def __init__(self, name: str, options: dict):
-        """
-        Args:
-            name:
-            options:
-        """
         super().__init__(name, options)
 
         self.palette_id = options.get('palette_id', 'Default Command Name')
@@ -27,8 +37,8 @@ class PaletteCommandBase(Fusion360CommandBase):
 
         resource_path = os.path.join('./', self.path, rel_path)
 
-        # self.palette_html_file_url = resource_path
-        self.palette_html_file_url = rel_path
+        self.palette_html_file_url = resource_path
+        # self.palette_html_file_url = rel_path
 
         self.palette_is_visible = options.get('palette_is_visible', True)
         self.palette_show_close_button = options.get('palette_show_close_button', True)
@@ -42,26 +52,34 @@ class PaletteCommandBase(Fusion360CommandBase):
         self.html_handlers = []
 
     def _get_create_event(self):
-        return PaletteCreatedHandler(self)
+        return _PaletteCreatedHandler(self)
 
     def on_html_event(self, html_args: adsk.core.HTMLEventArgs):
         """
         Args:
-            html_args (adsk.core.HTMLEventArgs):
+            html_args: the arguments sent with the command from the html page
         """
         pass
 
     def on_palette_close(self):
+        """Run when the palette is closed
+
+        """
         pass
 
     def on_palette_execute(self, palette: adsk.core.Palette):
-        """
+        """Function is run when the palette is executed.  Useful to gather initial data and send to html page
+
         Args:
-            palette (adsk.core.Palette):
+            palette: Reference to the palette
         """
         pass
 
     def on_stop(self):
+        """Function is run when the addin stops.
+
+        Clean up.  If overridden ensure to execute with super().on_stop()
+        """
         app = adsk.core.Application.cast(adsk.core.Application.get())
         ui = app.userInterface
         palette = ui.palettes.itemById(self.palette_id)
@@ -75,63 +93,59 @@ class PaletteCommandBase(Fusion360CommandBase):
         super().on_stop()
 
 
-# Base Class for creating Fusion 360 Palette
-class PaletteCreatedHandler(adsk.core.CommandCreatedEventHandler):
+class _PaletteCreatedHandler(adsk.core.CommandCreatedEventHandler):
+    """Event handler for the palette created event.
+
+    Args:
+        cmd_object: the parent command object
+    """
     def __init__(self, cmd_object):
-        """
-        Args:
-            cmd_object:
-        """
         super().__init__()
         self.cmd_object_ = cmd_object
 
     def notify(self, args):
-        """
-        Args:
-            args:
-        """
-        app = adsk.core.Application.cast(adsk.core.Application.get())
-        ui = app.userInterface
+        """Method executed by Fusion.  DOn't rename
 
+        Args:
+            args: args for command
+        """
         try:
 
             command_ = args.command
             inputs_ = command_.commandInputs
 
-            on_execute_handler = PaletteExecuteHandler(self.cmd_object_)
+            on_execute_handler = _PaletteExecuteHandler(self.cmd_object_)
             command_.execute.add(on_execute_handler)
             self.cmd_object_.handlers.append(on_execute_handler)
-
-            if self.cmd_object_.debug:
-                ui.messageBox('***Debug *** Palette Panel command created successfully')
 
             self.cmd_object_.on_create(command_, inputs_)
 
         except:
-            if ui:
-                ui.messageBox('Command created failed: {}'.format(traceback.format_exc()))
+            app = adsk.core.Application.cast(adsk.core.Application.get())
+            ui = app.userInterface
+            ui.messageBox('Command created failed: {}'.format(traceback.format_exc()))
 
 
-class PaletteExecuteHandler(adsk.core.CommandEventHandler):
+class _PaletteExecuteHandler(adsk.core.CommandEventHandler):
+    """Event handler for the palette execution event.
+
+    Args:
+        cmd_object: the parent command object
+    """
+
     def __init__(self, cmd_object):
-        """
-        Args:
-            cmd_object:
-        """
         super().__init__()
         self.cmd_object_ = cmd_object
 
     def notify(self, args):
-        """
+        """Method executed by Fusion.  Don't rename
+
         Args:
-            args:
+            args: args for command
         """
         app = adsk.core.Application.cast(adsk.core.Application.get())
         ui = app.userInterface
         try:
-
-            command_ = args.command
-            inputs_ = command_.commandInputs
 
             # Create and display the palette.
             palette = ui.palettes.itemById(self.cmd_object_.palette_id)
@@ -149,91 +163,76 @@ class PaletteExecuteHandler(adsk.core.CommandEventHandler):
                 )
 
                 # Add handler to HTMLEvent of the palette.
-                on_html_event_handler = HTMLEventHandler(self.cmd_object_)
+                on_html_event_handler = _HTMLEventHandler(self.cmd_object_)
                 palette.incomingFromHTML.add(on_html_event_handler)
                 self.cmd_object_.handlers.append(on_html_event_handler)
                 self.cmd_object_.html_handlers.append(on_html_event_handler)
 
                 # Add handler to CloseEvent of the palette.
-                on_closed_handler = PaletteCloseHandler(self.cmd_object_)
+                on_closed_handler = _PaletteCloseHandler(self.cmd_object_)
                 palette.closed.add(on_closed_handler)
                 self.cmd_object_.handlers.append(on_closed_handler)
+
             else:
                 palette.htmlFileURL = self.cmd_object_.palette_html_file_url
                 palette.isVisible = True
 
             self.cmd_object_.on_palette_execute(palette)
 
-            if self.cmd_object_.debug:
-                ui.messageBox('***Debug command: {} executed successfully'.format(
-                    self.cmd_object_.parentCommandDefinition.id))
-
         except:
-            if ui:
-                ui.messageBox('Palette Execution Failed: {}'.format(traceback.format_exc()) + self.cmd_object_.palette_html_file_url)
+            ui.messageBox('Palette ({}) Execution Failed: {}'.format(
+                self.cmd_object_.palette_html_file_url,
+                traceback.format_exc())
+            )
 
 
-# Event handler for the palette HTML event.
-class HTMLEventHandler(adsk.core.HTMLEventHandler):
+class _HTMLEventHandler(adsk.core.HTMLEventHandler):
+    """Event handler for the palette HTML event.
+
+    Args:
+        cmd_object: the parent command object
+    """
+
     def __init__(self, cmd_object):
-        """
-        Args:
-            cmd_object:
-        """
         super().__init__()
-
         self.cmd_object_ = cmd_object
 
     def notify(self, args):
-        """
+        """Method executed by Fusion.  Don't rename
+
         Args:
-            args:
+            args: args for command
         """
-        app = adsk.core.Application.cast(adsk.core.Application.get())
-        ui = app.userInterface
-
         try:
-            # ui.messageBox("in event")
             html_args = adsk.core.HTMLEventArgs.cast(args)
-
             self.cmd_object_.on_html_event(html_args)
 
         except:
-            if ui:
-                ui.messageBox('Failed:\n{}'.format(traceback.format_exc()))
+            app = adsk.core.Application.cast(adsk.core.Application.get())
+            ui = app.userInterface
+            ui.messageBox('Failed Handling HTML Event:\n{}'.format(traceback.format_exc()))
 
 
-# Event handler for the palette close event.
-class PaletteCloseHandler(adsk.core.UserInterfaceGeneralEventHandler):
+class _PaletteCloseHandler(adsk.core.UserInterfaceGeneralEventHandler):
+    """Event handler for the palette close event.
+
+    Args:
+        cmd_object: the parent command object
+    """
     def __init__(self, cmd_object):
-        """
-        Args:
-            cmd_object:
-        """
         super().__init__()
         self.cmd_object_ = cmd_object
 
     def notify(self, args):
-        """
-        Args:
-            args:
-        """
-        app = adsk.core.Application.cast(adsk.core.Application.get())
-        ui = app.userInterface
+        """Method executed by Fusion.  Don't rename
 
+        Args:
+            args: args for command
+        """
         try:
-            # Delete the palette created by this add-in.
             self.cmd_object_.on_palette_close()
-            # palette = ui.palettes.itemById(self.cmd_object_.palette_id)
-            # if palette:
-            #     palette.deleteMe()
 
         except:
-            ui.messageBox('Failed:\n{}'.format(traceback.format_exc()))
-
-
-
-
-
-
-
+            app = adsk.core.Application.cast(adsk.core.Application.get())
+            ui = app.userInterface
+            ui.messageBox('Failed During Palette Close:\n{}'.format(traceback.format_exc()))

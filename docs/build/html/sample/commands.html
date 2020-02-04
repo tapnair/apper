@@ -92,8 +92,12 @@
 <li class="toctree-l2"><a class="reference internal" href="#imports">Imports</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#create-the-app">Create the App</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#standard-commands">Standard Commands</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sample-command-1">Sample Command 1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#command-definition">Command Definition</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#command-class">Command Class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sample-command-2">Sample Command 2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#on-create">on_create</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#on-input-changed">on_input_changed</a></li>
 </ul>
 </li>
 </ul>
@@ -237,7 +241,7 @@
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The name of the command</p></li>
-<li><p><strong>command_class</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Fusion360CommandBase</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">PaletteCommandBase</span></code>]) – This should be your subclass of  Fusion360CommandBase or PaletteCommandBase</p></li>
+<li><p><strong>command_class</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – This should be your subclass of apper.Fusion360CommandBase or apper.PaletteCommandBase</p></li>
 <li><p><strong>options</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>) – Set of options for the command see the full set of <a class="reference external" href="usage/options">options</a></p></li>
 </ul>
 </dd>
@@ -245,11 +249,15 @@
 </dd></dl>
 
 </div></blockquote>
-<div class="section" id="command-definition">
-<h3>Command Definition<a class="headerlink" href="#command-definition" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="sample-command-1">
+<h3>Sample Command 1<a class="headerlink" href="#sample-command-1" title="Permalink to this headline">¶</a></h3>
 <p>This is adding the command to a panel called “Commands” on the apps Tab in the solid environment.</p>
 <p><strong>SampleCommand1</strong> is the basic <em>Hello World</em> Fusion 360 command.</p>
 <p>It adds a button to the UI that, when clicked, will display a message box with some text.</p>
+</div>
+<div class="section" id="command-definition">
+<h3>Command Definition<a class="headerlink" href="#command-definition" title="Permalink to this headline">¶</a></h3>
+<p>In the main add-in file we will define the command placement in the UI and define which command the button will be ascociated with.  The .. autofunction:: apper.FusionApp.FusionApp.add_command function takes the name of the command, the command class, and a set of options.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_addin</span><span class="o">.</span><span class="n">add_command</span><span class="p">(</span>
     <span class="s1">&#39;Sample Command 1&#39;</span><span class="p">,</span>
     <span class="n">SampleCommand1</span><span class="p">,</span>
@@ -271,14 +279,13 @@
 <h3>Command Class<a class="headerlink" href="#command-class" title="Permalink to this headline">¶</a></h3>
 <p>This command class is defined in a separate file called <strong>SampleCommand1.py</strong></p>
 <p>You can see we are subclassing the Fusion360CommandBase.  It is not really important to understand the details of this, but if you just follow this format it will be easy to replicate.</p>
-<p>Inside your command class definition you will override one or methods :</p>
-<ul class="simple">
-<li><p><a class="reference internal" href="../apper.html#apper.Fusion360CommandBase.on_create" title="apper.Fusion360CommandBase.on_create"><code class="xref py py-func docutils literal notranslate"><span class="pre">on_create</span></code></a></p></li>
-<li><p><a class="reference internal" href="../apper.html#apper.Fusion360CommandBase.on_execute" title="apper.Fusion360CommandBase.on_execute"><code class="xref py py-func docutils literal notranslate"><span class="pre">on_execute</span></code></a></p></li>
-<li><p><a class="reference internal" href="../apper.html#apper.Fusion360CommandBase.on_preview" title="apper.Fusion360CommandBase.on_preview"><code class="xref py py-func docutils literal notranslate"><span class="pre">on_preview</span></code></a></p></li>
-<li><p><a class="reference internal" href="../apper.html#apper.Fusion360CommandBase.on_input_changed" title="apper.Fusion360CommandBase.on_input_changed"><code class="xref py py-func docutils literal notranslate"><span class="pre">on_input_changed</span></code></a></p></li>
-<li><p><a class="reference internal" href="../apper.html#apper.Fusion360CommandBase.on_destroy" title="apper.Fusion360CommandBase.on_destroy"><code class="xref py py-func docutils literal notranslate"><span class="pre">on_destroy</span></code></a></p></li>
-</ul>
+<p>Inside your command class definition you will override one or methods :
+* <a class="reference internal" href="../apper.html#apper.Fusion360CommandBase.on_create" title="apper.Fusion360CommandBase.on_create"><code class="xref py py-func docutils literal notranslate"><span class="pre">on_create</span></code></a>
+* <a class="reference internal" href="../apper.html#apper.Fusion360CommandBase.on_execute" title="apper.Fusion360CommandBase.on_execute"><code class="xref py py-func docutils literal notranslate"><span class="pre">on_execute</span></code></a>
+* <a class="reference internal" href="../apper.html#apper.Fusion360CommandBase.on_preview" title="apper.Fusion360CommandBase.on_preview"><code class="xref py py-func docutils literal notranslate"><span class="pre">on_preview</span></code></a>
+* <a class="reference internal" href="../apper.html#apper.Fusion360CommandBase.on_input_changed" title="apper.Fusion360CommandBase.on_input_changed"><code class="xref py py-func docutils literal notranslate"><span class="pre">on_input_changed</span></code></a>
+* <a class="reference internal" href="../apper.html#apper.Fusion360CommandBase.on_destroy" title="apper.Fusion360CommandBase.on_destroy"><code class="xref py py-func docutils literal notranslate"><span class="pre">on_destroy</span></code></a></p>
+<p>In this case we are only overriding the <a class="reference internal" href="../apper.html#apper.Fusion360CommandBase.on_execute" title="apper.Fusion360CommandBase.on_execute"><code class="xref py py-func docutils literal notranslate"><span class="pre">on_execute</span></code></a> method.  So when the user clicks the button the code in this function is immediately executed.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">adsk.core</span>
 <span class="kn">from</span> <span class="nn">..apper</span> <span class="k">import</span> <span class="n">apper</span>
 <span class="kn">from</span> <span class="nn">..apper.apper</span> <span class="k">import</span> <span class="n">AppObjects</span>
@@ -290,6 +297,48 @@
         <span class="n">ao</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">messageBox</span><span class="p">(</span><span class="s2">&quot;Hello World!&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="sample-command-2">
+<h3>Sample Command 2<a class="headerlink" href="#sample-command-2" title="Permalink to this headline">¶</a></h3>
+<p>Now let’s look at a little more complete add-in.  In this case we are going to override a number of methods in the <a class="reference internal" href="../apper.html#apper.Fusion360CommandBase" title="apper.Fusion360CommandBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">Fusion360CommandBase</span></code></a> class.</p>
+</div>
+<div class="section" id="on-create">
+<h3>on_create<a class="headerlink" href="#on-create" title="Permalink to this headline">¶</a></h3>
+<p>The <a class="reference internal" href="../apper.html#apper.Fusion360CommandBase.on_create" title="apper.Fusion360CommandBase.on_create"><code class="xref py py-func docutils literal notranslate"><span class="pre">on_create</span></code></a> function is executed when the user clicks your icon in the Fusion 360 UI.  This is typically where you would define a set of user inputs for your command.  The Fusion 360 API makes creating these user interfaces very easy.  By getting a reference to the CommandInputs of the command, you can simply add items to the interface.  Ass you add items Fusion 360 basically adds them to the bottom of the stack.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">on_create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">:</span> <span class="n">adsk</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">Command</span><span class="p">,</span> <span class="n">inputs</span><span class="p">:</span> <span class="n">adsk</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">CommandInputs</span><span class="p">):</span>
+
+    <span class="c1"># General purpose helper class for quick access to common objects</span>
+    <span class="n">ao</span> <span class="o">=</span> <span class="n">AppObjects</span><span class="p">()</span>
+
+    <span class="c1"># Create a default value using a string</span>
+    <span class="n">default_value</span> <span class="o">=</span> <span class="n">adsk</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">ValueInput</span><span class="o">.</span><span class="n">createByString</span><span class="p">(</span><span class="s1">&#39;1.0 in&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Get teh user&#39;s current units</span>
+    <span class="n">default_units</span> <span class="o">=</span> <span class="n">ao</span><span class="o">.</span><span class="n">units_manager</span><span class="o">.</span><span class="n">defaultLengthUnits</span>
+
+    <span class="c1"># Create a value input.  This will respect units and user defined equation input.</span>
+    <span class="n">inputs</span><span class="o">.</span><span class="n">addValueInput</span><span class="p">(</span><span class="s1">&#39;value_input_id&#39;</span><span class="p">,</span> <span class="s1">&#39;*Sample* Value Input&#39;</span><span class="p">,</span> <span class="n">default_units</span><span class="p">,</span> <span class="n">default_value</span><span class="p">)</span>
+
+    <span class="c1"># Other Input types</span>
+    <span class="n">inputs</span><span class="o">.</span><span class="n">addBoolValueInput</span><span class="p">(</span><span class="s1">&#39;bool_input_id&#39;</span><span class="p">,</span> <span class="s1">&#39;*Sample* Check Box&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="n">inputs</span><span class="o">.</span><span class="n">addStringValueInput</span><span class="p">(</span><span class="s1">&#39;string_input_id&#39;</span><span class="p">,</span> <span class="s1">&#39;*Sample* String Value&#39;</span><span class="p">,</span> <span class="s1">&#39;Some Default Value&#39;</span><span class="p">)</span>
+    <span class="n">inputs</span><span class="o">.</span><span class="n">addSelectionInput</span><span class="p">(</span><span class="s1">&#39;selection_input_id&#39;</span><span class="p">,</span> <span class="s1">&#39;*Sample* Selection&#39;</span><span class="p">,</span> <span class="s1">&#39;Select Something&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Read Only Text Box</span>
+    <span class="n">inputs</span><span class="o">.</span><span class="n">addTextBoxCommandInput</span><span class="p">(</span><span class="s1">&#39;text_box_input_id&#39;</span><span class="p">,</span> <span class="s1">&#39;Selection Type: &#39;</span><span class="p">,</span> <span class="s1">&#39;Nothing Selected&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># Create a Drop Down</span>
+    <span class="n">drop_down_input</span> <span class="o">=</span> <span class="n">inputs</span><span class="o">.</span><span class="n">addDropDownCommandInput</span><span class="p">(</span><span class="s1">&#39;drop_down_input_id&#39;</span><span class="p">,</span> <span class="s1">&#39;*Sample* Drop Down&#39;</span><span class="p">,</span>
+                                                     <span class="n">adsk</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">DropDownStyles</span><span class="o">.</span><span class="n">TextListDropDownStyle</span><span class="p">)</span>
+    <span class="n">drop_down_items</span> <span class="o">=</span> <span class="n">drop_down_input</span><span class="o">.</span><span class="n">listItems</span>
+    <span class="n">drop_down_items</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;List_Item_1&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">drop_down_items</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;List_Item_2&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="on-input-changed">
+<h3>on_input_changed<a class="headerlink" href="#on-input-changed" title="Permalink to this headline">¶</a></h3>
+<p>The <a class="reference internal" href="../apper.html#apper.Fusion360CommandBase.on_input_changed" title="apper.Fusion360CommandBase.on_input_changed"><code class="xref py py-func docutils literal notranslate"><span class="pre">on_input_changed</span></code></a> function is executed when the user changes any input value in your ui.  This function is typically used to make adjustments to the user interface itself.  For example you may want to hide or show certain options based on another input such as a checkbox for “advaced options” or something along those lines.  In this case we are updating the text box text with the object type of whatever the user has selected.  Note code in this method will not affect the graphics window.  If you want to update the displayed geometry you should use the <a class="reference internal" href="../apper.html#apper.Fusion360CommandBase.on_preview" title="apper.Fusion360CommandBase.on_preview"><code class="xref py py-func docutils literal notranslate"><span class="pre">on_preview</span></code></a> method.</p>
 </div>
 </div>
 </div>

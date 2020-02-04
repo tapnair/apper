@@ -8,47 +8,40 @@ important right here and provide links to the canonical documentation.
 
 .. module:: apper
 
-Main Interface
+Core Apper Modules
 ==============
 
-All of Requests' functionality can be accessed by these 7 methods.
-They all return an instance of the :class:`FusionApp <FusionApp>` object.
+The core Apper functionality can be accessed by sub-classing these 3 classes.
+Step one is to create an instance of the :class:`FusionApp <FusionApp>` object.
+Step two is to add instances of
+:class:`Fusion360CommandBase <Fusion360CommandBase>` and
+:class:`PaletteCommandBase <PaletteCommandBase>` classes.
+Each instance of these classes will be a new command in your add-in.
 
 
-Core Apper Modules
-==================
-
-apper.FusionApp module
-----------------------
-
-.. autoclass:: FusionApp
+.. automodule:: FusionApp
    :members:
 
-apper.Fusion360CommandBase module
----------------------------------
 
-
-.. autoclass:: Fusion360CommandBase
+.. automodule:: Fusion360CommandBase
    :members:
 
-apper.PaletteCommandBase module
--------------------------------
 
-.. autoclass:: PaletteCommandBase
+.. automodule:: PaletteCommandBase
    :members:
 
 
 Other Modules
 ==============
 
-apper.Fusion360DebugUtilities module
-------------------------------------
 
-.. automodule:: Fusion360DebugUtilities
+.. automodule:: Fusion360AppEvents
    :members:
 
-apper.Fusion360Utilities module
--------------------------------
 
 .. automodule:: Fusion360Utilities
+   :members:
+
+
+.. automodule:: Fusion360DebugUtilities
    :members:
