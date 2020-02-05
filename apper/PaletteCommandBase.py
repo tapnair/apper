@@ -27,18 +27,32 @@ class PaletteCommandBase(apper.Fusion360CommandBase):
     def __init__(self, name: str, options: dict):
         super().__init__(name, options)
 
+        ao = apper.AppObjects()
+
         self.palette_id = options.get('palette_id', 'Default Command Name')
         self.palette_name = options.get('palette_name', 'Palette Name')
 
-        rel_path = options.get('palette_html_file_url', '')
+        debug_path = options.get('palette_html_file_url_debug')
+        rel_path = options.get('palette_html_file_url')
 
-        self.path = os.path.dirname(
-            os.path.relpath(sys.modules[self.__class__.__module__].__file__, self.fusion_app.root_path))
+        if self.fusion_app.debug and (debug_path is not None):
+            self.palette_html_file_url = debug_path
 
-        resource_path = os.path.join('./', self.path, rel_path)
+        elif rel_path is not None:
 
-        self.palette_html_file_url = resource_path
-        # self.palette_html_file_url = rel_path
+            local_path_from_root = os.path.dirname(
+                os.path.relpath(
+                    sys.modules[self.__class__.__module__].__file__,
+                    self.fusion_app.root_path
+                )
+            )
+
+            self.palette_html_file_url = os.path.join('./', local_path_from_root, rel_path)
+        else:
+            raise AttributeError("Resource Path not defined for Palette.  Set palette_html_file_url in command options")
+
+        if self.fusion_app.debug:
+            ao.ui.messageBox(self.palette_html_file_url)
 
         self.palette_is_visible = options.get('palette_is_visible', True)
         self.palette_show_close_button = options.get('palette_show_close_button', True)

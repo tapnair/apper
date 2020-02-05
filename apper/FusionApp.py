@@ -64,7 +64,6 @@ class FusionApp:
 
             options['app_name'] = self.name
             options['fusion_app'] = self
-            options['debug'] = self.debug
 
             tab_id = options.get('toolbar_tab_id')
             tab_name = options.get('toolbar_tab_name')
