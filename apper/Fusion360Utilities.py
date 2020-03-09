@@ -471,15 +471,45 @@ def item_id(item: adsk.core.Base, group_name: str) -> str:
         The id that was generated or was previously existing
     """
     this_id = None
-    if item.attributes is not None:
-        if item.attributes.itemByName(group_name, "id") is not None:
-            this_id = item.attributes.itemByName(group_name, "id").value
+
+    try:
+        attributes = item.attributes
+
+    except:
+        return 'None'
+
+    if attributes is not None:
+        if attributes.itemByName(group_name, "id") is not None:
+            this_id = attributes.itemByName(group_name, "id").value
         else:
             new_id = str(uuid.uuid4())
-            item.attributes.add(group_name, "id", new_id)
+            attributes.add(group_name, "id", new_id)
             this_id = new_id
 
     return this_id
+
+
+def remove_item_id(item: adsk.core.Base, group_name: str) -> bool:
+    """Gets (and possibly assigns) a unique identifier (UUID) to any item in Fusion 360
+
+    Args:
+        item: Any Fusion Object that supports attributes
+        group_name: Name of the Attribute Group (typically use app_name)
+
+    Returns:
+        True if successful and False if it failed
+    """
+    try:
+        attributes = item.attributes
+        if attributes.itemByName(group_name, "id") is not None:
+            attribute: adsk.core.Attribute = attributes.itemByName(group_name, "id")
+            attribute.deleteMe()
+            return True
+
+    except:
+        pass
+
+    return False
 
 
 def get_item_by_id(this_item_id: str, app_name: str) -> adsk.core.Base:
