@@ -10,6 +10,8 @@ Full documentation is at <https://apper.readthedocs.io>.
 :license: Apache 2.0, see LICENSE for more details.
 
 """
+from importlib import reload
+
 from .FusionApp import FusionApp
 from .Fusion360AppEvents import Fusion360CustomEvent
 from .Fusion360AppEvents import Fusion360CustomThread

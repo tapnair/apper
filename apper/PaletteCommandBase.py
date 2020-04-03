@@ -33,23 +33,29 @@ class PaletteCommandBase(apper.Fusion360CommandBase):
         self.palette_name = options.get('palette_name', 'Palette Name')
 
         debug_path = options.get('palette_html_file_url_debug')
-        rel_path = options.get('palette_html_file_url')
+        palette_is_local = options.get('palette_is_local', True)
 
-        if self.fusion_app.debug and (debug_path is not None):
-            self.palette_html_file_url = debug_path
+        if palette_is_local:
+            rel_path = options.get('palette_html_file_url')
 
-        elif rel_path is not None:
+            if self.fusion_app.debug and (debug_path is not None):
+                self.palette_html_file_url = debug_path
 
-            local_path_from_root = os.path.dirname(
-                os.path.relpath(
-                    sys.modules[self.__class__.__module__].__file__,
-                    self.fusion_app.root_path
+            elif rel_path is not None:
+
+                local_path_from_root = os.path.dirname(
+                    os.path.relpath(
+                        sys.modules[self.__class__.__module__].__file__,
+                        self.fusion_app.root_path
+                    )
                 )
-            )
 
-            self.palette_html_file_url = os.path.join('./', local_path_from_root, rel_path)
+                self.palette_html_file_url = os.path.join('./', local_path_from_root, rel_path)
+            else:
+                raise AttributeError("Resource Path not defined for Palette.  Set palette_html_file_url in command options")
         else:
-            raise AttributeError("Resource Path not defined for Palette.  Set palette_html_file_url in command options")
+            # TODO add some url validation
+            self.palette_html_file_url = options.get('palette_html_file_url')
 
         if self.fusion_app.debug:
             ao.ui.messageBox(self.palette_html_file_url)
