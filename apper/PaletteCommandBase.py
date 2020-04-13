@@ -179,7 +179,8 @@ class _PaletteExecuteHandler(adsk.core.CommandEventHandler):
                     self.cmd_object_.palette_show_close_button,
                     self.cmd_object_.palette_is_resizable,
                     self.cmd_object_.palette_width,
-                    self.cmd_object_.palette_height
+                    self.cmd_object_.palette_height,
+                    True
                 )
 
                 # Add handler to HTMLEvent of the palette.
