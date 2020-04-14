@@ -61,6 +61,7 @@ class Fusion360CommandBase:
         self.drop_down_name = options.get('drop_down_name', 'Drop Name')
 
         self.command_in_nav_bar = options.get('command_in_nav_bar', False)
+        self.command_in_qat_bar = options.get('command_in_qat_bar', False)
 
         self.command_visible = options.get('command_visible', True)
         self.command_enabled = options.get('command_enabled', True)
@@ -246,6 +247,10 @@ class Fusion360CommandBase:
                 toolbars = ui.toolbars
                 nav_bar = toolbars.itemById('NavToolbar')
                 controls = nav_bar.controls
+            elif self.command_in_qat_bar:
+                toolbars = ui.toolbars
+                qat_bar = toolbars.itemById('QAT')
+                controls = qat_bar.controls
             else:
                 all_workspaces = ui.workspaces
                 this_workspace = all_workspaces.itemById(self.workspace)
@@ -308,10 +313,11 @@ class Fusion360CommandBase:
 
             # Set options for control
             self.control.isVisible = self.command_visible
-            self.control.isPromoted = self.command_promoted
+            if self.command_promoted:
+                self.control.isPromoted = self.command_promoted
 
             # TODO this is broken for some reason.  No access to ui in the run method?
-            self.command_definition.controlDefinition.isEnabled = self.command_enabled
+            # self.command_definition.controlDefinition.isEnabled = self.command_enabled
 
         except:
             if ui:
