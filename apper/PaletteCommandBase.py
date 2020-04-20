@@ -9,6 +9,7 @@ Python module for creating an HTML Palette based command
 
 """
 import traceback
+from urllib.parse import urlparse
 
 import adsk.core
 import apper
@@ -24,6 +25,7 @@ class PaletteCommandBase(apper.Fusion360CommandBase):
         name: Name of the Command
         options: Dictionary of options
     """
+
     def __init__(self, name: str, options: dict):
         super().__init__(name, options)
 
@@ -52,7 +54,8 @@ class PaletteCommandBase(apper.Fusion360CommandBase):
 
                 self.palette_html_file_url = os.path.join('./', local_path_from_root, rel_path)
             else:
-                raise AttributeError("Resource Path not defined for Palette.  Set palette_html_file_url in command options")
+                raise AttributeError(
+                    "Resource Path not defined for Palette.  Set palette_html_file_url in command options")
         else:
             # TODO add some url validation
             self.palette_html_file_url = options.get('palette_html_file_url')
@@ -65,6 +68,7 @@ class PaletteCommandBase(apper.Fusion360CommandBase):
         self.palette_is_resizable = options.get('palette_is_resizable', True)
         self.palette_width = options.get('palette_width', 600)
         self.palette_height = options.get('palette_height', 600)
+        self.palette_force_url_reload = options.get('palette_force_url_reload', True)
 
         self.palette = None
         self.args = None
@@ -119,6 +123,7 @@ class _PaletteCreatedHandler(adsk.core.CommandCreatedEventHandler):
     Args:
         cmd_object: the parent command object
     """
+
     def __init__(self, cmd_object):
         super().__init__()
         self.cmd_object_ = cmd_object
@@ -195,7 +200,19 @@ class _PaletteExecuteHandler(adsk.core.CommandEventHandler):
                 self.cmd_object_.handlers.append(on_closed_handler)
 
             else:
-                palette.htmlFileURL = self.cmd_object_.palette_html_file_url
+                main_url = urlparse(self.cmd_object_.palette_html_file_url)
+                current_url = urlparse(palette.htmlFileURL)
+
+                if not (
+                        (not self.cmd_object_.palette_force_url_reload) &
+                        (main_url.netloc == current_url.netloc) &
+                        (main_url.path == current_url.path)
+                ):
+                    # ui.messageBox(current_url.netloc + "  vs.  " + main_url.netloc)
+                    # ui.messageBox(current_url.path + "  vs.  " + main_url.path)
+                    # ui.messageBox(str(self.cmd_object_.palette_force_url_reload))
+                    palette.htmlFileURL = self.cmd_object_.palette_html_file_url
+
                 palette.isVisible = True
 
             self.cmd_object_.on_palette_execute(palette)
@@ -240,6 +257,7 @@ class _PaletteCloseHandler(adsk.core.UserInterfaceGeneralEventHandler):
     Args:
         cmd_object: the parent command object
     """
+
     def __init__(self, cmd_object):
         super().__init__()
         self.cmd_object_ = cmd_object
