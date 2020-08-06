@@ -13070,3 +13070,7 @@ class ApplicationCommandEventHandler:
         pass
 
 
+class SelectionEventHandler:
+    def __init__(self):
+        pass
+

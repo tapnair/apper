@@ -379,7 +379,7 @@ class Fusion360WebRequestEvent:
                 fusion_id: A unique identifier to help determine whether the component is new or an instance
                 occurrence_or_document: If opened, then it is a new document.  If it was inserted, it is the created occurence
                 file: Path to the file that was just received
-                event_args: WebRequestEventArgs
+                event_args: adsk.core.WebRequestEventArgs
             """
         pass
 
@@ -400,7 +400,7 @@ class _CommandEventHandler(adsk.core.ApplicationCommandEventHandler):
         """Method overwritten on parent class that will be executed when the event fires
 
         Args:
-            args: event arguments
+            args: adsk.core.ApplicationCommandEventArgs
         """
         try:
             event_args = adsk.core.ApplicationCommandEventArgs.cast(args)
@@ -435,7 +435,7 @@ class Fusion360CommandEvent:
         Args:
             command_definition: the command definition of the command that was just executed
             command_id: the id of the command that was just executed
-            event_args: ApplicationCommandEventArgs
+            event_args: adsk.core.ApplicationCommandEventArgs
         """
         pass
 
@@ -444,4 +444,61 @@ class Fusion360CommandEvent:
 
         Clean up.  If overridden ensure to execute with super().on_stop()
         """
+        self.event_type.remove(self.command_handler)
+
+
+class _ActiveSelectionEventHandler(adsk.core.ActiveSelectionEventHandler):
+    def __init__(self, command_function):
+        super().__init__()
+        self.command_function = command_function
+
+    def notify(self, args):
+        """Method overwritten on parent class    that will be executed when the event fires
+
+        Args:
+            args: adsk.core.ApplicationCommandEventArgs
+        """
+        try:
+            event_args = adsk.core.ActiveSelectionEventArgs.cast(args)
+            current_selection: [adsk.core.Selection] = event_args.currentSelection
+            self.command_function(event_args, current_selection)
+
+        except:
+            app = adsk.core.Application.cast(adsk.core.Application.get())
+            ui = app.userInterface
+            ui.messageBox('Failed to handle Selection Event:\n{}'.format(traceback.format_exc()))
+
+
+class Fusion360ActiveSelectionEvent:
+    """Create a new Active Selection Event action
+
+    Args:
+        event_id: A unique id for this event
+    """
+    def __init__(self, event_id, event_type):
+        app = adsk.core.Application.get()
+        ui = app.userInterface
+
+        self.event_id = event_id
+        self.fusion_app = None
+        self.command_handler = _ActiveSelectionEventHandler(self.selection_event_received)
+        self.event_type = event_type
+        self.event_type.add(self.command_handler)
+        handlers.append(self.command_handler)
+
+    def selection_event_received(self, event_args, current_selection):
+        """This function will be executed in response to the command event
+
+        Args:
+            current_selection: An array of type adsk.core.Selection
+            event_args: adsk.core.ApplicationCommandEventArgs
+        """
+        pass
+
+    def on_stop(self):
+        """Function is run when the addin stops.
+
+        Clean up.  If overridden ensure to execute with super().on_stop()
+        """
+
         self.event_type.remove(self.command_handler)
