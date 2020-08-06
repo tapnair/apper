@@ -13,26 +13,30 @@ Full documentation is at <https://apper.readthedocs.io>.
 import sys
 
 submodule_names = [
-    'FusionApp', 
-    'Fusion360AppEvents', 
-    'Fusion360CommandBase', 
-    'PaletteCommandBase', 
-    'Fusion360Utilities', 
+    'FusionApp',
+    'Fusion360AppEvents',
+    'Fusion360CommandBase',
+    'PaletteCommandBase',
+    'Fusion360Utilities',
     ]
 for submodule_name in submodule_names:
-    if sys.modules.get('apper.' + submodule_name, False):
+    if sys.modules.get(''.join(['apper.', submodule_name]), False):
         del sys.modules['apper.' + submodule_name]
 
-from .FusionApp import FusionApp
-from .Fusion360AppEvents import Fusion360CustomEvent
-from .Fusion360AppEvents import Fusion360CustomThread
-from .Fusion360AppEvents import Fusion360NewThread
-from .Fusion360AppEvents import Fusion360DocumentEvent
-from .Fusion360AppEvents import Fusion360WorkspaceEvent
-from .Fusion360AppEvents import Fusion360WebRequestEvent
-from .Fusion360AppEvents import Fusion360CommandEvent
-from .Fusion360AppEvents import Fusion360ActiveSelectionEvent
-from .Fusion360CommandBase import Fusion360CommandBase
-from .PaletteCommandBase import PaletteCommandBase
-from .Fusion360Utilities import AppObjects
-from .Fusion360Utilities import *
+try:
+    from .FusionApp import FusionApp
+    from .Fusion360AppEvents import Fusion360CustomEvent
+    from .Fusion360AppEvents import Fusion360CustomThread
+    from .Fusion360AppEvents import Fusion360NewThread
+    from .Fusion360AppEvents import Fusion360DocumentEvent
+    from .Fusion360AppEvents import Fusion360WorkspaceEvent
+    from .Fusion360AppEvents import Fusion360WebRequestEvent
+    from .Fusion360AppEvents import Fusion360CommandEvent
+    from .Fusion360AppEvents import Fusion360ActiveSelectionEvent
+    from .Fusion360CommandBase import Fusion360CommandBase
+    from .PaletteCommandBase import PaletteCommandBase
+    from .Fusion360Utilities import AppObjects
+    from .Fusion360Utilities import *
+
+except:
+    pass
