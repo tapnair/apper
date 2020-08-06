@@ -38,7 +38,7 @@ class FusionApp:
         self.tabs = []
         self.default_dir = self._get_default_dir()
         self.preferences = self.get_all_preferences()
-        self.root_path = Path(__file__).parent.parent.parent
+        self.root_path = ''
         self.command_dict = {}
 
     def add_command(

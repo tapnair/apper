@@ -197,7 +197,7 @@ class Application(Base):
     def cast(arg):
         return Application()
     @staticmethod
-    def get(self):
+    def get():
         """
         Access to the root Application object.
 

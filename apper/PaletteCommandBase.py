@@ -47,7 +47,8 @@ class PaletteCommandBase(apper.Fusion360CommandBase):
                 )
             )
 
-            self.palette_html_file_url = os.path.join('./', local_path_from_root, rel_path)
+            # self.palette_html_file_url = os.path.join('./', local_path_from_root, rel_path)
+            self.palette_html_file_url = os.path.join(self.fusion_app.root_path, rel_path)
         else:
             raise AttributeError("Resource Path not defined for Palette.  Set palette_html_file_url in command options")
 
@@ -59,6 +60,7 @@ class PaletteCommandBase(apper.Fusion360CommandBase):
         self.palette_is_resizable = options.get('palette_is_resizable', True)
         self.palette_width = options.get('palette_width', 600)
         self.palette_height = options.get('palette_height', 600)
+        self.palette_use_new_browser = options.get('palette_use_new_browser', False)
 
         self.palette = None
         self.args = None
@@ -173,7 +175,8 @@ class _PaletteExecuteHandler(adsk.core.CommandEventHandler):
                     self.cmd_object_.palette_show_close_button,
                     self.cmd_object_.palette_is_resizable,
                     self.cmd_object_.palette_width,
-                    self.cmd_object_.palette_height
+                    self.cmd_object_.palette_height,
+                    self.cmd_object_.palette_use_new_browser
                 )
 
                 # Add handler to HTMLEvent of the palette.
