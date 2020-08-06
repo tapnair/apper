@@ -44,18 +44,9 @@ class PaletteCommandBase(apper.Fusion360CommandBase):
                 self.palette_html_file_url = debug_path
 
             elif rel_path is not None:
-
-                local_path_from_root = os.path.dirname(
-                    os.path.relpath(
-                        sys.modules[self.__class__.__module__].__file__,
-                        self.fusion_app.root_path
-                    )
-                )
-
-                # self.palette_html_file_url = os.path.join('./', local_path_from_root, rel_path)
                 self.palette_html_file_url = os.path.join(self.fusion_app.root_path, rel_path)
             else:
-                raise AttributeError("Resource Path not defined for Palette.  Set palette_html_file_url in command options")
+                raise AttributeError("Resource Path not defined.  Set palette_html_file_url in command options")
         else:
             # TODO add some url validation
             self.palette_html_file_url = options.get('palette_html_file_url')
