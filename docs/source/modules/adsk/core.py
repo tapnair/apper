@@ -14649,6 +14649,7 @@ class IntegerSliderCommandInput(SliderCommandInput):
         """
         pass
 
+
 class CustomEventHandler:
     def __init__(self):
         pass
@@ -14690,5 +14691,15 @@ class UserInterfaceGeneralEventHandler:
 
 
 class ActiveSelectionEventHandler:
+    def __init__(self):
+        pass
+
+
+class WebRequestEventHandler:
+    def __init__(self):
+        pass
+
+
+class ApplicationCommandEventHandler:
     def __init__(self):
         pass

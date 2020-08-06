@@ -9,7 +9,7 @@ important right here and provide links to the canonical documentation.
 .. module:: apper
 
 Core Apper Modules
-==============
+==================
 
 The core Apper functionality can be accessed by sub-classing these 3 classes.
 Step one is to create an instance of the :class:`FusionApp <FusionApp>` object.
