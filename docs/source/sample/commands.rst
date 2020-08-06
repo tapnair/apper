@@ -15,20 +15,30 @@ When running an addin Fusion 360 expects to see a directory with a .py and .mani
     ├── apper
     │   └── ...
     ├── commands
+    │   ├── __init__.py
+    │   ├── SampleActiveSelectionEvents.py
     │   ├── SampleCommand1.py
     │   ├── SampleCommand2.py
-    │   ├── SamplePaletteCommand.py
+    │   ├── SampleCommandEvents.py
     │   ├── SampleCustomEvent.py
-    │   ├── SampleDocumentEvent.py
+    │   ├── SampleDocumentEvents.py
+    │   ├── SamplePaletteCommand.py
+    │   ├── SampleWebRequestEvent.py
     │   ├── SampleWorkspaceEvent.py
+    │   ├── palette_html
+    │   │   └── ApperSample.html
     │   └── resources
     │       ├── command_icons
     │       │   └── ...
     │       └── palette_icons
     │           └── ...
+    ├── lib
+    │   └── Place_3rd_Party_libraries_here.txt
     ├── ApperSample.py
     ├── ApperSample.manifest
-    ├── LICENCE.txt
+    ├── config.py
+    ├── startup.py
+    ├── LICENCE
     └── README.md
 
 
@@ -39,25 +49,32 @@ Imports
 
 In this sample the commands and events are defined in a number of files that need to be imported.  Typically I create each command in its own file unless there are two commands that will be sharing much of the same logic, but it doesn't really matter.
 
-.. code-block::
-
-    import traceback
+.. code-block:: python
 
     import adsk.core
-    from .apper import apper
+    import traceback
 
-    # Basic Fusion 360 Command Base samples
-    from .commands.SampleCommand1 import SampleCommand1
-    from .commands.SampleCommand2 import SampleCommand2
+    from.startup import setup_app, cleanup_app, get_app_path
+    setup_app(__file__)
 
-    # Palette Command Base samples
-    from .commands.SamplePaletteCommand import SamplePaletteSendCommand, SamplePaletteShowCommand
+    try:
+        import config
+        import apper
 
-    # Various Application event samples
-    from .commands.SampleCustomEvent import SampleCustomEvent1
-    from .commands.SampleDocumentEvents import SampleDocumentEvent1, SampleDocumentEvent2
-    from .commands.SampleWorkspaceEvents import SampleWorkspaceEvent1
+        # Basic Fusion 360 Command Base samples
+        from commands.SampleCommand1 import SampleCommand1
+        from commands.SampleCommand2 import SampleCommand2
 
+        # Palette Command Base samples
+        from commands.SamplePaletteCommand import SamplePaletteSendCommand, SamplePaletteShowCommand
+
+        # Various Application event samples
+        from commands.SampleCustomEvent import SampleCustomEvent
+        from commands.SampleDocumentEvents import SampleDocumentEvent1, SampleDocumentEvent2
+        from commands.SampleWorkspaceEvents import SampleWorkspaceEvent
+        from commands.SampleWebRequestEvent import SampleWebRequestOpened
+        from commands.SampleCommandEvents import SampleCommandEvent
+        from commands.SampleActiveSelectionEvents import SampleActiveSelectionEvent
 
 Create the App
 --------------
