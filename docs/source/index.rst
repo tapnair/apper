@@ -3,8 +3,8 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to apper's documentation!
-=================================
+Welcome to apper  's documentation!
+===================================
 
 Apper is a framework to simplify the creation of Fusion 360 Addin.
 
@@ -23,9 +23,6 @@ This part of the documentation, will give you a quick introduction to the projec
    usage/intro
    usage/installation
    usage/existing
-   usage/advanced
-   usage/options
-   sample/intro
    sample/commands
    sample/events
 

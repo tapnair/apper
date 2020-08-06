@@ -2,6 +2,8 @@
 Commands
 ========
 
+.. py:currentmodule:: apper
+
 App Structure
 -------------
 
@@ -15,20 +17,30 @@ When running an addin Fusion 360 expects to see a directory with a .py and .mani
     ├── apper
     │   └── ...
     ├── commands
+    │   ├── __init__.py
+    │   ├── SampleActiveSelectionEvents.py
     │   ├── SampleCommand1.py
     │   ├── SampleCommand2.py
-    │   ├── SamplePaletteCommand.py
+    │   ├── SampleCommandEvents.py
     │   ├── SampleCustomEvent.py
-    │   ├── SampleDocumentEvent.py
+    │   ├── SampleDocumentEvents.py
+    │   ├── SamplePaletteCommand.py
+    │   ├── SampleWebRequestEvent.py
     │   ├── SampleWorkspaceEvent.py
+    │   ├── palette_html
+    │   │   └── ApperSample.html
     │   └── resources
     │       ├── command_icons
     │       │   └── ...
     │       └── palette_icons
     │           └── ...
+    ├── lib
+    │   └── Place_3rd_Party_libraries_here.txt
     ├── ApperSample.py
     ├── ApperSample.manifest
-    ├── LICENCE.txt
+    ├── config.py
+    ├── startup.py
+    ├── LICENCE
     └── README.md
 
 
@@ -39,43 +51,48 @@ Imports
 
 In this sample the commands and events are defined in a number of files that need to be imported.  Typically I create each command in its own file unless there are two commands that will be sharing much of the same logic, but it doesn't really matter.
 
-.. code-block::
-
-    import traceback
+.. code-block:: python
 
     import adsk.core
-    from .apper import apper
+    import traceback
 
-    # Basic Fusion 360 Command Base samples
-    from .commands.SampleCommand1 import SampleCommand1
-    from .commands.SampleCommand2 import SampleCommand2
+    from.startup import setup_app, cleanup_app, get_app_path
+    setup_app(__file__)
 
-    # Palette Command Base samples
-    from .commands.SamplePaletteCommand import SamplePaletteSendCommand, SamplePaletteShowCommand
+    try:
+        import config
+        import apper
 
-    # Various Application event samples
-    from .commands.SampleCustomEvent import SampleCustomEvent1
-    from .commands.SampleDocumentEvents import SampleDocumentEvent1, SampleDocumentEvent2
-    from .commands.SampleWorkspaceEvents import SampleWorkspaceEvent1
+        # Basic Fusion 360 Command Base samples
+        from commands.SampleCommand1 import SampleCommand1
+        from commands.SampleCommand2 import SampleCommand2
 
+        # Palette Command Base samples
+        from commands.SamplePaletteCommand import SamplePaletteSendCommand, SamplePaletteShowCommand
+
+        # Various Application event samples
+        from commands.SampleCustomEvent import SampleCustomEvent
+        from commands.SampleDocumentEvents import SampleDocumentEvent1, SampleDocumentEvent2
+        from commands.SampleWorkspaceEvents import SampleWorkspaceEvent
+        from commands.SampleWebRequestEvent import SampleWebRequestOpened
+        from commands.SampleCommandEvents import SampleCommandEvent
+        from commands.SampleActiveSelectionEvents import SampleActiveSelectionEvent
 
 Create the App
 --------------
 
-To create commands in your addin the first step is to create an instance of :class:`FusionApp <apper.FusionApp>`.
+To create commands in your addin the first step is to create an instance of :class:`.FusionApp`
 
-.. code-block::
+.. code-block:: python
 
     my_addin = apper.FusionApp('ApperSample ', "Autodesk ", False)
 
 Standard Commands
 -----------------
 
-Commands are created by subclassing :class:`FusionCommandBase <apper.Fusion360CommandBase>` and overriding their *on_xxx* methods.
+Commands are created by subclassing :class:`.Fusion360CommandBase` and overriding their *on_xxx* methods.
 
-You add commands to an apper based add-in by calling the :func:`add_command <apper.FusionApp.add_command>` function
-
-    .. autofunction:: apper.FusionApp.FusionApp.add_command
+You add commands to an apper based add-in by calling the :meth:`.FusionApp.add_command` function
 
 Sample Command 1
 ^^^^^^^^^^^^^^^^
@@ -91,7 +108,7 @@ Command Definition
 
 In the main add-in file we will define the command placement in the UI and define which command the button will be ascociated with.  The .. autofunction:: apper.FusionApp.FusionApp.add_command function takes the name of the command, the command class, and a set of options.
 
-.. code-block::
+.. code-block:: python
 
     my_addin.add_command(
         'Sample Command 1',
@@ -117,15 +134,16 @@ This command class is defined in a separate file called **SampleCommand1.py**
 You can see we are subclassing the Fusion360CommandBase.  It is not really important to understand the details of this, but if you just follow this format it will be easy to replicate.
 
 Inside your command class definition you will override one or methods :
-* :func:`on_create <apper.Fusion360CommandBase.on_create>`
-* :func:`on_execute <apper.Fusion360CommandBase.on_execute>`
-* :func:`on_preview <apper.Fusion360CommandBase.on_preview>`
-* :func:`on_input_changed <apper.Fusion360CommandBase.on_input_changed>`
-* :func:`on_destroy <apper.Fusion360CommandBase.on_destroy>`
 
-In this case we are only overriding the :func:`on_execute <apper.Fusion360CommandBase.on_execute>` method.  So when the user clicks the button the code in this function is immediately executed.
+* :meth:`.Fusion360CommandBase.on_create`
+* :meth:`.Fusion360CommandBase.on_execute`
+* :meth:`.Fusion360CommandBase.on_preview`
+* :meth:`.Fusion360CommandBase.on_input_changed`
+* :meth:`.Fusion360CommandBase.on_destroy`
 
-.. code-block::
+In this case we are only overriding the :meth:`.Fusion360CommandBase.on_execute` method.  So when the user clicks the button the code in this function is immediately executed.
+
+.. code-block:: python
 
     import adsk.core
     from ..apper import apper
@@ -140,14 +158,14 @@ In this case we are only overriding the :func:`on_execute <apper.Fusion360Comman
 Sample Command 2
 ^^^^^^^^^^^^^^^^
 
-Now let's look at a little more complete add-in.  In this case we are going to override a number of methods in the :class:`Fusion360CommandBase <apper.Fusion360CommandBase>` class.
+Now let's look at a little more complete add-in.  In this case we are going to override a number of methods in the :class:`.Fusion360CommandBase` class.
 
 on_create
 ^^^^^^^^^
 
-The :func:`on_create <apper.Fusion360CommandBase.on_create>` function is executed when the user clicks your icon in the Fusion 360 UI.  This is typically where you would define a set of user inputs for your command.  The Fusion 360 API makes creating these user interfaces very easy.  By getting a reference to the CommandInputs of the command, you can simply add items to the interface.  Ass you add items Fusion 360 basically adds them to the bottom of the stack.
+The :meth:`.Fusion360CommandBase.on_create` function is executed when the user clicks your icon in the Fusion 360 UI.  This is typically where you would define a set of user inputs for your command.  The Fusion 360 API makes creating these user interfaces very easy.  By getting a reference to the CommandInputs of the command, you can simply add items to the interface.  Ass you add items Fusion 360 basically adds them to the bottom of the stack.
 
-.. code-block::
+.. code-block:: python
 
     def on_create(self, command: adsk.core.Command, inputs: adsk.core.CommandInputs):
 
@@ -181,4 +199,4 @@ The :func:`on_create <apper.Fusion360CommandBase.on_create>` function is execute
 on_input_changed
 ^^^^^^^^^^^^^^^^
 
-The :func:`on_input_changed <apper.Fusion360CommandBase.on_input_changed>` function is executed when the user changes any input value in your ui.  This function is typically used to make adjustments to the user interface itself.  For example you may want to hide or show certain options based on another input such as a checkbox for "advaced options" or something along those lines.  In this case we are updating the text box text with the object type of whatever the user has selected.  Note code in this method will not affect the graphics window.  If you want to update the displayed geometry you should use the :func:`on_preview <apper.Fusion360CommandBase.on_preview>` method.
+The :meth:`.Fusion360CommandBase.on_input_changed` function is executed when the user changes any input value in your ui.  This function is typically used to make adjustments to the user interface itself.  For example you may want to hide or show certain options based on another input such as a checkbox for "advaced options" or something along those lines.  In this case we are updating the text box text with the object type of whatever the user has selected.  Note code in this method will not affect the graphics window.  If you want to update the displayed geometry you should use the :meth:`.Fusion360CommandBase.on_preview` method.

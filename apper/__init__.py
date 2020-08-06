@@ -18,6 +18,7 @@ submodule_names = [
     'Fusion360CommandBase',
     'PaletteCommandBase',
     'Fusion360Utilities',
+    'Fusion360DebugUtilities',
     ]
 for submodule_name in submodule_names:
     if sys.modules.get(''.join(['apper.', submodule_name]), False):
@@ -37,6 +38,7 @@ try:
     from .PaletteCommandBase import PaletteCommandBase
     from .Fusion360Utilities import AppObjects
     from .Fusion360Utilities import *
+    from .Fusion360DebugUtilities import *
 
 except:
     pass
