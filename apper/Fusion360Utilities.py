@@ -356,7 +356,7 @@ def get_default_dir(app_name: str):
     # Create a subdirectory for this application settings
     default_dir = os.path.join(default_dir, app_name, "")
 
-    # Create the folder if it does not exist
+    # Create the folder if it does not exist    
     if not os.path.exists(default_dir):
         os.makedirs(default_dir)
 
