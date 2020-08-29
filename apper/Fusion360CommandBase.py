@@ -178,11 +178,13 @@ class Fusion360CommandBase:
 
         """
         value_types = [adsk.core.BoolValueCommandInput.classType(), adsk.core.DistanceValueCommandInput.classType(),
-                       adsk.core.FloatSliderCommandInput.classType(), adsk.core.FloatSpinnerCommandInput.classType(),
-                       adsk.core.IntegerSliderCommandInput.classType(),
+                       adsk.core.FloatSpinnerCommandInput.classType(),
                        adsk.core.IntegerSpinnerCommandInput.classType(),
-                       adsk.core.ValueCommandInput.classType(), adsk.core.SliderCommandInput.classType(),
+                       adsk.core.ValueCommandInput.classType(),
                        adsk.core.StringValueCommandInput.classType()]
+
+        slider_types = [adsk.core.FloatSliderCommandInput.classType(),
+                        adsk.core.IntegerSliderCommandInput.classType()]
 
         list_types = [adsk.core.ButtonRowCommandInput.classType(), adsk.core.DropDownCommandInput.classType(),
                       adsk.core.RadioButtonGroupCommandInput.classType()]
@@ -197,6 +199,10 @@ class Fusion360CommandBase:
             # If the input type is in this list the value of the input is returned
             if command_input.objectType in value_types:
                 input_values[command_input.id] = command_input.value
+                input_values[command_input.id + '_input'] = command_input
+
+            elif command_input.objectType in slider_types:
+                input_values[command_input.id] = command_input.valueOne
                 input_values[command_input.id + '_input'] = command_input
 
             # TODO need to account for radio and button multi select also
