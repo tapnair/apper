@@ -21,7 +21,6 @@ import os
 from os.path import expanduser
 import json
 import uuid
-
 import time
 
 import logging

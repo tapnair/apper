@@ -16,7 +16,10 @@ import adsk.fusion
 import os.path
 import sys
 
-import apper
+from . import FusionApp
+
+handlers = []
+create_handlers = []
 
 
 def _destroy_object(obj_to_be_deleted):
@@ -42,7 +45,7 @@ class Fusion360CommandBase:
         """
     def __init__(self, name: str, options: dict):
         self.app_name = options.get('app_name')
-        self.fusion_app: apper.FusionApp = options.get('fusion_app', None)
+        self.fusion_app: FusionApp = options.get('fusion_app', None)
 
         self.cmd_name = name
 
@@ -93,9 +96,6 @@ class Fusion360CommandBase:
         self.cmd_resources = resource_path
         self.drop_down_resources = drop_resources_path
 
-        # global set of event handlers to keep them referenced for the duration of the command
-        self.handlers = []
-
         # self.fusion_app.appCommands.append(self)
 
     def on_preview(self, command: adsk.core.Command, inputs: adsk.core.CommandInputs, args, input_values):
@@ -129,7 +129,7 @@ class Fusion360CommandBase:
         pass
 
     def on_input_changed(self, command: adsk.core.Command, inputs: adsk.core.CommandInputs,
-                         changed_input: adsk.core.CommandInput, input_values: dict ):
+                         changed_input: adsk.core.CommandInput, input_values: dict):
         """Executed when any inputs have changed.  Useful for updating command UI.
 
         When a user changes anything in the command dialog this method is executed.
@@ -294,28 +294,30 @@ class Fusion360CommandBase:
             # Check if control exists (with apper this should never happen)
             self.control = controls.itemById(self.cmd_id)
 
-            if self.control is None:
+            if self.control:
+                _destroy_object(self.control)
 
-                # Check if control exists (with apper this should never happen)
-                self.command_definition = ui.commandDefinitions.itemById(self.cmd_id)
+            # Check if command definition exists (with apper this should never happen)
+            self.command_definition = ui.commandDefinitions.itemById(self.cmd_id)
 
-                if not self.command_definition:
+            if self.command_definition:
+                _destroy_object(self.command_definition)
 
-                    # Create the command definition
-                    self.command_definition = ui.commandDefinitions.addButtonDefinition(
-                        self.cmd_id,
-                        self.cmd_name,
-                        self.cmd_description,
-                        self.cmd_resources
-                    )
+            # Create the command definition
+            self.command_definition = ui.commandDefinitions.addButtonDefinition(
+                self.cmd_id,
+                self.cmd_name,
+                self.cmd_description,
+                self.cmd_resources
+            )
 
-                    # Add command created event handler
-                    on_command_created_handler = self._get_create_event()
-                    self.command_definition.commandCreated.add(on_command_created_handler)
-                    self.handlers.append(on_command_created_handler)
+            # Add command created event handler
+            on_command_created_handler = self._get_create_event()
+            self.command_definition.commandCreated.add(on_command_created_handler)
+            create_handlers.append(on_command_created_handler)
 
-                # Create the new control
-                self.control = controls.addCommand(self.command_definition)
+            # Create the new control
+            self.control = controls.addCommand(self.command_definition)
 
             # Set options for control
             self.control.isVisible = self.command_visible
@@ -452,31 +454,34 @@ class _CommandExecuteHandler(adsk.core.CommandEventHandler):
 class _CommandCreatedEventHandler(adsk.core.CommandCreatedEventHandler):
     def __init__(self, cmd_object):
         super().__init__()
-        self.cmd_object_ = cmd_object
+        self.cmd_object = cmd_object
 
     def notify(self, args):
         try:
-            command_ = args.command
-            inputs_ = command_.commandInputs
-            self.cmd_object_.command_inputs = inputs_
+            global handlers
+            handlers.clear()
 
-            on_execute_handler = _CommandExecuteHandler(self.cmd_object_)
-            command_.execute.add(on_execute_handler)
-            self.cmd_object_.handlers.append(on_execute_handler)
+            command = args.command
+            inputs_ = command.commandInputs
+            self.cmd_object.command_inputs = inputs_
 
-            on_input_changed_handler = _InputChangedHandler(self.cmd_object_)
-            command_.inputChanged.add(on_input_changed_handler)
-            self.cmd_object_.handlers.append(on_input_changed_handler)
+            on_execute_handler = _CommandExecuteHandler(self.cmd_object)
+            command.execute.add(on_execute_handler)
+            handlers.append(on_execute_handler)
 
-            on_destroy_handler = _DestroyHandler(self.cmd_object_)
-            command_.destroy.add(on_destroy_handler)
-            self.cmd_object_.handlers.append(on_destroy_handler)
+            on_input_changed_handler = _InputChangedHandler(self.cmd_object)
+            command.inputChanged.add(on_input_changed_handler)
+            handlers.append(on_input_changed_handler)
 
-            on_execute_preview_handler = _PreviewHandler(self.cmd_object_)
-            command_.executePreview.add(on_execute_preview_handler)
-            self.cmd_object_.handlers.append(on_execute_preview_handler)
+            on_destroy_handler = _DestroyHandler(self.cmd_object)
+            command.destroy.add(on_destroy_handler)
+            handlers.append(on_destroy_handler)
 
-            self.cmd_object_.on_create(command_, inputs_)
+            on_execute_preview_handler = _PreviewHandler(self.cmd_object)
+            command.executePreview.add(on_execute_preview_handler)
+            handlers.append(on_execute_preview_handler)
+
+            self.cmd_object.on_create(command, inputs_)
 
         except:
             app = adsk.core.Application.cast(adsk.core.Application.get())
