@@ -10,19 +10,19 @@ Full documentation is at <https://apper.readthedocs.io>.
 :license: Apache 2.0, see LICENSE for more details.
 
 """
-import sys
-
-submodule_names = [
-    'FusionApp',
-    'Fusion360AppEvents',
-    'Fusion360CommandBase',
-    'PaletteCommandBase',
-    'Fusion360Utilities',
-    'Fusion360DebugUtilities',
-    ]
-for submodule_name in submodule_names:
-    if sys.modules.get(''.join(['apper.', submodule_name]), False):
-        del sys.modules['apper.' + submodule_name]
+# import sys
+#
+# submodule_names = [
+#     'FusionApp',
+#     'Fusion360AppEvents',
+#     'Fusion360CommandBase',
+#     'PaletteCommandBase',
+#     'Fusion360Utilities',
+#     'Fusion360DebugUtilities',
+#     ]
+# for submodule_name in submodule_names:
+#     if sys.modules.get(''.join(['apper.', submodule_name]), False):
+#         del sys.modules['apper.' + submodule_name]
 
 try:
     from .FusionApp import FusionApp
