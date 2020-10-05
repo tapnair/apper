@@ -42,10 +42,46 @@ class AppObjects(object):
         # Get User Interface
         self.ui = self.app.userInterface
 
-        self.document = self.app.activeDocument
-        self.product = self.app.activeProduct
+        self._document = self.document
+        self._product = self.product
 
         self._design = self.design
+
+    @property
+    def document(self) -> Optional[adsk.core.Document]:
+        """adsk.fusion.Design from the active document
+
+        Returns: adsk.fusion.Design from the active document
+
+        """
+        document = None
+        try:
+            document = self.app.activeDocument
+        except:
+            pass
+
+        if document is not None:
+            return document
+        else:
+            return None
+
+    @property
+    def product(self) -> Optional[adsk.core.Product]:
+        """adsk.fusion.Design from the active document
+
+        Returns: adsk.fusion.Design from the active document
+
+        """
+        product = None
+        try:
+            product = self.app.activeProduct
+        except:
+            pass
+
+        if product is not None:
+            return product
+        else:
+            return None
 
     @property
     def design(self) -> Optional[adsk.fusion.Design]:
@@ -54,7 +90,10 @@ class AppObjects(object):
         Returns: adsk.fusion.Design from the active document
 
         """
-        design_ = self.document.products.itemByProductType('DesignProductType')
+        design_ = None
+        if self.document is not None:
+            design_ = self.document.products.itemByProductType('DesignProductType')
+
         if design_ is not None:
             return design_
         else:
@@ -69,7 +108,9 @@ class AppObjects(object):
         Returns: adsk.cam.CAM from the active document
 
         """
-        cam_ = self.document.products.itemByProductType('CAMProductType')
+        cam_ = None
+        if self.document is not None:
+            cam_ = self.document.products.itemByProductType('CAMProductType')
         if cam_ is not None:
             return cam_
         else:
@@ -82,10 +123,12 @@ class AppObjects(object):
         Returns: adsk.core.UnitsManager from the active document
 
         """
-        if self.product.productType == 'DesignProductType':
-            units_manager_ = self._design.fusionUnitsManager
-        else:
-            units_manager_ = self.product.unitsManager
+        units_manager_ = None
+        if self.product is not None:
+            if self.product.productType == 'DesignProductType':
+                units_manager_ = self._design.fusionUnitsManager
+            else:
+                units_manager_ = self.product.unitsManager
 
         if units_manager_ is not None:
             return units_manager_
@@ -114,11 +157,15 @@ class AppObjects(object):
         Returns: The Root Component of the adsk.fusion.Design
 
         """
-        if self.product.productType == 'DesignProductType':
-            root_comp_ = self.design.rootComponent
-            return root_comp_
-        else:
-            return None
+        root_comp_ = None
+        if self.product is not None:
+            if self.product.productType == 'DesignProductType':
+                root_comp_ = self.design.rootComponent
+
+            if root_comp_ is not None:
+                return root_comp_
+            else:
+                return None
 
     @property
     def time_line(self) -> Optional[adsk.fusion.Timeline]:
@@ -127,13 +174,16 @@ class AppObjects(object):
         Returns: adsk.fusion.Timeline from the active adsk.fusion.Design
 
         """
-        if self.product.productType == 'DesignProductType':
-            if self._design.designType == adsk.fusion.DesignTypes.ParametricDesignType:
-                time_line_ = self.product.timeline
+        time_line_ = None
+        if self.product is not None:
+            if self.product.productType == 'DesignProductType':
+                if self._design.designType == adsk.fusion.DesignTypes.ParametricDesignType:
+                    time_line_ = self.product.timeline
 
-                return time_line_
-
-        return None
+        if time_line_ is not None:
+            return time_line_
+        else:
+            return None
 
 
 def start_group() -> int:

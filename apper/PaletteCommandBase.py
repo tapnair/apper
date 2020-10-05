@@ -29,8 +29,6 @@ class PaletteCommandBase(apper.Fusion360CommandBase):
     def __init__(self, name: str, options: dict):
         super().__init__(name, options)
 
-        ao = apper.AppObjects()
-
         self.palette_id = options.get('palette_id', 'Default Command Name')
         self.palette_name = options.get('palette_name', 'Palette Name')
 
@@ -50,9 +48,6 @@ class PaletteCommandBase(apper.Fusion360CommandBase):
         else:
             # TODO add some url validation
             self.palette_html_file_url = options.get('palette_html_file_url')
-
-        if self.fusion_app.debug:
-            ao.ui.messageBox(self.palette_html_file_url)
 
         self.palette_is_visible = options.get('palette_is_visible', True)
         self.palette_show_close_button = options.get('palette_show_close_button', True)
