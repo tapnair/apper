@@ -11,19 +11,16 @@ Tools to leverage when creating a Fusion 360 Add-in
 import adsk.core
 import adsk.fusion
 import adsk.cam
-import traceback
-
-from typing import Optional, List, Union
-
-from functools import wraps
 
 import os
+import sys
 from os.path import expanduser
 import json
 import uuid
 import time
 
-import logging
+from contextlib import ContextDecorator
+from typing import Optional, List, Union
 
 
 # Class to quickly access Fusion Application Objects
@@ -183,6 +180,34 @@ class AppObjects(object):
             return time_line_
         else:
             return None
+
+
+class lib_import(ContextDecorator):
+    """The Fusion360CommandBase class wraps the common tasks used when creating a Fusion 360 Command.
+
+            To create a new command create a new subclass of  Fusion360CommandBase
+            Then override the methods and add functionality as required
+
+            Args:
+                app_path: The root path of the addin.  Should be dynamically calculated.
+                library_folder: *optional, Library folder name (relative to app root). Default = 'lib'
+            """
+
+    def __init__(self, app_path, library_folder='lib'):
+        super().__init__()
+        self.path = ''
+        self.app_path = app_path
+        self.library_folder = library_folder
+
+    def __enter__(self):
+        self.path = os.path.join(self.app_path, self.library_folder)
+        sys.path.insert(0, self.path)
+        return self
+
+    def __exit__(self, *exc):
+        if self.path in sys.path:
+            sys.path.remove(self.path)
+        return False
 
 
 def start_group() -> int:
