@@ -1,9 +1,8 @@
 """
 PaletteCommandBase.py
-=========================================================
+=====================
 Python module for creating an HTML Palette based command
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 :copyright: (c) 2019 by Patrick Rainsberry.
 :license: Apache 2.0, see LICENSE for more details.
 
@@ -14,8 +13,7 @@ from urllib.parse import urlparse
 import adsk.core
 
 import os
-from . import Fusion360CommandBase
-from .Fusion360Utilities import AppObjects
+from .Fusion360CommandBase import Fusion360CommandBase
 
 handlers = []
 

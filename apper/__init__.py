@@ -1,11 +1,11 @@
 """
 Apper Fusion 360 API Wrapper
-=========================================================
+============================
 Apper a simple wrapper for the Fusion 360 API,
 written in Python, for human beings.
 
 Full documentation is at <https://apper.readthedocs.io>.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 :copyright: (c) 2019 by Patrick Rainsberry.
 :license: Apache 2.0, see LICENSE for more details.
 

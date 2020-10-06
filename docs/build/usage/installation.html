@@ -1,0 +1,328 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Installation &mdash; apper .1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Existing Projects" href="existing.html" />
+    <link rel="prev" title="Intro" href="intro.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> apper
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Intro</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#python-interpreter">Python interpreter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#install-git">Install Git</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#adjust-your-path">Adjust your path</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#macos">MacOS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#windows">Windows</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#install-cookiecutter">Install cookiecutter</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#using-the-template">Using the Template</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#navigate-to-the-fusion-360-addins-directory">Navigate to the Fusion 360 Addins directory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#run-the-cookiecutter-template">Run the cookiecutter template</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#open-your-new-add-in">Open your new add-in</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="existing.html">Existing Projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3rd_party_libraries.html">3rd Party Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sample/commands.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sample/events.html">Events</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../apper.html">Developer Interface</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">apper</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Installation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/usage/installation.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<p>The easiest way to get started with apper is to start from a template project.</p>
+<p>This will download and structure a new add-in for you on your local system.</p>
+<p>You can set some basic parameters and the template will generate everything you need to get started.</p>
+<div class="section" id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Python interpreter</p></li>
+<li><p>Install Git</p></li>
+<li><p>Adjust your path</p></li>
+<li><p>Packaging tools</p></li>
+</ul>
+<div class="section" id="python-interpreter">
+<h3>Python interpreter<a class="headerlink" href="#python-interpreter" title="Permalink to this headline">¶</a></h3>
+<p>Install Python for your operating system. Fusion 360 uses Python 3.7 so it is recommended to install this version locally as it will simplify setting up your development environment in general.</p>
+<p>Consult the official <a class="reference external" href="https://docs.python.org/3/using/index.html">Python documentation</a> for details.</p>
+<p>You can install the Python binaries from <a class="reference external" href="https://www.python.org/downloads/mac-osx/">python.org</a>.</p>
+</div>
+<div class="section" id="install-git">
+<h3>Install Git<a class="headerlink" href="#install-git" title="Permalink to this headline">¶</a></h3>
+<p>Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency.</p>
+<p>You will need to have git installed to properly setup your local environment.  It is recomended to just <a class="reference external" href="https://desktop.github.com/">install github desktop</a> if you do not already have git installed locally.</p>
+<p>Alternatively you can review other <a class="reference external" href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git">installation options</a>.</p>
+</div>
+<div class="section" id="adjust-your-path">
+<h3>Adjust your path<a class="headerlink" href="#adjust-your-path" title="Permalink to this headline">¶</a></h3>
+<p>Ensure that your <code class="docutils literal notranslate"><span class="pre">bin</span></code> folder is on your path for your platform. Typically <code class="docutils literal notranslate"><span class="pre">~/.local/</span></code> for UNIX and macOS, or <code class="docutils literal notranslate"><span class="pre">%APPDATA%\Python</span></code> on Windows. (See the Python documentation for <a class="reference external" href="https://docs.python.org/3/library/site.html#site.USER_BASE">site.USER_BASE</a> for full details.)</p>
+<div class="section" id="macos">
+<h4>MacOS<a class="headerlink" href="#macos" title="Permalink to this headline">¶</a></h4>
+<p>For bash shells, add the following to your <code class="docutils literal notranslate"><span class="pre">.bash_profile</span></code> (adjust for other shells):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add ~/.local/ to PATH</span>
+<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$HOME</span>/.local/bin:<span class="nv">$PATH</span>
+</pre></div>
+</div>
+<p>Remember to load changes with <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">~/.bash_profile</span></code> or open a new shell session.</p>
+</div>
+<div class="section" id="windows">
+<h4>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h4>
+<p>Ensure the directory where cookiecutter will be installed is in your environment’s <code class="docutils literal notranslate"><span class="pre">Path</span></code> in order to make it possible to invoke it from a command prompt. To do so, search for “Environment Variables” on your computer (on Windows 10, it is under <code class="docutils literal notranslate"><span class="pre">System</span> <span class="pre">Properties</span></code> –&gt; <code class="docutils literal notranslate"><span class="pre">Advanced</span></code>) and add that directory to the <code class="docutils literal notranslate"><span class="pre">Path</span></code> environment variable, using the GUI to edit path segments.</p>
+<p>Example segments should look like <code class="docutils literal notranslate"><span class="pre">%APPDATA%\Python\Python3x\Scripts</span></code>, where you have your version of Python instead of <code class="docutils literal notranslate"><span class="pre">Python3x</span></code>.</p>
+<p>You may need to restart your command prompt session to load the environment variables.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>See <a class="reference external" href="https://docs.python.org/3/using/windows.html#configuring-python">Configuring Python (on Windows)</a> for full details.</p>
+</div>
+</div>
+</div>
+<div class="section" id="install-cookiecutter">
+<h3>Install cookiecutter<a class="headerlink" href="#install-cookiecutter" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://git-scm.com/book/en/v2/Git-Tools-Submodules">cookiecutter</a> creates projects from project templates and is an amazing resource</p>
+<p>For more detailed installation instructions see their <a class="reference external" href="https://cookiecutter.readthedocs.io/en/latest/installation.html">documentation</a></p>
+<p>First install cookie cutter into your local python environment</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install cookiecutter
+</pre></div>
+</div>
+<p>Or potentially if you have a separate python 3 installation you may need to use:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip3 install cookiecutter
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="using-the-template">
+<h2>Using the Template<a class="headerlink" href="#using-the-template" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="navigate-to-the-fusion-360-addins-directory">
+<h3>Navigate to the Fusion 360 Addins directory<a class="headerlink" href="#navigate-to-the-fusion-360-addins-directory" title="Permalink to this headline">¶</a></h3>
+<p>Putting your addin in the following directory will allow Fusion 360 to automatically recognize it</p>
+<p><strong>Mac:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~
+<span class="nb">cd</span> /Library/Application Support/Autodesk/Autodesk<span class="se">\ </span>Fusion<span class="se">\ </span><span class="m">360</span>/API/AddIns/
+</pre></div>
+</div>
+<p><strong>Windows:</strong></p>
+<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span><span class="k">cd</span>  C:\Users\<span class="nv">%YOUR_USER_NAME%</span>\AppData\Roaming\Autodesk\Autodesk Fusion 360\API\AddIns
+</pre></div>
+</div>
+</div>
+<div class="section" id="run-the-cookiecutter-template">
+<h3>Run the cookiecutter template<a class="headerlink" href="#run-the-cookiecutter-template" title="Permalink to this headline">¶</a></h3>
+<p>This will create your add-in directory.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cookiecutter https://github.com/tapnair/cookiecutter-fusion360-addin.git
+</pre></div>
+</div>
+</div>
+<div class="section" id="open-your-new-add-in">
+<h3>Open your new add-in<a class="headerlink" href="#open-your-new-add-in" title="Permalink to this headline">¶</a></h3>
+<p>In Fusion 360 click on the tools tab and select the <strong>Scripts and Add-ins</strong> command</p>
+<a class="reference internal image-reference" href="../_images/addin_dialog.png"><img alt="Fusion Add-in Dialog" src="../_images/addin_dialog.png" style="width: 523px;" /></a>
+<p>You can now either <strong>Run</strong> your new add-in or select <strong>Edit</strong> to open it in VS Code</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="existing.html" class="btn btn-neutral float-right" title="Existing Projects" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="intro.html" class="btn btn-neutral float-left" title="Intro" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Patrick Rainsberry
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

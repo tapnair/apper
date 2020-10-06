@@ -1,12 +1,10 @@
 """
 Fusion360CommandBase.py
-=========================================================
+=======================
 Python module for creating a Fusion 360 Command
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 :copyright: (c) 2019 by Patrick Rainsberry.
 :license: Apache 2.0, see LICENSE for more details.
-
 """
 import traceback
 
@@ -15,8 +13,6 @@ import adsk.fusion
 
 import os.path
 import sys
-
-from . import FusionApp
 
 handlers = []
 create_handlers = []
@@ -45,7 +41,7 @@ class Fusion360CommandBase:
         """
     def __init__(self, name: str, options: dict):
         self.app_name = options.get('app_name')
-        self.fusion_app: FusionApp = options.get('fusion_app', None)
+        self.fusion_app = options.get('fusion_app', None)
 
         self.cmd_name = name
 

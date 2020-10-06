@@ -25,21 +25,14 @@ import sphinx_rtd_theme
 import sphinx_autodoc_typehints
 
 
-# Local Build
-sys.path.insert(0, os.path.abspath('/Users/rainsbp/Dropbox/n3rdlab/OpenSource/apper'))
-sys.path.insert(0, os.path.abspath('/Users/rainsbp/Dropbox/n3rdlab/OpenSource/apper/apper'))
-sys.path.insert(0, os.path.abspath(
-    '/Users/rainsbp/Library/Application Support/Autodesk/Autodesk Fusion 360/API/Python/defs'))
-
 # Server Build
 sys.path.insert(0, os.path.abspath('../..'))
-sys.path.insert(0, os.path.abspath('../../apper'))
 sys.path.insert(0, os.path.abspath('./modules'))
 
 # -- Project information -----------------------------------------------------
 
 project = 'apper'
-copyright = '2019, Patrick Rainsberry'
+copyright = '2020, Patrick Rainsberry'
 author = 'Patrick Rainsberry'
 
 # The full version, including alpha/beta/rc tags

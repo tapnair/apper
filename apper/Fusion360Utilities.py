@@ -1,9 +1,8 @@
 """
 Fusion360Utilities.py
-=========================================================
+=====================
 Tools to leverage when creating a Fusion 360 Add-in
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 :copyright: (c) 2019 by Patrick Rainsberry.
 :license: Apache 2.0, see LICENSE for more details.
 
@@ -183,14 +182,33 @@ class AppObjects(object):
 
 
 class lib_import(ContextDecorator):
-    """The Fusion360CommandBase class wraps the common tasks used when creating a Fusion 360 Command.
+    """The lib_import class is a wrapper class to allow temporary import of a local library directory
 
-            To create a new command create a new subclass of  Fusion360CommandBase
-            Then override the methods and add functionality as required
+            By default it assumes there is a folder named 'lib' in the add-in root directory.
+
+            First install a 3rd party library (such as requests) to this directory.
+
+            .. code-block:: bash
+
+                # Assuming you are in the add-in root directory (sudo may not be required...)
+                sudo python3 -m pip install -t ./lib requests
+
+            Then you can temporarily import the library before making a call to the requests function.
+            To do this use the *@apper.lib_import(...)* decorator on a function that uses the library.
+
+            Here is an example function for using `Requests <https://requests.readthedocs.io/en/master/>`_:
+
+            .. code-block:: python
+
+                @apper.lib_import(config.app_path)
+                def make_request(url, headers):
+                    import requests
+                    r = requests.get(url, headers=headers)
+                    return r
 
             Args:
-                app_path: The root path of the addin.  Should be dynamically calculated.
-                library_folder: *optional, Library folder name (relative to app root). Default = 'lib'
+                app_path(str): The root path of the addin.  Should be dynamically calculated.
+                library_folder(:obj:`str`, optional): Library folder name (relative to app root). Defaults to 'lib'
             """
 
     def __init__(self, app_path, library_folder='lib'):
@@ -227,7 +245,7 @@ def start_group() -> int:
 def end_group(start_index: int):
     """Ends a adsk.fusion.TimelineGroup
 
-    start_index: adsk.fusion.TimelineG index that is returned from start_group
+    start_index: adsk.fusion.TimelineGroup index that is returned from start_group
     """
 
     # Gets necessary application objects

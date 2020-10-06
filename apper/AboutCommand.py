@@ -1,6 +1,6 @@
 """
 AboutCommand.py
-=========================================================
+===============
 **Not Implemented Yet** Python module for creating
 standard "about" command for an Apper Fusion 360 add-in
 
