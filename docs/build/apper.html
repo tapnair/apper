@@ -920,7 +920,8 @@ Note if your addin is complex it may be useful to only preview a subset of the f
 <dt id="apper.Fusion360Utilities.AppObjects.units_manager">
 <em class="property">property </em><code class="sig-name descname">units_manager</code><a class="headerlink" href="#apper.Fusion360Utilities.AppObjects.units_manager" title="Permalink to this definition">¶</a></dt>
 <dd><p>adsk.core.UnitsManager from the active document</p>
-<p>Returns: adsk.core.UnitsManager from the active document</p>
+<p>If not in an active document with design workspace active, will return adsk.core.UnitsManager if possible</p>
+<p>Returns: adsk.fusion.FusionUnitsManager or adsk.core.UnitsManager if in a different workspace than design.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">UnitsManager</span></code>]</p>
