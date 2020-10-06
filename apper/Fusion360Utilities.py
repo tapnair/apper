@@ -133,6 +133,26 @@ class AppObjects(object):
             return None
 
     @property
+    def f_units_manager(self) -> Optional[adsk.fusion.FusionUnitsManager]:
+        """adsk.fusion.FusionUnitsManager from the active document.
+
+        Only work in design environment.
+
+        Returns: adsk.fusion.FusionUnitsManager or None if in a different workspace than design.
+        """
+        units_manager = None
+        if self.product is not None:
+            if self.product.productType == 'DesignProductType':
+                units_manager = self._design.fusionUnitsManager
+            else:
+                units_manager = None
+
+        if units_manager is not None:
+            return units_manager
+        else:
+            return None
+
+    @property
     def export_manager(self) -> Optional[adsk.fusion.ExportManager]:
         """adsk.fusion.ExportManager from the active document
 
@@ -255,13 +275,15 @@ def end_group(start_index: int):
 
     end_index = ao.time_line.markerPosition - 1
 
-    ao.time_line.timelineGroups.add(start_index, end_index)
+    if end_index - start_index > 0:
+        ao.time_line.timelineGroups.add(start_index, end_index)
 
 
 def import_dxf(
         dxf_file: str,
         component: adsk.fusion.Component,
-        plane: Union[adsk.fusion.ConstructionPlane, adsk.fusion.BRepFace]
+        plane: Union[adsk.fusion.ConstructionPlane, adsk.fusion.BRepFace],
+        is_single_sketch_result: bool = False
 ) -> adsk.core.ObjectCollection:
     """Import dxf file with one sketch per layer.
 
@@ -269,7 +291,8 @@ def import_dxf(
         dxf_file: The full path to the dxf file
         component: The target component for the new sketch(es)
         plane: The plane on which to import the DXF file.
-
+        plane: The plane on which to import the DXF file.
+        is_single_sketch_result: If true will collapse all dxf layers to a single sketch.
     Returns:
         An ObjectCollection of the created sketches
     """
@@ -277,6 +300,7 @@ def import_dxf(
     ao = AppObjects()
     import_manager = ao.import_manager
     dxf_options = import_manager.createDXF2DImportOptions(dxf_file, plane)
+    dxf_options.isSingleSketchResult = is_single_sketch_result
     import_manager.importToTarget(dxf_options, component)
     sketches = dxf_options.results
     return sketches
