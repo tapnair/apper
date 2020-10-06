@@ -39,7 +39,6 @@ class AppObjects(object):
 
         self._document = self.document
         self._product = self.product
-
         self._design = self.design
 
     @property
@@ -115,16 +114,19 @@ class AppObjects(object):
     def units_manager(self) -> Optional[adsk.core.UnitsManager]:
         """adsk.core.UnitsManager from the active document
 
-        Returns: adsk.core.UnitsManager from the active document
+        If not in an active document with design workspace active, will return adsk.core.UnitsManager if possible
 
+        Returns: adsk.fusion.FusionUnitsManager or adsk.core.UnitsManager if in a different workspace than design.
         """
         units_manager_ = None
         if self.product is not None:
             if self.product.productType == 'DesignProductType':
                 units_manager_ = self._design.fusionUnitsManager
             else:
-                units_manager_ = self.product.unitsManager
-
+                try:
+                    units_manager_ = self.product.unitsManager
+                except:
+                    pass
         if units_manager_ is not None:
             return units_manager_
         else:
