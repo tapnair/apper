@@ -38,6 +38,7 @@ class FusionApp:
         self.preferences = self.get_all_preferences()
         self.root_path = ''
         self.command_dict = {}
+        self.custom_toolbar_tab = True
 
     def add_command(
             self,
@@ -63,20 +64,24 @@ class FusionApp:
             options['app_name'] = self.name
             options['fusion_app'] = self
 
-            tab_id = options.get('toolbar_tab_id')
-            tab_name = options.get('toolbar_tab_name')
+            tab_id = options.get('toolbar_tab_id', None)
+            tab_name = options.get('toolbar_tab_name', None)
 
             if tab_name is None:
                 options['toolbar_tab_name'] = self.name
 
             if tab_id is None:
                 options['toolbar_tab_id'] = self.name
+            else:
+                if ui.allToolbarTabs.itemById(tab_id) is not None:
+                    self.custom_toolbar_tab = False
 
             _workspace = options.get('workspace', 'FusionSolidEnvironment')
 
             if isinstance(_workspace, str):
-                _this_tab_id = options['toolbar_tab_id'] + '_' + _workspace
-                options['toolbar_tab_id'] = _this_tab_id
+                if self.custom_toolbar_tab:
+                    _this_tab_id = options['toolbar_tab_id'] + '_' + _workspace
+                    options['toolbar_tab_id'] = _this_tab_id
 
                 command = command_class(name, options)
 
