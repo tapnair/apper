@@ -880,6 +880,19 @@ Note if your addin is complex it may be useful to only preview a subset of the f
 </dd></dl>
 
 <dl class="py method">
+<dt id="apper.Fusion360Utilities.AppObjects.f_units_manager">
+<em class="property">property </em><code class="sig-name descname">f_units_manager</code><a class="headerlink" href="#apper.Fusion360Utilities.AppObjects.f_units_manager" title="Permalink to this definition">¶</a></dt>
+<dd><p>adsk.fusion.FusionUnitsManager from the active document.</p>
+<p>Only work in design environment.</p>
+<p>Returns: adsk.fusion.FusionUnitsManager or None if in a different workspace than design.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">FusionUnitsManager</span></code>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="apper.Fusion360Utilities.AppObjects.product">
 <em class="property">property </em><code class="sig-name descname">product</code><a class="headerlink" href="#apper.Fusion360Utilities.AppObjects.product" title="Permalink to this definition">¶</a></dt>
 <dd><p>adsk.fusion.Design from the active document</p>
@@ -1098,7 +1111,7 @@ Note if your addin is complex it may be useful to only preview a subset of the f
 
 <dl class="py function">
 <dt id="apper.Fusion360Utilities.import_dxf">
-<code class="sig-prename descclassname">apper.Fusion360Utilities.</code><code class="sig-name descname">import_dxf</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dxf_file</span></em>, <em class="sig-param"><span class="n">component</span></em>, <em class="sig-param"><span class="n">plane</span></em><span class="sig-paren">)</span><a class="headerlink" href="#apper.Fusion360Utilities.import_dxf" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">apper.Fusion360Utilities.</code><code class="sig-name descname">import_dxf</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dxf_file</span></em>, <em class="sig-param"><span class="n">component</span></em>, <em class="sig-param"><span class="n">plane</span></em>, <em class="sig-param"><span class="n">is_single_sketch_result</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#apper.Fusion360Utilities.import_dxf" title="Permalink to this definition">¶</a></dt>
 <dd><p>Import dxf file with one sketch per layer.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1106,6 +1119,8 @@ Note if your addin is complex it may be useful to only preview a subset of the f
 <li><p><strong>dxf_file</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The full path to the dxf file</p></li>
 <li><p><strong>component</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Component</span></code>) – The target component for the new sketch(es)</p></li>
 <li><p><strong>plane</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">ConstructionPlane</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">BRepFace</span></code>]) – The plane on which to import the DXF file.</p></li>
+<li><p><strong>plane</strong> – The plane on which to import the DXF file.</p></li>
+<li><p><strong>is_single_sketch_result</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – If true will collapse all dxf layers to a single sketch.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
