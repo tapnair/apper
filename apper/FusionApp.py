@@ -251,9 +251,7 @@ class FusionApp:
         Returns:
             All preferences as a dictionary
         """
-
-        file_name = os.path.join(self.default_dir, ".preferences.json")
-
+        file_name = os.path.join(self.default_dir, "preferences.json")
         if os.path.exists(file_name):
             with open(file_name) as f:
                 try:
@@ -274,7 +272,6 @@ class FusionApp:
         Returns:
             A dictionary of just the options associated to this particular group
         """
-
         all_preferences = self.get_all_preferences()
 
         group_preferences = all_preferences.get(group_name, {})
@@ -307,7 +304,7 @@ class FusionApp:
 
         preferences_text = json.dumps(all_preferences)
 
-        file_name = os.path.join(self.default_dir, ".preferences.json")
+        file_name = os.path.join(self.default_dir, "preferences.json")
         with open(file_name, "w") as f:
             f.write(preferences_text)
 
