@@ -7,6 +7,7 @@ Python module for creating a Fusion 360 Addin
 :license: Apache 2.0, see LICENSE for more details.
 
 """
+import logging
 import traceback
 
 import adsk.core
@@ -39,6 +40,8 @@ class FusionApp:
         self.root_path = ''
         self.command_dict = {}
         self.custom_toolbar_tab = True
+        self.logger: Optional[logging.Logger] = None
+        self.logging_enabled = False
 
     def add_command(
             self,
@@ -252,16 +255,29 @@ class FusionApp:
             All preferences as a dictionary
         """
         file_name = os.path.join(self.default_dir, "preferences.json")
+        all_preferences = self.read_json_file(file_name)
+
+        return all_preferences
+
+    @staticmethod
+    def read_json_file(file_name):
+        """Static method to read a json file and return a dictionary object
+
+        Will fail if the input file cannot be interpreted as a JSON object
+
+        Returns:
+            Input file as a dictionary
+        """
         if os.path.exists(file_name):
             with open(file_name) as f:
                 try:
-                    all_preferences = json.load(f)
+                    new_dict = json.load(f)
                 except:
-                    all_preferences = {}
+                    new_dict = {}
         else:
-            all_preferences = {}
+            new_dict = {}
 
-        return all_preferences
+        return new_dict
 
     def get_group_preferences(self, group_name: str) -> dict:
         """Gets preferences for a particular group (typically a given command)
@@ -273,9 +289,7 @@ class FusionApp:
             A dictionary of just the options associated to this particular group
         """
         all_preferences = self.get_all_preferences()
-
         group_preferences = all_preferences.get(group_name, {})
-
         return group_preferences
 
     def save_preferences(self, group_name: str, new_group_preferences: dict, merge: bool):
@@ -285,6 +299,10 @@ class FusionApp:
             group_name: name of parent group in which to store preferences
             new_group_preferences: Dictionary of preferences to save
             merge: If True then the new preferences in the group will be merged, if False all old values are deleted
+
+        Returns:
+            A string with possible values: "Updated", "Created", or "Failed"
+
         """
 
         all_preferences = self.get_all_preferences()
@@ -302,10 +320,63 @@ class FusionApp:
         else:
             all_preferences[group_name] = new_group_preferences
 
-        preferences_text = json.dumps(all_preferences)
-
-        file_name = os.path.join(self.default_dir, "preferences.json")
-        with open(file_name, "w") as f:
-            f.write(preferences_text)
-
+        if not self._write_preferences(all_preferences):
+            result = "Failed"
         return result
+
+    def _write_preferences(self, preferences_dict: dict):
+        file_name = os.path.join(self.default_dir, "preferences.json")
+        try:
+            preferences_text = json.dumps(preferences_dict)
+            with open(file_name, "w") as f:
+                f.write(preferences_text)
+            if self.logging_enabled:
+                self.logger.info(f"Preference file written at: {file_name}")
+            return True
+        except:
+            if self.logging_enabled:
+                self.logger.error(f"Preference file creation failed for: {file_name}")
+            return False
+
+    def initialize_preferences(self, defaults: dict, force=False):
+        """Initializes preferences for the application
+
+        Args:
+            defaults: a default set of preferences
+            force: If True, any existing user preferences will be over-written
+
+        Returns:
+            A string with possible values: "Created", "Exists", or "Failed"
+
+        """
+        file_name = os.path.join(self.default_dir, "preferences.json")
+        if (not os.path.exists(file_name)) or force:
+            if self._write_preferences(defaults):
+                result = "Created"
+                if self.logging_enabled:
+                    self.logger.info(f"Preference file created at: {file_name}")
+            else:
+                result = "Failed"
+                if self.logging_enabled:
+                    self.logger.error(f"Preference file creation failed for: {file_name}")
+        else:
+            result = "Exists"
+        return result
+
+    def enable_logging(self):
+        log_dir = os.path.join(self.default_dir, "Logs", "")
+        if not os.path.exists(log_dir):
+            os.makedirs(log_dir)
+        file_name = os.path.join(log_dir, self.name + '.log')
+
+        self.logger = logging.getLogger(self.name)
+        self.logger.handlers = []
+        self.logger.setLevel("INFO")
+        handler = logging.FileHandler(file_name)
+        log_format = "%(asctime)s %(levelname)s -- %(message)s"
+        formatter = logging.Formatter(log_format)
+        handler.setFormatter(formatter)
+        self.logger.addHandler(handler)
+        self.logging_enabled = True
+
+

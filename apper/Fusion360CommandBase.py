@@ -66,6 +66,8 @@ class Fusion360CommandBase:
         self.command_enabled = options.get('command_enabled', True)
         self.command_promoted = options.get('command_promoted', False)
 
+        self.help_file = options.get('help_file', False)
+
         self.debug = options.get('debug')
 
         self.command = None
