@@ -85,6 +85,7 @@
 <li class="toctree-l1"><a class="reference internal" href="usage/intro.html">Intro</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage/installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage/existing.html">Existing Projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage/3rd_party_libraries.html">3rd Party Libraries</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sample/commands.html">Commands</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sample/events.html">Events</a></li>
 </ul>
@@ -177,6 +178,11 @@
 <li class="toctree-l2"><a class="reference internal" href="usage/existing.html#update-a-git-submodule">Update a Git Submodule</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="usage/3rd_party_libraries.html">3rd Party Libraries</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="usage/3rd_party_libraries.html#using-3rd-party-libraries-with-fusion-360-add-ins">Using 3rd Party Libraries with Fusion 360 Add-ins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage/3rd_party_libraries.html#the-lib-import-class">The lib_import class</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="sample/commands.html">Commands</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="sample/commands.html#app-structure">App Structure</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sample/commands.html#imports">Imports</a></li>
@@ -195,16 +201,20 @@ this part of the documentation is for you.</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="apper.html">Developer Interface</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="apper.html#core-apper-modules">Core Apper Modules</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="apper.html#fusionapp-py">FusionApp.py</a></li>
-<li class="toctree-l3"><a class="reference internal" href="apper.html#fusion360commandbase-py">Fusion360CommandBase.py</a></li>
-<li class="toctree-l3"><a class="reference internal" href="apper.html#palettecommandbase-py">PaletteCommandBase.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apper.html#core-apper-modules">Core Apper Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apper.html#module-apper.Fusion360AppEvents">Other Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="apper.html#fusion360appevents-py">Fusion360AppEvents.py</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="apper.html#python-module-for-creating-fusion-360-event-handlers">Python module for creating Fusion 360 event handlers</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="apper.html#module-Fusion360AppEvents">Other Modules</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="apper.html#fusion360appevents-py">Fusion360AppEvents.py</a></li>
-<li class="toctree-l3"><a class="reference internal" href="apper.html#fusion360utilities-py">Fusion360Utilities.py</a></li>
-<li class="toctree-l3"><a class="reference internal" href="apper.html#fusion360debugutilities-py">Fusion360DebugUtilities.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="apper.html#fusion360utilities-py">Fusion360Utilities.py</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="apper.html#tools-to-leverage-when-creating-a-fusion-360-add-in">Tools to leverage when creating a Fusion 360 Add-in</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="apper.html#fusion360debugutilities-py">Fusion360DebugUtilities.py</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="apper.html#utilities-to-aid-in-debugging-a-fusion-360-addin">Utilities to aid in debugging a Fusion 360 Addin</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -241,7 +251,7 @@ this part of the documentation is for you.</p>
   <div role="contentinfo">
     <p>
         
-        &copy; Copyright 2019, Patrick Rainsberry
+        &copy; Copyright 2020, Patrick Rainsberry
 
     </p>
   </div>

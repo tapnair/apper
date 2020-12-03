@@ -23,6 +23,7 @@ This part of the documentation, will give you a quick introduction to the projec
    usage/intro
    usage/installation
    usage/existing
+   usage/3rd_party_libraries
    sample/commands
    sample/events
 
