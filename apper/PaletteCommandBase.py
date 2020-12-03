@@ -42,7 +42,8 @@ class PaletteCommandBase(Fusion360CommandBase):
                 self.palette_html_file_url = debug_path
 
             elif rel_path is not None:
-                self.palette_html_file_url = os.path.join(self.fusion_app.root_path, rel_path)
+                # self.palette_html_file_url = os.path.join(self.fusion_app.root_path, rel_path) # Issues on Windows
+                self.palette_html_file_url = rel_path
             else:
                 raise AttributeError("Resource Path not defined.  Set palette_html_file_url in command options")
         else:
@@ -55,7 +56,12 @@ class PaletteCommandBase(Fusion360CommandBase):
         self.palette_width = options.get('palette_width', 600)
         self.palette_height = options.get('palette_height', 600)
         self.palette_use_new_browser = options.get('palette_use_new_browser', False)
-        self.palette_force_url_reload = options.get('palette_force_url_reload', True)
+        self.palette_force_url_reload = options.get('palette_force_url_reload', False)
+        self.palette_force_url_home = options.get('palette_force_url_home', False)
+
+        if options.get('palette_enable_debug', False):
+            app = adsk.core.Application.get()
+            app.executeTextCommand("devoptions.webdeveloperextras /on")
 
         self.palette = None
         self.args = None
@@ -188,17 +194,19 @@ class _PaletteExecuteHandler(adsk.core.CommandEventHandler):
 
             else:
                 if not palette.isNative:
+                    current_url = palette.htmlFileURL
                     main_url = urlparse(self.cmd_object.palette_html_file_url)
                     current_url = urlparse(palette.htmlFileURL)
+                    if self.cmd_object.palette_force_url_reload:
+                        palette.htmlFileURL = current_url
                     if not (
-                            (not self.cmd_object.palette_force_url_reload) &
+                            (not self.cmd_object.palette_force_url_home) &
                             (main_url.netloc == current_url.netloc) &
                             (main_url.path == current_url.path)
                     ):
-                        # ui.messageBox(current_url.netloc + "  vs.  " + main_url.netloc)
-                        # ui.messageBox(current_url.path + "  vs.  " + main_url.path)
-                        # ui.messageBox(str(self.cmd_object_.palette_force_url_reload))
-                        palette.htmlFileURL = self.cmd_object.palette_html_file_url
+                        # TODO this is broken in current palette
+                        # palette.htmlFileURL = self.cmd_object.palette_html_file_url
+                        pass
                 else:
                     ui.messageBox(
                         f"Developer Note: The palette: {palette.id} appears to be native? Try changing the palette id."
