@@ -194,11 +194,11 @@ class _PaletteExecuteHandler(adsk.core.CommandEventHandler):
 
             else:
                 if not palette.isNative:
-                    current_url = palette.htmlFileURL
+                    current_path = palette.htmlFileURL
                     main_url = urlparse(self.cmd_object.palette_html_file_url)
                     current_url = urlparse(palette.htmlFileURL)
                     if self.cmd_object.palette_force_url_reload:
-                        palette.htmlFileURL = current_url
+                        palette.htmlFileURL = current_path
                     if not (
                             (not self.cmd_object.palette_force_url_home) &
                             (main_url.netloc == current_url.netloc) &
