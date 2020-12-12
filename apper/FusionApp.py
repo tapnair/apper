@@ -34,6 +34,7 @@ class FusionApp:
         self.debug = debug
         self.commands = []
         self.events = []
+        self.features = []
         self.tabs = []
         self.default_dir = self._get_default_dir()
         self.preferences = self.get_all_preferences()
@@ -196,6 +197,26 @@ class FusionApp:
         web_request_event.fusion_app = self
         self.events.append(web_request_event)
 
+    def add_custom_feature(
+            self,
+            name: str,
+            feature_class: Any,
+            options: dict
+    ):
+        """Register a workspace event that can respond to various workspace actions
+
+        Args:
+            name: The name of the command
+            feature_class: This should be your subclass of apper.Fusion360CustomFeatureBase
+            options: Set of options for the command see the full set of `options <usage/options>`_
+        """
+        options['app_name'] = self.name
+        options['fusion_app'] = self
+
+        custom_feature = feature_class(name, options)
+        custom_feature.fusion_app = self
+        self.features.append(custom_feature)
+
     def check_for_updates(self):
         """Not Implemented"""
         pass
@@ -208,6 +229,9 @@ class FusionApp:
         try:
             for run_command in self.commands:
                 run_command.on_run()
+
+            for run_feature in self.features:
+                run_feature.on_run()
         except:
             if ui:
                 ui.messageBox('Running App failed: {}'.format(traceback.format_exc()))

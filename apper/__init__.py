@@ -36,6 +36,7 @@ try:
     from .Fusion360AppEvents import Fusion360ActiveSelectionEvent
     from .Fusion360CommandBase import Fusion360CommandBase
     from .PaletteCommandBase import PaletteCommandBase
+    from .Fusion360CustomFeatureBase import Fusion360CustomFeatureBase
     from .Fusion360Utilities import AppObjects
     from .Fusion360Utilities import *
     from .Fusion360DebugUtilities import *
