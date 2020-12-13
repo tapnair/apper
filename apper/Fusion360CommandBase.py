@@ -108,7 +108,21 @@ class Fusion360CommandBase:
 
         Args:
             input_values: Opinionated dictionary of the useful values a user entered.  The key is the command_id.
-            args:
+            args: the original command event args
+            command: reference to the command object
+            inputs: quick reference directly to the commandInputs object
+        """
+        pass
+
+    def on_activate(self, command: adsk.core.Command, inputs: adsk.core.CommandInputs, args, input_values):
+        """Executed when when the command is first activated or re-activated after being suspended
+
+        Code in this function will cause the graphics to refresh.
+        Particularly useful for pre-populating a selection input
+
+        Args:
+            input_values: Opinionated dictionary of the useful values a user entered.  The key is the command_id.
+            args: the original command event args
             command: reference to the command object
             inputs: quick reference directly to the commandInputs object
         """
@@ -392,6 +406,28 @@ class _PreviewHandler(adsk.core.CommandEventHandler):
                 ui.messageBox('Input changed event failed: {}'.format(traceback.format_exc()))
 
 
+class _ActivateHandler(adsk.core.CommandEventHandler):
+    def __init__(self, cmd_object):
+        super().__init__()
+        self.cmd_object_ = cmd_object
+
+    def notify(self, args):
+        app = adsk.core.Application.cast(adsk.core.Application.get())
+        ui = app.userInterface
+
+        try:
+            command_ = args.firingEvent.sender
+            command_inputs = command_.commandInputs
+            self.cmd_object_.command_inputs = command_inputs
+
+            input_values = self.cmd_object_.get_inputs()
+            self.cmd_object_.on_activate(command_, command_inputs, args, input_values)
+
+        except:
+            if ui:
+                ui.messageBox('Input changed event failed: {}'.format(traceback.format_exc()))
+
+
 class _DestroyHandler(adsk.core.CommandEventHandler):
     def __init__(self, cmd_object):
         super().__init__()
@@ -460,7 +496,7 @@ class _CommandCreatedEventHandler(adsk.core.CommandCreatedEventHandler):
     def notify(self, args):
         try:
             global handlers
-            handlers.clear()
+            # handlers.clear()
 
             command = args.command
             inputs_ = command.commandInputs
@@ -481,6 +517,10 @@ class _CommandCreatedEventHandler(adsk.core.CommandCreatedEventHandler):
             on_execute_preview_handler = _PreviewHandler(self.cmd_object)
             command.executePreview.add(on_execute_preview_handler)
             handlers.append(on_execute_preview_handler)
+
+            on_activate_handler = _ActivateHandler(self.cmd_object)
+            command.activate.add(on_activate_handler)
+            handlers.append(on_activate_handler)
 
             self.cmd_object.on_create(command, inputs_)
 

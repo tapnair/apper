@@ -41,6 +41,10 @@ class AppObjects(object):
         self._product = self.product
         self._design = self.design
 
+    def print_msg(self, message):
+        print(message)
+        self.ui.palettes.itemById('TextCommands').writeText(message)
+
     @property
     def document(self) -> Optional[adsk.core.Document]:
         """adsk.fusion.Design from the active document

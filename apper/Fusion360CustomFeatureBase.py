@@ -30,24 +30,18 @@ class Fusion360CustomFeatureBase:
         self.app_name = options.get('app_name')
         self.fusion_app = options.get('fusion_app', None)
 
-        icon_folder = options.get('feature_icons', 'demo_icons')
-        self.resource_path = os.path.join('commands', 'resources', icon_folder)
         self.feature_name = name
         self.feature_id = options.get('feature_id', 'default_feature_id')
-        self.feature_edit_id = options.get('feature_edit_id', self.feature_id + '_edit')
+        self.feature_edit_id = options.get('edit_cmd_id', 'demo_edit_cmd_id')
         self.roll_timeline = options.get('roll_timeline', False)
+        icon_folder = options.get('feature_icons', 'demo_icons')
+        self.resource_path = os.path.join('commands', 'resources', icon_folder)
 
         # Register CustomFeatureDefinition and attach event handlers.
-        definition = adsk.fusion.CustomFeatureDefinition.create(self.feature_id, self.cmd_name, self.resource_path)
+        definition = adsk.fusion.CustomFeatureDefinition.create(self.feature_id, self.feature_name, self.resource_path)
         definition.isRollTimeline = self.roll_timeline
-        definition.defaultName = 'ApperCustomFeature'
+        definition.defaultName = self.feature_name
         # self.feature_edit_id = self.fusion_app.command_id_from_name('offset_b_box_edit')
-        # definition.editCommandId = self.feature_edit_id
-
-        compute_event = definition.customFeatureCompute
-        on_compute_handler = _CustomFeatureComputeHandler(self)
-        compute_event.add(on_compute_handler)
-        handlers.append(on_compute_handler)
 
         self.definition = definition
 
@@ -59,7 +53,12 @@ class Fusion360CustomFeatureBase:
 
     def on_run(self):
 
-        pass
+        self.definition.editCommandId = self.fusion_app.command_id_from_name(self.feature_edit_id)
+
+        compute_event = self.definition.customFeatureCompute
+        on_compute_handler = _CustomFeatureComputeHandler(self)
+        compute_event.add(on_compute_handler)
+        handlers.append(on_compute_handler)
 
         # edit_event = definition.customFeatureCompute
         # on_edit_handler = _CustomFeatureEditHandler(self)
