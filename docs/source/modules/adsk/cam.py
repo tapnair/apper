@@ -12,7 +12,7 @@ class CAM(core.Product):
     @staticmethod
     def cast(arg):
         return CAM()
-    def export3MFForDefaultAdditiveSetup(self, filepath):
+    def export3MFForDefaultAdditiveSetup(self, filepath, addSimulationInfo, simPostProcess, simSplitSurrogates, simKeepThickeningStructure):
         """
         Exports the default additive setup's models into a 3mf file. The 3mf also contains machine and support information.
 
@@ -477,7 +477,9 @@ class LibraryLocation():
         pass
     Local = 0
     Cloud = 1
-    External = 2
+    Network = 2
+    OnlineSamples = 3
+    External = 4
 
 class Machine(core.Base):
     """
@@ -493,7 +495,7 @@ class Machine(core.Base):
         """
         Creates a Machine from a template.
 
-        template : The template to act as a base for creating a machine from.
+        machineTemplate : The template to act as a base for creating a machine from.
 
         Returns the newly created machine with a valid kinematics tree.
         """
@@ -516,7 +518,7 @@ class Machine(core.Base):
         location : The location in the machine library to save the machine to.
         filePath : The path of the file to save the machine as. The path is relative to the library location given, unless library location is External, then the filePath is expected to be an absolute path. .machine will be appended if no extension is given.
 
-        Returns true if the machine was saved sucessfully, false otherwise.
+        Returns true if the machine was saved successfully, false otherwise.
         """
         return bool()
     @property
@@ -574,6 +576,149 @@ class Machine(core.Base):
         """
         return MachineKinematics()
 
+class MachineAxis(core.Base):
+    """
+    Abstract base class representing a single machine axis.
+    """
+    def __init__(self):
+        pass
+    @staticmethod
+    def cast(arg):
+        return MachineAxis()
+    @property
+    def name(self):
+        """
+        The name of this axis.
+        """
+        return str()
+    @name.setter
+    def name(self, name):
+        """
+        The name of this axis.
+        """
+        pass
+    @property
+    def axisType(self):
+        """
+        The type of axis.
+        """
+        return MachineAxisTypes()
+    @property
+    def hasLimits(self):
+        """
+        Does this axis have a limited range of motion.
+        """
+        return bool()
+    @property
+    def physicalMin(self):
+        """
+        The minimum possible value for this axis (in mm/deg). Must be less than physicalMax. Set the value of this and physicalMax to 0 to remove axis limits.
+        """
+        return float()
+    @physicalMin.setter
+    def physicalMin(self, physicalMin):
+        """
+        The minimum possible value for this axis (in mm/deg). Must be less than physicalMax. Set the value of this and physicalMax to 0 to remove axis limits.
+        """
+        pass
+    @property
+    def physicalMax(self):
+        """
+        The maximum possible value for this axis (in mm/deg). Must be less than physicalMin. Set the value of this and physicalMin to 0 to remove axis limits.
+        """
+        return float()
+    @physicalMax.setter
+    def physicalMax(self, physicalMax):
+        """
+        The maximum possible value for this axis (in mm/deg). Must be less than physicalMin. Set the value of this and physicalMin to 0 to remove axis limits.
+        """
+        pass
+    @property
+    def homePosition(self):
+        """
+        Specifies the value (in mm/deg) that this axis returns to when the machine is homed.
+        """
+        return float()
+    @homePosition.setter
+    def homePosition(self, homePosition):
+        """
+        Specifies the value (in mm/deg) that this axis returns to when the machine is homed.
+        """
+        pass
+
+class MachineAxisInput(core.Base):
+    """
+    Object that defines the properties required to create a machine axis object.
+    """
+    def __init__(self):
+        pass
+    @staticmethod
+    def cast(arg):
+        return MachineAxisInput()
+    @property
+    def axisType(self):
+        """
+        The type of axis. This axis type determines which parameters of this object are valid to be accessed or modified.
+        """
+        return MachineAxisTypes()
+    @property
+    def name(self):
+        """
+        The user facing name of this axis.
+        """
+        return str()
+    @name.setter
+    def name(self, name):
+        """
+        The user facing name of this axis.
+        """
+        pass
+    @property
+    def homePosition(self):
+        """
+        Specifies the value (in mm/deg) that this axis returns to when the machine is homed.
+        """
+        return float()
+    @homePosition.setter
+    def homePosition(self, homePosition):
+        """
+        Specifies the value (in mm/deg) that this axis returns to when the machine is homed.
+        """
+        pass
+    @property
+    def physicalMin(self):
+        """
+        The minimum possible value for this axis (in mm/deg). Set the value of this and physicalMax to 0 to create an unlimited axis.
+        """
+        return float()
+    @physicalMin.setter
+    def physicalMin(self, physicalMin):
+        """
+        The minimum possible value for this axis (in mm/deg). Set the value of this and physicalMax to 0 to create an unlimited axis.
+        """
+        pass
+    @property
+    def physicalMax(self):
+        """
+        The maximum possible value for this axis (in mm/deg). Set the value of this and physicalMin to 0 to create an unlimited axis.
+        """
+        return float()
+    @physicalMax.setter
+    def physicalMax(self, physicalMax):
+        """
+        The maximum possible value for this axis (in mm/deg). Set the value of this and physicalMin to 0 to create an unlimited axis.
+        """
+        pass
+
+class MachineAxisTypes():
+    """
+    List of machine axis types for MachineAxis
+    """
+    def __init__(self):
+        pass
+    LinearMachineAxisType = 0
+    RotaryMachineAxisType = 1
+
 class MachineCapabilities(core.Base):
     """
     Object that represents the capabilities of the machine.
@@ -629,6 +774,175 @@ class MachineKinematics(core.Base):
     @staticmethod
     def cast(arg):
         return MachineKinematics()
+    @property
+    def parts(self):
+        """
+        Get the root parts collection.
+        """
+        return MachineParts()
+
+class MachinePart(core.Base):
+    """
+    Object representing some part of a machine, such as the static base of the machine, an axis, or the attachment points for tools and fixtures.
+    """
+    def __init__(self):
+        pass
+    @staticmethod
+    def cast(arg):
+        return MachinePart()
+    def deleteMe(self):
+        """
+        Delete this part and its children from the kinematics tree.
+        """
+        return Void()
+    @property
+    def children(self):
+        """
+        Get the collection of child parts.
+        """
+        return MachineParts()
+    @property
+    def parent(self):
+        """
+        Get or set the parent of this part. Setting the parent will add this part to the end of the parent's children collection. Setting the parent will throw an error if the new parent is this part or a child this part.
+        """
+        return MachinePart()
+    @parent.setter
+    def parent(self, parent):
+        """
+        Get or set the parent of this part. Setting the parent will add this part to the end of the parent's children collection. Setting the parent will throw an error if the new parent is this part or a child this part.
+        """
+        pass
+    @property
+    def partType(self):
+        """
+        Get the type of this part.
+        """
+        return MachinePartTypes()
+    @property
+    def id(self):
+        """
+        Get the internal ID of the part. This is unique with respect to other MachineParts in the Machine.
+        """
+        return str()
+    @property
+    def axis(self):
+        """
+        Get the axis object for this part used to reference this part for other operations. Only valid when partType is Axis, otherwise returns null
+        """
+        return MachineAxis()
+
+class MachinePartInput(core.Base):
+    """
+    Object representing the set of inputs required to create a new MachinePart. Set an MachineAxisInput object on this object's axisInput parameter to create a new MachineAxis with this part.
+    """
+    def __init__(self):
+        pass
+    @staticmethod
+    def cast(arg):
+        return MachinePartInput()
+    def createAxisInput(self, axisType):
+        """
+        Create a new MachineAxisInput object to be used to create a new MachineAxis. Set this object on to an axis type MachinePartInput to create a new MachineAxis with that part.
+
+        axisType : The type of MachineAxisInput to create.
+
+        Returns a LinearMachineAxisInput or RotaryMachineAxisInput, or null if the creation failed.
+        """
+        return MachineAxisInput()
+    @property
+    def id(self):
+        """
+        Get or set the internal ID of the part, used to reference this part for other operations. This ID can be any string. This must be unique with respect to other MachineParts in the Machine.
+        """
+        return str()
+    @id.setter
+    def id(self, id):
+        """
+        Get or set the internal ID of the part, used to reference this part for other operations. This ID can be any string. This must be unique with respect to other MachineParts in the Machine.
+        """
+        pass
+    @property
+    def partType(self):
+        """
+        Get the type of part this input will create.
+        """
+        return MachinePartTypes()
+    @property
+    def axisInput(self):
+        """
+        Get or Set an axis input object to create a new MachineAxis with this part. Only valid when partType is Axis.
+        """
+        return MachineAxisInput()
+    @axisInput.setter
+    def axisInput(self, axisInput):
+        """
+        Get or Set an axis input object to create a new MachineAxis with this part. Only valid when partType is Axis.
+        """
+        pass
+
+class MachineParts(core.Base):
+    """
+    Object that represents a collection of machine parts. These parts are the children of another part or the collection of base parts from MachineKinematics
+    """
+    def __init__(self):
+        pass
+    @staticmethod
+    def cast(arg):
+        return MachineParts()
+    def add(self, partInput):
+        """
+        Add a new part to this collection. The part's parent will be set to the the owner of this collection, or null if this is the root parts collection. If the passed MachinePartInput has a MachineAxisInput a new MachineAxis will be created.
+
+        partInput : Part input object used to create the new MachinePart.
+
+        Returns the newly creted MachinePart or null if creation failed.
+        """
+        return MachinePart()
+    def createPartInput(self, partType):
+        """
+        Create a new MachinePartInput.
+
+        partType : The type of part to create. When this parameter is Axis, you must set a value for axisInput.
+
+        Returns the new MachinePartInput or null if creation failed.
+        """
+        return MachinePartInput()
+    def item(self, index):
+        """
+        Get the part at index in this collection.
+
+        index : The index of the part.
+
+        The MachinePart at index.
+        """
+        return MachinePart()
+    def itemById(self, id):
+        """
+        Get the part with the given ID.
+
+        id : The ID for the part to get.
+
+        Returns the MachinePart with the given ID, or null if the given ID does not match any part in the collection.
+        """
+        return MachinePart()
+    @property
+    def count(self):
+        """
+        Get the number of parts in this collection.
+        """
+        return int()
+
+class MachinePartTypes():
+    """
+    List of part types for MachinePart
+    """
+    def __init__(self):
+        pass
+    BasicMachinePartType = 0
+    AxisMachinePartType = 1
+    ToolAttachmentMachinePartType = 2
+    FixtureAttachmentMachinePartType = 3
 
 class MachineTemplate():
     """
@@ -881,6 +1195,15 @@ class OperationStrategyTypes():
     TurningProfileGroove = 29
     TurningStockTransfer = 30
     TurningThread = 31
+    SteepAndShallow = 32
+    Flow = 33
+    RotaryFinishing = 34
+    Chamfer2D = 35
+    Morph = 36
+    MultiAxisContour = 37
+    MultiAxisMorph = 38
+    RestFinishing = 39
+    Swarf = 40
 
 class OperationTypes():
     """
@@ -891,6 +1214,7 @@ class OperationTypes():
     MillingOperation = 0
     TurningOperation = 1
     JetOperation = 2
+    AdditiveOperation = 3
 
 class PostOutputUnitOptions():
     """
@@ -914,7 +1238,7 @@ class PostProcessInput(core.Base):
     @staticmethod
     def create(self, programName, postConfiguration, outputFolder, outputUnits):
         """
-        Creates a new PostProcessInput object to be used as an input arguement by the postProcess() and postProcessAll() methods on the CAM class for posting toolpaths and generating CNC files.
+        Creates a new PostProcessInput object to be used as an input argument by the postProcess() and postProcessAll() methods on the CAM class for posting toolpaths and generating CNC files.
 
         programName : The program name or number. If the post configuration specifies the parameter programNameIsInteger = true, then the program name must be a number.
         postConfiguration : The full filename (including the path) to the post configuration file (.cps) The post config file can be stored in any path but for convenience you can use the genericPostFolder or the personalPostFolder property on the CAM class to specify the path if your .cps file is stored in either of those locations. You must add a forward slash (this works for Mac or Windows) to the path defined by these folder properties before the filename (e.g. postConfiguration = cam.genericPostFolder + '/' + 'fanuc.cps')
@@ -1091,7 +1415,7 @@ class SetupChangeEventArgs(core.EventArgs):
 
 class SetupChangeEventType():
     """
-    List of setup change eventy types.
+    List of setup change event types.
     """
     def __init__(self):
         pass
@@ -1255,6 +1579,50 @@ class CAMFolder(OperationBase):
         """
         return core.ObjectCollection()
 
+class LinearMachineAxis(MachineAxis):
+    """
+    Object that represents an axis with linear motion (e.g. X, Y, and Z).
+    """
+    def __init__(self):
+        pass
+    @staticmethod
+    def cast(arg):
+        return LinearMachineAxis()
+    @property
+    def direction(self):
+        """
+        The unit vector that represents the direction along which the axis will move.
+        """
+        return core.Vector3D()
+    @direction.setter
+    def direction(self, direction):
+        """
+        The unit vector that represents the direction along which the axis will move.
+        """
+        pass
+
+class LinearMachineAxisInput(MachineAxisInput):
+    """
+    Object that defines the properties required to create a new linear machine axis object.
+    """
+    def __init__(self):
+        pass
+    @staticmethod
+    def cast(arg):
+        return LinearMachineAxisInput()
+    @property
+    def direction(self):
+        """
+        The unit vector that represents the direction along which the linear axis will move. This vector is in the machine's coordinate system (e.g. the X axis is always (1,0,0)).
+        """
+        return core.Vector3D()
+    @direction.setter
+    def direction(self, direction):
+        """
+        The unit vector that represents the direction along which the linear axis will move. This vector is in the machine's coordinate system (e.g. the X axis is always (1,0,0)).
+        """
+        pass
+
 class Operation(OperationBase):
     """
     Object that represents an operation in an existing Setup, Folder or Pattern.
@@ -1313,6 +1681,50 @@ class Operation(OperationBase):
         """
         return str()
 
+class RotaryMachineAxis(MachineAxis):
+    """
+    Object that represents an axis with rotary motion (e.g. A, B, and C).
+    """
+    def __init__(self):
+        pass
+    @staticmethod
+    def cast(arg):
+        return RotaryMachineAxis()
+    @property
+    def rotationAxis(self):
+        """
+        The infinite line that defines the direction and location of the axis of rotation.
+        """
+        return core.InfiniteLine3D()
+    @rotationAxis.setter
+    def rotationAxis(self, rotationAxis):
+        """
+        The infinite line that defines the direction and location of the axis of rotation.
+        """
+        pass
+
+class RotaryMachineAxisInput(MachineAxisInput):
+    """
+    Object that defines the properties required to create a new rotary machine axis object.
+    """
+    def __init__(self):
+        pass
+    @staticmethod
+    def cast(arg):
+        return RotaryMachineAxisInput()
+    @property
+    def rotationAxis(self):
+        """
+        The infinite line that defines the direction and location of the axis of rotation. This direction is in the machine's coordinate system (e.g. an A axis would typically use (1,0,0) for the direction), and follows the right-hand rule.
+        """
+        return core.InfiniteLine3D()
+    @rotationAxis.setter
+    def rotationAxis(self, rotationAxis):
+        """
+        The infinite line that defines the direction and location of the axis of rotation. This direction is in the machine's coordinate system (e.g. an A axis would typically use (1,0,0) for the direction), and follows the right-hand rule.
+        """
+        pass
+
 class Setup(OperationBase):
     """
     Object that represents an existing Setup.
@@ -1334,7 +1746,7 @@ class Setup(OperationBase):
     @property
     def operationType(self):
         """
-        Gets the Operation Type (MillingOperation or TurningOperation).
+        Gets the Operation Type. It can be MillingOperation, TurningOperation, JetOperation or AdditiveOperation.
         """
         return OperationTypes()
     @property

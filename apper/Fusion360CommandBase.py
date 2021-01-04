@@ -128,6 +128,19 @@ class Fusion360CommandBase:
         """
         pass
 
+    def on_mouse_drag_end(self, command: adsk.core.Command, inputs: adsk.core.CommandInputs, args, input_values):
+        """Executed before the command is first activated or re-activated after being suspended
+
+        Typically used for rolling the timeline before executing an edit event for a custom feature.
+
+        Args:
+            input_values: Opinionated dictionary of the useful values a user entered.  The key is the command_id.
+            args: the original command event args
+            command: reference to the command object
+            inputs: quick reference directly to the commandInputs object
+        """
+        pass
+
     def on_destroy(self, command: adsk.core.Command, inputs: adsk.core.CommandInputs,
                    reason: adsk.core.CommandTerminationReason, input_values: dict):
         """Executed when the command is done.  Sometimes useful to check if a user hit cancel
@@ -428,6 +441,28 @@ class _ActivateHandler(adsk.core.CommandEventHandler):
                 ui.messageBox('Input changed event failed: {}'.format(traceback.format_exc()))
 
 
+class _MouseDragEndHandler(adsk.core.MouseEventHandler):
+    def __init__(self, cmd_object):
+        super().__init__()
+        self.cmd_object_ = cmd_object
+
+    def notify(self, args):
+        app = adsk.core.Application.cast(adsk.core.Application.get())
+        ui = app.userInterface
+
+        try:
+            command_ = args.firingEvent.sender
+            command_inputs = command_.commandInputs
+            self.cmd_object_.command_inputs = command_inputs
+
+            input_values = self.cmd_object_.get_inputs()
+            self.cmd_object_.on_mouse_drag_end(command_, command_inputs, args, input_values)
+
+        except:
+            if ui:
+                ui.messageBox('Input changed event failed: {}'.format(traceback.format_exc()))
+
+
 class _DestroyHandler(adsk.core.CommandEventHandler):
     def __init__(self, cmd_object):
         super().__init__()
@@ -498,7 +533,7 @@ class _CommandCreatedEventHandler(adsk.core.CommandCreatedEventHandler):
             global handlers
             # handlers.clear()
 
-            command = args.command
+            command: adsk.core.Command = args.command
             inputs_ = command.commandInputs
             self.cmd_object.command_inputs = inputs_
 
@@ -521,6 +556,10 @@ class _CommandCreatedEventHandler(adsk.core.CommandCreatedEventHandler):
             on_activate_handler = _ActivateHandler(self.cmd_object)
             command.activate.add(on_activate_handler)
             handlers.append(on_activate_handler)
+
+            on_mouse_drag_end_handler = _MouseDragEndHandler(self.cmd_object)
+            command.mouseDragEnd.add(on_mouse_drag_end_handler)
+            handlers.append(on_mouse_drag_end_handler)
 
             self.cmd_object.on_create(command, inputs_)
 

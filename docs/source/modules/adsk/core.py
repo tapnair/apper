@@ -197,7 +197,7 @@ class Application(Base):
     def cast(arg):
         return Application()
     @staticmethod
-    def get():
+    def get(self):
         """
         Access to the root Application object.
 
@@ -385,7 +385,7 @@ class Application(Base):
     @property
     def onlineStatusChanged(self):
         """
-        The onlineStatusChanged event fires immediately after Fusion 360 goes Online or Offline. This event fires whether or not the online status was changed deliberately by the user by using the Fusion 360 'Work Offline' command or because of inadvertent network/internet connectivity issues. You can get the isOffline property of ApplicationEventArgs to determine whether Fusion 360 has gone Offline or has come back Online. The client can add or remove ApplicationEventHandlers from the ApplicationEvent.
+        The onlineStatusChanged event fires immediately after Fusion 360 goes online or offline. This event fires whether or not the online status was changed deliberately by the user by using the Fusion 360 'Work Offline' command or because of inadvertent network/Internet connectivity issues. You can get the isOffline property of ApplicationEventArgs to determine whether Fusion 360 has gone Offline or has come back Online. The client can add or remove ApplicationEventHandlers from the ApplicationEvent.
         """
         return ApplicationEvent()
     @property
@@ -1351,6 +1351,14 @@ class Command(Base):
         This even fires when the user unselects an entity by clicking the mouse again on selected entity or canceling previous selection. The entity and mouse position on the entity can be obtained through the Selection object returned through the selection property of the SelectionEventArgs object provided through the event.
         """
         return SelectionEvent()
+    @property
+    def preActivate(self):
+        """
+        Gets an event that is fired when the command is first activated or re-activated after being suspended. This event is triggered immediately before the activate event. The difference is that actions taken during this event are associated with the Command's transaction, while actions taken in the activate event are associated with the current preview step.
+
+        Returns a CommandEvent object that is used to connect and release from the event.
+        """
+        return CommandEvent()
 
 class CommandDefinition(Base):
     """
@@ -2506,6 +2514,15 @@ class Data(Base):
         Returns true if the refresh was successful.
         """
         return bool()
+    def findFileById(self, id):
+        """
+        Returns the DataFile identified by the input id. This can fail is there isn't a DataFile identified with the specified id or if the current user doesn't have privileges to access the file.
+
+        id : The full id of the file will be something similar to that shown below. The version argument can be omitted which will result in getting the latest version. urn:adsk.wipprod:fs.file:vf.NazykCYLRWKZ5tpzJtEQ1A?version=3 This is also the same id that you'll obtain if you use the Forge Data Management API.
+
+        Returns a DataFile if one was found matching the input id or null if one was not found or you don't have privileges to access it. You can use the Application.getLastError method to determine the reason for the failure.
+        """
+        return DataFile()
     @property
     def activeProject(self):
         """
@@ -2728,6 +2745,12 @@ class DataFile(Base):
         Returns the date when this data file was created as UNIX epoch time. UNIX epoch time is the number of seconds since January 1, 1970 (midnight UTC/GMT). In Python you can import the standard time module to work with UNIX epoch time. In C++ you can use functions in time.h and std::chrono to work with UNIX epoch time.
         """
         return int()
+    @property
+    def versionId(self):
+        """
+        Returns the version ID for this DataFile. This is the same id used in the Forge Data Management API for an Item and is in the unencoded form and will look similar to this: 'urn:adsk.wipqa:fs.file:vf.W3syIw1lQAW-5vWObMdYnA?version=2'
+        """
+        return str()
 
 class DataFileFuture(Base):
     """
@@ -2767,6 +2790,15 @@ class DataFiles(Base):
         index : The index of the file to return. The first file in the list has an index of 0.
 
         Returns the specified file or null if an invalid index was specified.
+        """
+        return DataFile()
+    def itemById(self, id):
+        """
+        Returns the file specified using the ID or version ID of the file.
+
+        id : The ID or version ID of the file to return. This is the same ID used by the Forge Data Management API.
+
+        Returns the file or null if a file with the specified ID is not found.
         """
         return DataFile()
     @property
@@ -2938,6 +2970,12 @@ class DataHub(Base):
         Gets if this hub is a Personal (PersonalHubType) or Team (TeamHubType) type hub.
         """
         return HubTypes()
+    @property
+    def id(self):
+        """
+        Returns the unique ID for this hub. This is the same id used in the Forge Data Management API in an unencoded form and will look something like this: 'a.45637'.
+        """
+        return str()
 
 class DataHubs(Base):
     """
@@ -2955,6 +2993,15 @@ class DataHubs(Base):
         index : The index of the hub to return. The first hub in the list has an index of 0.
 
         Returns the specified item or null if an invalid index was specified.
+        """
+        return DataHub()
+    def itemById(self, id):
+        """
+        Returns the hub specified using the ID of the hub.
+
+        id : The ID of the hub to return. This is the same ID used by the Forge Data Management API.
+
+        Returns the hub or null if a hub with the specified ID is not found.
         """
         return DataHub()
     @property
@@ -3031,6 +3078,15 @@ class DataProjects(Base):
         contributors : Optional list of contributors where the list consists of email addresses separated by a comma. An empty string can be used to not specify any contributors.
 
         Returns the created DataProject object or null if the creation failed.
+        """
+        return DataProject()
+    def itemById(self, id):
+        """
+        Returns the project specified using the ID of the project.
+
+        id : The ID of the project to return. This is the same ID used by the Forge Data Management API.
+
+        Returns the project or null if a project with the specified ID is not found.
         """
         return DataProject()
     @property
@@ -3300,13 +3356,13 @@ class DocumentReference(Base):
     @property
     def version(self):
         """
-        Gets and sets the version of the dataFile on A360 that this document currently represents. Setting this property will cause all occuurences referencing this document to update to that version.
+        Gets and sets the version of the dataFile on A360 that this document currently represents. Setting this property will cause all occurrences referencing this document to update to that version.
         """
         return int()
     @version.setter
     def version(self, version):
         """
-        Gets and sets the version of the dataFile on A360 that this document currently represents. Setting this property will cause all occuurences referencing this document to update to that version.
+        Gets and sets the version of the dataFile on A360 that this document currently represents. Setting this property will cause all occurrences referencing this document to update to that version.
         """
         pass
     @property
@@ -4052,6 +4108,16 @@ class GridPreferences(Base):
         Gets and sets if the layout grid lock is enabled.
         """
         pass
+
+class HorizontalAlignments():
+    """
+    Defines the different horizontal alignments that can be applied to text.
+    """
+    def __init__(self):
+        pass
+    LeftHorizontalAlignment = 0
+    CenterHorizontalAlignment = 1
+    RightHorizontalAlignment = 2
 
 class HubTypes():
     """
@@ -6183,7 +6249,7 @@ class Product(Base):
         return Product()
     def findAttributes(self, groupName, attributeName):
         """
-        Find attributes attached to objects in this product that match the group and or attribute name. This does not find attributes attached directly to the Product or Document objects but finds the attributes attached to entities within the product. The search string for both the groupName and attributeName arguments can be either an absolute name value, or a regular expression. With an absolute name, the search string must match the entire groupName or attributeName, including case. An empty string will match everything. For example if you have an attribute group named 'MyStuff' that contains the attribute 'Length1', using the search string 'MyStuff' as the group name and 'Length1' as the attribute name will find the attributes with those names. Searching for 'MyStuff' as the group name and '' as the attribute name will find all attributes that have 'MyStuff' as the group name. Regular expressions provide a more flexibile way of searching. To use a regular expression, prefix the input string for the groupName or attributeName arguments with 're:'. The regular expression much match the entire group or attribute name. For example if you have a group that contains attributes named 'Length1', 'Length2', 'Width1', and 'Width2' and want to find any of the length attributes you can use a regular expression using the string 're:Length.*'. For more information on attributes see the Attributes topic in the user manual.
+        Find attributes attached to objects in this product that match the group and or attribute name. This does not find attributes attached directly to the Product or Document objects but finds the attributes attached to entities within the product. The search string for both the groupName and attributeName arguments can be either an absolute name value, or a regular expression. With an absolute name, the search string must match the entire groupName or attributeName, including case. An empty string will match everything. For example if you have an attribute group named 'MyStuff' that contains the attribute 'Length1', using the search string 'MyStuff' as the group name and 'Length1' as the attribute name will find the attributes with those names. Searching for 'MyStuff' as the group name and '' as the attribute name will find all attributes that have 'MyStuff' as the group name. Regular expressions provide a more flexible way of searching. To use a regular expression, prefix the input string for the groupName or attributeName arguments with 're:'. The regular expression much match the entire group or attribute name. For example if you have a group that contains attributes named 'Length1', 'Length2', 'Width1', and 'Width2' and want to find any of the length attributes you can use a regular expression using the string 're:Length.*'. For more information on attributes see the Attributes topic in the user manual.
 
         groupName : The search string for the group name. See above for more details.
         attributeName : The search string for the attribute name. See above for more details.
@@ -7473,7 +7539,7 @@ class ToolbarPanels(Base):
         return ToolbarPanels()
     def add(self, id, name, positionID, isBefore):
         """
-        Creates a new ToolbarPanel. The panel is initially empty. Use the associated ToolbarControls collection to add buttons. If this collection is associated with a tab, the new panel will be added to that tab. If this collection is not associated with a tab, the new panel will be added to the end of the 'Tools' Tab. A 'Tools' tab will be created for you if it does not currently exist for this collection�s workspace.
+        Creates a new ToolbarPanel. The panel is initially empty. Use the associated ToolbarControls collection to add buttons. If this collection is associated with a tab, the new panel will be added to that tab. If this collection is not associated with a tab, the new panel will be added to the end of the 'Tools' Tab. A 'Tools' tab will be created for you if it does not currently exist for this collection's workspace.
 
         id : The unique id for this panel. The id must be unique with respect to all of the panels.
         name : The displayed name of this panel. This is the name visible in the user interface.
@@ -8229,7 +8295,7 @@ class UserInterface(Base):
     @property
     def activeSelectionChanged(self):
         """
-        This event fires whenever the contents of the active selection changes. This occurs as the user selects or unselects entities while using the the Fusion 360 Select command. The Select command is the default command that is always running if no other command is active. Pressing Escape terminates the currently active command and starts the Select command. If the Select command is running and you press Escape, it terminates the current Select command and starts a new one. This event is only associated with the selection associated with the Select command and does not fire when any other command is running. The event fires when there is any change to the active selection, including when the selection is cleared when the Select command is terminated. It is also fired when the user clicks in an open area of the canvas to clear the current selection.
+        This event fires whenever the contents of the active selection changes. This occurs as the user selects or unselects entities while using the Fusion 360 Select command. The Select command is the default command that is always running if no other command is active. Pressing Escape terminates the currently active command and starts the Select command. If the Select command is running and you press Escape, it terminates the current Select command and starts a new one. This event is only associated with the selection associated with the Select command and does not fire when any other command is running. The event fires when there is any change to the active selection, including when the selection is cleared when the Select command is terminated. It is also fired when the user clicks in an open area of the canvas to clear the current selection.
         """
         return ActiveSelectionEvent()
 
@@ -8721,6 +8787,16 @@ class VectorError():
         pass
     ZeroLengthVectorError = 0
 
+class VerticalAlignments():
+    """
+    Defines the different vertical alignments that can be applied to text.
+    """
+    def __init__(self):
+        pass
+    TopVerticalAlignment = 0
+    MiddleVerticalAlignment = 1
+    BottomVerticalAlignment = 2
+
 class ViewOrientations():
     """
     Common view orientations.
@@ -9067,7 +9143,7 @@ class Workspaces(Base):
 
 class ActiveSelectionEvent(Event):
     """
-    This event fires whenever the contents of the active selection changes. This occurs as the user selects or unselects entities while using the the Fusion 360 Select command. The Select command is the default command that is always running if no other command is active. Pressing Escape terminates the currently active command and starts the Select command. If the Select command is running and you press Escape, it terminates the current Select command and starts a new one. This event is only associated with the selection associated with the Select command and does not fire when any other command is running. The event fires when there is any change to the active selection, including when the selection is cleared when the Select command is terminated. It is also fired when the user clicks in an open area of the canvas to clear the current selection.
+    This event fires whenever the contents of the active selection changes. This occurs as the user selects or unselects entities while using the Fusion 360 Select command. The Select command is the default command that is always running if no other command is active. Pressing Escape terminates the currently active command and starts the Select command. If the Select command is running and you press Escape, it terminates the current Select command and starts a new one. This event is only associated with the selection associated with the Select command and does not fire when any other command is running. The event fires when there is any change to the active selection, including when the selection is cleared when the Select command is terminated. It is also fired when the user clicks in an open area of the canvas to clear the current selection.
     """
     def __init__(self):
         pass
@@ -14108,7 +14184,7 @@ class TextBoxCommandInput(CommandInput):
 
 class TextCommandPalette(Palette):
     """
-    <p class='api'>Represents the palette that is the Text Command window in Fusion 360. You can obtain the Text Command palette by using the itemById method of the Palettes object and using 'TextCommands' as the ID. Below is some sample code that illustrates making sure the palette is visible and writing some text to it.</p> <pre class='api-code'><span style='color:blue'># Get the palette that represents the TEXT COMMANDS window.</span> textPalette = ui.palettes.itemById('TextCommands') <span style = 'color:blue' ># Make sure the palette is visible.</span> if not textPalette.isVisible: textPalette.isVisible = True < span style= 'color:blue' ># Write some text.</span> textPalette.writeText('This is a text message.')</ pre >
+    <p class='api'>Represents the palette that is the Text Command window in Fusion 360. You can obtain the Text Command palette by using the itemById method of the Palettes object and using 'TextCommands' as the ID. Below is some sample code that illustrates making sure the palette is visible and writing some text to it.</p> <pre class='api-code'><span style = 'color:blue' ># Get the palette that represents the TEXT COMMANDS window.</span> textPalette = ui.palettes.itemById('TextCommands') <span style = 'color:blue'># Make sure the palette is visible.</span> if not textPalette.isVisible: textPalette.isVisible = True <span style= 'color:blue' ># Write some text.</span> textPalette.writeText('This is a text message.') </pre>
     """
     def __init__(self):
         pass
@@ -14117,7 +14193,7 @@ class TextCommandPalette(Palette):
         return TextCommandPalette()
     def writeText(self, text):
         """
-        <p class='api'>Write the specified text to the TEXT COMMAND window. Below is some sample code that illustrates making sure the palette is visible and writing some text to it.</p> <pre class='api-code'><span style='color:blue'># Get the palette that represents the TEXT COMMANDS window.</span> textPalette = ui.palettes.itemById('TextCommands') <span style = 'color:blue' ># Make sure the palette is visible.</span> if not textPalette.isVisible: textPalette.isVisible = True < span style= 'color:blue' ># Write some text.</span> textPalette.writeText('This is a text message.')</ pre >
+        <p class='api'>Write the specified text to the TEXT COMMAND window. Below is some sample code that illustrates making sure the palette is visible and writing some text to it.</p> <pre class='api-code'><span style = 'color:blue' ># Get the palette that represents the TEXT COMMANDS window.</span> textPalette = ui.palettes.itemById('TextCommands') <span style = 'color:blue'># Make sure the palette is visible.</span> if not textPalette.isVisible: textPalette.isVisible = True <span style= 'color:blue' ># Write some text.</span> textPalette.writeText('This is a text message.') </pre>
 
         text : The text to write to the Text Command window.
 
@@ -14647,59 +14723,4 @@ class IntegerSliderCommandInput(SliderCommandInput):
         """
         Gets and sets the spin step. This defines the amount the slider moves when the user clicks the spin button beside the value. The spin step should be more than zero.
         """
-        pass
-
-
-class CustomEventHandler:
-    def __init__(self):
-        pass
-
-
-class DocumentEventHandler:
-    def __init__(self):
-        pass
-
-
-class WorkspaceEventHandler:
-    def __init__(self):
-        pass
-
-
-class CommandEventHandler:
-    def __init__(self):
-        pass
-
-
-class InputChangedEventHandler:
-    def __init__(self):
-        pass
-
-
-class CommandCreatedEventHandler:
-    def __init__(self):
-        pass
-
-
-class HTMLEventHandler:
-    def __init__(self):
-        pass
-
-
-class UserInterfaceGeneralEventHandler:
-    def __init__(self):
-        pass
-
-
-class ActiveSelectionEventHandler:
-    def __init__(self):
-        pass
-
-
-class WebRequestEventHandler:
-    def __init__(self):
-        pass
-
-
-class ApplicationCommandEventHandler:
-    def __init__(self):
         pass

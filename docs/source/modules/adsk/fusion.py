@@ -311,7 +311,7 @@ class AsBuiltJoint(core.Base):
     @property
     def entityToken(self):
         """
-        Returns a token for the AsBuiltJoint object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same as-built joint.
+        Returns a token for the AsBuiltJoint object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same as-built joint. When using entity tokens it's important to understand that the token string returned for a specific entity can be different over time. However, even if you have two different token strings that were obtained from the same entity, when you use findEntityByToken they will both return the same entity. Because of that you should never compare entity tokens as way to determine what the token represents. Instead, you need to use the findEntityByToken method to get the two entities identified by the tokens and then compare them.
         """
         return str()
 
@@ -983,6 +983,13 @@ class BRepBody(core.Base):
         Returns an array of entities that have the specified ID. This returns an array because it's possible that a body created by converting a body can have multiple entities with the same ID in the case where a curve or face was split. Returns an empty array in the case where no match is found.
         """
         return core.Base()
+    def getPhysicalProperties(self, accuracy):
+        """
+        Returns the PhysicalProperties object that has properties for getting the area, density, mass, volume, moments, etc of this body.
+
+        accuracy : Specifies the desired level of computational accuracy of the property calculations. The default value of 'LowCalculationAccuracy' returns results within a +/- 1% error margin.
+        """
+        return PhysicalProperties()
     @property
     def parentComponent(self):
         """
@@ -1214,7 +1221,7 @@ class BRepBody(core.Base):
     @property
     def entityToken(self):
         """
-        Returns a token for the BRepBody object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same body. This is only valid for bodies that exist in the design, (the isTemporary property is false).
+        Returns a token for the BRepBody object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same body. When using entity tokens it's important to understand that the token string returned for a specific entity can be different over time. However, even if you have two different token strings that were obtained from the same entity, when you use findEntityByToken they will both return the same entity. Because of that you should never compare entity tokens as way to determine what the token represents. Instead, you need to use the findEntityByToken method to get the two entities identified by the tokens and then compare them. This is only valid for bodies that exist in the design, (the isTemporary property is false).
         """
         return str()
 
@@ -1277,7 +1284,7 @@ class BRepBodyDefinition(core.Base):
     @property
     def outcomeInfo(self):
         """
-        Returns an array of strings that contain information about the outcome of the previous call of the createBody method. This is especially useful when the createBody method fails, (returns null), because it provides information about why the failure occurred. It can also sometimes provide some information even when createBody succeeds. Each string that's returned represents a single set of information and is packaged as JSON such as '{'description':'vertex data is null or inconsistent with edge geometry','entityID':'unknown','code':37}' The description is an English description of the error or warning. The entityID maps back to the entity provided that is the cause of the problem. The ID is the associative ID you can optionally assign to the entity definition. The code is an internal code for the error or warning. An empty array is returned if createBody succeeded and there's not additional information.
+        Returns an array of strings that contain information about the outcome of the previous call of the createBody method. This is especially useful when the createBody method fails, (returns null), because it provides information about why the failure occurred. It can also sometimes provide some information even when createBody succeeds. Each string that's returned represents a single set of information and is packaged as JSON such as '{'description':'vertex data is null or inconsistent with edge geometry','associativeID':'unknown','code':37}' The description is an English description of the error or warning. The associativeID maps back to the entity provided that is the cause of the problem. The ID is the associative ID you can optionally assign to the entity definition. The code is an internal code for the error or warning. An empty array is returned if createBody succeeded and there's no additional information.
         """
         return str()
     @property
@@ -1439,7 +1446,7 @@ class BRepCoEdge(core.Base):
     @property
     def entityToken(self):
         """
-        Returns a token for the BRepCoEdge object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same co-edge. This is only valid for co-edges that exist in the design, (the isTemporary property is false).
+        Returns a token for the BRepCoEdge object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same co-edge. When using entity tokens it's important to understand that the token string returned for a specific entity can be different over time. However, even if you have two different token strings that were obtained from the same entity, when you use findEntityByToken they will both return the same entity. Because of that you should never compare entity tokens as way to determine what the token represents. Instead, you need to use the findEntityByToken method to get the two entities identified by the tokens and then compare them. This is only valid for co-edges that exist in the design, (the isTemporary property is false).
         """
         return str()
 
@@ -1689,7 +1696,7 @@ class BRepEdge(core.Base):
     @property
     def entityToken(self):
         """
-        Returns a token for the BRepEdge object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same edge. This is only valid for edges that exist in the design, (the isTemporary property is false).
+        Returns a token for the BRepEdge object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same edge. When using entity tokens it's important to understand that the token string returned for a specific entity can be different over time. However, even if you have two different token strings that were obtained from the same entity, when you use findEntityByToken they will both return the same entity. Because of that you should never compare entity tokens as way to determine what the token represents. Instead, you need to use the findEntityByToken method to get the two entities identified by the tokens and then compare them. This is only valid for edges that exist in the design, (the isTemporary property is false).
         """
         return str()
 
@@ -1705,13 +1712,13 @@ class BRepEdgeDefinition(core.Base):
     @property
     def associativeID(self):
         """
-        Gets and sets the associate ID of this edge definition. This ID will be copied to the corresponding edge when the BRepBodyDefinition is used to create a BrepBody. It is used by Fusion360 as the identifier for the edge and is used for tracking this geometry for parametric recomputes.
+        Gets and sets the associate ID of this edge definition. This ID will be copied to the corresponding edge when the BRepBodyDefinition is used to create a BrepBody. It is used internally by Fusion360 as the identifier for the edge and is used for tracking this geometry for parametric recomputes.
         """
         return int()
     @associativeID.setter
     def associativeID(self, associativeID):
         """
-        Gets and sets the associate ID of this edge definition. This ID will be copied to the corresponding edge when the BRepBodyDefinition is used to create a BrepBody. It is used by Fusion360 as the identifier for the edge and is used for tracking this geometry for parametric recomputes.
+        Gets and sets the associate ID of this edge definition. This ID will be copied to the corresponding edge when the BRepBodyDefinition is used to create a BrepBody. It is used internally by Fusion360 as the identifier for the edge and is used for tracking this geometry for parametric recomputes.
         """
         pass
     @property
@@ -1955,7 +1962,7 @@ class BRepFace(core.Base):
     @property
     def entityToken(self):
         """
-        Returns a token for the BRepFace object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same face. This is only valid for faces that exist in the design, (the isTemporary property is false).
+        Returns a token for the BRepFace object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same face. When using entity tokens it's important to understand that the token string returned for a specific entity can be different over time. However, even if you have two different token strings that were obtained from the same entity, when you use findEntityByToken they will both return the same entity. Because of that you should never compare entity tokens as way to determine what the token represents. Instead, you need to use the findEntityByToken method to get the two entities identified by the tokens and then compare them. This is only valid for faces that exist in the design, (the isTemporary property is false).
         """
         return str()
 
@@ -2141,7 +2148,7 @@ class BRepLoop(core.Base):
     @property
     def entityToken(self):
         """
-        Returns a token for the BRepLoop object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same loop. This is only valid for loops that exist in the design, (the isTemporary property is false).
+        Returns a token for the BRepLoop object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same loop. When using entity tokens it's important to understand that the token string returned for a specific entity can be different over time. However, even if you have two different token strings that were obtained from the same entity, when you use findEntityByToken they will both return the same entity. Because of that you should never compare entity tokens as way to determine what the token represents. Instead, you need to use the findEntityByToken method to get the two entities identified by the tokens and then compare them. This is only valid for loops that exist in the design, (the isTemporary property is false).
         """
         return str()
 
@@ -2320,7 +2327,7 @@ class BRepLump(core.Base):
     @property
     def entityToken(self):
         """
-        Returns a token for the BRepLump object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same lump. This is only valid for lump that exist in the design, (the isTemporary property is false).
+        Returns a token for the BRepLump object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same lump. When using entity tokens it's important to understand that the token string returned for a specific entity can be different over time. However, even if you have two different token strings that were obtained from the same entity, when you use findEntityByToken they will both return the same entity. Because of that you should never compare entity tokens as way to determine what the token represents. Instead, you need to use the findEntityByToken method to get the two entities identified by the tokens and then compare them. This is only valid for lump that exist in the design, (the isTemporary property is false).
         """
         return str()
 
@@ -2512,7 +2519,7 @@ class BRepShell(core.Base):
     @property
     def entityToken(self):
         """
-        Returns a token for the BRepShell object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same shell. This is only valid for shells that exist in the design, (the isTemporary property is false).
+        Returns a token for the BRepShell object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same shell. When using entity tokens it's important to understand that the token string returned for a specific entity can be different over time. However, even if you have two different token strings that were obtained from the same entity, when you use findEntityByToken they will both return the same entity. Because of that you should never compare entity tokens as way to determine what the token represents. Instead, you need to use the findEntityByToken method to get the two entities identified by the tokens and then compare them. This is only valid for shells that exist in the design, (the isTemporary property is false).
         """
         return str()
 
@@ -2683,7 +2690,7 @@ class BRepVertex(core.Base):
     @property
     def entityToken(self):
         """
-        Returns a token for the BRepVertex object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same vertex. This is only valid for vertices that exist in the design, (the isTemporary property is false).
+        Returns a token for the BRepVertex object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same vertex. When using entity tokens it's important to understand that the token string returned for a specific entity can be different over time. However, even if you have two different token strings that were obtained from the same entity, when you use findEntityByToken they will both return the same entity. Because of that you should never compare entity tokens as way to determine what the token represents. Instead, you need to use the findEntityByToken method to get the two entities identified by the tokens and then compare them. This is only valid for vertices that exist in the design, (the isTemporary property is false).
         """
         return str()
 
@@ -2951,7 +2958,7 @@ class CalculationAccuracy():
 
 class ChainedCurveOptions():
     """
-    Controls options used when creating a Path and determing the rules for how curves are considered to be chained or connected.
+    Controls options used when creating a Path and determining the rules for how curves are considered to be chained or connected.
     """
     def __init__(self):
         pass
@@ -2960,6 +2967,95 @@ class ChainedCurveOptions():
     tangentChainedCurves = 2
     openEdgesChainedCurves = 3
     tangentAndOpenEdgesChainedCurves = 4
+
+class ChamferCornerTypes():
+    """
+    Specifies the type of corner to model when multiple edges come together at a vertex.
+    """
+    def __init__(self):
+        pass
+    ChamferCornerType = 0
+    MiterCornerType = 1
+    BlendCornertype = 2
+
+class ChamferEdgeSet(core.Base):
+    """
+    The base class for the classes that define the different types of chamfer edge sets.
+    """
+    def __init__(self):
+        pass
+    @staticmethod
+    def cast(arg):
+        return ChamferEdgeSet()
+    def deleteMe(self):
+        """
+        Deletes the chamfer edge set from the chamfer.
+
+        Returns true if the operation was successful.
+        """
+        return bool()
+
+class ChamferEdgeSets(core.Base):
+    """
+    Collection that provides access to all of the existing chamfer edge sets associated with a chamfer feature.
+    """
+    def __init__(self):
+        pass
+    @staticmethod
+    def cast(arg):
+        return ChamferEdgeSets()
+    def item(self, index):
+        """
+        Function that returns the specified chamfer edge set using an index into the collection.
+
+        index : The index of the item within the collection to return. The first item in the collection has an index of 0.
+
+        Returns the specified item or null if an invalid index was specified.
+        """
+        return ChamferEdgeSet()
+    def addEqualDistanceChamferEdgeSet(self, edges, distance, isTangentChain):
+        """
+        Adds a set of edges an equal distance offset to this chamfer feature. The timeline must be rolled back to just before the chamfer feature to be able to make any edits.
+
+        edges : An ObjectCollection containing the edges to be chamfered. Edges can be defined by passing in BrepEdge, BRepFace, or Feature objects. If BRepFace or Feature objects are passed in all of the edges associated with those objects will be chamfered. If BRepEdge objects are provided and the isTangentChain argument is true additional edges may also get chamfered if they are tangentially connected to any of the input edges.
+        distance : A ValueInput object that defines the distance offset of the chamfer. If the ValueInput uses a real then it is interpreted as centimeters. If it is a string then the units can be defined as part of the string (i.e. '2 in') or if no units are specified it is interpreted using the current default units for length.
+        isTangentChain : A boolean value for setting whether or not edges that are tangentially connected to the input edges (if any) will also be chamfered.
+
+        Returns true if the set of edges was successfully added to the ChamferFeatureInput.
+        """
+        return bool()
+    def addTwoDistancesChamferEdgeSet(self, edges, distanceOne, distanceTwo, isFlipped, isTangentChain):
+        """
+        Adds a set of edges an equal distance offset to this chamfer feature. The timeline must be rolled back to just before the chamfer feature to be able to make any edits.
+
+        edges : An ObjectCollection containing the edges to be chamfered. Edges can be defined by passing in BrepEdge, BRepFace, or Feature objects. If BRepFace or Feature objects are passed in all of the edges associated with those objects will be chamfered. If BRepEdge objects are provided and the isTangentChain argument is true additional edges may also get chamfered if they are tangentially connected to any of the input edges.
+        distanceOne : A ValueInput object that defines the first distance offset of the chamfer. If the ValueInput uses a real then it is interpreted as centimeters. If it is a string then the units can be defined as part of the string (i.e. '2 in') or if no units are specified it is interpreted using the current default units for length.
+        distanceTwo : A ValueInput object that defines the second distance offset of the chamfer. If the ValueInput uses a real then it is interpreted as centimeters. If it is a string then the units can be defined as part of the string (i.e. '2 in') or if no units are specified it is interpreted using the current default units for length.
+        isFlipped : Swaps the directions for distance one and two.
+        isTangentChain : A boolean value for setting whether or not edges that are tangentially connected to the input edges (if any) will also be chamfered.
+
+        Returns true if the set of edges was successfully added to the ChamferFeatureInput.
+        """
+        return bool()
+    def addDistanceAndAngleChamferEdgeSet(self, edges, distance, angle, isFlipped, isTangentChain):
+        """
+        Adds a set of edges an equal distance offset to this chamfer feature. The timeline must be rolled back to just before the chamfer feature to be able to make any edits.
+
+        edges : An ObjectCollection containing the edges to be chamfered. Edges can be defined by passing in BrepEdge, BRepFace, or Feature objects. If BRepFace or Feature objects are passed in all of the edges associated with those objects will be chamfered. If BRepEdge objects are provided and the isTangentChain argument is true additional edges may also get chamfered if they are tangentially connected to any of the input edges.
+        distance : A ValueInput object that defines the distance offset of the chamfer. If the ValueInput uses a real then it is interpreted as centimeters. If it is a string then the units can be defined as part of the string (i.e. '2 in') or if no units are specified it is interpreted using the current default units for length.
+        angle : A ValueInput object that defines the angle of the chamfer. If the ValueInput uses a real then it is interpreted as radians. If it is a string then the units can be defined as part of the string (i.e. '2 rad') or if no units are specified it is interpreted as degrees.
+        isFlipped : Swaps the directions for distance one and two.
+        isTangentChain : A boolean value for setting whether or not edges that are tangentially connected to the input edges (if any) will also be chamfered.
+
+        Returns true if the set of edges was successfully added to the ChamferFeatureInput.
+        """
+        return bool()
+    @property
+    def count(self):
+        """
+        The number of chamfer edge sets in the collection.
+        """
+        return int()
 
 class ChamferFeatureInput(core.Base):
     """
@@ -3035,6 +3131,24 @@ class ChamferFeatureInput(core.Base):
         When creating a feature that is owned by a base feature, set this property to the base feature you want to associate the new feature with. By default, this is null, meaning it will not be associated with a base feature. Because of a current limitation, if you want to create a feature associated with a base feature, you must set this property AND call the startEdit method of the base feature, create the feature, and then call the finishEdit method of the base feature. The base feature must be in an 'edit' state to be able to add any additional items to it.
         """
         pass
+    @property
+    def cornerType(self):
+        """
+        Gets and sets the type of corner to be modeled when multiple edges connect at a vertex.
+        """
+        return ChamferCornerTypes()
+    @cornerType.setter
+    def cornerType(self, cornerType):
+        """
+        Gets and sets the type of corner to be modeled when multiple edges connect at a vertex.
+        """
+        pass
+    @property
+    def chamferEdgeSets(self):
+        """
+        Returns the collection of edge sets for this chamfer feature input.
+        """
+        return ChamferEdgeSets()
 
 class ChamferFeatures(core.Base):
     """
@@ -3082,6 +3196,13 @@ class ChamferFeatures(core.Base):
         Returns the specified item or null if the specified name was not found.
         """
         return ChamferFeature()
+    def createInput2(self):
+        """
+        Creates a ChamferFeatureInput object. Use properties and methods on this object to define the chamfer you want to create and then use the Add method, passing in the ChamferFeatureInput object.
+
+        Returns the newly created ChamferFeatureInput object or null if the creation failed.
+        """
+        return ChamferFeatureInput()
     @property
     def count(self):
         """
@@ -3706,6 +3827,15 @@ class Components(core.Base):
         Returns the specified component or null if the name is not found.
         """
         return Component()
+    def itemById(self, id):
+        """
+        Returns the Component that has the specified ID.
+
+        id : The ID of the Component to get. This is the same id used by PIM (Product Information Model).
+
+        Returns the specified Component or null in the case where there isn't a Component with the specified ID in this Design.
+        """
+        return Component()
     @property
     def count(self):
         """
@@ -3907,7 +4037,7 @@ class ConstructionAxis(core.Base):
     @property
     def entityToken(self):
         """
-        Returns a token for the ConstructionAxis object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same construction axis.
+        Returns a token for the ConstructionAxis object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same construction axis. When using entity tokens it's important to understand that the token string returned for a specific entity can be different over time. However, even if you have two different token strings that were obtained from the same entity, when you use findEntityByToken they will both return the same entity. Because of that you should never compare entity tokens as way to determine what the token represents. Instead, you need to use the findEntityByToken method to get the two entities identified by the tokens and then compare them.
         """
         return str()
 
@@ -4188,7 +4318,7 @@ class ConstructionPlane(core.Base):
     @property
     def entityToken(self):
         """
-        Returns a token for the ConstructionPlane object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same construction plane.
+        Returns a token for the ConstructionPlane object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same construction plane. When using entity tokens it's important to understand that the token string returned for a specific entity can be different over time. However, even if you have two different token strings that were obtained from the same entity, when you use findEntityByToken they will both return the same entity. Because of that you should never compare entity tokens as way to determine what the token represents. Instead, you need to use the findEntityByToken method to get the two entities identified by the tokens and then compare them.
         """
         return str()
 
@@ -4223,7 +4353,7 @@ class ConstructionPlaneInput(core.Base):
 
         plane : A transient plane object
 
-        Returns true if the creation of the ConstructionPlaneInput is successful.
+        Returns true if the construction plane definition is successful.
         """
         return bool()
     def setByOffset(self, planarEntity, offset):
@@ -4233,7 +4363,7 @@ class ConstructionPlaneInput(core.Base):
         planarEntity : A plane, planar face or construction plane from which to create the offset plane
         offset : ValueInput object that specifies the offset distance for the plane
 
-        Returns true if the creation of the ConstructionPlaneInput is successful.
+        Returns true if the construction plane definition is successful.
         """
         return bool()
     def setByAngle(self, linearEntity, angle, planarEntity):
@@ -4244,7 +4374,7 @@ class ConstructionPlaneInput(core.Base):
         angle : The angle at which to create the plane
         planarEntity : The planar face or construction plane the angle is measured from.
 
-        Returns true if the creation of the ConstructionPlaneInput is successful
+        Returns true if the construction plane definition is successful.
         """
         return bool()
     def setByTangent(self, tangentFace, angle, planarEntity):
@@ -4255,7 +4385,7 @@ class ConstructionPlaneInput(core.Base):
         angle : The angle relative to the planarEntity input at which to create the tangent plane
         planarEntity : The planar face or construction plane the tangent is measured from.
 
-        Returns true if the creation of the ConstructionPlaneInput is successful
+        Returns true if the construction plane definition is successful.
         """
         return bool()
     def setByTwoPlanes(self, planarEntityOne, planarEntityTwo):
@@ -4265,7 +4395,7 @@ class ConstructionPlaneInput(core.Base):
         planarEntityOne : The first planar face or construction plane to create a bisecting plane between
         planarEntityTwo : The second planar face or construction plane to create a bisecting plane between
 
-        Returns true if the creation of the ConstructionPlaneInput is successful. This will fail if the two planes are co-planar.
+        Returns true if the construction plane definition is successful. This will fail if the two planes are co-planar.
         """
         return bool()
     def setByTwoEdges(self, linearEntityOne, linearEntityTwo):
@@ -4275,7 +4405,7 @@ class ConstructionPlaneInput(core.Base):
         linearEntityOne : The first of two coplanar linear entities to define the plane
         linearEntityTwo : The second of two coplanar linear entities to define the plane
 
-        Returns true if the creation of the ConstructionPlaneInput is successful. This will fail if the two linear entities are not coplanar.
+        Returns true if the construction plane definition is successful. This will fail if the two linear entities are not coplanar.
         """
         return bool()
     def setByThreePoints(self, pointEntityOne, pointEntityTwo, pointEntityThree):
@@ -4286,7 +4416,7 @@ class ConstructionPlaneInput(core.Base):
         pointEntityTwo : The second construction point, sketch point or vertex in the triangle
         pointEntityThree : The third construction point, sketch point or vertex in the triangle
 
-        Returns true if the creation of the ConstructionPlaneInput is successful. This will fail if the points do not form a triangle (no two points can be coincident and all three cannot be colinear).
+        Returns true if the construction plane definition is successful. This will fail if the points do not form a triangle (no two points can be coincident and all three cannot be collinear).
         """
         return bool()
     def setByTangentAtPoint(self, tangentFace, pointEntity):
@@ -4296,7 +4426,7 @@ class ConstructionPlaneInput(core.Base):
         tangentFace : A face to create the plane tangent to
         pointEntity : A construction point, sketch point or vertex the tangent plane aligns to. This point need not lie on the tangent face.
 
-        Returns true if the creation of the ConstructionPlaneInput is successful.
+        Returns true if the construction plane definition is successful.
         """
         return bool()
     def setByDistanceOnPath(self, pathEntity, distance):
@@ -4306,7 +4436,7 @@ class ConstructionPlaneInput(core.Base):
         pathEntity : The path can be an edge, sketch curve, or a path of multiple entities.
         distance : The distance is a value from 0 to 1 indicating the position along the path where 0 is at the start and 1 is at the end.
 
-        Returns true if the creation of the ConstructionPlaneInput is successful.
+        Returns true if the construction plane definition is successful.
         """
         return bool()
     @property
@@ -4528,7 +4658,7 @@ class ConstructionPoint(core.Base):
     @property
     def entityToken(self):
         """
-        Returns a token for the ConstructionPoint object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same construction point.
+        Returns a token for the ConstructionPoint object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same construction point. When using entity tokens it's important to understand that the token string returned for a specific entity can be different over time. However, even if you have two different token strings that were obtained from the same entity, when you use findEntityByToken they will both return the same entity. Because of that you should never compare entity tokens as way to determine what the token represents. Instead, you need to use the findEntityByToken method to get the two entities identified by the tokens and then compare them.
         """
         return str()
 
@@ -4821,6 +4951,356 @@ class CopyPasteBodies(core.Base):
     def count(self):
         """
         The number of Copy/Paste Body features in the collection.
+        """
+        return int()
+
+class CustomFeatureDefinition(core.Base):
+    """
+    The CustomFeatureDefinition object defines a specific type of custom feature. It contains the settings that apply to all custom features of that type and is used when creating new custom features of that type. It also supports the events used to handle changes to custom features of that type.
+    """
+    def __init__(self):
+        pass
+    @staticmethod
+    def cast(arg):
+        return CustomFeatureDefinition()
+    @staticmethod
+    def create(self, id, defaultName, iconFolder):
+        """
+        A static function that creates a new CustomFeatureDefinition object. The creation of a CustomFeatureDefinition object is required to be able to create new custom features and for existing custom features to behave correctly. The CustomFeatureDefinition object defines all of the information that is common for all custom features of a particular type. For example, it defines the icon and the default name. The CustomFeatureDefinition object also supports the events that used to react to an existing feature being edited or re-computed. The custom feature definition should be created when your add-in is initially loaded to notify Fusion that the add-in that supports that custom feature type is available.
+
+        id : The unique ID for custom features of a particular type. Care must be taken to ensure that this is unique and you must be consistent in its use once you've chosen an ID. A good practice to help ensure unique naming is to use the name of your company in combination with the name of the feature, such as 'CompanyName.FeatureName'. For example, 'WoodTools4U.Dovetail'.
+        defaultName : The default name of the feature. Fusion will use this name and append a number to each feature instance as it's created. For example, if this is 'Dovetail' the first custom feature created will be named 'Dovetail1' and the second will be 'Dovetail2'. If you want to localize this name you can use the Application.Preferences.generalPreferences.userLanguage property to determine what language the user has chosen and use the corresponding name for that language.
+        iconFolder : The folder that contains the image files that will be used for the icon for this feature in the timeline. This can be a full path or a relative path where it will be relative to the add-in file. The folder should contain the image files named 16x16.png and 32x32.png which should be images that are 16 and 32 pixels square.
+
+        Returns the newly created CustomFeatureDefinition or null in the case of failure.
+        """
+        return CustomFeatureDefinition()
+    @property
+    def id(self):
+        """
+        Gets the unique ID used for this type of custom feature.
+        """
+        return str()
+    @property
+    def iconFolder(self):
+        """
+        Gets and sets the folder that contains the images that are used for the icon in the timeline for this custom feature. The folder should contain the image files named 16x16.png and 32x32.png which should be images that are 16 and 32 pixels square.
+        """
+        return str()
+    @iconFolder.setter
+    def iconFolder(self, iconFolder):
+        """
+        Gets and sets the folder that contains the images that are used for the icon in the timeline for this custom feature. The folder should contain the image files named 16x16.png and 32x32.png which should be images that are 16 and 32 pixels square.
+        """
+        pass
+    @property
+    def defaultName(self):
+        """
+        Gets and sets the default name of the feature. Fusion will use this name and append a number to each feature instance as it's created. For example, if this is 'Dovetail' the first custom feature created will be named 'Dovetail1' and the second will be 'Dovetail2'. If you want to localize this name you can use the Application.Preferences.generalPreferences.userLanguage property to determine what language the user has chosen and use the corresponding name for that language.
+        """
+        return str()
+    @defaultName.setter
+    def defaultName(self, defaultName):
+        """
+        Gets and sets the default name of the feature. Fusion will use this name and append a number to each feature instance as it's created. For example, if this is 'Dovetail' the first custom feature created will be named 'Dovetail1' and the second will be 'Dovetail2'. If you want to localize this name you can use the Application.Preferences.generalPreferences.userLanguage property to determine what language the user has chosen and use the corresponding name for that language.
+        """
+        pass
+    @property
+    def editCommandId(self):
+        """
+        Gets and sets which command that will be invoked when the feature is edited. This is the ID of the CommandDefinition object you have created to do the edit of the feature.
+        """
+        return str()
+    @editCommandId.setter
+    def editCommandId(self, editCommandId):
+        """
+        Gets and sets which command that will be invoked when the feature is edited. This is the ID of the CommandDefinition object you have created to do the edit of the feature.
+        """
+        pass
+    @property
+    def customFeatureCompute(self):
+        """
+        The customFeatureCompute event fires when Fusion is computing the timeline and reaches the custom feature. The event is fired if any of the dependencies of the custom feature have changed. You can modify the results of your custom feature based on the dependencies.
+        """
+        return CustomFeatureEvent()
+
+class CustomFeatureDependencies(core.Base):
+    """
+    A collection of dependencies associated with a particular custom feature. These are the entities that the custom feature is dependent on. If these entities are modified, it will cause the custom feature to recompute so it can be up to date. These dependencies are saved with the custom feature and can be accessed at a later time, typically during the compute, to access and use the entities.
+    """
+    def __init__(self):
+        pass
+    @staticmethod
+    def cast(arg):
+        return CustomFeatureDependencies()
+    def item(self, index):
+        """
+        Function that returns the specified custom dependency using an index into the collection.
+
+        index : The index of the item within the collection to return. The first item in the collection has an index of 0.
+
+        Returns the specified item or null if an invalid index was specified.
+        """
+        return CustomFeatureDependency()
+    def itemById(self, id):
+        """
+        Function that returns the specified custom dependency given its ID.
+
+        id : The ID of the dependency, which was assigned when the dependency was defined.
+
+        Returns the specified item or null if the specified ID was not found.
+        """
+        return CustomFeatureDependency()
+    def add(self, id, entity):
+        """
+        Adds an entity or parameter that this feature is dependent on. This is used by Fusion to know when to recompute this feature and to control the behavior of the feature's node in the timeline.
+
+        id : An ID for this dependency. This is used to allow you to identify which dependency is which in the future. The ID must be unique with respect to the other dependencies of this custom feature.
+        entity : The entity or parameter you want to add as a dependency. This can be a BRepBody, BRepFace, BrepEdge, BRepVertex, a sketch, any sketch entities, a profile, any construction geometry, or any parameter.
+
+        Returns the created CustomFeatureDependency object and asserts if it failed.
+        """
+        return CustomFeatureDependency()
+    @property
+    def count(self):
+        """
+        The number of CustomFeatureParameter objects in the collection.
+        """
+        return int()
+
+class CustomFeatureDependency(core.Base):
+    """
+    A custom feature dependency defines a dependency the custom feature has on an entity outside the custom feature. For example, a feature might be dependent on a face or a point and if those entities are modified the custom feature needs to recompute to be up to date.
+    """
+    def __init__(self):
+        pass
+    @staticmethod
+    def cast(arg):
+        return CustomFeatureDependency()
+    def deleteMe(self):
+        """
+        Delets this dependency from the custom feature.
+
+        Returns true if the delete was successful.
+        """
+        return bool()
+    @property
+    def id(self):
+        """
+        Returns the ID of this custom feature dependency.
+        """
+        return str()
+    @property
+    def entity(self):
+        """
+        Gets and sets the entity associated with this dependency.
+        """
+        return core.Base()
+    @entity.setter
+    def entity(self, entity):
+        """
+        Gets and sets the entity associated with this dependency.
+        """
+        pass
+    @property
+    def parentCustomFeature(self):
+        """
+        Returns the custom feature this dependency is associated with.
+        """
+        return CustomFeature()
+
+class CustomFeatureEvent(core.Event):
+    """
+    A CustomFeature event is an event associated with handling changes to a custom feature.
+    """
+    def __init__(self):
+        pass
+    @staticmethod
+    def cast(arg):
+        return CustomFeatureEvent()
+    def add(self, handler):
+        """
+        Add a handler to be notified when the file event occurs.
+
+        handler : The handler object to be called when this event is fired.
+
+        Returns true if the addition of the handler was successful.
+        """
+        return bool()
+    def remove(self, handler):
+        """
+        Removes a handler from the event.
+
+        handler : The handler object to be removed from the event.
+
+        Returns true if removal of the handler was successful.
+        """
+        return bool()
+
+class CustomFeatureEventArgs(core.EventArgs):
+    """
+    The CustomFeatureEventArgs provides information associated with a custom feature event.
+    """
+    def __init__(self):
+        pass
+    @staticmethod
+    def cast(arg):
+        return CustomFeatureEventArgs()
+    @property
+    def customFeature(self):
+        """
+        Provides access to the custom feature that is being recomputed.
+        """
+        return CustomFeature()
+
+class CustomFeatureInput(core.Base):
+    """
+    This class defines the methods and properties that pertain to the definition of a Ruled Surface feature.
+    """
+    def __init__(self):
+        pass
+    @staticmethod
+    def cast(arg):
+        return CustomFeatureInput()
+    def addDependency(self, id, entity):
+        """
+        Adds an entity or parameter this feature is dependent on. This is used by Fusion to know when to recompute this feature and to control the behavior of the feature's node in the timeline.
+
+        id : An ID for this dependency. This is used to allow you to identify which dependency is which in the future. The ID must be unique with respect to the other dependencies of this custom feature.
+        entity : The entity or parameter you want to add as a dependency. This can be a BRepBody, BRepFace, BrepEdge, BRepVertex, a sketch, any sketch entities, a profile, any construction geometry, or any parameter.
+
+        Returns true if the dependency was successfully added.
+        """
+        return bool()
+    def addCustomParameter(self, id, label, value, units, isVisible):
+        """
+        Defines the information needed to create a new custom parameter that will be associated with this feature. A custom parameter appears as a model parameter and will be listed as a child of the custom feature in the parameter dialog. The custom feature will automatically have a dependency on this parameter.
+
+        id : An id for this parameter. This is used to allow you to idenfity this parameter in the future. This must be unique with respect to all other parameters associated with this custom feature. It's needed because the label does not need to be unique and the Fusion auto-generated name can be edited by the user.
+        label : The label for this parameter as seen in the parameters dialog. This identifies to the user the purpose of this parameter. For example, when you create an extrusion with a specific distance, there are two parameters displayed in the parameters dialog with the labels 'AlongDistance' and 'TaperAngle'. This does not have to be unique. In the case of a fillet feature there can be multiple parameters all labeled 'Radius'.
+        value : ValueInput object that specifies the value of the parameter. If the ValueInput was created using a real, the value will be interpreted using the internal unit for the unit type specified by the 'units' argument. For example, if the ValueInput was created using the real value 5 and the input to the 'units' argument is any valid length unit, the value will be interpreted as 5 centimeters since centimeters is the internal unit for lengths. If the 'units' argument is a valid angle unit the value will be interpreted as 5 radians. If the ValueInput was created using a string, the string is used as-is for the expression of the parameter. This means if there are units as part of the string it must evaluate to the same unit type as that specified by the 'units' argument and if no units are specified it will use the current default units specified for the current document. For example, if the ValueInput was created with the string '5 in', then the 'units' argument must define any valid length so they are compatible. If the ValueInput was created with the string '5', any unit type can be used and the result will be 5 of that unit. When using a ValueInput created using a string, it's the same as creating a parameter in the user-interface. You can specify any valid expression, i.e. '5', '5 in', '5 in / 2', '5 + Length', etc. and you can choose from many different types of units. The only requirement is that the units must match in type. For example, they must both be lengths, or they must both be angles.
+        units : The units to use for the value of the parameter. Units specified must match the units specified (if any) in the ValueInput object. To create a parameter with no units (unitless) you can specify either an empty string.
+        isVisible : Optional argument that specifies if the parameter will be visible in the parameters dialog or not. By default the parameter will be visible. This can be useful in cases where the feature can be edited to be in different states where a parameter is only valid in a certain state. You can change the visibility based on the current state of the feature and if that parameter should be available for edit. This implies that you create all the parameters that might be needed and then change their visibility based on the current state of the feature. The parameters that are not visible will not be returned by the ModelParameters collection and are only available through the custom feature they're associated with.
+
+        Returns true if the definition of the model parameter was successfully added.
+        """
+        return bool()
+    @property
+    def startFeature(self):
+        """
+        Gets and sets the first feature in the timeline that will be part of the custom feature.
+        """
+        return core.Base()
+    @startFeature.setter
+    def startFeature(self, startFeature):
+        """
+        Gets and sets the first feature in the timeline that will be part of the custom feature.
+        """
+        pass
+    @property
+    def endFeature(self):
+        """
+        Gets and sets the last feature in the timeline that will be part of the custom feature. This can be a any entity type that is represented by a node in the timeline including modeling features, construction geometry, and sketches.
+        """
+        return core.Base()
+    @endFeature.setter
+    def endFeature(self, endFeature):
+        """
+        Gets and sets the last feature in the timeline that will be part of the custom feature. This can be a any entity type that is represented by a node in the timeline including modeling features, construction geometry, and sketches.
+        """
+        pass
+    @property
+    def features(self):
+        """
+        Returns the features combined by this custom feature. The start and end features and all of the features between them in the timeline are returned. This includes all entities represented in the timeline including modeling features, construction geometry, and sketches.
+        """
+        return core.Base()
+
+class CustomFeatureParameters(core.Base):
+    """
+    A collection of custom parameters associated with a particular custom feature.
+    """
+    def __init__(self):
+        pass
+    @staticmethod
+    def cast(arg):
+        return CustomFeatureParameters()
+    def item(self, index):
+        """
+        Function that returns the specified custom parameter feature using an index into the collection.
+
+        index : The index of the item within the collection to return. The first item in the collection has an index of 0.
+
+        Returns the specified item or null if an invalid index was specified.
+        """
+        return CustomFeatureParameter()
+    def itemById(self, id):
+        """
+        Function that returns the specified CustomParameter object given its ID.
+
+        id : The ID of the custom parameter, which was assigned when the parameter was defined and the custom feature was created.
+
+        Returns the specified item or null if the specified ID was not found.
+        """
+        return CustomFeatureParameter()
+    @property
+    def count(self):
+        """
+        The number of CustomFeatureParameter objects in the collection.
+        """
+        return int()
+
+class CustomFeatures(core.Base):
+    """
+    Collection that provides access to all of the existing custom features in a component and supports the ability to create new custom features.
+    """
+    def __init__(self):
+        pass
+    @staticmethod
+    def cast(arg):
+        return CustomFeatures()
+    def item(self, index):
+        """
+        Function that returns the specified ruled surface feature using an index into the collection.
+
+        index : The index of the item within the collection to return. The first item in the collection has an index of 0.
+
+        Returns the specified item or null if an invalid index was specified.
+        """
+        return CustomFeature()
+    def itemByName(self, name):
+        """
+        Function that returns the specified CustomFeature feature using the name of the feature.
+
+        name : The name of the feature within the collection to return. This is the name seen in the timeline.
+
+        Returns the specified item or null if the specified name was not found.
+        """
+        return CustomFeature()
+    def createInput(self, definition, startFeature, endFeature):
+        """
+        Creates a new input object to fully define a custom feature. This doesn't create the feature but gathers all of the input that is needed to create a custom feature. This is passed to the add method to finally create the feature.
+
+        definition : The CustomFeatureDefinition that specifies the type of custom feature that will be created and other information associated with that specific custom feature type.
+        startFeature : The first feature in the timeline that defines the start of the group of features that make up the custom feature. This is not limited to standard modeling features but can be any of the objects that are represented by a node in the timeline.
+        endFeature : The last feature in the timeline that defines the end of the group of features that make up the custom feature. This is not limited to standard modeling features but can be any of the objects that are represented by a node in the timeline.
+
+        Returns the newly created CustomFeatureInput object or it will fail in the case of invalid input.
+        """
+        return CustomFeatureInput()
+    def add(self, input):
+        """
+        Creates a new custom feature.
+
+        input : The CustomFeatureInput object that defines the information needed to create a custom feature.
+
+        Returns the newly created CustomFeature.
+        """
+        return CustomFeature()
+    @property
+    def count(self):
+        """
+        The number of RuledSurface features in the collection.
         """
         return int()
 
@@ -5545,9 +6025,18 @@ class Design(core.Product):
         """
         Returns the entity associated with the provided token. If there isn't an entity that matches the provided token, null is returned. In most cases an array containing a single entity will be returned but there are cases where more than one enity will be returned. An example of this is where a token is obtained from a face and subsequent modeling operations cause the face to be split into two or more pieces. All of the pieces will be returned with the first face being the most logical match to the original face.
 
-        entityToken :
+        entityToken : The input entity token you want to find the matching entity for.
+
+        Returns the entity associated with the provided token, or null in the case there isn't a match.
         """
         return core.Base()
+    def computeAll(self):
+        """
+        Forces a recompute of the entire design. This is the equivalent of the 'Compute All' command.
+
+        Returns true if the compute completed. This doesn't indicate if all the items in the timeline successfully computed or not. You need to check the health state of each item in the timeline to determine if everything successfully computed or not.
+        """
+        return bool()
     @property
     def designType(self):
         """
@@ -6333,13 +6822,13 @@ class ExtrudeFeatureInput(core.Base):
     @property
     def extentOne(self):
         """
-        Gets the extent assinged for a single sided extrude or side one of a two-sided extrusion. To set the extent, use one of the set methods on the ExtrudeFeatureInput object.
+        Gets the extent assigned for a single sided extrude or side one of a two-sided extrusion. To set the extent, use one of the set methods on the ExtrudeFeatureInput object.
         """
         return ExtentDefinition()
     @property
     def extentTwo(self):
         """
-        Gets the extent assinged for side two of the extrusion. If the extrude is single sided extrude this property will return null. The hasTwoExtents property can be used to determine if there are two sides or not. To set the extent, use one of the set methods on the ExtrudeFeatureInput object.
+        Gets the extent assigned for side two of the extrusion. If the extrude is single sided extrude this property will return null. The hasTwoExtents property can be used to determine if there are two sides or not. To set the extent, use one of the set methods on the ExtrudeFeatureInput object.
         """
         return ExtentDefinition()
     @property
@@ -6553,7 +7042,7 @@ class Feature(core.Base):
     @property
     def entityToken(self):
         """
-        Returns a token for the Feature object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same feature.
+        Returns a token for the Feature object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same feature. When using entity tokens it's important to understand that the token string returned for a specific entity can be different over time. However, even if you have two different token strings that were obtained from the same entity, when you use findEntityByToken they will both return the same entity. Because of that you should never compare entity tokens as way to determine what the token represents. Instead, you need to use the findEntityByToken method to get the two entities identified by the tokens and then compare them.
         """
         return str()
 
@@ -6966,6 +7455,18 @@ class Features(core.Base):
         Returns the collection that provides access to the Ruled Surface features within the component and supports the creation of new Ruled Surface features.
         """
         return RuledSurfaceFeatures()
+    @property
+    def customFeatures(self):
+        """
+        Returns the collection that provides access to the custom features within the component and supports the creation of new custom features.
+        """
+        return CustomFeatures()
+    @property
+    def untrimFeatures(self):
+        """
+        Returns the collection that provides access to the Untrim features within the component and supports the creation of new Untrim features.
+        """
+        return UntrimFeatures()
 
 class FilletEdgeSet(core.Base):
     """
@@ -6979,7 +7480,7 @@ class FilletEdgeSet(core.Base):
 
 class FilletEdgeSets(core.Base):
     """
-    Collection that provides access to all of the existing fillet edge sets in a component
+    Collection that provides access to all of the existing fillet edge sets associated with a fillet feature.
     """
     def __init__(self):
         pass
@@ -7016,7 +7517,7 @@ class FilletFeatureInput(core.Base):
         Adds a set of edges with a constant radius to this input.
 
         edges : An ObjectCollection containing the edges to be filleted. If the isTangentChain argument is true additional edges may also get filleted if they are tangentially connected to any of the input edges.
-        radius : A ValueInput object that defines the radius of the fillet. If the ValueInput uses a real then it is interpreted as centimeters. If it is a string then the units can be defined as part of the string (i.e. '2 in'). If no units are specified it is interpreted using the current default units for length.
+        radius : A ValueInput object that defines the radius of the fillet. If the ValueInput uses a real then it is interpreted as centimeters. If it is a string then the units can be defined as part of the string (i.e. '2 in') or if no units are specified it is interpreted using the current default units for length.
         isTangentChain : A boolean value for setting whether or not edges that are tangentially connected to the input edges (if any) will also be filleted.
 
         Returns true if the set of edges was successfully added to the FilletFeatureInput.
@@ -7027,8 +7528,8 @@ class FilletFeatureInput(core.Base):
         Adds a single edge or set of tangent edges along with variable radius information to this input.
 
         tangentEdges : An object collection containing a single edge or multiple edges. Multiple edges must be tangentially connected and added to the collection in order.
-        startRadius : A ValueInput object that defines the starting radius of the fillet. If a single edge is being filleted, the start radius is at the start end of the edge. If multiple tangent edges are being filleted the start radius is the open end of the first edge in the collection. If the ValueInput uses a real then it is interpreted as centimeters. If it is a string then the units can be defined as part of the string (i.e. '2 in'). If no units are specified it is interpreted using the current default units for length.
-        endRadius : A ValueInput object that defines the ending radius of the fillet. If a single edge is being filleted, the end radius is at the end of the edge. If multiple tangent edges are being filleted the end radius is the open end of the last edge in the collection. If the ValueInput uses a real then it is interpreted as centimeters. If it is a string then the units can be defined as part of the string (i.e. '2 in'). If no units are specified it is interpreted using the current default units for length.
+        startRadius : A ValueInput object that defines the starting radius of the fillet. If a single edge is being filleted, the start radius is at the start end of the edge. If multiple tangent edges are being filleted the start radius is the open end of the first edge in the collection. If the ValueInput uses a real then it is interpreted as centimeters. If it is a string then the units can be defined as part of the string (i.e. '2 in') or if no units are specified it is interpreted using the current default units for length.
+        endRadius : A ValueInput object that defines the ending radius of the fillet. If a single edge is being filleted, the end radius is at the end of the edge. If multiple tangent edges are being filleted the end radius is the open end of the last edge in the collection. If the ValueInput uses a real then it is interpreted as centimeters. If it is a string then the units can be defined as part of the string (i.e. '2 in') or if no units are specified it is interpreted using the current default units for length.
         positions : An array of ValueInput objects that defines the positions of any additonal radii along the edge(s). The value must be between 0 and 1 and defines the percentage along the curve where a radius is defined. The value is unitless. This array must have the same number of values as the array passed in for the radii argument.
         radii : An array of ValueInput objects that define the radii at positions along the edge(s). This array must have the same number of values as the array passed in for the positions argument. If the ValueInput uses a real then it is interpreted as centimeters. If it is a string then the units can be defined as part of the string (i.e. '2 in'). If no units are specified it will be interpreted using the current default units for length.
 
@@ -7040,7 +7541,7 @@ class FilletFeatureInput(core.Base):
         Adds a set of edges with a chord length to this input.
 
         edges : An ObjectCollection containing the edges to be filleted. If the isTangentChain argument is true additional edges may also get filleted if they are tangentially connected to any of the input edges.
-        chordLength : A ValueInput object that defines the chord length of the fillet. If the ValueInput uses a real then it is interpreted as centimeters. If it is a string then the units can be defined as part of the string (i.e. '2 in'). If no units are specified it is interpreted using the current default units for length.
+        chordLength : A ValueInput object that defines the chord length of the fillet. If the ValueInput uses a real then it is interpreted as centimeters. If it is a string then the units can be defined as part of the string (i.e. '2 in') or if no units are specified it is interpreted using the current default units for length.
         isTangentChain : A boolean value for setting whether or not edges that are tangentially connected to the input edges (if any) will also be filleted.
 
         Returns true if the set of edges was successfully added to the FilletFeatureInput.
@@ -7061,13 +7562,13 @@ class FilletFeatureInput(core.Base):
     @property
     def isRollingBallCorner(self):
         """
-        Gets and sets if a rolling ball solution is to be used in any corners.
+        Gets and sets if a rolling ball or setback solution is to be used in any corners.
         """
         return bool()
     @isRollingBallCorner.setter
     def isRollingBallCorner(self, isRollingBallCorner):
         """
-        Gets and sets if a rolling ball solution is to be used in any corners.
+        Gets and sets if a rolling ball or setback solution is to be used in any corners.
         """
         pass
     @property
@@ -7447,7 +7948,7 @@ class GeometricConstraint(core.Base):
     @property
     def entityToken(self):
         """
-        Returns a token for the GeometricConstraint object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same geometric constraint.
+        Returns a token for the GeometricConstraint object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same geometric constraint. When using entity tokens it's important to understand that the token string returned for a specific entity can be different over time. However, even if you have two different token strings that were obtained from the same entity, when you use findEntityByToken they will both return the same entity. Because of that you should never compare entity tokens as way to determine what the token represents. Instead, you need to use the findEntityByToken method to get the two entities identified by the tokens and then compare them.
         """
         return str()
 
@@ -8274,7 +8775,7 @@ class Joint(core.Base):
     @property
     def entityToken(self):
         """
-        Returns a token for the Joint object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same joint.
+        Returns a token for the Joint object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same joint. When using entity tokens it's important to understand that the token string returned for a specific entity can be different over time. However, even if you have two different token strings that were obtained from the same entity, when you use findEntityByToken they will both return the same entity. Because of that you should never compare entity tokens as way to determine what the token represents. Instead, you need to use the findEntityByToken method to get the two entities identified by the tokens and then compare them.
         """
         return str()
 
@@ -8339,7 +8840,7 @@ class JointGeometry(core.Base):
         Creates a new transient JointGeometry object using a BRepEdge or SketchCurve as input. A JointGeometry object can be used to create a joint or joint origin.
 
         curve : Input BRepEdge or SketchCurve.
-        keyPointType : The position on the curve where to position the joint coordinate system. For any open curves the valid types are StartKeyPoint, MiddleKeyPoint, and EndKeyPoint. For circular and elliptical shaped curves the option is CenterKeyPoint. For closed spline curves either StartKeyPoint or EndKeyPoint can be used and the result is the same.
+        keyPointType : The position on the curve where to position the joint coordinate system. For any open curves the valid types are StartKeyPoint, MiddleKeyPoint, CenterKeyPoint and EndKeyPoint. For circular and elliptical shaped curves the option is CenterKeyPoint. For closed spline curves either StartKeyPoint or EndKeyPoint can be used and the result is the same.
 
         Returns the transient JointGeometry object that can be used to create a joint or joint origin or null in case of a failure.
         """
@@ -8896,7 +9397,7 @@ class JointOrigin(core.Base):
     @property
     def entityToken(self):
         """
-        Returns a token for the JointOrigin object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same joint origin.
+        Returns a token for the JointOrigin object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same joint origin. When using entity tokens it's important to understand that the token string returned for a specific entity can be different over time. However, even if you have two different token strings that were obtained from the same entity, when you use findEntityByToken they will both return the same entity. Because of that you should never compare entity tokens as way to determine what the token represents. Instead, you need to use the findEntityByToken method to get the two entities identified by the tokens and then compare them.
         """
         return str()
 
@@ -9217,13 +9718,13 @@ class LoftCenterLineOrRail(core.Base):
     @property
     def entity(self):
         """
-        Gets and sets the entitiy that defines the centerline or rail. This can be a single sketch entity, a single BRepEdge, a Path, or a Profile.
+        Gets and sets the entity that defines the centerline or rail. This can be a single sketch entity, a single BRepEdge, a Path, or a Profile.
         """
         return core.Base()
     @entity.setter
     def entity(self, entity):
         """
-        Gets and sets the entitiy that defines the centerline or rail. This can be a single sketch entity, a single BRepEdge, a Path, or a Profile.
+        Gets and sets the entity that defines the centerline or rail. This can be a single sketch entity, a single BRepEdge, a Path, or a Profile.
         """
         pass
 
@@ -9294,7 +9795,7 @@ class LoftEndCondition(core.Base):
 
 class LoftFeatureInput(core.Base):
     """
-    This object defines the all of the input necessary to create a loft feature. It is the programming equivalent to the Loft command dialog. Through this object you provide the input needed to fully define a loft. To create the loft feature you pass this object the the LoftFeatures.add method.
+    This object defines the all of the input necessary to create a loft feature. It is the programming equivalent to the Loft command dialog. Through this object you provide the input needed to fully define a loft. To create the loft feature you pass this object the LoftFeatures.add method.
     """
     def __init__(self):
         pass
@@ -9769,7 +10270,7 @@ class MeshBody(core.Base):
     @property
     def entityToken(self):
         """
-        Returns a token for the MeshBody object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same mesh body.
+        Returns a token for the MeshBody object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same mesh body. When using entity tokens it's important to understand that the token string returned for a specific entity can be different over time. However, even if you have two different token strings that were obtained from the same entity, when you use findEntityByToken they will both return the same entity. Because of that you should never compare entity tokens as way to determine what the token represents. Instead, you need to use the findEntityByToken method to get the two entities identified by the tokens and then compare them.
         """
         return str()
 
@@ -10037,13 +10538,13 @@ class MoveFeatureInput(core.Base):
     @property
     def inputEntities(self):
         """
-        Gets and sets the entities to move. This collection can only contain BRepBody objects in parametric modeling. It can be BRep bodies, T-Spline bodies and mesh bodies mixed or faces and features mixed in non-parametric modeling.
+        An ObjectCollection containing the objects to move. The collection can contain BRepBody or BRepFace objects but not a mixture of the two types.
         """
         return core.ObjectCollection()
     @inputEntities.setter
     def inputEntities(self, inputEntities):
         """
-        Gets and sets the entities to move. This collection can only contain BRepBody objects in parametric modeling. It can be BRep bodies, T-Spline bodies and mesh bodies mixed or faces and features mixed in non-parametric modeling.
+        An ObjectCollection containing the objects to move. The collection can contain BRepBody or BRepFace objects but not a mixture of the two types.
         """
         pass
     @property
@@ -10368,7 +10869,7 @@ class Occurrence(core.Base):
     @property
     def entityToken(self):
         """
-        Returns a token for the Occurrence object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same occurrence.
+        Returns a token for the Occurrence object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same occurrence. When using entity tokens it's important to understand that the token string returned for a specific entity can be different over time. However, even if you have two different token strings that were obtained from the same entity, when you use findEntityByToken they will both return the same entity. Because of that you should never compare entity tokens as way to determine what the token represents. Instead, you need to use the findEntityByToken method to get the two entities identified by the tokens and then compare them.
         """
         return str()
 
@@ -10741,7 +11242,7 @@ class Parameter(core.Base):
     @property
     def entityToken(self):
         """
-        Returns a token for the Parameter object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same parameter.
+        Returns a token for the Parameter object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same parameter. When using entity tokens it's important to understand that the token string returned for a specific entity can be different over time. However, even if you have two different token strings that were obtained from the same entity, when you use findEntityByToken they will both return the same entity. Because of that you should never compare entity tokens as way to determine what the token represents. Instead, you need to use the findEntityByToken method to get the two entities identified by the tokens and then compare them.
         """
         return str()
 
@@ -11710,7 +12211,7 @@ class Profile(core.Base):
     @property
     def entityToken(self):
         """
-        Returns a token for the Profile object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same profile.
+        Returns a token for the Profile object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same profile. When using entity tokens it's important to understand that the token string returned for a specific entity can be different over time. However, even if you have two different token strings that were obtained from the same entity, when you use findEntityByToken they will both return the same entity. Because of that you should never compare entity tokens as way to determine what the token represents. Instead, you need to use the findEntityByToken method to get the two entities identified by the tokens and then compare them.
         """
         return str()
 
@@ -12696,7 +13197,7 @@ class RigidGroup(core.Base):
     @property
     def entityToken(self):
         """
-        Returns a token for the RigidGroup object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same rigid group.
+        Returns a token for the RigidGroup object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same rigid group. When using entity tokens it's important to understand that the token string returned for a specific entity can be different over time. However, even if you have two different token strings that were obtained from the same entity, when you use findEntityByToken they will both return the same entity. Because of that you should never compare entity tokens as way to determine what the token represents. Instead, you need to use the findEntityByToken method to get the two entities identified by the tokens and then compare them.
         """
         return str()
 
@@ -12790,13 +13291,13 @@ class RuledSurfaceFeatureInput(core.Base):
     @property
     def profile(self):
         """
-        Gets and sets the profile to create Ruled Surface from
+        Gets and sets the Profile object that defines the sketch geometry or edges that define the shape of the ruled surface. The Component.createBRepEdgeProfile method is useful to create a profile defined from edges.
         """
         return core.Base()
     @profile.setter
     def profile(self, profile):
         """
-        Gets and sets the profile to create Ruled Surface from
+        Gets and sets the Profile object that defines the sketch geometry or edges that define the shape of the ruled surface. The Component.createBRepEdgeProfile method is useful to create a profile defined from edges.
         """
         pass
     @property
@@ -12814,49 +13315,49 @@ class RuledSurfaceFeatureInput(core.Base):
     @property
     def distance(self):
         """
-        Gets and sets the ValueInput object that defines the Ruled Surface distance
+        Gets and sets the ValueInput object that defines the Ruled Surface distance. If the value input is a real value it will define the distance in centimeters.
         """
         return core.ValueInput()
     @distance.setter
     def distance(self, distance):
         """
-        Gets and sets the ValueInput object that defines the Ruled Surface distance
+        Gets and sets the ValueInput object that defines the Ruled Surface distance. If the value input is a real value it will define the distance in centimeters.
         """
         pass
     @property
     def angle(self):
         """
-        Gets and sets the ValueInput object that defines the Ruled Surface angle
+        Gets and sets the ValueInput object that defines the Ruled Surface angle. If the input is a real value, the units are radians.
         """
         return core.ValueInput()
     @angle.setter
     def angle(self, angle):
         """
-        Gets and sets the ValueInput object that defines the Ruled Surface angle
+        Gets and sets the ValueInput object that defines the Ruled Surface angle. If the input is a real value, the units are radians.
         """
         pass
     @property
     def ruledSurfaceType(self):
         """
-        Gets and sets the entity used to define the direction of the ruled surface. This is only used when the ruledSurfaceType property is DirectionRuledSurfaceType.
+        Gets and sets the type of ruled surface to create. To set this to DirectionRuledSurfaceType, use the direction property to set the direction entity, which will automatically set this to DirectionRuledSurfaceType.
         """
         return RuledSurfaceTypes()
     @ruledSurfaceType.setter
     def ruledSurfaceType(self, ruledSurfaceType):
         """
-        Gets and sets the entity used to define the direction of the ruled surface. This is only used when the ruledSurfaceType property is DirectionRuledSurfaceType.
+        Gets and sets the type of ruled surface to create. To set this to DirectionRuledSurfaceType, use the direction property to set the direction entity, which will automatically set this to DirectionRuledSurfaceType.
         """
         pass
     @property
     def direction(self):
         """
-        Gets and sets a direction object (used when type is set to direction)
+        Gets and sets the entity that defines the direction when the ruled surface type is DirectionRuledSurfaceType. The direction is specified by providing a linear or planar entity. For example, a linear edge, construction axis, planar face, or construction plane can be used as input. If this property is set when the ruledSurfaceType is not DirectionRuledSurfaceType, the type will automatically be changed to DirectionRuledSurfaceType. If you get this property when the direction is not DirectionRuledSurfaceType, it will return null.
         """
         return core.Base()
     @direction.setter
     def direction(self, direction):
         """
-        Gets and sets a direction object (used when type is set to direction)
+        Gets and sets the entity that defines the direction when the ruled surface type is DirectionRuledSurfaceType. The direction is specified by providing a linear or planar entity. For example, a linear edge, construction axis, planar face, or construction plane can be used as input. If this property is set when the ruledSurfaceType is not DirectionRuledSurfaceType, the type will automatically be changed to DirectionRuledSurfaceType. If you get this property when the direction is not DirectionRuledSurfaceType, it will return null.
         """
         pass
     @property
@@ -12902,26 +13403,15 @@ class RuledSurfaceFeatures(core.Base):
         Returns the specified item or null if an invalid index was specified.
         """
         return RuledSurfaceFeature()
-    def createInput(self, profile, distance, angle, ruledSurfaceType):
+    def createInput(self, profile, distance, angle, ruledSurfaceType, direction):
         """
-        Creates a RuledSurfaceFeatureInput object tangent or normal to the faces. Use properties and methods on this object to define the Ruled Surface feature you want to create and then use the Add method, passing in the RuledSurfaceFeatureInput object.
+        Creates a RuledSurfaceFeatureInput object that defines the input needed to create a ruled surface feature. Use the input object to define the input to create the desired feature and then use the Add method, passing in the RuledSurfaceFeatureInput object.
 
-        profile : The profile argument can be a single Profile. The Component.createBRepEdgeProfile method can be useful to create the needed profile in many cases.
+        profile : A Profile object that defines the sketch geometry or edges that define the shape of the ruled surface. The Component.createBRepEdgeProfile method is useful to create a profile defined from edges.
         distance : ValueInput object that defines the extension distance of the Ruled Surface..
         angle : ValueInput object that defines angle to use when creating the Ruled Surface. When the input is a real value, the units are radians.
-        ruledSurfaceType : The Ruled Surface type (TangentRuledSurfaceType or NormalRuledSurfaceType)
-
-        Returns the newly created RuledSurfaceFeatureInput object or null if the creation failed.
-        """
-        return RuledSurfaceFeatureInput()
-    def createInput(self, profile, distance, angle, direction):
-        """
-        Creates a RuledSurfaceFeatureInput object in a given direction. Use properties and methods on this object to define the Ruled Surface feature you want to create and then use the Add method, passing in the RuledSurfaceFeatureInput object.
-
-        profile : The profile argument can be a single Profile
-        distance : ValueInput object that defines the extension distance of the Ruled Surface..
-        angle : ValueInput object that defines angle to use when creating the Ruled Surface. When the input is a real value, the units are radians.
-        direction : Item defining the direction to create the Ruled Surface in. The direction can be defined using a sketch line, linear edge, planar face, construction axis or construction plane.
+        ruledSurfaceType : The Ruled Surface type (TangentRuledSurfaceType, NormalRuledSurfaceType, or DirectionRuledSurfaceType).
+        direction : If the ruled surface type is DirectionRuledSurfaceType, you must specify the direction. The direction is specified by providing a linear or planar entity. For example, a linear edge, construction axis, planar face, or construction plane can be used as input.
 
         Returns the newly created RuledSurfaceFeatureInput object or null if the creation failed.
         """
@@ -13756,7 +14246,7 @@ class Sketch(core.Base):
     @property
     def baseOrFormFeature(self):
         """
-        This property returns the base or form feature that this sketch is associated with. It returns null in the case wher the sketch is parametrically defined and is not related to a base or form feature. It also returns null in the case where the modeling design history is not being captured (direct edit model).
+        This property returns the base or form feature that this sketch is associated with. It returns null in the case where the sketch is parametrically defined and is not related to a base or form feature. It also returns null in the case where the modeling design history is not being captured (direct edit model).
         """
         return core.Base()
     @property
@@ -13816,7 +14306,7 @@ class Sketch(core.Base):
     @property
     def entityToken(self):
         """
-        Returns a token for the Sketch object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same token.
+        Returns a token for the Sketch object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same token. When using entity tokens it's important to understand that the token string returned for a specific entity can be different over time. However, even if you have two different token strings that were obtained from the same entity, when you use findEntityByToken they will both return the same entity. Because of that you should never compare entity tokens as way to determine what the token represents. Instead, you need to use the findEntityByToken method to get the two entities identified by the tokens and then compare them.
         """
         return str()
 
@@ -14131,7 +14621,7 @@ class SketchDimension(core.Base):
     @property
     def entityToken(self):
         """
-        Returns a token for the SketchDimension object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same sketch dimension.
+        Returns a token for the SketchDimension object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same sketch dimension. When using entity tokens it's important to understand that the token string returned for a specific entity can be different over time. However, even if you have two different token strings that were obtained from the same entity, when you use findEntityByToken they will both return the same entity. Because of that you should never compare entity tokens as way to determine what the token represents. Instead, you need to use the findEntityByToken method to get the two entities identified by the tokens and then compare them.
         """
         return str()
 
@@ -14448,9 +14938,15 @@ class SketchEntity(core.Base):
     @property
     def entityToken(self):
         """
-        Returns a token for the SketchEntity object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same sketch entity.
+        Returns a token for the SketchEntity object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same sketch entity. When using entity tokens it's important to understand that the token string returned for a specific entity can be different over time. However, even if you have two different token strings that were obtained from the same entity, when you use findEntityByToken they will both return the same entity. Because of that you should never compare entity tokens as way to determine what the token represents. Instead, you need to use the findEntityByToken method to get the two entities identified by the tokens and then compare them.
         """
         return str()
+    @property
+    def isLinked(self):
+        """
+        Indicates if this sketch entity was created by a projection, inclusion, or driven by an API script. If this returns true, then the entity is presented to the user as not editable and with a 'break link' command available.
+        """
+        return bool()
 
 class SketchEntityList(core.Base):
     """
@@ -14601,6 +15097,15 @@ class SketchFixedSplines(core.Base):
         index : The index of the item within the collection to return. The first item in the collection has an index of 0.
 
         Returns the specified item or null if an invalid index was specified.
+        """
+        return SketchFixedSpline()
+    def addByNurbsCurve(self, nurbsCurve):
+        """
+        Creates a new fixed spline using the input NurbsCurve3D to define the shape. The resulting curve is not editable by the user but can be updated via the API using the replaceGeometry method on the SketchFixedSpline object.
+
+        nurbsCurve : A NurbsCurve3D object that defines a valid NURBS curve.
+
+        Returns the newly created SketchFixedSpline object if the creation was successful or null if it failed.
         """
         return SketchFixedSpline()
     @property
@@ -14760,6 +15265,16 @@ class SketchPoints(core.Base):
         """
         return int()
 
+class SketchTextDefinition(core.Base):
+    """
+    The base class for the classes that define how text can be defined.
+    """
+    def __init__(self):
+        pass
+    @staticmethod
+    def cast(arg):
+        return SketchTextDefinition()
+
 class SketchTextInput(core.Base):
     """
     The SketchTextInput object is equivalent to the Sketch Text dialog in that it collects all of the input required to create sketch text. Once the properties of the SketchTextInput object have been defined, use the add method to create the sketch text. A SketchTextInput object is created by using the createInput of the SketchTexts object.
@@ -14769,6 +15284,41 @@ class SketchTextInput(core.Base):
     @staticmethod
     def cast(arg):
         return SketchTextInput()
+    def setAsFitOnPath(self, path, isAbovePath):
+        """
+        Sets this SketchTextInput to define text that fits along a specified path. Fitting on a path will space the characters so the text fits along the entire length of the path entity.
+
+        path : The entity that defines the path for the text. This can be a SketchCurve or BRepEdge object.
+        isAbovePath : Indicates if the text should be positioned above or below the path entity.
+
+        Returns true if the setting the definition was successful.
+        """
+        return bool()
+    def setAsAlongPath(self, path, isAbovePath, horizontalAlignment, characterSpacing):
+        """
+        Sets this SketchTextInput to define text that follows along a specified path.
+
+        path : The entity that defines the path for the text. This can be a SketchCurve or BRepEdge object.
+        isAbovePath : Indicates if the text should be positioned above or below the path entity.
+        horizontalAlignment : Specifies the horizontal alignment of the text with respect to the path curve.
+        characterSpacing : The percentage change in default spacing between characters.
+
+        Returns true if the setting the definition was successful.
+        """
+        return bool()
+    def setAsMultiLine(self, cornerPoint, diagonalPoint, horizontalAlignment, verticalAlignment, characterSpacing):
+        """
+        Defines the first corner point of the rectangle that will contain the text.
+
+        cornerPoint : Specifies the location of one of the corner points of the rectangle that will contain the text. This can be a Point3D object, with a Z component of zero, to define any arbitrary location on the X-Y plane of the sketch or it can be an existing SketchPoint that lies on the sketch X-Y plane.
+        diagonalPoint : Specifies the location of the diagonal point of the rectangle that will contain the text. This point cannot be aligned vertically or horizontally to the corner point but be a diagonal point to define a rectangle. This can be a Point3D object, with a Z component of zero, to define any arbitrary location on the X-Y plane of the sketch or it can be an existing SketchPoint that lies on the sketch X-Y plane and the sketch point will become the opposing corner point.
+        horizontalAlignment : Specifies the horizontal alignment of the text with respect to the text rectangle.
+        verticalAlignment : Specifies the vertical alignment of the text with respect to the text rectangle.
+        characterSpacing : The percentage change in default spacing between characters.
+
+        Returns true if the setting the definition was successful.
+        """
+        return bool()
     @property
     def height(self):
         """
@@ -14832,15 +15382,45 @@ class SketchTextInput(core.Base):
     @property
     def textStyle(self):
         """
-        Gets and sets the text style to apply to the entire text. This is a bitwise enum so styles can be combined to apply multiple styles. For example you can apply bold and underline.
+        Gets and sets the text style to apply to the entire text. This is a bitwise enum so styles can be combined to apply multiple styles. For example you can apply bold and italic.
         """
         return TextStyles()
     @textStyle.setter
     def textStyle(self, textStyle):
         """
-        Gets and sets the text style to apply to the entire text. This is a bitwise enum so styles can be combined to apply multiple styles. For example you can apply bold and underline.
+        Gets and sets the text style to apply to the entire text. This is a bitwise enum so styles can be combined to apply multiple styles. For example you can apply bold and italic.
         """
         pass
+    @property
+    def isHorizontalFlip(self):
+        """
+        Gets and sets if the text is flipped horizontally.
+        """
+        return bool()
+    @isHorizontalFlip.setter
+    def isHorizontalFlip(self, isHorizontalFlip):
+        """
+        Gets and sets if the text is flipped horizontally.
+        """
+        pass
+    @property
+    def isVerticalFlip(self):
+        """
+        Gets and sets if the text is flipped vertically.
+        """
+        return bool()
+    @isVerticalFlip.setter
+    def isVerticalFlip(self, isVerticalFlip):
+        """
+        Gets and sets if the text is flipped vertically.
+        """
+        pass
+    @property
+    def definition(self):
+        """
+        Returns the SketchTextDefinition object associated with this input. When the SketchTextInput is first created this property will return null. Once one of the 'set' methods have been called, this will return the SketchTextDefinition of the appropriate type and can be used to make any additional changes to the text.
+        """
+        return SketchTextDefinition()
 
 class SketchTexts(core.Base):
     """
@@ -14880,6 +15460,16 @@ class SketchTexts(core.Base):
         Returns the newly created SketchText object or null in the case of failure.
         """
         return SketchText()
+    def createInput2(self, formattedText, height):
+        """
+        Creates a SketchTextInput object that is used to define the additional input to create text. The SketchTextInput object is equivalent to the Sketch Text dialog in that it collects all of the input required to create sketch text. You must call setAsFitOnPath, setAsAlongPath, or setAsMultiLine methods to define one of the three types of text and can use other and define any setAs Once the properties of the SketchTextInput object have been defined, use the add method to create the sketch text.
+
+        formattedText : The text used for the sketch text. This is a simple string as no additional formatting is currently supported.
+        height : The height of the text in centimeters.
+
+        Returns a SketchTextInput object that can be used to set additional formatting and is used as input to the add method.
+        """
+        return SketchTextInput()
     @property
     def count(self):
         """
@@ -15459,6 +16049,15 @@ class SurfaceProjectTypes():
     ClosestPointSurfaceProjectType = 0
     AlongVectorSurfaceProjectType = 1
 
+class SweepExtentTypes():
+    """
+    List of the types of sweep extent.
+    """
+    def __init__(self):
+        pass
+    PerpendicularToPathExtentType = 0
+    FullExtentsExtentType = 1
+
 class SweepFeatureInput(core.Base):
     """
     This class defines the methods and properties that pertain to the definition of a sweep feature.
@@ -15646,6 +16245,18 @@ class SweepFeatureInput(core.Base):
     def twistAngle(self, twistAngle):
         """
         Gets and sets the taper angle of the sweep. This property is initialized with a taper angle of zero. A negative angle will taper the sweep inward while a positive value will taper the sweep outward. This property is valid for both parametric and non-parametric extrusions.
+        """
+        pass
+    @property
+    def extent(self):
+        """
+        Gets and sets the sweep extent type. It defaults to PerpendicularToPathExtentType. This property is ignored when a guide rail has not been specified.
+        """
+        return SweepExtentTypes()
+    @extent.setter
+    def extent(self, extent):
+        """
+        Gets and sets the sweep extent type. It defaults to PerpendicularToPathExtentType. This property is ignored when a guide rail has not been specified.
         """
         pass
 
@@ -15937,6 +16548,22 @@ class TemporaryBRepManager(core.Base):
         """
         return BRepBody()
 
+class TextBoxKeyPoints():
+    """
+    Defines the nine key points that exist for a sketch text box and can be used as the origin when rotating the text. The named positions are with respect to the text box. For example when the text box has not been rotated the top-left key point will be the point in the upper-left corner of the text box. If the text box has been rotated 180 degrees, the top-left key point will be the point in the lower-right corner of the text box.
+    """
+    def __init__(self):
+        pass
+    TopLeftTextBoxKeyPoint = 0
+    TopMiddleTextBoxKeyPoint = 1
+    TopRightTextBoxKeyPoint = 2
+    MiddleLeftTextBoxKeyPoint = 3
+    MiddleTextBoxKeyPoint = 4
+    MiddleRightTextBoxKeyPoint = 5
+    BottomLeftTextBoxKeyPoint = 6
+    BottomMiddleTextBoxKeyPoint = 7
+    BottomRightTextBoxKeyPoint = 8
+
 class TextStyles():
     """
     Defines the various text style formatting options that can be applied to text. These are bitwise values to they can be combined.
@@ -16103,7 +16730,7 @@ class ThickenFeatures(core.Base):
 
 class ThreadDataQuery(core.Base):
     """
-    This object provides methods to query the thread data contained in the XML files under ThreadData folder.
+    This object provides methods to query the thread data contained in the XML files in ThreadData folder within the Fusion 360 install folder. You can use the queried values to create a ThreadInfo object that is then used to create a thread feature.
     """
     def __init__(self):
         pass
@@ -16112,57 +16739,57 @@ class ThreadDataQuery(core.Base):
         return ThreadDataQuery()
     def allSizes(self, threadType):
         """
-        Method that returns all the available thread sizes for a given thread type.
+        Returns an array/list of all the available thread sizes for a given thread type. You can use the allThreadTypes property to get the available thread types.
 
         threadType : Specify the thread type.
 
-        Returns the specified thread sizes or empty array if an invalid thread type was specified.
+        Returns the specified thread sizes or an empty array/list if an invalid thread type was specified.
         """
         return str()
     def allDesignations(self, threadType, size):
         """
-        Method that returns all the available thread designations for a thread type of a given size.
+        returns an array/list of all the available thread designations for a thread type of a given size. Valid thread types and sizes and be obtained by using the allThreadTypes and allSizes functions.
 
-        threadType : Specify the thread type.
-        size : Specify the thread size.
+        threadType : The thread type of the designation you want.
+        size : Thre thread size of the designation you want.
 
-        Returns the specified thread designations or empty array if an invalid thread type or size was specified.
+        Returns the specified thread designations or empty array/list if an invalid thread type or size was specified.
         """
         return str()
     def allClasses(self, isInternal, threadType, designation):
         """
-        Method that returns all the available classes for a thread type of a given thread designation.
+        Returns and array/list of all the available classes for a thread type of a given thread designation.
 
         isInternal : Indicates if the thread is an internal or external thread.
-        threadType : Specify the thread type.
-        designation : Specify the thread designation.
+        threadType : The thread type of the thread class you want.
+        designation : The thread designation of the thread class you want.
 
-        Returns the specified thread classes or empty array if an invalid thread type or designation was specified.
+        Returns the specified thread classes or empty array/list if an invalid thread type or designation was specified.
         """
         return str()
     def threadTypeCustomName(self, threadType):
         """
         Method that returns the custom name for a given thread type.
 
-        threadType : Thread type identifier string.
+        threadType : The thread type you want to get the custom name for.
 
-        Returns the specified custom name or empty string if an invalid thread type was specified.
+        Returns the specified custom name or an empty string if an invalid thread type was specified.
         """
         return str()
     def threadTypeUnit(self, threadType):
         """
         Method that returns the unit for a given thread type.
 
-        threadType : Specify the thread type.
+        threadType : The thread type you want to get the thread unit type for.
 
-        Returns the specified unit or empty string if an invalid thread type was specified.
+        Returns the specified unit or an empty string if an invalid thread type was specified.
         """
         return str()
     def recommendThreadData(self, modelDiameter, isInternal, threadType):
         """
         Method that gets the recommended thread data for a given model diameter.
 
-        modelDiameter : The model diameter. The unit is centimeter.
+        modelDiameter : The diameter of the cylinder the thread will be placed on. The units are centimeters.
         isInternal : Indicates if the thread is an internal or external thread.
         threadType : Specifies the thread type to query the thread data.
         designation : The output thread designation.
@@ -16174,19 +16801,19 @@ class ThreadDataQuery(core.Base):
     @property
     def allThreadTypes(self):
         """
-        Gets all the available thread types (families).
+        Returns an array/list of all the available thread types (families).
         """
         return str()
     @property
     def defaultInchThreadType(self):
         """
-        Gets the default inch thread type.
+        Gets the default thread type for inch threads.
         """
         return str()
     @property
     def defaultMetricThreadType(self):
         """
-        Gets the default metric thread type.
+        Gets the default thread type for metric threads.
         """
         return str()
 
@@ -16340,17 +16967,17 @@ class ThreadFeatures(core.Base):
         return ThreadFeature()
     def createInput(self, inputCylindricalFaces, threadInfo):
         """
-        Creates a ThreadFeatureInput object. Use properties and methods on this object to define the thread you want to create and then use the Add method, passing in the ThreadFeatureInput object.
+        Creates a ThreadFeatureInput object. This object is the API equivalent of the Thread feature dialog. It collects the required input and once fully defined you can pass this object to the ThreadFeatures.add method to create the thread feature.
 
         inputCylindricalFaces : A single cylindrical BRep face or a collection of cylindrical BRep faces to thread. A collection of faces must all be from either holes (for internal threading) or all from cylinders (for external threading). Both internal and external threads cannot be created in the same feature. The faces in a collection can come from different bodies or components.
-        threadInfo : The thread data to create the thread.
+        threadInfo : The ThreadInfo object that defines the type and size of the thread to create. When creating a thread, the type and size of the thread is specified by referencing thread information defined in one of the XML files in the ThreadData folder within the Fusion 360 install folder. You can use the ThreadDataQuery object to query these XML files to find the specific thread you want to create. The ThreadDataQuery object can be obtained by using the ThreadFeatures.threadDataQuery property. You then use this information to create a ThreadInfo object using the ThreadFeatures.createThreadInfo method.
 
-        Returns the newly created ThreadFeatureInput object or null if the creation failed.
+        Returns the newly created ThreadFeatureInput object or null/None if the creation failed.
         """
         return ThreadFeatureInput()
     def createThreadInfo(self, isInternal, threadType, threadDesignation, threadClass):
         """
-        Method that creates a new ThreadInfo object that can be used in creating thread features.
+        Method that creates a new ThreadInfo object that can be used in creating thread features. The ThreadInfo object that defines the type and size of the thread to create. When creating a thread, the type and size of the thread is specified by referencing thread information defined in one of the XML files in the ThreadData folder within the Fusion 360 install folder. You can use the ThreadDataQuery object to query these XML files to find the specific thread you want to create. The ThreadDataQuery object can be obtained by using the ThreadFeatures.threadDataQuery property.
 
         isInternal : Input Boolean that indicates if the thread is an internal or external thread. A value of true indicates an internal thread.
         threadType : Input string that defines the thread type.
@@ -16387,13 +17014,13 @@ class ThreadFeatures(core.Base):
     @property
     def threadDataQuery(self):
         """
-        Property that returns the ThreadDataQuery object. This object has methods to query the thread data contained in the XML files under ThreadData folder. It's a singleton object.
+        Property that returns the ThreadDataQuery object. When creating a thread, the type and size of the thread is specified by referencing thread information defined in one of the XML files in the ThreadData folder. The ThreadDataQuery is an object that supports methods to query the existing threads defined in these files.
         """
         return ThreadDataQuery()
 
 class ThreadInfo(core.Base):
     """
-    This class defines the methods and properties that pertain to the thread data of a thread feature. If the ThreadInfo object is returned from a thread feature, setting this ThreadInfo will cause the thread feature to be edited.
+    This class defines the methods and properties that define the type and size of a thread. This object is used to create new thread features and to query and edit existing thread features. A new ThreadInfo object is created by using the ThreadFeatures.createThreadInfo method. If the ThreadInfo object is obtained from an existing thread feature, modifying properties on the ThreadInfo object will modify the feature.
     """
     def __init__(self):
         pass
@@ -16403,85 +17030,85 @@ class ThreadInfo(core.Base):
     @property
     def threadType(self):
         """
-        Gets and sets the string that defines the thread type.
+        Returns and sets the string that defines the thread type.
         """
         return str()
     @threadType.setter
     def threadType(self, threadType):
         """
-        Gets and sets the string that defines the thread type.
+        Returns and sets the string that defines the thread type.
         """
         pass
     @property
     def threadSize(self):
         """
-        Gets the string that defines the thread size.
+        Returns the string that defines the thread size. This is
         """
         return str()
     @property
     def threadDesignation(self):
         """
-        Gets and sets the string that defines the thread designation.
+        Returns and sets the string that defines the thread designation.
         """
         return str()
     @threadDesignation.setter
     def threadDesignation(self, threadDesignation):
         """
-        Gets and sets the string that defines the thread designation.
+        Returns and sets the string that defines the thread designation.
         """
         pass
     @property
     def threadClass(self):
         """
-        Gets and sets the string that defines the thread class.
+        Returns and sets the string that defines the thread class.
         """
         return str()
     @threadClass.setter
     def threadClass(self, threadClass):
         """
-        Gets and sets the string that defines the thread class.
+        Returns and sets the string that defines the thread class.
         """
         pass
     @property
     def isInternal(self):
         """
-        Gets and sets if the thread is an internal or external thread. A value of true indicates an internal thread. It defaults to true.
+        Returns and sets if the thread is an internal or external thread. A value of true indicates an internal thread. It defaults to true.
         """
         return bool()
     @isInternal.setter
     def isInternal(self, isInternal):
         """
-        Gets and sets if the thread is an internal or external thread. A value of true indicates an internal thread. It defaults to true.
+        Returns and sets if the thread is an internal or external thread. A value of true indicates an internal thread. It defaults to true.
         """
         pass
     @property
     def threadAngle(self):
         """
-        Gets the value that defines the thread angle.
+        Returns the value that defines the thread angle. The units are degrees.
         """
         return float()
     @property
     def threadPitch(self):
         """
-        Gets the value that defines the thread pitch.
+        Returns the value that defines the thread pitch. The units are centimeters.
         """
         return float()
     @property
     def majorDiameter(self):
         """
-        Gets the value that defines the major diameter.
+        Returns the value that defines the major diameter. The units are centimeters.
         """
         return float()
     @property
     def minorDiameter(self):
         """
-        Gets the value that defines the minor diameter.
+        Returns the value that defines the minor diameter. The units are centimeters.
         """
         return float()
     @property
     def pitchDiameter(self):
         """
-        Gets the value that defines the pitch diameter.
+        Returns the value that defines the pitch diameter. The units are centimeters.
         """
         return float()
 
@@ -17162,7 +17789,7 @@ class TSplineBody(core.Base):
     @property
     def entityToken(self):
         """
-        Returns a token for the TSplineBody object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same T-Spline body.
+        Returns a token for the TSplineBody object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same T-Spline body. When using entity tokens it's important to understand that the token string returned for a specific entity can be different over time. However, even if you have two different token strings that were obtained from the same entity, when you use findEntityByToken they will both return the same entity. Because of that you should never compare entity tokens as way to determine what the token represents. Instead, you need to use the findEntityByToken method to get the two entities identified by the tokens and then compare them.
         """
         return str()
 
@@ -17244,6 +17871,140 @@ class UnstitchFeatures(core.Base):
         """
         return int()
 
+class UntrimFeatureInput(core.Base):
+    """
+    This class defines the methods and properties that pertain to the definition of a Untrim feature.
+    """
+    def __init__(self):
+        pass
+    @staticmethod
+    def cast(arg):
+        return UntrimFeatureInput()
+    def setLoopsFromFaces(self, faces, untrimLoopType):
+        """
+        Set the loops to be removed from a set of faces.
+
+        faces : An array of BRepFace objects that will have the loops of the specified types removed. Only loops that do not have a connected face can be removed (the edges in the loop have a single face). The array can only contain faces from surface bodies, (the isSolid property of the BRepBody returns false).
+        untrimLoopType : The loop type to be untrimmed (AllLoopUntrimType, InternalLoopUntrimType, or ExternalLoopUntrimType).
+
+        Returns whether the operation was successful
+        """
+        return bool()
+    def setLoops(self, loops):
+        """
+        Set the loops to be removed.
+
+        loops : Redefines this input to remove loops from the body. If faces were previously defined, that information will be lost. Only loops that do not have a connected face can be removed (the edges in the loop have a single face) The array can only contain loops from surface bodies, (the isSolid property of the BRepBody returns false).
+
+        Returns whether the operation was successful
+        """
+        return bool()
+    @property
+    def untrimLoopType(self):
+        """
+        Gets the loop type to be untrimmed. This is only used when faces are being untrimmed and is ignored for loops.
+        """
+        return UntrimLoopTypes()
+    @property
+    def facesToUntrim(self):
+        """
+        Gets the face objects to untrim. Returns null/None in the case where loops are specified instead of faces.
+        """
+        return BRepFace()
+    @property
+    def loopsToUntrim(self):
+        """
+        Gets the loop objects to untrim. Returns null/None in the case where faces are specified instead of loops
+        """
+        return BRepLoop()
+    @property
+    def extensionDistance(self):
+        """
+        Gets and sets the ValueInput object that defines the extension distance applied to faces when an external boundary is removed.
+        """
+        return core.ValueInput()
+    @extensionDistance.setter
+    def extensionDistance(self, extensionDistance):
+        """
+        Gets and sets the ValueInput object that defines the extension distance applied to faces when an external boundary is removed.
+        """
+        pass
+
+class UntrimFeatures(core.Base):
+    """
+    Collection that provides access to all of the existing Untrim features in a component and supports the ability to create new Untrim features.
+    """
+    def __init__(self):
+        pass
+    @staticmethod
+    def cast(arg):
+        return UntrimFeatures()
+    def item(self, index):
+        """
+        Function that returns the specified Untrim feature using an index into the collection.
+
+        index : The index of the item within the collection to return. The first item in the collection has an index of 0.
+
+        Returns the specified item or null if an invalid index was specified.
+        """
+        return UntrimFeature()
+    def createInputFromFaces(self, faces, untrimLoopType, extensionDistance):
+        """
+        Creates a UntrimFeatureInput object that defines the input needed to create a untrim feature. Use the input object to define the input to create the desired feature and then use the Add method, passing in the UntrimFeatureInput object.
+
+        faces : An array of BRepFace objects that will have the loops of the specified type removed. Only loops that do not have a connected face can be removed (the edges in the loop have a single face). The array can only contain faces from surface bodies, (the isSolid property of the BRepBody returns false).
+        untrimLoopType : The loop type to be untrimmed (AllLoopUntrimType, InternalLoopUntrimType, or ExternalLoopUntrimType).
+        extensionDistance : If the untrim loop type is AllLoopUntrimType or ExternalLoopUntrimType the untrimmed faces can be extended by a specified distance.
+
+        Returns the newly created UntrimFeatureInput object or null if the creation failed.
+        """
+        return UntrimFeatureInput()
+    def createInputFromLoops(self, loops, extensionDistance):
+        """
+        Creates a UntrimFeatureInput object that defines the input needed to create a untrim feature. Use the input object to define the input to create the desired feature and then use the Add method, passing in the UntrimFeatureInput object.
+
+        loops : Input the entities that define loops to remove. Only loops that do not have a connected face can be removed (the edges in the loop have a single face) The array can only contain loops from surface bodies, (the isSolid property of the BRepBody returns false).
+        extensionDistance : If an external boundary is removed the the untrimed face can be extended by a specified distance.
+
+        Returns the newly created UntrimFeatureInput object or null if the creation failed.
+        """
+        return UntrimFeatureInput()
+    def add(self, input):
+        """
+        Creates a new Untrim feature.
+
+        input : An UntrimFeatureInput object that defines the desired Untrim feature. Use the createInput method to create a new UntrimFeatureInput object and then use methods on it (the UntrimFeatureInput object) to define the desired options for the Untrim feature.
+
+        Returns the newly created UntrimFeature object or null if the creation failed.
+        """
+        return UntrimFeature()
+    def itemByName(self, name):
+        """
+        Function that returns the specified Untrim feature using the name of the feature.
+
+        name : The name of the feature within the collection to return. This is the name seen in the timeline.
+
+        Returns the specified item or null if the specified name was not found.
+        """
+        return UntrimFeature()
+    @property
+    def count(self):
+        """
+        The number of Untrim features in the collection.
+        """
+        return int()
+
+class UntrimLoopTypes():
+    """
+    List of Untrim Loop Types.
+    """
+    def __init__(self):
+        pass
+    AllLoopsUntrimType = 0
+    ExternalLoopsUntrimType = 1
+    InternalLoopsUntrimType = 2
+    ManualLoopsUntrimType = 3
+
 class UserParameters(core.Base):
     """
     Provides access to the User Parameters within a design and provides methods to create new user parameters.
@@ -17276,7 +18037,7 @@ class UserParameters(core.Base):
         Adds a new user parameter to the collection.
 
         name : The name of the parameter. This is the name shown in the parameters dialog
-        value : ValueInput object that specifies the offset distance. If the ValueInput was created using a real, the value will be interpreted using the internal unit for the unit type specified by the 'units' argument. For example, if the ValueInput was created using the real value 5 and the input to a 'units' argument is any valid length unit the value will be interpreted at 5 centimeters. If the 'units' argument is a valid angle unit then the value will be interpreted as 5 radians. If the ValueInput was created using a string, the string is used as-is for the expression of the parameter. This means it must evaluate to the same unit type as that specified by the 'units' argument and if no type is specified it will use the current default units specified for the current document. For example, if the ValueInput was created with the string '5 in', then the 'units' argument must define any valid length so they are compatible. If the 'units' argument is 'cm' a parameter with the unit type of centimeter will be created and it will have the expression '5 in'. When using a ValueInput created using a string, it's the same as creating a ValueInput in the user-interface. You can specify any valid expression, i.e. '5', '5 in', '5 in / 2', '5 + Length', etc. and you can choose from many different types of units. The only requirement is that the units must match in type. For example, they must both be lengths, or they must both be angles, etc.
+        value : ValueInput object that specifies the value of the parameter. If the ValueInput was created using a real, the value will be interpreted using the internal unit for the unit type specified by the 'units' argument. For example, if the ValueInput was created using the real value 5 and the input to the 'units' argument is any valid length unit, the value will be interpreted as 5 centimeters since centimeters is the internal unit for lengths. If the 'units' argument is a valid angle unit the value will be interpreted as 5 radians. If the ValueInput was created using a string, the string is used as-is for the expression of the parameter. This means if there are units as part of the string it must evaluate to the same unit type as that specified by the 'units' argument and if no units are specified it will use the current default units specified for the current document. For example, if the ValueInput was created with the string '5 in', then the 'units' argument must define any valid length so they are compatible. If the ValueInput was created with the string '5', any unit type can be used and the result will be 5 of that unit. When using a ValueInput created using a string, it's the same as creating a parameter in the user-interface. You can specify any valid expression, i.e. '5', '5 in', '5 in / 2', '5 + Length', etc. and you can choose from many different types of units. The only requirement is that the units must match in type. For example, they must both be lengths, or they must both be angles.
         units : The units to use for the value of the parameter. Units specified must match the units specified (if any) in the ValueInput object. To create a parameter with no units you can specify either an empty string.
         comment : The comment to display in the parameters dialog. Specify an empty string ('') for no comment
 
@@ -17360,6 +18121,64 @@ class AllExtentDefinition(ExtentDefinition):
     def direction(self, direction):
         """
         Gets and sets the direction of the extent.
+        """
+        pass
+
+class AlongPathTextDefinition(SketchTextDefinition):
+    """
+    Defines the information for text that follows along a path.
+    """
+    def __init__(self):
+        pass
+    @staticmethod
+    def cast(arg):
+        return AlongPathTextDefinition()
+    @property
+    def path(self):
+        """
+        Get and sets the entity that defines the path for the text. This can be a SketchCurve or BRepEdge object.
+        """
+        return core.Base()
+    @path.setter
+    def path(self, path):
+        """
+        Get and sets the entity that defines the path for the text. This can be a SketchCurve or BRepEdge object.
+        """
+        pass
+    @property
+    def isAbovePath(self):
+        """
+        Gets and sets if the text should be positioned above or below the path entity.
+        """
+        return bool()
+    @isAbovePath.setter
+    def isAbovePath(self, isAbovePath):
+        """
+        Gets and sets if the text should be positioned above or below the path entity.
+        """
+        pass
+    @property
+    def horizontalAlignment(self):
+        """
+        Gets and sets the horizontal alignment of the text with respect to the path curve.
+        """
+        return core.HorizontalAlignments()
+    @horizontalAlignment.setter
+    def horizontalAlignment(self, horizontalAlignment):
+        """
+        Gets and sets the horizontal alignment of the text with respect to the path curve.
+        """
+        pass
+    @property
+    def characterSpacing(self):
+        """
+        Gets and sets The percentage change in default spacing between characters.
+        """
+        return float()
+    @characterSpacing.setter
+    def characterSpacing(self, characterSpacing):
+        """
+        Gets and sets The percentage change in default spacing between characters.
         """
         pass
 
@@ -17566,6 +18385,25 @@ class BaseFeature(Feature):
         Returns true if successful.
         """
         return bool()
+    def updateBody(self, sourceBody, newBody):
+        """
+        Update an existing source BRepBody created by this BaseFeature. The input BRepBody definition will be copied into the existing BRepBody.
+
+        sourceBody : The source BRepBody to update. The source bodies of a BaseFeature are only available from the bodies collection of the BaseFeature when the BaseFeature is in edit mode.
+        newBody : The BRepBody whose definition will be used to replace the existing source body's definition.
+
+        Returns true if the body was updated, or false if the update failed.
+        """
+        return bool()
+    def createForAssemblyContext(self, occurrence):
+        """
+        Creates or returns a proxy for the native object - i.e. a new object that represents this object but adds the assembly context defined by the input occurrence.
+
+        occurrence : The occurrence that defines the context to create the proxy in.
+
+        Returns the proxy object or null if this is not the NativeObject.
+        """
+        return BaseFeature()
     @property
     def constructionPlanes(self):
         """
@@ -17596,6 +18434,12 @@ class BaseFeature(Feature):
         Returns an array of the mesh bodies associated with this base feature.
         """
         return MeshBody()
+    @property
+    def nativeObject(self):
+        """
+        The NativeObject is the object outside the context of an assembly and in the context of it's parent component. Returns null in the case where this object is not in the context of an assembly but is already the native object.
+        """
+        return BaseFeature()
 
 class BoundaryFillFeature(Feature):
     """
@@ -17719,13 +18563,13 @@ class ChamferFeature(Feature):
     @property
     def edges(self):
         """
-        Gets and sets the edges being chamfered. In order to access (get) the input edges of a chamfer, you must roll the timeline back to just before the chamfer feature whose edges you want to access. When setting the edges, if the IsTangentChain property is true then all edges that are tangent to the input edges will be include in the chamfer. This property returns nothing in the case where the feature is non-parametric.
+        Gets and sets the edges being chamfered. Specific edges can be defined using one or more BRepEdge objects or BRepFace objects can be used to chamfer all edges of the face or Feature objects can be used to chamfer all edges associated with the input features. If BRepEdge objects are provided and the isTangentChain argument is true additional edges may also get chamfered if they are tangentially connected to any of the input edges. When getting the property, your code should check for the different types in the returned collection and handle it appropriately. In order to access (get) the input entities of the chamfer, you must roll the timeline back to just before the chamfer feature whose inputs you want to access. This property returns nothing in the case where the feature is non-parametric.
         """
         return core.ObjectCollection()
     @edges.setter
     def edges(self, edges):
         """
-        Gets and sets the edges being chamfered. In order to access (get) the input edges of a chamfer, you must roll the timeline back to just before the chamfer feature whose edges you want to access. When setting the edges, if the IsTangentChain property is true then all edges that are tangent to the input edges will be include in the chamfer. This property returns nothing in the case where the feature is non-parametric.
+        Gets and sets the edges being chamfered. Specific edges can be defined using one or more BRepEdge objects or BRepFace objects can be used to chamfer all edges of the face or Feature objects can be used to chamfer all edges associated with the input features. If BRepEdge objects are provided and the isTangentChain argument is true additional edges may also get chamfered if they are tangentially connected to any of the input edges. When getting the property, your code should check for the different types in the returned collection and handle it appropriately. In order to access (get) the input entities of the chamfer, you must roll the timeline back to just before the chamfer feature whose inputs you want to access. This property returns nothing in the case where the feature is non-parametric.
         """
         pass
     @property
@@ -17758,6 +18602,24 @@ class ChamferFeature(Feature):
         The NativeObject is the object outside the context of an assembly and in the context of it's parent component. Returns null in the case where this object is not in the context of an assembly but is already the native object.
         """
         return ChamferFeature()
+    @property
+    def cornerType(self):
+        """
+        Gets and sets the type of corner to be modeled when multiple edges connect at a vertex.
+        """
+        return ChamferCornerTypes()
+    @cornerType.setter
+    def cornerType(self, cornerType):
+        """
+        Gets and sets the type of corner to be modeled when multiple edges connect at a vertex.
+        """
+        pass
+    @property
+    def edgeSets(self):
+        """
+        Returns the edge sets associated with this chamfer.
+        """
+        return ChamferEdgeSets()
 
 class ChordLengthFilletEdgeSet(FilletEdgeSet):
     """
@@ -18395,7 +19257,13 @@ class Component(BaseComponent):
     @property
     def entityToken(self):
         """
-        Returns a token for the Component object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same component.
+        Returns a token for the Component object. This can be saved and used at a later time with the Design.findEntityByToken method to get back the same component. When using entity tokens it's important to understand that the token string returned for a specific entity can be different over time. However, even if you have two different token strings that were obtained from the same entity, when you use findEntityByToken they will both return the same entity. Because of that you should never compare entity tokens as way to determine what the token represents. Instead, you need to use the findEntityByToken method to get the two entities identified by the tokens and then compare them.
+        """
+        return str()
+    @property
+    def id(self):
+        """
+        Returns the persistent ID of the component. This ID is created with the component and does not change. Because this ID does not change, different revisions of the same design or copies of the design asset/file will retain this ID. If components from different designs have the same ID, it indicates they are either different revisions or a copiy of the design was made. Therefore, this ID will always be unique within a single design, but may not be unique in an assembly where externally referenced designs include different revisions or copies of a design. The ID is also the same ID used by PIM (Product Information Model).
         """
         return str()
 
@@ -18888,7 +19756,7 @@ class ConstructionPlaneTangentDefinition(ConstructionPlaneDefinition):
 
 class ConstructionPlaneThreePointsDefinition(ConstructionPlaneDefinition):
     """
-    ConstructionPlaneThreePointDefinition defines a ConstructionPlane by 3 point entities (e.g. (sketch points, vectrices or construction points) that form a triangle (i.e. no two points the same and they aren't collinear).
+    ConstructionPlaneThreePointDefinition defines a ConstructionPlane by 3 point entities (e.g. (sketch points, vertices or construction points) that form a triangle (i.e. no two points the same and they aren't collinear).
     """
     def __init__(self):
         pass
@@ -19117,6 +19985,79 @@ class CopyPasteBody(Feature):
         Returns the bodies that were copied to create the result bodies of this feature. An ObjectCollection is returned that will contain the original bodies. It's possible that the collection can be empty or contain less than the number of bodies originally copied. This happens in the case where a body has been deleted or consumed by some other operation. If you roll the timeline to a point immediately before or after the feature was created you can access the bodies.
         """
         return core.ObjectCollection()
+
+class CustomFeature(Feature):
+    """
+    Object that represents an existing CustomFeature feature in a design.
+    """
+    def __init__(self):
+        pass
+    @staticmethod
+    def cast(arg):
+        return CustomFeature()
+    def createForAssemblyContext(self, occurrence):
+        """
+        Creates or returns a proxy for the native object - i.e. a new object that represents this object but adds the assembly context defined by the input occurrence.
+
+        occurrence : The occurrence that defines the context to create the proxy in.
+
+        Returns the proxy object or null if this is not the NativeObject.
+        """
+        return CustomFeature()
+    @property
+    def definition(self):
+        """
+        Gets the CustomFeatureDefinition object associated with this custom feature. null/None is returned in the case where definition does not exist, which is typically a result of the owning add-in not being loaded.
+        """
+        return CustomFeatureDefinition()
+    @property
+    def dependencies(self):
+        """
+        Returns the collection of dependencies for this custom feature. You can use the collection to query, add, and remove dependencies.
+        """
+        return CustomFeatureDependencies()
+    @property
+    def parameters(self):
+        """
+        Returns the list of parameters associated with this custom feature.
+        """
+        return CustomFeatureParameters()
+    @property
+    def startFeature(self):
+        """
+        Gets and sets the first feature owned by this custom feature.
+        """
+        return core.Base()
+    @startFeature.setter
+    def startFeature(self, startFeature):
+        """
+        Gets and sets the first feature owned by this custom feature.
+        """
+        pass
+    @property
+    def endFeature(self):
+        """
+        Gets and sets the last feature owned by this custom feature.
+        """
+        return core.Base()
+    @endFeature.setter
+    def endFeature(self, endFeature):
+        """
+        Gets and sets the last feature owned by this custom feature.
+        """
+        pass
+    @property
+    def features(self):
+        """
+        Gets the list of features owned by this custom feature.
+        """
+        return core.Base()
+    @property
+    def nativeObject(self):
+        """
+        The NativeObject is the object outside the context of an assembly and in the context of it's parent component. Returns null in the case where this object is not in the context of an assembly but is already the native object.
+        """
+        return CustomFeature()
 
 class CustomGraphicsAppearanceColorEffect(CustomGraphicsColorEffect):
     """
@@ -19659,10 +20600,10 @@ class CustomGraphicsShowThroughColorEffect(CustomGraphicsColorEffect):
     @staticmethod
     def create(self, color, opacity):
         """
-        Creates a new CustomGraphicsShowThroughColorEffect object that can be assigned it to a custom graphics entity using its showThrough property.
+        Creates a new CustomGraphicsShowThroughColorEffect object that can be assigned to a custom graphics entity using its showThrough property.
 
-        color : The color that will be used to render the portion of the entity that is covered by other objects in the scene.
-        opacity : The level of opacity that will be applied when rendering the portion of the entity that is covered by other objects in the scene. This can be a value between 0 and 1, where 1 is fully opaque and will completely cover any other entities.
+        color : The color that will be used to render the custom graphics object.
+        opacity : The level of opacity that will be applied when rendering the the custom graphics object. A value of 0 is fully translucent and will have the effect of the object being completely covered by objects in front of it. A value of 1 is fully opaque which will have the effect of the object completely covering all objects. Values in between will make objects in front of the graphics object appear translucent to varying degrees so you can see the custom graphics object through it.
 
         Returns the newly created CustomGraphicsShowThroughColorEffect object or null in the case of failure. This can be assigned to a custom graphics entity using its showThrough property.
         """
@@ -19987,6 +20928,52 @@ class DeleteFaceFeature(Feature):
         """
         return DeleteFaceFeature()
 
+class DistanceAndAngleChamferEdgeSet(ChamferEdgeSet):
+    """
+    Provides access to the edges and the parameter associated with a chord length fillet.
+    """
+    def __init__(self):
+        pass
+    @staticmethod
+    def cast(arg):
+        return DistanceAndAngleChamferEdgeSet()
+    @property
+    def edges(self):
+        """
+        Gets and sets the edges that will be chamfered. This collection can contain BRepEdge, BRepFace, and Feature objects. If BRepFace or Feature are objects are provided, all of the edges associated with those objects will be chamfered. In order to access (get) the input edges of a chamfer, you must roll the timeline back to just before the chamfer feature whose edges you want to access.
+        """
+        return core.ObjectCollection()
+    @edges.setter
+    def edges(self, edges):
+        """
+        Gets and sets the edges that will be chamfered. This collection can contain BRepEdge, BRepFace, and Feature objects. If BRepFace or Feature are objects are provided, all of the edges associated with those objects will be chamfered. In order to access (get) the input edges of a chamfer, you must roll the timeline back to just before the chamfer feature whose edges you want to access.
+        """
+        pass
+    @property
+    def distance(self):
+        """
+        Returns the model parameter that controls the offset distance of the chamfer. You can edit the distance by using the properties on the returned ModelParameter object.
+        """
+        return ModelParameter()
+    @property
+    def angle(self):
+        """
+        Returns the model parameter that controls the angle of the chamfer. You can edit the distance by using the properties on the returned ModelParameter object.
+        """
+        return ModelParameter()
+    @property
+    def isFlipped(self):
+        """
+        Gets and sets if the chamfer is flipped. This swaps the directions for distance one and two.
+        """
+        return bool()
+    @isFlipped.setter
+    def isFlipped(self, isFlipped):
+        """
+        Gets and sets if the chamfer is flipped. This swaps the directions for distance one and two.
+        """
+        pass
+
 class DistanceAndAngleChamferTypeDefinition(ChamferTypeDefinition):
     """
     Provides information to create a chamfer that is defined by a distance from the edge and an angle.
@@ -20182,6 +21169,34 @@ class EqualConstraint(GeometricConstraint):
         The NativeObject is the object outside the context of an assembly and in the context of it's parent component. Returns null in the case where this object is not in the context of an assembly but is already the native object.
         """
         return EqualConstraint()
+
+class EqualDistanceChamferEdgeSet(ChamferEdgeSet):
+    """
+    Provides access to the edges and the parameter associated with a equal distance offset chamfer.
+    """
+    def __init__(self):
+        pass
+    @staticmethod
+    def cast(arg):
+        return EqualDistanceChamferEdgeSet()
+    @property
+    def edges(self):
+        """
+        Gets and sets the edges that will be chamfered. This collection can contain BRepEdge, BRepFace, and Feature objects. If BRepFace or Feature are objects are provided, all of the edges associated with those objects will be chamfered. In order to access (get) the input edges of a chamfer, you must roll the timeline back to just before the chamfer feature whose edges you want to access.
+        """
+        return core.ObjectCollection()
+    @edges.setter
+    def edges(self, edges):
+        """
+        Gets and sets the edges that will be chamfered. This collection can contain BRepEdge, BRepFace, and Feature objects. If BRepFace or Feature are objects are provided, all of the edges associated with those objects will be chamfered. In order to access (get) the input edges of a chamfer, you must roll the timeline back to just before the chamfer feature whose edges you want to access.
+        """
+        pass
+    @property
+    def distance(self):
+        """
+        Returns the model parameter that controls the offset distance of the chamfer. You can edit the distance by using the properties on the returned ModelParameter object.
+        """
+        return ModelParameter()
 
 class EqualDistanceChamferTypeDefinition(ChamferTypeDefinition):
     """
@@ -20520,7 +21535,7 @@ class ExtrudeFeature(Feature):
     @property
     def symmetricExtent(self):
         """
-        If the current extent of the feautre is defined as a symmetric extent, this property returns the SymmericExtentDefinition object that provides access to the information defining the symmetric extent. If the current extent is not symmetric, this property returns null. You can determine the type of extent by using the extentType property. To change the extent of a feature to symmetric extent you can use the setSymmetricExtent method.
+        If the current extent of the feature is defined as a symmetric extent, this property returns the SymmericExtentDefinition object that provides access to the information defining the symmetric extent. If the current extent is not symmetric, this property returns null. You can determine the type of extent by using the extentType property. To change the extent of a feature to symmetric extent you can use the setSymmetricExtent method.
         """
         return SymmetricExtentDefinition()
 
@@ -20590,6 +21605,40 @@ class FilletFeature(Feature):
         The NativeObject is the object outside the context of an assembly and in the context of its parent component. Returns null in the case where this object is not in the context of an assembly but is already the native object.
         """
         return FilletFeature()
+
+class FitOnPathTextDefintion(SketchTextDefinition):
+    """
+    Defines the information for text that fits along a path.
+    """
+    def __init__(self):
+        pass
+    @staticmethod
+    def cast(arg):
+        return FitOnPathTextDefintion()
+    @property
+    def path(self):
+        """
+        Get and sets the entity that defines the path for the text. This can be a SketchCurve or BRepEdge object.
+        """
+        return core.Base()
+    @path.setter
+    def path(self, path):
+        """
+        Get and sets the entity that defines the path for the text. This can be a SketchCurve or BRepEdge object.
+        """
+        pass
+    @property
+    def isAbovePath(self):
+        """
+        Gets and sets if the text should be positioned above or below the path entity.
+        """
+        return bool()
+    @isAbovePath.setter
+    def isAbovePath(self, isAbovePath):
+        """
+        Gets and sets if the text should be positioned above or below the path entity.
+        """
+        pass
 
 class FlangeFeature(Feature):
     """
@@ -21362,13 +22411,13 @@ class MoveFeature(Feature):
     @property
     def inputEntities(self):
         """
-        Gets and sets the entities to move. This collection can only contain BRepBody objects in parametric modeling.
+        Gets and sets the entities to move. This is done by using an ObjectCollection containing the objects to move. For a parametric model, the collection can contain BRepBody or BRepFace objects but not a combination of both.
         """
         return core.ObjectCollection()
     @inputEntities.setter
     def inputEntities(self, inputEntities):
         """
-        Gets and sets the entities to move. This collection can only contain BRepBody objects in parametric modeling.
+        Gets and sets the entities to move. This is done by using an ObjectCollection containing the objects to move. For a parametric model, the collection can contain BRepBody or BRepFace objects but not a combination of both.
         """
         pass
     @property
@@ -21389,6 +22438,66 @@ class MoveFeature(Feature):
         The NativeObject is the object outside the context of an assembly and in the context of it's parent component. Returns null in the case where this object is not in the context of an assembly but is already the native object.
         """
         return MoveFeature()
+
+class MultiLineTextDefinition(SketchTextDefinition):
+    """
+    Defines the information for multi-line text.
+    """
+    def __init__(self):
+        pass
+    @staticmethod
+    def cast(arg):
+        return MultiLineTextDefinition()
+    def rotate(self, angle, keyPoint):
+        """
+        Rotates the text box.
+
+        angle : The angle to rotate the text, specified in radians.
+        keyPoint : The key point the rotation is defined around. This is optional and defaults the center of the text box.
+        """
+        return bool()
+    @property
+    def rectangleLines(self):
+        """
+        Returns the four sketch lines that define the boundary of the sketch text. By adding constraints to these lines you can associatively control the size, position and angle of the sketch text. If the MultiLineTextDefinition object is obtained from a SketchTextInput object, this property will return null because the text and it's associated lines have not been created yet.
+        """
+        return SketchLineList()
+    @property
+    def horizontalAlignment(self):
+        """
+        Gets and sets the horizontal alignment of the text with respect to the text rectangle.
+        """
+        return core.HorizontalAlignments()
+    @horizontalAlignment.setter
+    def horizontalAlignment(self, horizontalAlignment):
+        """
+        Gets and sets the horizontal alignment of the text with respect to the text rectangle.
+        """
+        pass
+    @property
+    def verticalAlignment(self):
+        """
+        Gets and sets the vertical alignment of the text with respect to the text rectangle.
+        """
+        return core.VerticalAlignments()
+    @verticalAlignment.setter
+    def verticalAlignment(self, verticalAlignment):
+        """
+        Gets and sets the vertical alignment of the text with respect to the text rectangle.
+        """
+        pass
+    @property
+    def characterSpacing(self):
+        """
+        Gets and sets The percentage change in default spacing between characters.
+        """
+        return float()
+    @characterSpacing.setter
+    def characterSpacing(self, characterSpacing):
+        """
+        Gets and sets The percentage change in default spacing between characters.
+        """
+        pass
 
 class OffsetConstraint(GeometricConstraint):
     """
@@ -22802,13 +23911,13 @@ class RuledSurfaceFeature(Feature):
     @property
     def profile(self):
         """
-        Gets or sets the profile or path used to define the curves used to create the ruled surface. In many cases the RuledSurface operation results in the profile being consumed so they're no longer available after the feature is created. in this case you need to reposition the timeline marker to just before this feature when the profile do exist.
+        Gets and sets the Profile object that defines the sketch geometry or edges that define the shape of the ruled surface. The Component.createBRepEdgeProfile method is useful to create a profile defined from edges. In many cases the RuledSurface operation results in the profile being consumed so it is no longer available after the feature is created. In this case, you need to reposition the timeline marker to just before this feature, when the profile still exists.
         """
         return core.Base()
     @profile.setter
     def profile(self, profile):
         """
-        Gets or sets the profile or path used to define the curves used to create the ruled surface. In many cases the RuledSurface operation results in the profile being consumed so they're no longer available after the feature is created. in this case you need to reposition the timeline marker to just before this feature when the profile do exist.
+        Gets and sets the Profile object that defines the sketch geometry or edges that define the shape of the ruled surface. The Component.createBRepEdgeProfile method is useful to create a profile defined from edges. In many cases the RuledSurface operation results in the profile being consumed so it is no longer available after the feature is created. In this case, you need to reposition the timeline marker to just before this feature, when the profile still exists.
         """
         pass
     @property
@@ -22826,37 +23935,37 @@ class RuledSurfaceFeature(Feature):
     @property
     def ruledSurfaceType(self):
         """
-        Gets and sets surface Ruled Surface type to use
+        Gets and sets the type of ruled surface. To set this to DirectionRuledSurfaceType, use the direction property to set the direction entity, which will automatically set this to DirectionRuledSurfaceType.
         """
         return RuledSurfaceTypes()
     @ruledSurfaceType.setter
     def ruledSurfaceType(self, ruledSurfaceType):
         """
-        Gets and sets surface Ruled Surface type to use
+        Gets and sets the type of ruled surface. To set this to DirectionRuledSurfaceType, use the direction property to set the direction entity, which will automatically set this to DirectionRuledSurfaceType.
         """
         pass
     @property
     def direction(self):
         """
-        Returns the object used to set the direction (used when type is set to direction)
+        Gets and sets the entity that defines the direction when the ruled surface type is DirectionRuledSurfaceType. The direction is specified by providing a linear or planar entity. For example, a linear edge, construction axis, planar face, or construction plane can be used as input. If this property is set when the ruledSurfaceType is not DirectionRuledSurfaceType, the type will automatically be changed to DirectionRuledSurfaceType. If you get this property when the direction is not DirectionRuledSurfaceType, it will return null.
         """
         return core.Base()
     @direction.setter
     def direction(self, direction):
         """
-        Returns the object used to set the direction (used when type is set to direction)
+        Gets and sets the entity that defines the direction when the ruled surface type is DirectionRuledSurfaceType. The direction is specified by providing a linear or planar entity. For example, a linear edge, construction axis, planar face, or construction plane can be used as input. If this property is set when the ruledSurfaceType is not DirectionRuledSurfaceType, the type will automatically be changed to DirectionRuledSurfaceType. If you get this property when the direction is not DirectionRuledSurfaceType, it will return null.
         """
         pass
     @property
     def alternateFace(self):
         """
-        Gets if alternate faces are selected
+        Gets and sets if the other face is used for creation of the Ruled Surface. When creating a ruled surface using the edges of a solid or the interior edges of a surface the angle of the ruled surface is measured with respect to the face the selected edge is bounding. For a solid, or an interior edge on a surface, the edge connects to two faces. This setting toggles which of the two faces will be used for measuring the angle.
         """
         return bool()
     @alternateFace.setter
     def alternateFace(self, alternateFace):
         """
-        Gets if alternate faces are selected
+        Gets and sets if the other face is used for creation of the Ruled Surface. When creating a ruled surface using the edges of a solid or the interior edges of a surface the angle of the ruled surface is measured with respect to the face the selected edge is bounding. For a solid, or an interior edge on a surface, the edge connects to two faces. This setting toggles which of the two faces will be used for measuring the angle.
         """
         pass
     @property
@@ -23613,6 +24722,28 @@ class SketchText(SketchEntity):
         Returns an array of transient curves that represent the outline of the text.
         """
         return core.Curve3D()
+    def redefineAsFitOnPath(self, path, isAbovePath):
+        """
+        Sets this SketchTextInput to define text that fits along a specified path. Fitting on a path will space the characters so the text fits along the entire length of the path entity.
+
+        path : The entity that defines the path for the text. This can be a SketchCurve or BRepEdge object.
+        isAbovePath : Indicates if the text should be positioned above or below the path entity.
+
+        Returns true if the setting the definition was successful.
+        """
+        return bool()
+    def redefineAsAlongPath(self, path, isAbovePath, horizontalAlignment, characterSpacing):
+        """
+        Sets this SketchTextInput to define text that follows along a specified path.
+
+        path : The entity that defines the path for the text. This can be a SketchCurve or BRepEdge object.
+        isAbovePath : Indicates if the text should be positioned above or below the path entity.
+        horizontalAlignment : Specifies the horizontal alignment of the text with respect to the path curve.
+        characterSpacing : The percentage change in default spacing between characters.
+
+        Returns true if the setting the definition was successful.
+        """
+        return bool()
     @property
     def height(self):
         """
@@ -23691,6 +24822,36 @@ class SketchText(SketchEntity):
         Returns the four sketch lines that define the boundary of the sketch text. By adding constraints to these lines you can associatively control the size, position and angle of the sketch text.
         """
         return SketchLineList()
+    @property
+    def isHorizontalFlip(self):
+        """
+        Gets and sets if the text is flipped horizontally.
+        """
+        return bool()
+    @isHorizontalFlip.setter
+    def isHorizontalFlip(self, isHorizontalFlip):
+        """
+        Gets and sets if the text is flipped horizontally.
+        """
+        pass
+    @property
+    def isVerticalFlip(self):
+        """
+        Gets and sets if the text is flipped vertically.
+        """
+        return bool()
+    @isVerticalFlip.setter
+    def isVerticalFlip(self, isVerticalFlip):
+        """
+        Gets and sets if the text is flipped vertically.
+        """
+        pass
+    @property
+    def definition(self):
+        """
+        Gets the definition that is currently used to specify how the sketch text is defined.
+        """
+        return SketchTextDefinition()
 
 class SliderJointMotion(JointMotion):
     """
@@ -24372,6 +25533,18 @@ class SweepFeature(Feature):
         Gets the ModelParameter that defines the twist angle of the sweep feature. The value of the angle can be edited by using the properties on the ModelParameter object to edit the parameter.
         """
         return ModelParameter()
+    @property
+    def extent(self):
+        """
+        Gets and sets the sweep extent type. It defaults to PerpendicularToPathExtentType. This property is ignored when a guide rail has not been specified.
+        """
+        return SweepExtentTypes()
+    @extent.setter
+    def extent(self, extent):
+        """
+        Gets and sets the sweep extent type. It defaults to PerpendicularToPathExtentType. This property is ignored when a guide rail has not been specified.
+        """
+        pass
 
 class SymmetricExtentDefinition(ExtentDefinition):
     """
@@ -24925,6 +26098,52 @@ class TrimFeature(Feature):
         """
         return TrimFeature()
 
+class TwoDistancesChamferEdgeSet(ChamferEdgeSet):
+    """
+    Provides access to the edges and the parameters associated with a two distances chamfer.
+    """
+    def __init__(self):
+        pass
+    @staticmethod
+    def cast(arg):
+        return TwoDistancesChamferEdgeSet()
+    @property
+    def edges(self):
+        """
+        Gets and sets the edges that will be chamfered. This collection can contain BRepEdge, BRepFace, and Feature objects. If BRepFace or Feature are objects are provided, all of the edges associated with those objects will be chamfered. In order to access (get) the input edges of a chamfer, you must roll the timeline back to just before the chamfer feature whose edges you want to access.
+        """
+        return core.ObjectCollection()
+    @edges.setter
+    def edges(self, edges):
+        """
+        Gets and sets the edges that will be chamfered. This collection can contain BRepEdge, BRepFace, and Feature objects. If BRepFace or Feature are objects are provided, all of the edges associated with those objects will be chamfered. In order to access (get) the input edges of a chamfer, you must roll the timeline back to just before the chamfer feature whose edges you want to access.
+        """
+        pass
+    @property
+    def distanceOne(self):
+        """
+        Returns the model parameter that controls the first offset distance of the chamfer. You can edit the distance by using the properties on the returned ModelParameter object.
+        """
+        return ModelParameter()
+    @property
+    def distanceTwo(self):
+        """
+        Returns the model parameter that controls the first offset distance of the chamfer. You can edit the distance by using the properties on the returned ModelParameter object.
+        """
+        return ModelParameter()
+    @property
+    def isFlipped(self):
+        """
+        Gets and sets if the chamfer is flipped. This swaps the directions for distance one and two.
+        """
+        return bool()
+    @isFlipped.setter
+    def isFlipped(self, isFlipped):
+        """
+        Gets and sets if the chamfer is flipped. This swaps the directions for distance one and two.
+        """
+        pass
+
 class TwoDistancesChamferTypeDefinition(ChamferTypeDefinition):
     """
     Provides information to create a chamfer that is defined by a two distances from the edge.
@@ -25093,6 +26312,74 @@ class UnstitchFeature(Feature):
         The NativeObject is the object outside the context of an assembly and in the context of it's parent component. Returns null in the case where this object is not in the context of an assembly but is already the native object.
         """
         return UnstitchFeature()
+
+class UntrimFeature(Feature):
+    """
+    Object that represents an existing Untrim feature in a design.
+    """
+    def __init__(self):
+        pass
+    @staticmethod
+    def cast(arg):
+        return UntrimFeature()
+    def redefineLoopsFromFaces(self, faces, untrimLoopType):
+        """
+        Set the loops to be removed from a set of faces.
+
+        faces : An array of BRepFace objects that will have the loops of the specified types removed. Only loops that do not have a connected face can be removed (the edges in the loop have a single face). The array can only contain faces from surface bodies, (the isSolid property of the BRepBody returns false).
+        untrimLoopType : The loop type to be untrimmed (AllLoopUntrimType, InternalLoopUntrimType, or ExternalLoopUntrimType).
+
+        Returns whether the operation was successful
+        """
+        return bool()
+    def redefineLoops(self, loops):
+        """
+        Set the loops to be removed.
+
+        loops : Input the entities that define loops to remove. Only loops that do not have a connected face can be removed (the edges in the loop have a single face) The array can only contain loops from surface bodies, (the isSolid property of the BRepBody returns false).
+
+        Returns whether the operation was successful
+        """
+        return bool()
+    def createForAssemblyContext(self, occurrence):
+        """
+        Creates or returns a proxy for the native object - i.e. a new object that represents this object but adds the assembly context defined by the input occurrence.
+
+        occurrence : The occurrence that defines the context to create the proxy in.
+
+        Returns the proxy object or null if this is not the NativeObject.
+        """
+        return UntrimFeature()
+    @property
+    def untrimLoopType(self):
+        """
+        Gets the loop type that was untrimmed. To change the trim type, use one of the redefine methods.
+        """
+        return UntrimLoopTypes()
+    @property
+    def facesToUntrim(self):
+        """
+        Gets the face objects to untrim. Returns null/None in the case where loops are specified instead of faces.
+        """
+        return BRepFace()
+    @property
+    def loopsToUntrim(self):
+        """
+        Gets the loop objects to untrim. Returns null/None in the case where faces are specified instead of loops
+        """
+        return BRepLoop()
+    @property
+    def extensionDistance(self):
+        """
+        Gets the ModelParameter that defines the extension distance used to extend external boundaries. This can return null in the case where only internal boundaries have been removed. The value can be edited by using the properties of the returned ModelParameter object.
+        """
+        return ModelParameter()
+    @property
+    def nativeObject(self):
+        """
+        The NativeObject is the object outside the context of an assembly and in the context of it's parent component. Returns null in the case where this object is not in the context of an assembly but is already the native object.
+        """
+        return UntrimFeature()
 
 class UserParameter(Parameter):
     """
@@ -25265,6 +26552,40 @@ class WebFeature(Feature):
     @staticmethod
     def cast(arg):
         return WebFeature()
+
+class CustomFeatureParameter(ModelParameter):
+    """
+    A custom parameter is a parameter that was created as the result of a custom feature being created. It is associated with the custom feature and it's lifetime is the same as the custom feature that owns it.
+    """
+    def __init__(self):
+        pass
+    @staticmethod
+    def cast(arg):
+        return CustomFeatureParameter()
+    @property
+    def id(self):
+        """
+        Returns the ID of this custom feature parameter.
+        """
+        return str()
+    @property
+    def isVisible(self):
+        """
+        Gets and sets if this parameter is visible in the parameters dialog.
+        """
+        return bool()
+    @isVisible.setter
+    def isVisible(self, isVisible):
+        """
+        Gets and sets if this parameter is visible in the parameters dialog.
+        """
+        pass
+    @property
+    def parentCustomFeature(self):
+        """
+        Returns the custom feature this parameter is associated with.
+        """
+        return CustomFeature()
 
 class SketchArc(SketchCurve):
     """
@@ -25758,6 +27079,15 @@ class SketchFixedSpline(SketchCurve):
         Returns the proxy object or null if this isn't the NativeObject.
         """
         return SketchFixedSpline()
+    def replaceGeometry(self, nurbsCurve):
+        """
+        Replaces the underlying NURBS curve that defines the shape of the fixed curve. This can only be used if the isNative property of the SketchFixedSpline returns false.
+
+        nurbsCurve : A NurbsCurve3D object that defines a valid NURBS curve and will be used to replace the existing geometry definition.
+
+        Returns true if the replacement was successful.
+        """
+        return bool()
     @property
     def startSketchPoint(self):
         """
@@ -25843,3 +27173,15 @@ class SketchLine(SketchCurve):
         The NativeObject is the object outside the context of an assembly and in the context of it's parent component. Returns null in the case where this object is not in the context of an assembly but is already the native object.
         """
         return SketchLine()
+    @property
+    def isCenterLine(self):
+        """
+        Gets and sets whether this curve is centerline geometry.
+        """
+        return bool()
+    @isCenterLine.setter
+    def isCenterLine(self, isCenterLine):
+        """
+        Gets and sets whether this curve is centerline geometry.
+        """
+        pass
