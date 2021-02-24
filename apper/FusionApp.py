@@ -137,15 +137,16 @@ class FusionApp:
         doc_event.fusion_app = self
         self.events.append(doc_event)
 
-    def add_custom_event(self, event_id: str, event_class: Any):
+    def add_custom_event(self, event_id: str, event_class: Any, auto_start: bool = True):
         """Register a custom event to respond to a function running in a new thread
 
         Args:
             event_id: A unique identifier for the event
             event_class: Your subclass of apper.Fusion360CustomThread
+            auto_start: Whether the thread should start when the addin starts
         """
 
-        custom_event = event_class(event_id)
+        custom_event = event_class(event_id, auto_start)
         custom_event.fusion_app = self
         self.events.append(custom_event)
 
