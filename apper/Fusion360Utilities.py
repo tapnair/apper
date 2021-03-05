@@ -237,14 +237,11 @@ class lib_import(ContextDecorator):
                 library_folder(:obj:`str`, optional): Library folder name (relative to app root). Defaults to 'lib'
             """
 
-    def __init__(self, app_path, library_folder='lib'):
+    def __init__(self, library_folder: str):
         super().__init__()
-        self.path = ''
-        self.app_path = app_path
-        self.library_folder = library_folder
+        self.path = library_folder
 
     def __enter__(self):
-        self.path = os.path.join(self.app_path, self.library_folder)
         sys.path.insert(0, self.path)
         return self
 
