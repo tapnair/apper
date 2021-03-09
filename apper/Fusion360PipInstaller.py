@@ -1,4 +1,3 @@
-import importlib
 import os
 import platform
 import subprocess
@@ -10,7 +9,7 @@ import adsk.core
 import adsk.fusion
 
 
-def installFromRequirements(lib_path: str) -> bool:
+def install_from_requirements(lib_path: str) -> bool:
     """Installs the dependencies listed in requirementes.txt
 
     **note**: for now only pulls plain text names
@@ -18,15 +17,15 @@ def installFromRequirements(lib_path: str) -> bool:
     Returns:
         bool: success
     """
-    getRequirements = __searchUpward(Path(__file__).parent, "/requirements.txt")
-    reqs = __getDepList(getRequirements)
+    get_requirements = _search_upward(Path(__file__).parent, "/requirements.txt")
+    reqs = _requirements_list(get_requirements)
     if len(reqs) > 0:
-        return _run_installer(__getDepList(getRequirements), lib_path)
+        return _run_installer(_requirements_list(get_requirements), lib_path)
     else:
         return True
 
 
-def installFromList(reqs: list, lib_path: str) -> bool:
+def install_from_list(reqs: list, lib_path: str) -> bool:
     """Installs all requirements listed in argument
 
     Args:
@@ -38,7 +37,7 @@ def installFromList(reqs: list, lib_path: str) -> bool:
     return _run_installer(reqs, lib_path)
 
 
-def unloadLibs(lib_path: str):
+def remove_from_path(lib_path: str):
     """Unloads the path from Fusion Python Path"""
     if lib_path in sys.path:
         sys.path.remove(lib_path)
@@ -59,12 +58,12 @@ def _ask_for_permission(deps: list):
     """
     app = adsk.core.Application.get()
 
-    manifest_path = __searchUpward(Path(__file__).parent, "/*.manifest")
+    manifest_path = _search_upward(Path(__file__).parent, "/*.manifest")
     # sets name of addin for use by permissions dialog
     name = os.path.basename(manifest_path).split(".")[0]
 
     res = app.userInterface.messageBox(
-        f"{__formatDepsForMessage(deps, name)}",
+        f"{_format_modules_for_message(deps, name)}",
         f"{name} Dependency Installation",
         adsk.core.MessageBoxButtonTypes.YesNoButtonType,
         adsk.core.MessageBoxIconTypes.QuestionIconType,
@@ -74,25 +73,25 @@ def _ask_for_permission(deps: list):
         raise RuntimeError("User Refused to install 3rd party dependencies")
 
 
-def __sanitizeName(oldName: str) -> str:
+def _sanitize_name(old_name: str) -> str:
     """Sanitized the names for printing and linking just in case
 
     Args:
-        oldName (str): raw name
+        old_name (str): raw name
 
     Returns:
         str: sanitized string
     """
-    oldName = oldName.split("[")[0]
-    oldName = oldName.split("==")[0]
-    return oldName
+    old_name = old_name.split("[")[0]
+    old_name = old_name.split("==")[0]
+    return old_name
 
 
-def __formatDepsForMessage(deps: list, name: str) -> str:
+def _format_modules_for_message(modules: list, name: str) -> str:
     """To be used internally to format strings into links to be supplied to end user
 
     Args:
-        deps (list<str>): list of dependency names without additional parameters
+        modules (list<str>): list of dependency names without additional parameters
 
     Returns:
         str: nicely formatted rich text
@@ -100,10 +99,10 @@ def __formatDepsForMessage(deps: list, name: str) -> str:
     ret = "<html><h1> Addin Dependency Install </h1>\n<hr>"
     ret += f"<font size=5>In order for the {name} addin to function the following dependencies must be installed, if you agree to install the following dependencies they will automatically be fetched and installed</font> \n<ul>"
 
-    for dep in deps:
+    for module in modules:
         # just in case (who really knows)
-        depName = __sanitizeName(dep)
-        ret += f"<li><a href=http://www.pypi.org/project/{depName}><font size=5>{dep}</font></a></li>"
+        module_name = _sanitize_name(module)
+        ret += f"<li><a href=http://www.pypi.org/project/{module_name}><font size=5>{module}</font></a></li>"
 
     ret += "</ul>\n"
 
@@ -111,27 +110,27 @@ def __formatDepsForMessage(deps: list, name: str) -> str:
     return ret
 
 
-def __getDepList(reqPath: Path) -> list:
+def _requirements_list(requirements_path: Path) -> list:
     """Reads lines of file and returns
 
     Args:
-        reqPath (str): Path of file to read from
+        requirements_path (str): Path of file to read from
 
     Returns:
         list: List of strings
     """
     reqs = []
-    with open(reqPath, "r") as reqFile:
+    with open(requirements_path, "r") as reqFile:
         for line in reqFile.readlines():
             reqs.append(line.strip())
     return reqs
 
 
-def __searchUpward(pathStr: Path, flag: str, timeout=7) -> Path:
+def _search_upward(path_string: Path, flag: str, timeout=7) -> Path:
     """Looks up directories until finding something that matches the path
 
     Args:
-        pathStr (Path): Path to look upward at
+        path_string (Path): Path to look upward at
         flag (str): Filter for matching pattern
         timeout (int, optional): The amount of traversals before failure. Defaults to 7.
 
@@ -147,16 +146,16 @@ def __searchUpward(pathStr: Path, flag: str, timeout=7) -> Path:
             f"Cannot find File matching the filter {flag} in file tree containing fusionPipInstaller"
         )
 
-    newPath = ""
+    new_path = ""
 
-    if pathStr.is_dir():
-        files = glob(str(pathStr) + flag, recursive=False)
+    if path_string.is_dir():
+        files = glob(str(path_string) + flag, recursive=False)
         if len(files) > 0:
-            newPath = os.path.join(pathStr, files[0])
+            new_path = os.path.join(path_string, files[0])
     else:
-        raise RuntimeError(f"{pathStr} \t - is not a path")
+        raise RuntimeError(f"{path_string} \t - is not a path")
 
-    return newPath if newPath != "" else __searchUpward(pathStr.parent, flag, timeout - 1)
+    return new_path if new_path != "" else _search_upward(path_string.parent, flag, timeout - 1)
 
 
 def _run_installer(items: list, lib_path: str) -> bool:
