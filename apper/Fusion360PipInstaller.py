@@ -242,10 +242,10 @@ def _install_module(python_folder: Path, mod_name: str, lib_path: str) -> bool:
         try:
             p = subprocess.run(
                 [sys.executable, '-m', 'pip', 'install', f'--target={lib_path}', mod_name],
-                shell=True,
+                # shell=True,
                 # check=True,
-                capture_output=True,
-                text=True,
+                # capture_output=True,
+                # text=True,
                 # timeout=300,
                 # stdout=subprocess.PIPE,
                 # stderr=subprocess.PIPE
