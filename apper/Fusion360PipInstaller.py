@@ -193,7 +193,7 @@ def _run_installer(items: list, lib_path: str) -> bool:
         _install_module(python_folder, item, lib_path)
 
     progress_bar.hide()
-
+    adsk.doEvents()
     return True
 
 
@@ -250,12 +250,7 @@ def _install_module(python_folder: Path, mod_name: str, lib_path: str) -> bool:
                 # stdout=subprocess.PIPE,
                 # stderr=subprocess.PIPE
             )
-            app = adsk.core.Application.get()
-            app.userInterface.messageBox("Return Code:  " + str(p.returncode))
-            if p.stdout is not None:
-                print(f'{p.stdout}')
-            if p.stderr is not None:
-                print(f'{p.stderr}')
+
         except subprocess.CalledProcessError as e:
             app = adsk.core.Application.get()
             if e.returncode is not None:
@@ -270,7 +265,6 @@ def _install_module(python_folder: Path, mod_name: str, lib_path: str) -> bool:
             if e.stderr is not None:
                 app.userInterface.messageBox(e.stderr)
                 print(e.stderr)
-
 
     # TODO some validation
     return True
