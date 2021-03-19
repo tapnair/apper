@@ -233,10 +233,44 @@ def _install_module(python_folder: Path, mod_name: str, lib_path: str) -> bool:
         bool: success
     """
     # This will run ->  pip install --target=./addinPath/site-packages --upgrade pipDep
-    subprocess.run(
-        f'\"{python_folder / "python"}\" -m pip install --target=\"{lib_path}\" --upgrade {mod_name}',
-        shell=True
-    )
+    if sys.platform == 'darwin':
+        subprocess.run(
+            f'\"{python_folder / "python"}\" -m pip install --target=\"{lib_path}\" --upgrade {mod_name}',
+            shell=True
+        )
+    else:
+        try:
+            p = subprocess.run(
+                [sys.executable, '-m', 'pip', 'install', f'--target={lib_path}', mod_name],
+                shell=True,
+                # check=True,
+                capture_output=True,
+                text=True,
+                # timeout=300,
+                # stdout=subprocess.PIPE,
+                # stderr=subprocess.PIPE
+            )
+            app = adsk.core.Application.get()
+            app.userInterface.messageBox("Return Code:  " + str(p.returncode))
+            if p.stdout is not None:
+                print(f'{p.stdout}')
+            if p.stderr is not None:
+                print(f'{p.stderr}')
+        except subprocess.CalledProcessError as e:
+            app = adsk.core.Application.get()
+            if e.returncode is not None:
+                app.userInterface.messageBox("Return Code:  " + str(e.returncode))
+                print("Return Code:  " + str(e.returncode))
+            if e.output is not None:
+                app.userInterface.messageBox(e.output)
+                print(e.output)
+            if e.stdout is not None:
+                app.userInterface.messageBox(e.stdout)
+                print(e.stdout)
+            if e.stderr is not None:
+                app.userInterface.messageBox(e.stderr)
+                print(e.stderr)
+
+
     # TODO some validation
     return True
-
