@@ -184,6 +184,33 @@ class Fusion360CommandBase:
         """
         pass
 
+    def on_validate(self, command: adsk.core.Command, inputs: adsk.core.CommandInputs,
+                    args: adsk.core.CommandEventArgs, input_values: dict):
+        """Gets an event that is fired to allow you to check if the current state of the inputs are valid for execution.
+
+
+        Args:
+            command: reference to the command object
+            inputs: quick reference directly to the commandInputs object
+            args: the original command event args
+            input_values: Opinionated dictionary of the useful values a user entered.  The key is the command_id.
+        """
+        pass
+
+    def on_preselect(self, command: adsk.core.Command, inputs: adsk.core.CommandInputs,
+                     args: adsk.core.CommandEventArgs, pre_input: adsk.core.CommandInput, input_values: dict):
+        """This event is fired when the mouse cursor is placed on an element that can be 
+           selected with the SelectionCommandInput object.
+
+        Args:
+            command: reference to the command object
+            inputs: quick reference directly to the commandInputs object
+            args: All of the args associated with the CommandEvent
+            pre_input: CommandInput with the mouse cursor on it.
+            input_values: Opinionated dictionary of the useful values a user entered.  The key is the command_id.
+        """
+        pass
+
     def on_create(self, command: adsk.core.Command, inputs: adsk.core.CommandInputs):
         """Build your UI components here
 
@@ -561,9 +588,55 @@ class _CommandCreatedEventHandler(adsk.core.CommandCreatedEventHandler):
             command.mouseDragEnd.add(on_mouse_drag_end_handler)
             handlers.append(on_mouse_drag_end_handler)
 
+            on_validate_handler = _ValidateInputsHandler(self.cmd_object)
+            command.validateInputs.add(on_validate_handler)
+            handlers.append(on_validate_handler)
+
+            on_preselect_handler = _PreSelectHandler(self.cmd_object)
+            command.preSelect.add(on_preselect_handler)
+            handlers.append(on_preselect_handler)
+
             self.cmd_object.on_create(command, inputs_)
 
         except:
             app = adsk.core.Application.cast(adsk.core.Application.get())
             ui = app.userInterface
             ui.messageBox('Command created failed: {}'.format(traceback.format_exc()))
+
+class _ValidateInputsHandler(adsk.core.ValidateInputsEventHandler):
+    def __init__(self, cmd_object):
+        super().__init__()
+        self.cmd_object_ = cmd_object
+
+    def notify(self, args):
+        try:
+            command_ = args.firingEvent.sender
+            command_inputs = command_.commandInputs
+
+            input_values = self.cmd_object_.get_inputs()
+            self.cmd_object_.on_validate(command_, command_inputs, args, input_values)
+
+        except:
+            app = adsk.core.Application.cast(adsk.core.Application.get())
+            ui = app.userInterface
+            ui.messageBox('command validate failed: {}'.format(traceback.format_exc()))
+
+class _PreSelectHandler(adsk.core.SelectionEventHandler):
+    def __init__(self, cmd_object):
+        super().__init__()
+        self.cmd_object_ = cmd_object
+
+    def notify(self, args):
+        try:
+            command_ = args.firingEvent.sender
+            command_inputs = command_.commandInputs
+            pre_input = args.activeInput
+
+            input_values = self.cmd_object_.get_inputs()
+
+            self.cmd_object_.on_preselect(command_, command_inputs, args, pre_input, input_values)
+
+        except:
+            app = adsk.core.Application.cast(adsk.core.Application.get())
+            ui = app.userInterface
+            ui.messageBox('command preselect failed: {}'.format(traceback.format_exc()))
