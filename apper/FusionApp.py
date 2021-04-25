@@ -203,7 +203,7 @@ class FusionApp:
             name: str,
             feature_class: Any,
             options: dict
-    ):
+    ) -> Any:
         """Register a workspace event that can respond to various workspace actions
 
         Args:
@@ -217,6 +217,7 @@ class FusionApp:
         custom_feature = feature_class(name, options)
         custom_feature.fusion_app = self
         self.features.append(custom_feature)
+        return custom_feature
 
     def check_for_updates(self):
         """Not Implemented"""
