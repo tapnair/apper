@@ -75,7 +75,7 @@ class FusionApp:
                 options['toolbar_tab_name'] = self.name
 
             if tab_id is None:
-                options['toolbar_tab_id'] = self.name
+                options['toolbar_tab_id'] = options['toolbar_tab_name']
             else:
                 if ui.allToolbarTabs.itemById(tab_id) is not None:
                     self.custom_toolbar_tab = False
