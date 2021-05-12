@@ -39,6 +39,7 @@ class Fusion360CommandBase:
             name: The name of the command
             options: A dictionary of options for the command placement in the ui.  (TODO - Add docs for this)
         """
+
     def __init__(self, name: str, options: dict):
         self.app_name = options.get('app_name')
         self.fusion_app = options.get('fusion_app', None)
@@ -175,6 +176,21 @@ class Fusion360CommandBase:
                    args: adsk.core.CommandEventArgs, input_values: dict):
         """Will be executed when user selects OK in command dialog.
 
+
+        Args:
+            command: reference to the command object
+            inputs: quick reference directly to the commandInputs object
+            args: All of the args associated with the CommandEvent
+            input_values: Opinionated dictionary of the useful values a user entered.  The key is the command_id.
+        """
+        pass
+
+    def validate_inputs(self, command: adsk.core.Command, inputs: adsk.core.CommandInputs,
+                        args: adsk.core.ValidateInputsEventArgs, input_values: dict) -> bool:
+        """Function to validate the current state of the inputs.
+
+        This function should return a boolean.  If it returns True (or nothing), the current state of the inputs is
+        assumed to be valid.  This means that previews will be calculated, and the OK button will be enabled.
 
         Args:
             command: reference to the command object
@@ -523,6 +539,28 @@ class _CommandExecuteHandler(adsk.core.CommandEventHandler):
             ui.messageBox('command executed failed: {}'.format(traceback.format_exc()))
 
 
+class _CommandValidateInputsHandler(adsk.core.ValidateInputsEventHandler):
+    def __init__(self, cmd_object: Fusion360CommandBase):
+        super().__init__()
+        self.cmd_object_ = cmd_object
+
+    def notify(self, args: adsk.core.ValidateInputsEventArgs):
+        try:
+            command_ = args.firingEvent.sender
+            command_inputs = command_.commandInputs
+
+            input_values = self.cmd_object_.get_inputs()
+            are_inputs_valid = self.cmd_object_.validate_inputs(command_, command_inputs, args, input_values)
+
+            if are_inputs_valid is not None:
+                args.areInputsValid = bool(are_inputs_valid)
+
+        except:
+            app = adsk.core.Application.cast(adsk.core.Application.get())
+            ui = app.userInterface
+            ui.messageBox('command validate inputs failed: {}'.format(traceback.format_exc()))
+
+
 class _CommandCreatedEventHandler(adsk.core.CommandCreatedEventHandler):
     def __init__(self, cmd_object):
         super().__init__()
@@ -560,6 +598,10 @@ class _CommandCreatedEventHandler(adsk.core.CommandCreatedEventHandler):
             on_mouse_drag_end_handler = _MouseDragEndHandler(self.cmd_object)
             command.mouseDragEnd.add(on_mouse_drag_end_handler)
             handlers.append(on_mouse_drag_end_handler)
+
+            validate_inputs_handler = _CommandValidateInputsHandler(self.cmd_object)
+            command.validateInputs.add(validate_inputs_handler)
+            handlers.append(validate_inputs_handler)
 
             self.cmd_object.on_create(command, inputs_)
 

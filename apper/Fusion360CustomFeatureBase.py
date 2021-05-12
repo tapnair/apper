@@ -16,6 +16,7 @@ import os.path
 
 handlers = []
 
+
 class Fusion360CustomFeatureBase:
     """The Fusion360CommandBase class wraps the common tasks used when creating a Fusion 360 Command.
 
