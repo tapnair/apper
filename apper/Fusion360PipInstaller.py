@@ -9,6 +9,23 @@ import adsk.core
 import adsk.fusion
 
 
+def check_dependency(module_name: str, lib_path: str):
+    """Installs the given module and installs if necessary
+
+        Returns:
+            bool: success
+        """
+    test_dir = os.path.join(lib_path, module_name)
+    success = True
+    if not os.path.exists(test_dir):
+        success = install_from_list([module_name], lib_path)
+
+    if not success:
+        raise ImportError(f'Unable to install module {module_name}')
+
+    return success
+
+
 def install_from_requirements(lib_path: str) -> bool:
     """Installs the dependencies listed in requirementes.txt
 
