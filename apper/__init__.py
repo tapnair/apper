@@ -27,7 +27,7 @@ try:
     from .Fusion360Utilities import AppObjects
     from .Fusion360Utilities import *
     from .Fusion360DebugUtilities import *
-    from .Fusion360PipInstaller import installFromList, installFromRequirements, unloadLibs
+    from .Fusion360PipInstaller import check_dependency, install_from_list, install_from_requirements
 
 except:
     pass
