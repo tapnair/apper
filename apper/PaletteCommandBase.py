@@ -29,7 +29,7 @@ class PaletteCommandBase(Fusion360CommandBase):
     def __init__(self, name: str, options: dict):
         super().__init__(name, options)
 
-        self.palette_id = options.get('palette_id', 'Default Command Name')
+        self.palette_id = options.get('palette_id', 'Default Palette ID')
         self.palette_name = options.get('palette_name', 'Palette Name')
 
         debug_path = options.get('palette_html_file_url_debug')
@@ -153,7 +153,7 @@ class _PaletteExecuteHandler(adsk.core.CommandEventHandler):
 
     def __init__(self, cmd_object):
         super().__init__()
-        self.cmd_object = cmd_object
+        self.cmd_object: PaletteCommandBase = cmd_object
 
     def notify(self, args):
         """Method executed by Fusion.  Don't rename
