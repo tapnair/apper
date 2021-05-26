@@ -102,8 +102,10 @@ class PaletteCommandBase(Fusion360CommandBase):
         palette = ui.palettes.itemById(self.palette_id)
 
         for handler in self.html_handlers:
-            palette.incomingFromHTML.remove(handler)
-
+            try:
+                palette.incomingFromHTML.remove(handler)
+            except:
+                pass
         if palette:
             palette.deleteMe()
 
