@@ -306,7 +306,7 @@ class Fusion360CommandBase:
                 all_workspaces = ui.workspaces
                 this_workspace = all_workspaces.itemById(self.workspace)
                 if this_workspace is None:
-                    ui.messageBox(self.toolbar_panel_id + 'is not a valid workspace')
+                    ui.messageBox(self.workspace + ' is not a valid workspace')
                     raise ValueError
 
                 # Add to existing Toolbar Tab or create a new one
