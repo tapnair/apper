@@ -336,38 +336,26 @@ class Fusion360CommandBase:
                         self.drop_down_cmd_id)
                 controls = drop_control.controls
 
-            # Check if control exists (with apper this should never happen)
-            self.control = controls.itemById(self.cmd_id)
-
-            if self.control:
-                _destroy_object(self.control)
-
-            # Check if command definition exists (with apper this should never happen)
-            self.command_definition = ui.commandDefinitions.itemById(self.cmd_id)
-
-            if self.command_definition:
-                _destroy_object(self.command_definition)
-
             # Create the command definition
-            self.command_definition = ui.commandDefinitions.addButtonDefinition(
-                self.cmd_id,
-                self.cmd_name,
-                self.cmd_description,
-                self.cmd_resources
-            )
-
-            # Add command created event handler
-            on_command_created_handler = self._get_create_event()
-            self.command_definition.commandCreated.add(on_command_created_handler)
-            create_handlers.append(on_command_created_handler)
+            self.command_definition = ui.commandDefinitions.itemById(self.cmd_id)
+            if not self.command_definition:
+                self.command_definition = ui.commandDefinitions.addButtonDefinition(
+                    self.cmd_id,
+                    self.cmd_name,
+                    self.cmd_description,
+                    self.cmd_resources
+                )
+                on_command_created_handler = self._get_create_event()
+                self.command_definition.commandCreated.add(on_command_created_handler)
+                create_handlers.append(on_command_created_handler)
 
             # Create the new control
-            self.control = controls.addCommand(self.command_definition)
-
-            # Set options for control
-            self.control.isVisible = self.command_visible
-            if self.command_promoted:
-                self.control.isPromoted = self.command_promoted
+            self.control = controls.itemById(self.cmd_ctrl_id)
+            if not self.control:
+                self.control = controls.addCommand(self.command_definition)
+                self.control.isVisible = self.command_visible
+                if self.command_promoted:
+                    self.control.isPromoted = self.command_promoted
 
             # TODO this is broken for some reason.  No access to ui in the run method?
             # self.command_definition.controlDefinition.isEnabled = self.command_enabled

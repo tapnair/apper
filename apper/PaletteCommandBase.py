@@ -213,7 +213,7 @@ class _PaletteExecuteHandler(adsk.core.CommandEventHandler):
                     ui.messageBox(
                         f"Developer Note: The palette: {palette.id} appears to be native? Try changing the palette id."
                     )
-                palette.isVisible = True
+            palette.isVisible = True
 
             self.cmd_object.on_palette_execute(palette)
 
