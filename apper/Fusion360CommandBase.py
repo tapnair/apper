@@ -58,7 +58,8 @@ class Fusion360CommandBase:
         self.custom_tab = False
 
         self.add_to_drop_down = options.get('add_to_drop_down', False)
-        self.drop_down_cmd_id_path = options.get('drop_down_cmd_id_path', ['Default_DD_CmdId'])
+        drop_down_cmd_id = options.get('drop_down_cmd_id', 'Default_DD_CmdId') # for backwards compatibility
+        self.drop_down_cmd_id_path = options.get('drop_down_cmd_id_path', drop_down_cmd_id)
         if isinstance(self.drop_down_cmd_id_path, str):
             self.drop_down_cmd_id_path = [self.drop_down_cmd_id_path]
         elif not (isinstance(self.drop_down_cmd_id_path, List) and len(self.drop_down_cmd_id_path) > 0):
