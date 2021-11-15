@@ -7,6 +7,7 @@ Python module for creating a Fusion 360 Command
 :license: Apache 2.0, see LICENSE for more details.
 """
 import traceback
+from typing import List
 
 import adsk.core
 import adsk.fusion
@@ -57,7 +58,11 @@ class Fusion360CommandBase:
         self.custom_tab = False
 
         self.add_to_drop_down = options.get('add_to_drop_down', False)
-        self.drop_down_cmd_id = options.get('drop_down_cmd_id', 'Default_DC_CmdId')
+        self.drop_down_cmd_id_path = options.get('drop_down_cmd_id_path', ['Default_DD_CmdId'])
+        if isinstance(self.drop_down_cmd_id_path, str):
+            self.drop_down_cmd_id_path = [self.drop_down_cmd_id_path]
+        elif not (isinstance(self.drop_down_cmd_id_path, List) and len(self.drop_down_cmd_id_path) > 0):
+            self.drop_down_cmd_id_path = ['Default_DD_CmdId']
 
         self.drop_down_name = options.get('drop_down_name', 'Drop Name')
 
@@ -328,13 +333,17 @@ class Fusion360CommandBase:
 
             # If adding to drop down, find or create dropdown in parent
             if self.add_to_drop_down:
-                drop_control = controls.itemById(self.drop_down_cmd_id)
-                if not drop_control:
-                    drop_control = controls.addDropDown(
-                        self.drop_down_name,
-                        self.drop_down_resources,
-                        self.drop_down_cmd_id)
-                controls = drop_control.controls
+                drop_control = None
+                for drop_down_cmd_id in self.drop_down_cmd_id_path:
+                    drop_control = controls.itemById(drop_down_cmd_id)
+                    if not drop_control:
+                        drop_control = controls.addDropDown(
+                            self.drop_down_name,
+                            self.drop_down_resources,
+                            drop_down_cmd_id)
+                        controls = drop_control.controls
+                        break
+                    controls = drop_control.controls
 
             # Create the command definition
             self.command_definition = ui.commandDefinitions.itemById(self.cmd_id)
