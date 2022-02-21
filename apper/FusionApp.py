@@ -26,9 +26,12 @@ class FusionApp:
         name: The name of the addin
         company: the name of your company or organization
         debug: set this flag as True to enable more interactive feedback when developing.
+        default_dir: the base config directory (default: $HOME)
+        resource_dir: the resource directory relative to root_dir (default: 'commands/resources')
+        root_path: the root directory of the app (default: '')
     """
 
-    def __init__(self, name: str, company: str, debug: bool):
+    def __init__(self, name: str, company: str, debug: bool, **kwargs):
         self.name = name
         self.company = company
         self.debug = debug
@@ -36,9 +39,10 @@ class FusionApp:
         self.events = []
         self.features = []
         self.tabs = []
-        self.default_dir = self._get_default_dir()
+        self.default_dir = kwargs.get('default_dir', self._get_default_dir())
         self.preferences = self.get_all_preferences()
-        self.root_path = ''
+        self.resource_root = kwargs.get('resource_dir', os.path.join('commands', 'resources'))
+        self.root_path = kwargs.get('root_path', '')
         self.command_dict = {}
         self.custom_toolbar_tab = True
         self.logger: Optional[logging.Logger] = None
@@ -67,6 +71,7 @@ class FusionApp:
 
             options['app_name'] = self.name
             options['fusion_app'] = self
+            options['resource_root'] = self.resource_root
 
             tab_id = options.get('toolbar_tab_id', None)
             tab_name = options.get('toolbar_tab_name', None)
@@ -404,5 +409,3 @@ class FusionApp:
         handler.setFormatter(formatter)
         self.logger.addHandler(handler)
         self.logging_enabled = True
-
-

@@ -82,19 +82,10 @@ class Fusion360CommandBase:
 
         drop_down_folder = options.get('drop_down_resources', 'demo_icons')
         resources_folder = options.get('cmd_resources', 'demo_icons')
-        #
-        # self.path = os.path.dirname(
-        #     os.path.relpath(
-        #         sys.modules[self.__class__.__module__].__file__,
-        #         self.fusion_app.root_path
-        #     )
-        # )
-        #
-        # resource_path = os.path.join(self.fusion_app.root_path, self.path, 'resources', resources_folder)
-        # drop_resources_path = os.path.join(self.fusion_app.root_path, self.path, 'resources', drop_down_folder)
 
-        resource_path = os.path.join('commands', 'resources', resources_folder)
-        drop_resources_path = os.path.join('commands', 'resources', drop_down_folder)
+        resource_root = options.get('resource_root', os.path.join('commands', 'resources'))
+        resource_path = os.path.join(resource_root, resources_folder)
+        drop_resources_path = os.path.join(resource_root, drop_down_folder)
 
         self.cmd_resources = resource_path
         self.drop_down_resources = drop_resources_path
