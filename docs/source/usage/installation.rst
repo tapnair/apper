@@ -70,7 +70,7 @@ You may need to restart your command prompt session to load the environment vari
 Install cookiecutter
 ^^^^^^^^^^^^^^^^^^^^
 
-`cookiecutter <https://git-scm.com/book/en/v2/Git-Tools-Submodules>`_ creates projects from project templates and is an amazing resource
+`cookiecutter <https://github.com/cookiecutter/cookiecutter>`_ creates projects from project templates and is an amazing resource
 
 For more detailed installation instructions see their `documentation <https://cookiecutter.readthedocs.io/en/latest/installation.html>`_
 
